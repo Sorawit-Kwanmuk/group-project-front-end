@@ -1,0 +1,31 @@
+.divCoursesCardStatus {
+    display: flex;
+    flex-direction: row;
+}
+
+.coursesCardStatusDetail {
+    display: flex;
+    flex-direction: column;
+}
+
+.coursesCardStatusDetailTop {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.coursesCardStatusDetailBottom {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.coursesCardStatusControl {
+    width: 150px;
+    height: 150px;
+}
+
+.coursesCardStatusControl>img {
+    width: 100%;
+    height: 100%;
+}
