@@ -10,3 +10,4 @@
 - `npm install @material-ui/core@next`
 - `npm install @material-ui/lab@next`
 - `npm i @mui/lab`
+- `npm install material-ui-colors`
