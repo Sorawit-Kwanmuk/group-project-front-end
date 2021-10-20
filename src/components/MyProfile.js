@@ -60,7 +60,7 @@ function MyProfile() {
             </div>
             <div className='divChangeDetail'>
               {/* <MyProfileDetail /> */}
-              <Dashboard />
+              {/* <Dashboard /> */}
               <PurchaseHistory />
             </div>
           </div>
