@@ -1,0 +1,20 @@
+.divDashBoardH3P {
+    display: flex;
+    flex-direction: row;
+    color: #03045E;
+
+}
+
+.divDashBoardH3 {
+    font-size: 16px;
+    margin-right: 10px;
+    width: 200px;
+}
+
+.grayLine {
+    background-color: #E6E6E6;
+    margin: 5px;
+    height: 2px;
+    width: 100%;
+
+}

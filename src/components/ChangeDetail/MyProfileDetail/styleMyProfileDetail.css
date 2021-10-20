@@ -1,0 +1,12 @@
+.divMyProfileH3P {
+    display: flex;
+    flex-direction: row;
+    color: #03045E;
+
+}
+
+.divMyProfileH3 {
+    font-size: 16px;
+    margin-right: 10px;
+    width: 200px;
+}
