@@ -19,48 +19,50 @@ function MyProfile() {
   };
   return (
     <>
-      <div className='MyProfileConTroller'>
-        <div className='MyProfileTop'>
-          <Avatar
-            className='MyProfileAvatar'
-            alt='Remy Sharp'
-            src={John}
-            sx={imageConfig}
-            onClick={() => {
-              setImage({ profileImage: John });
-            }}
-          />
-          <h1 className='MyProfileH1'>Username</h1>
-        </div>
-        <div className='grayLine'></div>
-      </div>
-      <div className='divMyProfileBottom'>
-        <div className='divButtonList'>
-          <ToggleButtonGroup
-            orientation='vertical'
-            color='primary'
-            value={alignment}
-            exclusive
-            onChange={handleChange}>
-            <ToggleButton value='1' sx={ToggleButtonConfig}>
-              My Profile
-            </ToggleButton>
-            <ToggleButton value='2' sx={ToggleButtonConfig}>
-              Dashbord
-            </ToggleButton>
-            <ToggleButton value='3' sx={ToggleButtonConfig}>
-              Purchase History
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </div>
-        <div className='divMyProfileDetailController'>
-          <div className='divMyProfileH2'>
-            <h2>My Profile</h2>
+      <div className='mainDivController'>
+        <div className='MyProfileConTroller'>
+          <div className='MyProfileTop'>
+            <Avatar
+              className='MyProfileAvatar'
+              alt='Remy Sharp'
+              src={John}
+              sx={imageConfig}
+              onClick={() => {
+                setImage({ profileImage: John });
+              }}
+            />
+            <h1 className='MyProfileH1'>Username</h1>
           </div>
-          <div className='divChangeDetail'>
-            {/* <MyProfileDetail /> */}
-            <Dashboard />
-            <PurchaseHistory />
+          <div className='grayLine'></div>
+        </div>
+        <div className='divMyProfileBottom'>
+          <div className='divButtonList'>
+            <ToggleButtonGroup
+              orientation='vertical'
+              color='primary'
+              value={alignment}
+              exclusive
+              onChange={handleChange}>
+              <ToggleButton value='1' sx={ToggleButtonConfig}>
+                My Profile
+              </ToggleButton>
+              <ToggleButton value='2' sx={ToggleButtonConfig}>
+                Dashbord
+              </ToggleButton>
+              <ToggleButton value='3' sx={ToggleButtonConfig}>
+                Purchase History
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </div>
+          <div className='divMyProfileDetailController'>
+            <div className='divMyProfileH2'>
+              <h2>My Profile</h2>
+            </div>
+            <div className='divChangeDetail'>
+              {/* <MyProfileDetail /> */}
+              <Dashboard />
+              <PurchaseHistory />
+            </div>
           </div>
         </div>
       </div>

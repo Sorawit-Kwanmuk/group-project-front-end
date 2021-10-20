@@ -33,6 +33,8 @@ function DashBoard() {
         <div className='grayLine'></div>
         <div>
           <CoursesCardStatus />
+          <CoursesCardStatus />
+          <CoursesCardStatus />
         </div>
       </div>
     </>

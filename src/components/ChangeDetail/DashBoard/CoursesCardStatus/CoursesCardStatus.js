@@ -1,9 +1,8 @@
 import './styleCoursesStatus.css';
 import courseImg from '../../../../public/images/course.png';
 import { Button } from '@mui/material';
-import { yellow } from '@mui/material/colors';
+import { buttonConfig } from './muiConfig';
 function CoursesCardStatus() {
-  const Certificate = yellow[500];
   return (
     <div className='divCoursesCardStatus'>
       <div className='coursesCardStatusControl'>
@@ -15,18 +14,31 @@ function CoursesCardStatus() {
             <h4>Offline Fullstack JavaScript</h4>
           </div>
           <div>
-            <Button variant='contained' color='primary'>
+            <Button variant='contained' color='primary' sx={buttonConfig}>
               Active
             </Button>
-            <Button variant='contained' color='success'>
+            <Button variant='contained' color='success' sx={buttonConfig}>
               Complete
             </Button>
-            <Button variant='contained' color={Certificate}>
+            <Button variant='contained' color='secondary' sx={buttonConfig}>
               Certificate
             </Button>
           </div>
         </div>
-        <div className='coursesCardStatusDetailBottom'></div>
+        <div className='coursesCardStatusDetailBottom'>
+          <div className='bottomCardDetail'>
+            <p>total Lessons: </p>
+            <span>40</span>
+          </div>
+          <div className='bottomCardDetail'>
+            <p>Completed Lessons:</p>
+            <span>40/40</span>
+          </div>
+          <div className='bottomCardDetail'>
+            <span>100% </span>
+            <p>Complete</p>
+          </div>
+        </div>
       </div>
     </div>
   );
