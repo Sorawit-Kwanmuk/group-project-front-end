@@ -1,97 +1,108 @@
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState } from 'react';
-import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import './styleRegister.css';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import { TextFieldConfig, ButtonRegisterConfig } from './muiConfig';
 
 function Register() {
-  const [values, setValues] = useState({
-    username: '',
-    password: '',
-    confirmPassword: '',
-    showPassword: false,
-    fullName: '',
-    email: '',
-  });
+  const [username, setUsername] = useState('');
+  const [fullName, setFullName] = useState('');
   const [value, setValue] = useState(null);
-  console.log(values);
-  console.log(value);
-  const handleClickShowPassword = () => {
-    setValues({
-      ...values,
-      showPassword: !values.showPassword,
-    });
-  };
-  const handleMouseDownPassword = event => {
-    event.preventDefault();
-  };
-  const handleChange = prop => event => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  // const [value, setValue] = useState(null);
+  // console.log('username: ', username);
+  // console.log('fullName: ', fullName);
+  // console.log('birthDate: ', value);
+  // console.log('email: ', email);
+  // console.log('password: ', password);
+  // console.log('confirmPassword: ', confirmPassword);
+  // console.log(value);
+  const handleSubmitRegister = e => {};
   return (
     <>
       <div className='RegisterForm'>
         <span className='spanLogin'>Register</span>
-        <div className='divRegister'>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+        <form className='formRegister' onSubmit={handleSubmitRegister}>
+          <div className='divRegister usernameRegister'>
             <TextField
               id='outlined-basic'
               type='text'
               label='Username'
+              size='small'
+              style={TextFieldConfig}
               variant='outlined'
-              value={values.username}
-              onChange={handleChange('username')}
+              value={username}
+              onChange={e => setUsername(e.target.value)}
             />
-          </Box>
-        </div>
-        <div className='divRegister'>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+          </div>
+          <div className='divRegister'>
             <TextField
               id='outlined-basic'
               type='text'
-              label='FullName'
+              size='small'
+              label='Full Name'
+              sx={TextFieldConfig}
               variant='outlined'
-              value={values.fullName}
-              onChange={handleChange('fullName')}
+              value={fullName}
+              onChange={e => setFullName(e.target.value)}
             />
-          </Box>
-        </div>
-        <div className='divRegister_date'>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label='Birth Date'
-              value={value}
-              sx={{ width: '80%' }}
-              onChange={newValue => {
-                setValue(newValue);
-              }}
-              renderInput={params => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        </div>
-        <div className='divRegister'>
-          <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+          </div>
+          <div className='divRegister'>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label='Birth Date'
+                value={value}
+                onChange={newValue => {
+                  setValue(newValue);
+                }}
+                renderInput={params => (
+                  <TextField {...params} size='small' sx={TextFieldConfig} />
+                )}
+              />
+            </LocalizationProvider>
+          </div>
+          <div className='divRegister'>
             <TextField
               id='outlined-basic'
               type='text'
               label='Email'
+              size='small'
+              sx={TextFieldConfig}
               variant='outlined'
-              value={values.email}
-              onChange={handleChange('email')}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
-          </Box>
-        </div>
-        <div className='divRegister'>
+          </div>
+          <div className='divRegister'>
+            <TextField
+              id='outlined-basic'
+              type='password'
+              label='Password'
+              size='small'
+              sx={TextFieldConfig}
+              variant='outlined'
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          </div>
+          <div className='divRegister'>
+            <TextField
+              id='outlined-basic'
+              type='password'
+              label='ConfirmPassword'
+              size='small'
+              sx={TextFieldConfig}
+              variant='outlined'
+              value={confirmPassword}
+              onChange={e => setConfirmPassword(e.target.value)}
+            />
+          </div>
+          {/* <div className='divRegister'>
           <FormControl sx={{ m: 1, width: '26.25ch' }} variant='outlined'>
             <InputLabel htmlFor='outlined-adornment-password'>
               Password
@@ -100,6 +111,8 @@ function Register() {
               id='outlined-adornment-password'
               type={values.showPassword ? 'text' : 'password'}
               value={values.password}
+              sx={TextFieldPasswordConfig}
+              size='small'
               onChange={handleChange('password')}
               endAdornment={
                 <InputAdornment position='end'>
@@ -123,6 +136,8 @@ function Register() {
             </InputLabel>
             <OutlinedInput
               id='outlined-adornment-password'
+              sx={TextFieldPasswordConfig}
+              size='small'
               type={values.showPassword ? 'text' : 'password'}
               value={values.confirmPassword}
               onChange={handleChange('confirmPassword')}
@@ -140,12 +155,17 @@ function Register() {
               label='confirmPassword'
             />
           </FormControl>
-        </div>
-        <div className='divRegister buttonLogin'>
-          <Button variant='contained'>Login</Button>
-        </div>
+        </div> */}
+          <div className='divRegister buttonLogin'>
+            <Button variant='contained' sx={ButtonRegisterConfig}>
+              Login
+            </Button>
+          </div>
+        </form>
         <div className='divRegister'>
-          <Button variant='contained'>Register</Button>
+          <Button variant='contained' sx={ButtonRegisterConfig}>
+            Register
+          </Button>
         </div>
       </div>
       <div className='divCloseAll'></div>
