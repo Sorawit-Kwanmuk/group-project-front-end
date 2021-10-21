@@ -28,8 +28,7 @@ function ShoppingCart() {
         <div className='shoppingCartBottom'>
           <div className='CoursesInCart'>
             <div className='CoursesInCartHeader'>
-              <h2>2</h2>
-              <h2>Courses in Cart</h2>
+              <h2>Shopping Cart</h2>
             </div>
             <div className='grayLine'></div>
             <div className='MockUpCourseCard'></div>
