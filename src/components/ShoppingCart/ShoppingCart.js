@@ -12,6 +12,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import MuiPickersUtilsProvider from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 function ShoppingCart() {
   const [image, setImage] = useState({ profileImage: '' });
