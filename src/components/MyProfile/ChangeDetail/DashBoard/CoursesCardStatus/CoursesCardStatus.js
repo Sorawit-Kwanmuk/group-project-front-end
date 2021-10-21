@@ -1,5 +1,5 @@
 import './styleCoursesStatus.css';
-import courseImg from '../../../../public/images/course.png';
+import courseImg from '../../../../../public/images/course.png';
 import { Button } from '@mui/material';
 import { buttonConfig } from './muiConfig';
 function CoursesCardStatus() {
