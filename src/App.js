@@ -1,7 +1,12 @@
 import './App.css';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <ShoppingCart />
+    </>
+  );
 }
 
 export default App;
