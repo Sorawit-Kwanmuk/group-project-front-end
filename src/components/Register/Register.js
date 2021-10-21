@@ -6,6 +6,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { TextFieldConfig, ButtonRegisterConfig } from './muiConfig';
+import axios from '../../config/axios';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -14,6 +15,7 @@ function Register() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [mobileNo, setMobileNo] = useState('');
   // const [value, setValue] = useState(null);
   // console.log('username: ', username);
   // console.log('fullName: ', fullName);
@@ -22,7 +24,26 @@ function Register() {
   // console.log('password: ', password);
   // console.log('confirmPassword: ', confirmPassword);
   // console.log(value);
-  const handleSubmitRegister = e => {};
+  const handleSubmitRegister = e => {
+    console.log('Submit');
+    e.preventDefault();
+    axios
+      .post('/auth/register', {
+        fullName,
+        birthDate: value,
+        email,
+        mobileNo,
+        username,
+        password,
+        confirmPassword,
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   return (
     <>
       <div className='RegisterForm'>
@@ -50,6 +71,18 @@ function Register() {
               variant='outlined'
               value={fullName}
               onChange={e => setFullName(e.target.value)}
+            />
+          </div>
+          <div className='divRegister'>
+            <TextField
+              id='outlined-basic'
+              type='text'
+              size='small'
+              label='Mobile Number'
+              sx={TextFieldConfig}
+              variant='outlined'
+              value={mobileNo}
+              onChange={e => setMobileNo(e.target.value)}
             />
           </div>
           <div className='divRegister'>
@@ -157,14 +190,14 @@ function Register() {
           </FormControl>
         </div> */}
           <div className='divRegister buttonLogin'>
-            <Button variant='contained' sx={ButtonRegisterConfig}>
-              Login
+            <Button variant='contained' sx={ButtonRegisterConfig} type='submit'>
+              Register
             </Button>
           </div>
         </form>
         <div className='divRegister'>
           <Button variant='contained' sx={ButtonRegisterConfig}>
-            Register
+            Login
           </Button>
         </div>
       </div>
