@@ -6,7 +6,6 @@
     height: auto;
     padding: 5px;
     margin: 5px 15px 15px 15px;
-
 }
 
 img {
@@ -17,6 +16,7 @@ img {
 .divCourseImage {
     width: 150px;
     height: 150px;
+
     margin-right: 5px;
 }
 

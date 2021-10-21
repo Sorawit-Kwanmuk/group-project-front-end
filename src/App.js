@@ -1,7 +1,12 @@
 import './App.css';
+import CourseCard from './components/CourseCard/CourseCard';
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <CourseCard />
+    </>
+  );
 }
 
 export default App;

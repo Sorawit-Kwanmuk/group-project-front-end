@@ -1,4 +1,4 @@
-import courseImage from '../../public/images/course.png';
+import courseImage from '../../public/images/javascript-training-120620.jpg';
 import './styleCourseCard.css';
 function CourseCard() {
   return (
