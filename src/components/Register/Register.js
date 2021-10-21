@@ -11,7 +11,8 @@ import axios from '../../config/axios';
 function Register() {
   const [username, setUsername] = useState('');
   const [fullName, setFullName] = useState('');
-  const [value, setValue] = useState(null);
+  // const [value, setValue] = useState(null);
+  const [birthDate, setBirthDate] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,7 +20,7 @@ function Register() {
   // const [value, setValue] = useState(null);
   // console.log('username: ', username);
   // console.log('fullName: ', fullName);
-  // console.log('birthDate: ', value);
+  // console.log('birthDate: ', birthDate);
   // console.log('email: ', email);
   // console.log('password: ', password);
   // console.log('confirmPassword: ', confirmPassword);
@@ -30,7 +31,7 @@ function Register() {
     axios
       .post('/auth/register', {
         fullName,
-        birthDate: value,
+        birthDate,
         email,
         mobileNo,
         username,
@@ -89,9 +90,9 @@ function Register() {
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label='Birth Date'
-                value={value}
+                value={birthDate}
                 onChange={newValue => {
-                  setValue(newValue);
+                  setBirthDate(newValue);
                 }}
                 renderInput={params => (
                   <TextField {...params} size='small' sx={TextFieldConfig} />

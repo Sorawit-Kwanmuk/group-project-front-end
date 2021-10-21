@@ -10,10 +10,10 @@
 - `npm install @material-ui/core@next`
 - `npm install @material-ui/lab@next`
 - `npm i @mui/lab`
-- `npm install material-ui-colors`
 - `npm i @date-io/date-fns`
 - `git merge --abort`
 - `git branch -a`
 - `git status`
 - `git add .`
 - `git commit -m "merge"`
+- `npm install @date-io/date-fns`
