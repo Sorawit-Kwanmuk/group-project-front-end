@@ -5,9 +5,9 @@ import { imageConfig, ToggleButtonConfig } from './muiConfig';
 import { useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import Dashboard from './ChangeDetail/DashBoard/DashBoard';
-import MyProfileDetail from './ChangeDetail/MyProfileDetail/MyProfileDetail';
-import PurchaseHistory from './ChangeDetail/PurchaseHistory/PurchaseHistory';
+import Dashboard from './MyProfile/ChangeDetail/DashBoard/DashBoard';
+import MyProfileDetail from './MyProfile/ChangeDetail/MyProfileDetail/MyProfileDetail';
+import PurchaseHistory from './MyProfile/ChangeDetail/PurchaseHistory/PurchaseHistory';
 function MyProfile() {
   const [image, setImage] = useState({ profileImage: '' });
 
