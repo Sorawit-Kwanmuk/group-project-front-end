@@ -1,0 +1,60 @@
+.divCoursesCardStatus {
+    display: flex;
+    flex-direction: row;
+}
+
+.coursesCardStatusDetail {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.coursesCardStatusDetailTop {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.coursesCardStatusDetailTopH4>h4 {
+    width: 250px;
+}
+
+.coursesCardStatusDetailBottom {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.coursesCardStatusControl {
+    width: 150px;
+    height: 150px;
+    margin-right: 10px;
+}
+
+.coursesCardStatusControl>img {
+    width: 150px;
+    height: 150px;
+}
+
+.bottomCardDetail {
+    display: flex;
+
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-right: 10px;
+}
+
+.bottomCardDetail>p,
+span {
+    width: auto;
+    font-size: 14px;
+    color: #0077B6
+}
+
+.grayLine {
+    width: 100%;
+    height: 1px;
+    background-color: #E5E5E5;
+
+}
