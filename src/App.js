@@ -5,7 +5,7 @@ import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import MyProfile from './components/MyProfile';
 import ForgetPassword from './components/ForgetPassword';
-
+import Register from './components/Register/Register';
 function App() {
   return (
     <>
@@ -15,6 +15,7 @@ function App() {
       <Footer />
       <MyProfile />
       <ForgetPassword />
+      <Register />
     </>
   );
 }
