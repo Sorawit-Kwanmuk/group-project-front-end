@@ -17,3 +17,9 @@
 - `git add .`
 - `git commit -m "merge"`
 - `npm install @date-io/date-fns`
+- `npm install material-ui-colors`
+- `npm i @date-io/date-fns`
+- `npm i @material-ui/pickers`
+- `npm i @material-ui/lab`
+- `npm install @mui/styles`
+- `npm i date-fns@next @date-io/date-fns`
