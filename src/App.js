@@ -11,14 +11,14 @@ import Login from './components/Login/Login';
 function App() {
   return (
     <>
-      <CourseCard />
       <Header />
+      <CourseCard />
       <ContactUsEdit />
-      <Footer />
       <MyProfile />
       <ForgetPassword />
       <Register />
       <Login />
+      <Footer />
     </>
   );
 }
