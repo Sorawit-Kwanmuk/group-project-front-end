@@ -4,8 +4,9 @@ import ContactUsEdit from './components/ContactUs/ContactUsEdit';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import MyProfile from './components/MyProfile';
-import ForgetPassword from './components/ForgetPassword';
 import Register from './components/Register/Register';
+import ForgetPassword from './components/ForgetPassword/ForgetPassword';
+
 function App() {
   return (
     <>
