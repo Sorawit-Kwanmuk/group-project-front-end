@@ -84,11 +84,43 @@
 .CoursesInCart {
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 
 .CoursesInCartHeader {
     display: flex;
     flex-direction: row;
+
 }
 
-.MockUpCourseCard {}
+.MockUpCourseCard {
+    width: 310px;
+    height: 160px;
+    background-color: gray;
+    margin: 10px;
+}
+
+.inputPaymentCalculate {
+    display: flex;
+    flex-direction: column
+}
+
+.inputPaymentCalculateAmount {
+    display: flex;
+    flex-direction: row;
+}
+
+.divFormAddPayment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.textFieldColumPayment {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputPayment {
+    width: 30%
+}
