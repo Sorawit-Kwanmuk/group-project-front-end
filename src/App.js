@@ -1,5 +1,5 @@
 import "./App.css";
-import ContactUsEdit from "./components/ContactUs/ContactUsEdit";
+import CourseAdmin from "./components/CourseAdmin/CourseAdmin";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 
@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Header />
-      <ContactUsEdit />
+      <CourseAdmin />
       <Footer />
     </>
   );
