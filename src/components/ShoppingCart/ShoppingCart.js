@@ -1,7 +1,11 @@
 import './styleShoppingCart.css';
 import Avatar from '@mui/material/Avatar';
 import John from '../../public/images/john.jpg';
-import { imageConfig } from './muiConfig';
+import {
+  imageConfig,
+  FormControlConfig,
+  FormShortControlConfig,
+} from './muiConfig';
 import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -11,17 +15,25 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import { TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
+import Button from '@mui/material/Button';
 
 function ShoppingCart() {
   const [image, setImage] = useState({ profileImage: '' });
   const [payment, setPayment] = useState('Visa');
-  const [value, setValue] = useState(new Date());
   const [month, setMonth] = useState('');
   const [year, setYear] = useState('');
+  const [cardHolderName, setCardHolderName] = useState('');
+  const [cardNumber, setCardNumber] = useState('');
+  const [ccv, setCcv] = useState('');
 
-  const handleChange = event => {
-    setPayment(event.target.value);
+  const handleSubmitPayment = event => {
+    event.preventDefault();
+    console.log('payment: ', payment);
+    console.log('month: ', month);
+    console.log('year: ', year);
+    console.log('cardHolderName: ', cardHolderName);
+    console.log('cardNumber: ', cardNumber);
+    console.log('ccv: ', ccv);
   };
 
   return (
@@ -49,6 +61,10 @@ function ShoppingCart() {
             </div>
             <div className='grayLine'></div>
             <div className='MockUpCourseCard'></div>
+            <div className='MockUpCourseCard'></div>
+            <div className='MockUpCourseCard'></div>
+            <div className='MockUpCourseCard'></div>
+            <div className='MockUpCourseCard'></div>
           </div>
           <div className='inputPayment'>
             <div className='inputPaymentCalculate'>
@@ -60,12 +76,12 @@ function ShoppingCart() {
               <div className='grayLine'></div>
             </div>
             <div className='divFormAddPayment'>
-              <form>
+              <form className='formPayment' onChange={handleSubmitPayment}>
                 <div className='divPaymentRadio'>
                   <RadioGroup
                     name='controlled-radio-buttons-group'
                     value={payment}
-                    onChange={handleChange}>
+                    onChange={e => setPayment(e.target.value)}>
                     <FormControlLabel
                       value='visa'
                       control={<Radio />}
@@ -83,75 +99,111 @@ function ShoppingCart() {
                     id='outlined-basic'
                     label='Cardholder Name'
                     variant='outlined'
+                    size='small'
+                    sx={FormControlConfig}
+                    value={cardHolderName}
+                    onChange={e => setCardHolderName(e.target.value)}
                   />
                   <TextField
                     id='outlined-basic'
                     label='Card Number'
                     variant='outlined'
+                    size='small'
+                    sx={FormControlConfig}
+                    value={cardNumber}
+                    onChange={e => setCardNumber(e.target.value)}
                   />
                 </div>
-
-                <div className='ExpiredDateController'>
-                  <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id='demo-simple-select-helper-label'>
-                      Month
-                    </InputLabel>
-                    <Select
-                      labelId='demo-simple-select-helper-label'
-                      id='demo-simple-select-helper'
-                      value={month}
-                      label='Month'
-                      onChange={e => {
-                        setMonth(e.target.value);
+                <div className='divExpiredDateController'>
+                  <h4 className='ExpiredDateH4'>Expired Date</h4>
+                  <div className='ExpiredDateController'>
+                    <FormControl
+                      size='small'
+                      sx={{
+                        marginLeft: '0px',
+                        marginBottom: '5px',
+                        minWidth: 95,
                       }}>
-                      <MenuItem value=''>
-                        <em>00</em>
-                      </MenuItem>
-                      <MenuItem value={'01'}>01</MenuItem>
-                      <MenuItem value={'02'}>02</MenuItem>
-                      <MenuItem value={'03'}>03</MenuItem>
-                      <MenuItem value={'04'}>04</MenuItem>
-                      <MenuItem value={'05'}>05</MenuItem>
-                      <MenuItem value={'06'}>06</MenuItem>
-                      <MenuItem value={'07'}>07</MenuItem>
-                      <MenuItem value={'08'}>08</MenuItem>
-                      <MenuItem value={'09'}>09</MenuItem>
-                      <MenuItem value={'10'}>10</MenuItem>
-                      <MenuItem value={'11'}>11</MenuItem>
-                      <MenuItem value={'12'}>12</MenuItem>
-                    </Select>
-                  </FormControl>{' '}
-                  <FormControl sx={{ m: 1, minWidth: 120 }}>
-                    <InputLabel id='demo-simple-select-helper-label'>
-                      Year
-                    </InputLabel>
-                    <Select
-                      labelId='demo-simple-select-helper-label'
-                      id='demo-simple-select-helper'
-                      value={year}
-                      label='Year'
-                      onChange={e => {
-                        setYear(e.target.value);
-                      }}>
-                      <MenuItem value=''>
-                        <em>00</em>
-                      </MenuItem>
-                      <MenuItem value={'01'}>01</MenuItem>
-                      <MenuItem value={'02'}>02</MenuItem>
-                      <MenuItem value={'03'}>03</MenuItem>
-                      <MenuItem value={'04'}>04</MenuItem>
-                      <MenuItem value={'05'}>05</MenuItem>
-                      <MenuItem value={'06'}>06</MenuItem>
-                      <MenuItem value={'07'}>07</MenuItem>
-                      <MenuItem value={'08'}>08</MenuItem>
-                      <MenuItem value={'09'}>09</MenuItem>
-                      <MenuItem value={'10'}>10</MenuItem>
-                      <MenuItem value={'11'}>11</MenuItem>
-                      <MenuItem value={'12'}>12</MenuItem>
-                    </Select>
-                  </FormControl>
+                      <InputLabel id='demo-simple-select-helper-label'>
+                        Month
+                      </InputLabel>
+                      <Select
+                        labelId='demo-simple-select-helper-label'
+                        id='demo-simple-select-helper'
+                        value={month}
+                        label='Month'
+                        onChange={e => {
+                          setMonth(e.target.value);
+                        }}>
+                        <MenuItem value=''>
+                          <em>00</em>
+                        </MenuItem>
+                        <MenuItem value={'01'}>01</MenuItem>
+                        <MenuItem value={'02'}>02</MenuItem>
+                        <MenuItem value={'03'}>03</MenuItem>
+                        <MenuItem value={'04'}>04</MenuItem>
+                        <MenuItem value={'05'}>05</MenuItem>
+                        <MenuItem value={'06'}>06</MenuItem>
+                        <MenuItem value={'07'}>07</MenuItem>
+                        <MenuItem value={'08'}>08</MenuItem>
+                        <MenuItem value={'09'}>09</MenuItem>
+                        <MenuItem value={'10'}>10</MenuItem>
+                        <MenuItem value={'11'}>11</MenuItem>
+                        <MenuItem value={'12'}>12</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <FormControl
+                      size='small'
+                      sx={{ marginBottom: '5px', minWidth: 95 }}>
+                      <InputLabel id='demo-simple-select-helper-label'>
+                        Year
+                      </InputLabel>
+                      <Select
+                        labelId='demo-simple-select-helper-label'
+                        id='demo-simple-select-helper'
+                        value={year}
+                        label='Year'
+                        onChange={e => {
+                          setYear(e.target.value);
+                        }}>
+                        <MenuItem value=''>
+                          <em>00</em>
+                        </MenuItem>
+                        <MenuItem value={'2021'}>2021</MenuItem>
+                        <MenuItem value={'2022'}>2022</MenuItem>
+                        <MenuItem value={'2023'}>2023</MenuItem>
+                        <MenuItem value={'2024'}>2024</MenuItem>
+                        <MenuItem value={'2025'}>2025</MenuItem>
+                        <MenuItem value={'2026'}>2026</MenuItem>
+                        <MenuItem value={'2027'}>2027</MenuItem>
+                        <MenuItem value={'2028'}>2028</MenuItem>
+                        <MenuItem value={'2029'}>2029</MenuItem>
+                        <MenuItem value={'2030'}>2030</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
-                <TextField id='outlined-basic' label='CCV' variant='outlined' />
+                <div className='TextFieldCCV'>
+                  <TextField
+                    id='outlined-basic'
+                    label='CCV'
+                    variant='outlined'
+                    size='small'
+                    sx={FormShortControlConfig}
+                    value={ccv}
+                    onChange={e => setCcv(e.target.value)}
+                  />
+                </div>
+                <div className='paymentButton'>
+                  <Button
+                    variant='contained'
+                    type='submit'
+                    sx={{
+                      marginTop: '10px',
+                    }}>
+                    Chech Out
+                  </Button>
+                </div>
               </form>
             </div>
           </div>
