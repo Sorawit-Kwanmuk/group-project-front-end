@@ -1,0 +1,135 @@
+.ShoppingCartTop {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin: 30px;
+    width: 100%;
+
+}
+
+.divShoppingCartBottom {
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: top;
+    margin: 30px;
+    width: 100%;
+
+}
+
+.ShoppingCartAvatar {
+    cursor: pointer;
+}
+
+.ShoppingCartH1 {
+    margin: auto;
+    margin-left: 50px;
+}
+
+.grayLine {
+    margin: auto;
+    background-color: rgb(179, 176, 176);
+    width: 80%;
+    height: 1px;
+}
+
+.ShoppingCartConTroller {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin: 0px 30px 0px 30px;
+}
+
+.divButtonList {
+    margin: 30px;
+}
+
+.divMyProfileDetailController {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+}
+
+.divMyProfileH2 {
+    margin: 0px;
+    padding: 0px;
+    color: #03045E;
+    margin-left: 40px;
+}
+
+.divChangeDetail {
+    width: 100%;
+}
+
+.mainDivShoppingCartController {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 30px 0px 30px;
+
+}
+
+.shoppingCartBottom {
+    display: flex;
+    flex-direction: row;
+}
+
+.CoursesInCart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.CoursesInCartHeader {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.MockUpCourseCard {
+    width: 310px;
+    height: 160px;
+    background-color: gray;
+    margin: 10px;
+}
+
+.inputPaymentCalculate {
+    display: flex;
+    flex-direction: column
+}
+
+.inputPaymentCalculateAmount {
+    display: flex;
+    flex-direction: row;
+}
+
+.divFormAddPayment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.textFieldColumPayment {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputPayment {
+    width: 30%
+}
+
+.ExpiredDateController {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+}
