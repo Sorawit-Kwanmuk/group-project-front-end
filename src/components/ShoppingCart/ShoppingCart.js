@@ -6,13 +6,8 @@ import { useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
+
 import { TextField } from '@mui/material';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
-import MuiPickersUtilsProvider from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 
 function ShoppingCart() {
   const [image, setImage] = useState({ profileImage: '' });
@@ -22,6 +17,7 @@ function ShoppingCart() {
   const handleChange = event => {
     setPayment(event.target.value);
   };
+  const month = ['January', 'February', 'March'];
 
   return (
     <>
@@ -91,19 +87,21 @@ function ShoppingCart() {
                 </div>
 
                 <div>
-                  <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <DatePicker
-                      views={['year']}
-                      label='Year only'
-                      value={value}
-                      onChange={newValue => {
-                        setValue(newValue);
-                      }}
-                      renderInput={params => (
-                        <TextField {...params} helperText={null} />
-                      )}
-                    />
-                  </MuiPickersUtilsProvider>
+                  {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}> */}
+                  {/* <DatePicker
+                    views={month}
+                    label='Year only'
+                    value={value}
+                    onChange={newValue => {
+                      setValue(newValue);
+                    }}
+                    renderInput={params => (
+                      <TextField {...params} helperText={null} />
+                    )}
+                  /> */}
+                  {/* </MuiPickersUtilsProvider>
+                  </LocalizationProvider> */}
                   <TextField
                     id='outlined-basic'
                     label='CCV'
