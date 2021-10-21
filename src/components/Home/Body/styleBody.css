@@ -1,0 +1,39 @@
+.popular_item,
+.sale_item {
+
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: flex-start; */
+    justify-content: space-evenly;
+    /* width: 90%;
+    height: auto; */
+    margin-top: 5px;
+}
+
+.popular_item_controller {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.label_mostPopular,
+.label_sale {
+    background-color: #FFD600;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 5px;
+    margin-left: 5vw;
+}
+
+.divBodyHome {
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+
+    .popular_item,
+    .sale_item {
+        width: 100%;
+    }
+}
