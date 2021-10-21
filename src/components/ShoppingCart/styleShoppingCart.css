@@ -78,9 +78,7 @@
 }
 
 .inputPayment {
-
     width: 100%;
-    padding: 40px;
 }
 
 .shoppingCartBottom {
@@ -124,6 +122,15 @@ h1 {
 .inputPaymentCalculateAmount {
     display: flex;
     flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.inputPaymentCalculateAmount>h1 {
+    margin: 0px;
+    padding: 0px;
+
 }
 
 .divFormAddPayment {

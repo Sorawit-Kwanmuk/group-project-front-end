@@ -16,6 +16,7 @@ import Select from '@mui/material/Select';
 import { TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
+import CourseCard from '../CourseCard/CourseCard';
 
 function ShoppingCart() {
   const [image, setImage] = useState({ profileImage: '' });
@@ -60,11 +61,7 @@ function ShoppingCart() {
               <h2>Shopping Cart</h2>
             </div>
             <div className='grayLine'></div>
-            <div className='MockUpCourseCard'></div>
-            <div className='MockUpCourseCard'></div>
-            <div className='MockUpCourseCard'></div>
-            <div className='MockUpCourseCard'></div>
-            <div className='MockUpCourseCard'></div>
+            <CourseCard />
           </div>
           <div className='inputPayment'>
             <div className='inputPaymentCalculate'>
