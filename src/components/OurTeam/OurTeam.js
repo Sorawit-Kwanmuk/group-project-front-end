@@ -8,7 +8,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import CourseCard from '../CourseCard/CourseCard';
+import InstructorCard from '../InstructorCard/InstructorCard';
 import Pagination from '@mui/material/Pagination';
 
 import { InputBaseConfig, IconButtonConfig, ButtonConfig } from './muiConfig';
@@ -88,18 +88,16 @@ function OurCourse() {
             </div>
           </div>
           <div className='outputSearchFieldOurTeam'>
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
+            <InstructorCard />
           </div>
         </div>
         <div className='divPaginationSearchOurTeam'>

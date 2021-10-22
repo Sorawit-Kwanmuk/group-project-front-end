@@ -25,7 +25,7 @@ function App() {
       <Footer /> */}
       {/* <ShoppingCart /> */}
       {/* <OurCourse /> */}
-      {/* <OurTeam /> */}
+      <OurTeam />
       {/* <Instructor /> */}
     </>
   );
