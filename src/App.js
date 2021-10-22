@@ -11,22 +11,24 @@ import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import OurCourse from './components/OurCourse/OurCourse';
 import OurTeam from './components/OurTeam/OurTeam';
 import Instructor from './components/InstructorCard/InstructorCard';
+import ClassroomILearn from './components/ClassroomILearn/ClassroomILearn';
 
 function App() {
   return (
     <>
-      {/* <Header />
-      <CourseCard />
+      <Header />
+      {/* <CourseCard />
       <ContactUsEdit />
       <MyProfile />
-      <ForgetPassword /> */}
-      {/* <Register /> */}
-      {/* <Login />
-      <Footer /> */}
-      {/* <ShoppingCart /> */}
-      {/* <OurCourse /> */}
+      <ForgetPassword /> 
+      <Register /> 
+      <Login />
+      <ShoppingCart /> 
+      <OurCourse /> 
       <OurTeam />
-      {/* <Instructor /> */}
+      <Instructor />  */}
+      <ClassroomILearn />
+      <Footer />
     </>
   );
 }
