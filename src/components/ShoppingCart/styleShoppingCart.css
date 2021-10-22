@@ -6,6 +6,7 @@
     align-items: center;
     margin: 30px;
     width: 100%;
+    color: #03045E;
 
 }
 
@@ -29,9 +30,9 @@
 }
 
 .grayLine {
-    margin: auto;
+    margin: 0 auto;
     background-color: rgb(179, 176, 176);
-    width: 80%;
+    width: 100%;
     height: 1px;
 }
 
@@ -76,20 +77,27 @@
 
 }
 
+.inputPayment {
+    width: 100%;
+}
+
 .shoppingCartBottom {
     display: flex;
     flex-direction: row;
+    width: 80%;
 }
 
 .CoursesInCart {
-    display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: top;
+    width: 100%;
 }
 
 .CoursesInCartHeader {
     display: flex;
     flex-direction: row;
+    color: #03045E;
 
 }
 
@@ -102,12 +110,27 @@
 
 .inputPaymentCalculate {
     display: flex;
-    flex-direction: column
+    flex-direction: column;
+    color: #03045E;
+}
+
+.inputPaymentCalculate>h2,
+h1 {
+    color: #03045E;
 }
 
 .inputPaymentCalculateAmount {
     display: flex;
     flex-direction: row;
+    margin: 0px;
+    padding: 0px;
+
+}
+
+.inputPaymentCalculateAmount>h1 {
+    margin: 0px;
+    padding: 0px;
+
 }
 
 .divFormAddPayment {
@@ -122,14 +145,42 @@
 }
 
 .inputPayment {
-    width: 30%
+    width: 30%;
+    margin-left: 30px;
 }
 
 .ExpiredDateController {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
 
+}
+
+.ExpiredDateH4 {
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    color: #03045E;
+}
+
+.ExpiredDateController {
+    margin: 0 auto;
+}
+
+.TextFieldCCV {
+    width: 100%;
+}
+
+.paymentButton {
+
+    justify-content: center;
+}
+
+.formPayment {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+
+    width: 100%;
 }

@@ -7,6 +7,8 @@ import MyProfile from './components/MyProfile/MyProfile';
 import Register from './components/Register/Register';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import Login from './components/Login/Login';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import OurCourse from './components/OurCourse/OurCourse';
 
 function App() {
   return (
@@ -16,9 +18,11 @@ function App() {
       <ContactUsEdit />
       <MyProfile />
       <ForgetPassword /> */}
-      <Register />
+      {/* <Register /> */}
       {/* <Login />
       <Footer /> */}
+      {/* <ShoppingCart /> */}
+      <OurCourse />
     </>
   );
 }

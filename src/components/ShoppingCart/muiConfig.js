@@ -5,4 +5,16 @@ const imageConfig = {
 const ToggleButtonConfig = {
   width: '200px',
 };
-export { imageConfig, ToggleButtonConfig };
+const FormControlConfig = {
+  width: '100%',
+  marginBottom: '5px',
+};
+const FormShortControlConfig = {
+  width: '95px',
+};
+export {
+  imageConfig,
+  ToggleButtonConfig,
+  FormControlConfig,
+  FormShortControlConfig,
+};
