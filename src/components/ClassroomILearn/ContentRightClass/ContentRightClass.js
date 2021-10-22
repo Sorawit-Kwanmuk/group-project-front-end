@@ -1,6 +1,8 @@
 import '../styleClassroomILearn.css';
 import Button from '@mui/material/Button';
 import { ButtonConfig, ButtonConfig2 } from '../muiConfig';
+import VideoLink from './VideoLink/VideoLink';
+import QuizTest from './Quiz/QuizTest';
 function ContentRightClass() {
   return (
     <div className='mainDivControllerContentRightClass'>
@@ -23,15 +25,12 @@ function ContentRightClass() {
           <p>Complete</p>
         </div>
       </div>
-      <div className='VideoClassroomController'>
-        <iframe
-          className='iframeClassroomVideo'
-          src='https://www.youtube.com/embed/0hfeNPM7piw'
-          title='YouTube video player'
-          frameborder='0'
-          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-          allowfullscreen></iframe>
-      </div>
+      {/* <VideoLink /> */}
+      <QuizTest />
+      <QuizTest />
+      <QuizTest />
+      <QuizTest />
+      <QuizTest />
       <div className='divControlButtonBottom'>
         <Button sx={ButtonConfig2} variant='contained'>
           Previous

@@ -29,10 +29,27 @@ const ButtonConfig2 = {
   width: '150px',
   margin: '10px',
 };
+const ButtonConfig3 = {
+  width: '250px',
+  margin: '10px',
+};
+const ToggleButtonGroupConfig = {
+  width: '80%',
+};
+const ToggleButtonConfig2 = {
+  display: 'flex',
+  justifyContent: 'left',
+  textAlign: 'left',
+  padding: '0px',
+  paddingLeft: '10px',
+};
 export {
   ToggleButtonConfig,
   ListItemTextConfig,
   styleButton,
   ButtonConfig,
   ButtonConfig2,
+  ButtonConfig3,
+  ToggleButtonGroupConfig,
+  ToggleButtonConfig2,
 };
