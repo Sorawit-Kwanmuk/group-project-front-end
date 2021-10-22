@@ -131,3 +131,8 @@
     margin-left: 10px;
     color: #fff;
 }
+
+.divControlButtonBottom {
+    display: flex;
+    justify-content: space-between;
+}

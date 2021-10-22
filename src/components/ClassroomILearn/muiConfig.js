@@ -25,4 +25,14 @@ const ButtonConfig = {
   },
   color: '#03045E',
 };
-export { ToggleButtonConfig, ListItemTextConfig, styleButton, ButtonConfig };
+const ButtonConfig2 = {
+  width: '150px',
+  margin: '10px',
+};
+export {
+  ToggleButtonConfig,
+  ListItemTextConfig,
+  styleButton,
+  ButtonConfig,
+  ButtonConfig2,
+};

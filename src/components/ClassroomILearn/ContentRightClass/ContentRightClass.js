@@ -1,15 +1,15 @@
 import '../styleClassroomILearn.css';
 import Button from '@mui/material/Button';
-import { ButtonConfig } from '../muiConfig';
+import { ButtonConfig, ButtonConfig2 } from '../muiConfig';
 function ContentRightClass() {
   return (
     <div className='mainDivControllerContentRightClass'>
       <div className='navBarContentRightClass'>
-        <Button variant='myCourse' sx={ButtonConfig}>
+        <Button variant='contained' sx={ButtonConfig}>
           My Course
         </Button>
         <div className='textLabelContentRightClass'>HTML - Element / Tag</div>
-        <Button variant='completed' sx={ButtonConfig}>
+        <Button variant='contained' sx={ButtonConfig}>
           Completed !
         </Button>
       </div>
@@ -33,8 +33,12 @@ function ContentRightClass() {
           allowfullscreen></iframe>
       </div>
       <div className='divControlButtonBottom'>
-        <Button variant='contained'>Previ</Button>
-        <Button variant='contained'>Contained</Button>
+        <Button sx={ButtonConfig2} variant='contained'>
+          Previous
+        </Button>
+        <Button sx={ButtonConfig2} variant='contained'>
+          Next
+        </Button>
       </div>
     </div>
   );
