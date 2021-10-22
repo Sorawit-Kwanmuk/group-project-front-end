@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 
-function CourseAdmin() {
+function MainCourseAdmin() {
   return (
     <>
       <CssBaseline />
@@ -192,4 +192,4 @@ function CourseAdmin() {
   );
 }
 
-export default CourseAdmin;
+export default MainCourseAdmin;
