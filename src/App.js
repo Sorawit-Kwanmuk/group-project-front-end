@@ -14,7 +14,7 @@ import OurCourse from "./components/OurCourse/OurCourse";
 import OurTeam from "./components/OurTeam/OurTeam";
 import Instructor from "./components/InstructorCard/InstructorCard";
 import "./App.css";
-import ContactUsEdit from "./components/ContactUs/ContactUsEdit";
+// import ContactUsEdit from "./components/ContactUs/ContactUsEdit";
 import ClassroomILearn from "./components/ClassroomILearn/ClassroomILearn";
 
 function App() {
