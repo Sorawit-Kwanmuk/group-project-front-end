@@ -3,6 +3,7 @@ import CourseCard from "./components/CourseCard/CourseCard";
 import CourseClassroomAdmin from "./components/CourseAdmin/CourseClassroomAdmin";
 import MainCourseAdmin from "./components/CourseAdmin/MainCourseAdmin";
 import ContactUsUser from "./components/ContactUs/ContactUsUser";
+import ContactUsEdit from "./components/ContactUs/ContactUsEdit";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import MyProfile from "./components/MyProfile/MyProfile";
@@ -14,7 +15,6 @@ import OurCourse from "./components/OurCourse/OurCourse";
 import OurTeam from "./components/OurTeam/OurTeam";
 import Instructor from "./components/InstructorCard/InstructorCard";
 import "./App.css";
-// import ContactUsEdit from "./components/ContactUs/ContactUsEdit";
 import ClassroomILearn from "./components/ClassroomILearn/ClassroomILearn";
 
 function App() {
@@ -32,6 +32,7 @@ function App() {
       <Instructor />
       <MainCourseAdmin />
       <CourseClassroomAdmin />
+      <ContactUsEdit />
       <ContactUsUser />
       <ClassroomILearn />
       <Footer />
