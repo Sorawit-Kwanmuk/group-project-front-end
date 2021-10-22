@@ -9,7 +9,7 @@ import AddIcon from "@mui/icons-material/Add";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import CategorySelect from "./CategoryDropDown";
 
-function CourseAdmin() {
+function MainCourseAdmin() {
   return (
     <>
       <CssBaseline />
@@ -205,4 +205,4 @@ function CourseAdmin() {
   );
 }
 
-export default CourseAdmin;
+export default MainCourseAdmin;
