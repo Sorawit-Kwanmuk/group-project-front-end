@@ -16,12 +16,14 @@ import OurTeam from "./components/OurTeam/OurTeam";
 import Instructor from "./components/InstructorCard/InstructorCard";
 import "./App.css";
 import ClassroomILearn from "./components/ClassroomILearn/ClassroomILearn";
+import AdminHome from "./components/AdminHome/AdminHome";
 
 function App() {
   return (
     <>
       <Header />
-      <CourseCard />
+      <AdminHome />
+      {/* <CourseCard />
       <MyProfile />
       <ForgetPassword />
       <Register />
@@ -34,7 +36,7 @@ function App() {
       <CourseClassroomAdmin />
       <ContactUsEdit />
       <ContactUsUser />
-      <ClassroomILearn />
+      <ClassroomILearn /> */}
       <Footer />
     </>
   );
