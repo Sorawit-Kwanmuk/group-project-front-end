@@ -9,6 +9,7 @@ import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import Login from './components/Login/Login';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import OurCourse from './components/OurCourse/OurCourse';
+import OurTeam from './components/OurTeam/OurTeam';
 
 function App() {
   return (
@@ -22,7 +23,8 @@ function App() {
       {/* <Login />
       <Footer /> */}
       {/* <ShoppingCart /> */}
-      <OurCourse />
+      {/* <OurCourse /> */}
+      <OurTeam />
     </>
   );
 }
