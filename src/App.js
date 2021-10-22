@@ -16,25 +16,29 @@ import OurTeam from "./components/OurTeam/OurTeam";
 import Instructor from "./components/InstructorCard/InstructorCard";
 import "./App.css";
 import ClassroomILearn from "./components/ClassroomILearn/ClassroomILearn";
+import AdminHome from "./components/AdminHome/AdminHome";
+import OurTeamAdmin from "./components/OurTeamAdmin/OurTeamAdmin";
 
 function App() {
   return (
     <>
       <Header />
-      <CourseCard />
-      <MyProfile />
-      <ForgetPassword />
-      <Register />
-      <Login />
-      <ShoppingCart />
-      <OurCourse />
-      <OurTeam />
-      <Instructor />
-      <MainCourseAdmin />
-      <CourseClassroomAdmin />
-      <ContactUsEdit />
-      <ContactUsUser />
-      <ClassroomILearn />
+      {/* <AdminHome /> */}
+      {/* <CourseCard /> */}
+      {/* <MyProfile /> */}
+      {/* <ForgetPassword /> */}
+      {/* <Register /> */}
+      {/* <Login /> */}
+      {/* <ShoppingCart /> */}
+      {/* <OurCourse /> */}
+      {/* <OurTeam /> */}
+      {/* <Instructor /> */}
+      {/* <MainCourseAdmin /> */}
+      {/* <CourseClassroomAdmin /> */}
+      {/* <ContactUsEdit /> */}
+      {/* <ContactUsUser /> */}
+      {/* <ClassroomILearn /> */}
+      <OurTeamAdmin />
       <Footer />
     </>
   );
