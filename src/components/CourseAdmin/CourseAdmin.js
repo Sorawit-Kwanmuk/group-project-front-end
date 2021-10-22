@@ -6,6 +6,8 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import CategorySelect from "./CategoryDropDown";
 
 function CourseAdmin() {
   return (
@@ -32,14 +34,15 @@ function CourseAdmin() {
                       />
                     </Grid>
                     <Grid xs={12} item>
-                      <TextField
+                      {/* <TextField
                         label="Category"
                         placeholder="Enter Category"
                         variant="outlined"
                         size="small"
                         fullWidth
                         required
-                      />
+                      /> */}
+                      <CategorySelect />
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
@@ -150,6 +153,16 @@ function CourseAdmin() {
           <CardActions
             style={{ display: "flex", justifyContent: "space-evenly" }}
           >
+            <Grid xs={3} item>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
+                Create
+              </Button>
+            </Grid>
             <Grid xs={3} item>
               <Button
                 type="submit"
