@@ -22,7 +22,7 @@ function App() {
   return (
     <>
       <Header />
-      <AdminHome />
+      {/* <AdminHome /> */}
       {/* <CourseCard />
       <MyProfile />
       <ForgetPassword />
