@@ -1,5 +1,5 @@
 import "./App.css";
-import ContactUsEdit from "./components/ContactUs/ContactUsEdit";
+import ContactUsEdit from "./components/ContactUsEdit";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 
