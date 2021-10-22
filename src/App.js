@@ -2,6 +2,7 @@ import "./App.css";
 import CourseCard from "./components/CourseCard/CourseCard";
 import CourseClassroomAdmin from "./components/CourseAdmin/CourseClassroomAdmin";
 import MainCourseAdmin from "./components/CourseAdmin/MainCourseAdmin";
+import ContactUsUser from "./components/ContactUs/ContactUsUser";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import MyProfile from "./components/MyProfile/MyProfile";
@@ -28,6 +29,7 @@ function App() {
       <Instructor />
       <MainCourseAdmin />
       <CourseClassroomAdmin />
+      <ContactUsUser />
       <Footer />
     </>
   );
