@@ -22,11 +22,12 @@ import AdminHome from './components/AdminHome/AdminHome';
 import OurTeamAdmin from './components/OurTeamAdmin/OurTeamAdmin';
 import InstructorEdit from './components/InstructorEdit/InstructorEdit';
 import FeedbackAdmin from './components/FeedbackAdmin/FeedbackAdmin';
+import InstructorCardDetail from './components/InstructorCardDetail/InstructorCardDetail';
 
 function App() {
   return (
     <>
-      {/* <Header /> */}
+      <Header />
       {/* <Home /> */}
       {/* <AdminHome /> */}
       {/* <OurTeamAdmin /> */}
@@ -48,7 +49,8 @@ function App() {
       {/* <ContactUsUser /> */}
       {/* <ClassroomILearn /> */}
       {/* <ShoppingCard /> */}
-      {/* <Footer /> */}
+      {/* <InstructorCardDetail /> */}
+      <Footer />
     </>
   );
 }

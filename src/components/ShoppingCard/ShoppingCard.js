@@ -22,14 +22,11 @@ function ShoppingCard() {
 
   return (
     <div className='divMainShoppingCardController'>
-      <div className='divMainHeaderShoppingCard'>
-        <div>
-          <img
-            className='shoppingCardBannerControl'
-            src={shoppingCardBanner}
-            alt=''
-          />
-        </div>
+      <div
+        className='divMainHeaderShoppingCard'
+        style={{
+          backgroundImage: `url(${shoppingCardBanner})`,
+        }}>
         <div className='textOnShoppingCardBannerControl'>
           <h3 className='ShoppingCardH3'>
             Basic JavaScript For Front - End Development
@@ -94,6 +91,7 @@ function ShoppingCard() {
       </div>
       <div className='grayLine'></div>
       <div className='divSyllabusCourseContent'>
+        <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
         <NevBarLeftList />
         <NevBarLeftList />
         <NevBarLeftList />

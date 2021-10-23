@@ -1,34 +1,34 @@
-import { TextField } from "@mui/material";
-import "./styleFeedbackCard.css";
+import { TextField } from '@mui/material';
+import './styleFeedbackCard.css';
 
 function FeedbackCard() {
   return (
-    <div className="cardBody">
-      <div className="divDetailCard">
-        <p className="topic">Issue #25</p>
-        <span className="topic">Resolved</span>
+    <div className='FeedbackCardBody'>
+      <div className='divDetailCard'>
+        <p className='topic'>Issue #25</p>
+        <span className='topic'>Resolved</span>
       </div>
-      <div className="">
-        <span className="topic">Date sent: </span>
+      <div className=''>
+        <span className='topic'>Date sent: </span>
         <span>18/10/2021</span>
       </div>
-      <div className="">
-        <span className="topic">Topic: </span>
+      <div className=''>
+        <span className='topic'>Topic: </span>
         <span>Can't get Certificate from JS course</span>
       </div>
-      <div className="">
-        <span className="topic">Email: </span>
+      <div className=''>
+        <span className='topic'>Email: </span>
         <span>Goodguy@gmail.com</span>
       </div>
-      <div className="">
+      <div className=''>
         <TextField
           sx={{ marginY: 2 }}
-          label="Content"
-          placeholder="Enter Content"
+          label='Content'
+          placeholder='Enter Content'
           multiline
           rows={5}
-          variant="outlined"
-          size="small"
+          variant='outlined'
+          size='small'
           fullWidth
           required
         />
