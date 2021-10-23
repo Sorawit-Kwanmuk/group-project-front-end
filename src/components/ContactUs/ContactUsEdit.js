@@ -6,21 +6,31 @@ import {
   TextField,
   Typography
 } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 
 function ContactUsEdit() {
   return (
     <>
       <div style={{ margin: 0 }}>
-        <div style={{ backgroundColor: "#ADE8F4", padding: "1rem 0" }}>
-          <Typography variant="h4" align="center">
-            Contact Us Admin Page{" "}
-          </Typography>
-        </div>
+        <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
+          <Toolbar variant="dense">
+            <Typography
+              variant="h6"
+              color="inherit"
+              component="div"
+              align="center"
+              sx={{ width: "100%" }}
+            >
+              Contact Us Admin
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
         <Card
           style={{ maxWidth: 550, margin: "30px auto", padding: "20px 5px" }}
         >
           <CardContent>
-            <Typography gutterBottom variant="h5" align="center">
+            <Typography gutterBottom variant="h6" align="center">
               Contact Edit Form
             </Typography>
             <form>

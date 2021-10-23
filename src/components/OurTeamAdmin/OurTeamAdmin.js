@@ -1,5 +1,4 @@
 import "./styleOurTeam.css";
-import OurTeamBanner from "../../public/images/OurTeamBanner.png";
 import Button from "@mui/material/Button";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
@@ -13,7 +12,6 @@ import Pagination from "@mui/material/Pagination";
 
 import { InputBaseConfig, IconButtonConfig, ButtonConfig } from "./muiConfig";
 import { useState } from "react";
-import { Box } from "@mui/system";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 function OurTeamAdmin() {
   const [orderBy, setOrderBy] = useState("");
@@ -25,7 +23,7 @@ function OurTeamAdmin() {
   return (
     <>
       <div className="divMainControllerOurTeam">
-        <AppBar position="static" style={{ backgroundColor: "#00B4D8" }}>
+        <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
           <Toolbar variant="dense">
             <Typography
               variant="h6"

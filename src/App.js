@@ -14,10 +14,10 @@ import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
 import OurCourse from "./components/OurCourse/OurCourse";
 import OurTeam from "./components/OurTeam/OurTeam";
 import Instructor from "./components/InstructorCard/InstructorCard";
-import "./App.css";
 import ClassroomILearn from "./components/ClassroomILearn/ClassroomILearn";
 import AdminHome from "./components/AdminHome/AdminHome";
 import OurTeamAdmin from "./components/OurTeamAdmin/OurTeamAdmin";
+import InstructorEdit from "./components/InstructorEdit/InstructorEdit";
 
 function App() {
   return (
@@ -38,7 +38,8 @@ function App() {
       {/* <ContactUsEdit /> */}
       {/* <ContactUsUser /> */}
       {/* <ClassroomILearn /> */}
-      <OurTeamAdmin />
+      {/* <OurTeamAdmin /> */}
+      <InstructorEdit />
       <Footer />
     </>
   );

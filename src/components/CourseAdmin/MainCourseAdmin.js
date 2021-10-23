@@ -6,13 +6,27 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
-import ListAltIcon from "@mui/icons-material/ListAlt";
 import CategorySelect from "./CategoryDropDown";
+import { AppBar, Toolbar } from "@mui/material";
 
 function MainCourseAdmin() {
   return (
     <>
       <CssBaseline />
+      <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
+        <Toolbar variant="dense">
+          <Typography
+            variant="h6"
+            color="inherit"
+            component="div"
+            align="center"
+            sx={{ width: "100%" }}
+          >
+            Main Course Admin
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
       <Container maxWidth="xlg">
         <Card sx={{ minWidth: 275, bgcolor: "", marginY: 5 }}>
           <CardContent>
@@ -34,14 +48,6 @@ function MainCourseAdmin() {
                       />
                     </Grid>
                     <Grid xs={12} item>
-                      {/* <TextField
-                        label="Category"
-                        placeholder="Enter Category"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        required
-                      /> */}
                       <CategorySelect />
                     </Grid>
                     <Grid xs={12} item>

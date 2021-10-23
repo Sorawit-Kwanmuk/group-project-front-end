@@ -6,16 +6,26 @@ import {
   TextField,
   Typography
 } from "@mui/material";
+import { AppBar, Toolbar } from "@mui/material";
 
 function ContactUsUser() {
   return (
     <>
       <div style={{ margin: 0 }}>
-        <div style={{ backgroundColor: "#ADE8F4", padding: "1rem 0" }}>
-          <Typography variant="h4" align="center">
-            Contact Us{" "}
-          </Typography>
-        </div>
+        <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
+          <Toolbar variant="dense">
+            <Typography
+              variant="h6"
+              color="inherit"
+              component="div"
+              align="center"
+              sx={{ width: "100%" }}
+            >
+              Admin Home
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
         {/* Map & Address */}
         <Grid container spacing={0}>
           <Grid
