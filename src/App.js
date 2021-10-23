@@ -39,7 +39,7 @@ function App() {
       {/* <ContactUsUser /> */}
       {/* <ClassroomILearn /> */}
       {/* <OurTeamAdmin /> */}
-      <InstructorEdit />
+      {/* <InstructorEdit /> */}
       <Footer />
     </>
   );
