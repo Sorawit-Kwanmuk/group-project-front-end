@@ -19,11 +19,14 @@ import AdminHome from "./components/AdminHome/AdminHome";
 import OurTeamAdmin from "./components/OurTeamAdmin/OurTeamAdmin";
 import InstructorEdit from "./components/InstructorEdit/InstructorEdit";
 import FeedbackAdmin from "./components/FeedbackAdmin/FeedbackAdmin";
+import HomeBannerAdmin from "./components/HomeBannerAdmin/HomeBannerAdmin";
+import Home from "./components/Home/Home";
 
 function App() {
   return (
     <>
       <Header />
+      {/* <Home /> */}
       {/* <AdminHome /> */}
       {/* <CourseCard /> */}
       {/* <MyProfile /> */}
@@ -42,6 +45,7 @@ function App() {
       {/* <OurTeamAdmin /> */}
       {/* <InstructorEdit /> */}
       {/* <FeedbackAdmin /> */}
+      <HomeBannerAdmin />
       <Footer />
     </>
   );

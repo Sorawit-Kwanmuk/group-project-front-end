@@ -1,5 +1,5 @@
-import Banner from './Banner/Banner';
-import Body from './Body/Body';
+import Banner from "./Banner/Banner";
+import Body from "./Body/Body";
 
 function Home() {
   return (
