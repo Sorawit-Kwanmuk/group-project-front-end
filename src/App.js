@@ -41,7 +41,7 @@ function App() {
       {/* <ClassroomILearn /> */}
       {/* <OurTeamAdmin /> */}
       {/* <InstructorEdit /> */}
-      <FeedbackAdmin />
+      {/* <FeedbackAdmin /> */}
       <Footer />
     </>
   );
