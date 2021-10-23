@@ -16,4 +16,4 @@ const ButtonConfig = {
   width: "200px",
   margin: "5px 10px 10px 10px"
 };
-// export { InputBaseConfig, IconButtonConfig, ButtonConfig };
+export { InputBaseConfig, IconButtonConfig, ButtonConfig };

@@ -18,6 +18,7 @@ import ClassroomILearn from "./components/ClassroomILearn/ClassroomILearn";
 import AdminHome from "./components/AdminHome/AdminHome";
 import OurTeamAdmin from "./components/OurTeamAdmin/OurTeamAdmin";
 import InstructorEdit from "./components/InstructorEdit/InstructorEdit";
+import FeedbackAdmin from "./components/FeedbackAdmin/FeedbackAdmin";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
       {/* <ClassroomILearn /> */}
       {/* <OurTeamAdmin /> */}
       {/* <InstructorEdit /> */}
+      <FeedbackAdmin />
       <Footer />
     </>
   );
