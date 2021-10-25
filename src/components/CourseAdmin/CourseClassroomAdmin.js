@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AdminContent from "./AdminContent";
 import AdminQuiz from "./AdminQuiz";
+import { AppBar, Toolbar, Typography } from "@mui/material";
 
 const quizBank = [
   {
@@ -51,6 +52,20 @@ function CourseClassroomAdmin() {
 
   return (
     <div style={{ minHeight: 580 }}>
+      <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
+        <Toolbar variant="dense">
+          <Typography
+            variant="h6"
+            color="inherit"
+            component="div"
+            align="center"
+            sx={{ width: "100%" }}
+          >
+            Classroom Admin
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
       <main className="w3-animate-opacity">
         {/* <!-- Subject Options Side-bar --> */}
         <div className="">
