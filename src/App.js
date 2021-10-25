@@ -38,7 +38,7 @@ function App() {
       {/* <MyProfile /> */}
       {/* <ForgetPassword /> */}
       {/* <Register /> */}
-      {/* <Login /> */}
+      <Login />
       {/* <ShoppingCart /> */}
       {/* <OurCourse /> */}
       {/* <OurTeam /> */}
