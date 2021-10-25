@@ -39,7 +39,7 @@ function Login() {
       console.log(res);
       // setToken(res.data.token);
     } catch (error) {
-      console.log(error);
+      console.dir(error);
     }
   };
 
