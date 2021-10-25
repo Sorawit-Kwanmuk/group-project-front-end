@@ -14,6 +14,7 @@ import axios from '../../config/axios';
 import { setToken, getToken } from '../../services/localStorage';
 import { AuthContext } from '../../contexts/authContext';
 import { useHistory } from 'react-router';
+import jwtDecode from 'jwt-decode';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -40,10 +41,11 @@ function Login() {
         username,
         password,
       });
-      // console.log(res);
+
+      console.log('LogRes: ', res);
       setToken(res.data.token);
-      setUser(res.data.user);
-      history.push('/');
+      setUser(res.data.token);
+      // history.push('/');
     } catch (error) {
       console.dir(error);
     }

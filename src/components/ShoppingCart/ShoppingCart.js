@@ -6,7 +6,7 @@ import {
   FormControlConfig,
   FormShortControlConfig,
 } from './muiConfig';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -17,6 +17,8 @@ import { TextField } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import CourseCard from '../CourseCard/CourseCard';
+import { publicKey } from '../../confidential/keys';
+import axios from '../../config/axios';
 
 function ShoppingCart() {
   const [image, setImage] = useState({ profileImage: '' });
@@ -27,16 +29,52 @@ function ShoppingCart() {
   const [cardNumber, setCardNumber] = useState('');
   const [ccv, setCcv] = useState('');
 
-  const handleSubmitPayment = event => {
-    event.preventDefault();
-    console.log('payment: ', payment);
-    console.log('month: ', month);
-    console.log('year: ', year);
-    console.log('cardHolderName: ', cardHolderName);
-    console.log('cardNumber: ', cardNumber);
-    console.log('ccv: ', ccv);
-  };
+  let OmiseCard;
 
+  OmiseCard = window.OmiseCard;
+  OmiseCard.configure({
+    publicKey,
+    frameLabel: 'Sabai Shop',
+    submitLabel: 'PAY NOW',
+    currency: 'thb',
+  });
+
+  useEffect(() => {
+    OmiseCard.configure({
+      defaultPaymentMethod: 'credit_card',
+      otherPaymentMethods: [],
+    });
+    OmiseCard.attach();
+  }, []);
+  // const omiseCardHandler = () => {
+  //   const { cart, createCreditCardCharge } = props;
+  //   OmiseCard.open({
+  //     frameDescription: 'Invoice #3847',
+  //     amount: cart.amount,
+  //     onCreateTokenSuccess: token => {
+  //       createCreditCardCharge(cart.email, cart.name, cart.amount, token);
+  //     },
+  //     onFormClosed: () => {},
+  //   });
+  // };
+  const handleClick = e => {
+    console.log('Click');
+    e.preventDefault();
+    OmiseCard.open({
+      amount: 10000,
+      submitFormTarget: '#credit-card',
+      onCreateTokenSuccess: async nonce => {
+        console.log('nonce: ', nonce);
+        const res = await axios.post('/checkout', {
+          token: nonce,
+          amount: 10000,
+        });
+        console.log(res);
+      },
+      onFormClosed: () => {},
+    });
+    // omiseCardHandler();
+  };
   return (
     <>
       <div className='mainDivShoppingCartController'>
@@ -73,134 +111,21 @@ function ShoppingCart() {
               <div className='grayLine'></div>
             </div>
             <div className='divFormAddPayment'>
-              <form className='formPayment' onChange={handleSubmitPayment}>
-                <div className='divPaymentRadio'>
-                  <RadioGroup
-                    name='controlled-radio-buttons-group'
-                    value={payment}
-                    onChange={e => setPayment(e.target.value)}>
-                    <FormControlLabel
-                      value='visa'
-                      control={<Radio />}
-                      label='Visa'
-                    />
-                    <FormControlLabel
-                      value='masterCard'
-                      control={<Radio />}
-                      label='MasterCard'
-                    />
-                  </RadioGroup>
-                </div>
-                <div className='textFieldColumPayment'>
-                  <TextField
-                    id='outlined-basic'
-                    label='Cardholder Name'
-                    variant='outlined'
-                    size='small'
-                    sx={FormControlConfig}
-                    value={cardHolderName}
-                    onChange={e => setCardHolderName(e.target.value)}
-                  />
-                  <TextField
-                    id='outlined-basic'
-                    label='Card Number'
-                    variant='outlined'
-                    size='small'
-                    sx={FormControlConfig}
-                    value={cardNumber}
-                    onChange={e => setCardNumber(e.target.value)}
-                  />
-                </div>
-                <div className='divExpiredDateController'>
-                  <h4 className='ExpiredDateH4'>Expired Date</h4>
-                  <div className='ExpiredDateController'>
-                    <FormControl
-                      size='small'
-                      sx={{
-                        marginLeft: '0px',
-                        marginBottom: '5px',
-                        minWidth: 95,
-                      }}>
-                      <InputLabel id='demo-simple-select-helper-label'>
-                        Month
-                      </InputLabel>
-                      <Select
-                        labelId='demo-simple-select-helper-label'
-                        id='demo-simple-select-helper'
-                        value={month}
-                        label='Month'
-                        onChange={e => {
-                          setMonth(e.target.value);
-                        }}>
-                        <MenuItem value=''>
-                          <em>00</em>
-                        </MenuItem>
-                        <MenuItem value={'01'}>01</MenuItem>
-                        <MenuItem value={'02'}>02</MenuItem>
-                        <MenuItem value={'03'}>03</MenuItem>
-                        <MenuItem value={'04'}>04</MenuItem>
-                        <MenuItem value={'05'}>05</MenuItem>
-                        <MenuItem value={'06'}>06</MenuItem>
-                        <MenuItem value={'07'}>07</MenuItem>
-                        <MenuItem value={'08'}>08</MenuItem>
-                        <MenuItem value={'09'}>09</MenuItem>
-                        <MenuItem value={'10'}>10</MenuItem>
-                        <MenuItem value={'11'}>11</MenuItem>
-                        <MenuItem value={'12'}>12</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <FormControl
-                      size='small'
-                      sx={{ marginBottom: '5px', minWidth: 95 }}>
-                      <InputLabel id='demo-simple-select-helper-label'>
-                        Year
-                      </InputLabel>
-                      <Select
-                        labelId='demo-simple-select-helper-label'
-                        id='demo-simple-select-helper'
-                        value={year}
-                        label='Year'
-                        onChange={e => {
-                          setYear(e.target.value);
-                        }}>
-                        <MenuItem value=''>
-                          <em>00</em>
-                        </MenuItem>
-                        <MenuItem value={'2021'}>2021</MenuItem>
-                        <MenuItem value={'2022'}>2022</MenuItem>
-                        <MenuItem value={'2023'}>2023</MenuItem>
-                        <MenuItem value={'2024'}>2024</MenuItem>
-                        <MenuItem value={'2025'}>2025</MenuItem>
-                        <MenuItem value={'2026'}>2026</MenuItem>
-                        <MenuItem value={'2027'}>2027</MenuItem>
-                        <MenuItem value={'2028'}>2028</MenuItem>
-                        <MenuItem value={'2029'}>2029</MenuItem>
-                        <MenuItem value={'2030'}>2030</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </div>
-                </div>
-                <div className='TextFieldCCV'>
-                  <TextField
-                    id='outlined-basic'
-                    label='CCV'
-                    variant='outlined'
-                    size='small'
-                    sx={FormShortControlConfig}
-                    value={ccv}
-                    onChange={e => setCcv(e.target.value)}
-                  />
-                </div>
-                <div className='paymentButton'>
-                  <Button
-                    variant='contained'
-                    type='submit'
-                    sx={{
-                      marginTop: '10px',
-                    }}>
-                    Chech Out
-                  </Button>
-                </div>
+              <form className='formPayment'>
+                <Button
+                  id='credit-card'
+                  variant='contained'
+                  type='submit'
+                  sx={{
+                    marginTop: '10px',
+                  }}
+                  onClick={e => {
+                    handleClick(e);
+                  }}>
+                  Chech Out
+                </Button>
+
+                {/* </div> */}
               </form>
             </div>
           </div>
