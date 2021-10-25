@@ -18,14 +18,6 @@ const routes = {
         component: Register,
       },
       {
-        path: '/lottery-input',
-        component: LotteryInput,
-      },
-      {
-        path: '/seller',
-        component: Seller,
-      },
-      {
         path: '/profile-editor',
         component: ProfileEditor,
       },
