@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AdminContent from "./AdminContent";
-import AdminQuiz from "./AdminQuiz";
 import { AppBar, Toolbar, Typography } from "@mui/material";
+import CreateQuiz from "./CreateQuiz";
 
 const quizBank = [
   {
@@ -48,6 +48,7 @@ const quizBank = [
 function CourseClassroomAdmin() {
   const [subjectOptions, setSubjectOptions] = useState([...quizBank]);
   const [displayEdit, setDisplayEdit] = useState(true);
+  const [displayCreate, setDisplayCreate] = useState(false);
   const [disableAddNewSubject, setDisableAddNewSubject] = useState(false);
 
   return (
@@ -86,7 +87,10 @@ function CourseClassroomAdmin() {
                 <button
                   href="#"
                   className="w3-button w3-block w3-ripple w3-blue"
-                  onClick={() => {}}
+                  onClick={() => {
+                    setDisplayCreate(true);
+                    setDisableAddNewSubject(true);
+                  }}
                   disabled={disableAddNewSubject}
                 >
                   +Add New Subject
@@ -119,10 +123,14 @@ function CourseClassroomAdmin() {
                 </div>
 
                 {/* Content */}
-                <AdminContent />
+                {/* <AdminContent /> */}
 
                 {/* Quiz */}
-                <AdminQuiz subjectOptions={subjectOptions} />
+                <CreateQuiz
+                  displayCreate={displayCreate}
+                  setDisplayCreate={setDisplayCreate}
+                  setDisableAddNewSubject={setDisableAddNewSubject}
+                />
               </div>
             )}
           </section>

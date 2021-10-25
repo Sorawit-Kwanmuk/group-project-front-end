@@ -15,7 +15,7 @@ const createQuizArr = [
   }
 ];
 
-function AdminQuiz({ subjectOptions }) {
+function EditQuiz({ subjectOptions }) {
   const [displayEdit, setDisplayEdit] = useState(true);
   const [fromQuiz, setFromQuiz] = useState(createQuizArr);
 
@@ -141,4 +141,4 @@ function AdminQuiz({ subjectOptions }) {
   );
 }
 
-export default AdminQuiz;
+export default EditQuiz;
