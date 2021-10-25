@@ -28,7 +28,7 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function CategorySelect() {
+export default function CategorySelect({ setCourseInfo }) {
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
 
@@ -40,6 +40,10 @@ export default function CategorySelect() {
       // On autofill we get a the stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    setCourseInfo((courseInfo) => ({
+      ...courseInfo,
+      category: event.target.value
+    }));
   };
 
   return (

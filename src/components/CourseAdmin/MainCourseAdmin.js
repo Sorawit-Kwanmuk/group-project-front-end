@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, CssBaseline, Grid, TextField } from "@mui/material";
 import Container from "@mui/material/Container";
 import Card from "@mui/material/Card";
@@ -10,6 +10,20 @@ import CategorySelect from "./CategoryDropDown";
 import { AppBar, Toolbar } from "@mui/material";
 
 function MainCourseAdmin() {
+  const [courseInfo, setCourseInfo] = useState({
+    courseName: "",
+    category: "",
+    level: "",
+    courseDuration: "",
+    price: "",
+    discount: "",
+    discountUntil: "",
+    courseImg: "",
+    shortDescription: "",
+    aboutCourse: ""
+  });
+  console.log("courseInfo:", courseInfo);
+
   return (
     <>
       <CssBaseline />
@@ -45,10 +59,16 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            courseName: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                     <Grid xs={12} item>
-                      <CategorySelect />
+                      <CategorySelect setCourseInfo={setCourseInfo} />
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
@@ -58,6 +78,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            level: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                     <Grid xs={12} item>
@@ -68,6 +94,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            courseDuration: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                     <Grid xs={12} item>
@@ -78,6 +110,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            price: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                     <Grid xs={12} item>
@@ -88,6 +126,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            discount: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                     <Grid xs={12} item>
@@ -98,6 +142,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            discountUntil: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                     <Grid xs={12} item>
@@ -108,6 +158,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            courseImg: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                   </Grid>
@@ -125,6 +181,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            shortDescription: e.target.value
+                          })
+                        }
                       />
                     </Grid>
 
@@ -138,6 +200,12 @@ function MainCourseAdmin() {
                         size="small"
                         fullWidth
                         required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            aboutCourse: e.target.value
+                          })
+                        }
                       />
                     </Grid>
                     <Grid xs={12} item>

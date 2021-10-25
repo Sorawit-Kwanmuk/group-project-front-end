@@ -38,14 +38,14 @@ function App() {
       {/* <OurTeam /> */}
       {/* <Instructor /> */}
       {/* <MainCourseAdmin /> */}
-      {/* <CourseClassroomAdmin /> */}
+      <CourseClassroomAdmin />
       {/* <ContactUsEdit /> */}
       {/* <ContactUsUser /> */}
       {/* <ClassroomILearn /> */}
       {/* <OurTeamAdmin /> */}
       {/* <InstructorEdit /> */}
       {/* <FeedbackAdmin /> */}
-      <HomeBannerAdmin />
+      {/* <HomeBannerAdmin /> */}
       <Footer />
     </>
   );
