@@ -6,12 +6,14 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import './styleLogin.css';
 import axios from '../../config/axios';
 import { setToken, getToken } from '../../services/localStorage';
+import { AuthContext } from '../../contexts/authContext';
+import { useHistory } from 'react-router';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -19,12 +21,14 @@ function Login() {
     showPassword: false,
   });
   console.log(values);
+  const { user, setUser } = useContext(AuthContext);
   const handleClickShowPassword = () => {
     setValues({
       ...values,
       showPassword: !values.showPassword,
     });
   };
+  const history = useHistory();
   const handleMouseDownPassword = event => {
     event.preventDefault();
   };
@@ -36,8 +40,10 @@ function Login() {
         username,
         password,
       });
-      console.log(res);
-      // setToken(res.data.token);
+      // console.log(res);
+      setToken(res.data.token);
+      setUser(res.data.user);
+      history.push('/');
     } catch (error) {
       console.dir(error);
     }
