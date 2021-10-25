@@ -12,7 +12,7 @@ const buttonOurTeam = {
   margin: '5px',
   color: '#fff',
 };
-const buttonOurUs = {
+const buttonContactUs = {
   margin: '5px',
   color: '#fff',
 };
@@ -21,5 +21,5 @@ export {
   buttonRegister,
   buttonOurCourse,
   buttonOurTeam,
-  buttonOurUs,
+  buttonContactUs,
 };

@@ -45,7 +45,7 @@ function Login() {
       console.log('LogRes: ', res);
       setToken(res.data.token);
       setUser(res.data.token);
-      // history.push('/');
+      history.push('/');
     } catch (error) {
       console.dir(error);
     }
@@ -99,7 +99,11 @@ function Login() {
             </Button>
           </div>
           <div className='divLogin'>
-            <Button variant='contained'>Register</Button>
+            <Button
+              variant='contained'
+              onClick={() => history.push('/register')}>
+              Register
+            </Button>
           </div>
         </div>
       </form>

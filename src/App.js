@@ -2,30 +2,35 @@ import './App.css';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import { AuthContext } from './contexts/authContext';
-import { useContext } from 'react';
-import { Redirect, Switch, Route } from 'react-router-domain';
+import { useContext, useState } from 'react';
+import { Redirect, Switch, Route, BrowserRouter } from 'react-router-dom';
 import routes from './config/route';
-import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   const { user, setUser } = useContext(AuthContext);
+  const [role, setRole] = useState(user ? user.role : 'guest');
   console.log(user);
-  const role = user ? user.role : 'guest';
+
+  // const role = user ? 'user' : 'guest';
+  console.log('role: ', role);
+  console.log('routes: ', routes);
   return (
     <>
       <BrowserRouter>
         <Header />
-        <Switch>
-          {routes[role].route.map(item => (
-            <Route
-              key={item.path}
-              exact
-              path={item.path}
-              component={item.component}
-            />
-          ))}
-          <Redirect to={routes[role].redirect} />
-        </Switch>
+        {role && (
+          <Switch>
+            {routes[role].route.map(item => (
+              <Route
+                key={item.path}
+                exact
+                path={item.path}
+                component={item.component}
+              />
+            ))}
+            <Redirect to={routes[role].redirect} />
+          </Switch>
+        )}
         <Footer />
       </BrowserRouter>
     </>
