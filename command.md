@@ -23,3 +23,4 @@
 - `npm i @material-ui/lab`
 - `npm install @mui/styles`
 - `npm i date-fns@next @date-io/date-fns`
+- `npm i react-load-script`

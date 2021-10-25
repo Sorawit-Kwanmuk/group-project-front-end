@@ -166,7 +166,7 @@ const routes = {
         component: AdminHome,
       },
       {
-        path: '/mai-course-admin',
+        path: '/main-course-admin',
         component: MainCourseAdmin,
       },
       {
