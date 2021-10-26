@@ -5,7 +5,7 @@ import { Button } from '@mui/material';
 import { useState } from 'react';
 function ForgetPassword() {
   const [usernameOrEmail, setUsernameOrEmail] = useState('');
-  console.log(usernameOrEmail);
+  // console.log(usernameOrEmail);
   return (
     <>
       <div className='divMyAccount'>

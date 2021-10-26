@@ -15,14 +15,20 @@ import { setToken, getToken } from '../../services/localStorage';
 import { AuthContext } from '../../contexts/authContext';
 import { useHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
+import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [values, setValues] = useState({
     showPassword: false,
   });
+  const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
+    useContext(LoginRegisStatusContext);
+  const handleClickCloseLogin = () => {
+    setLoginStatus(false);
+  };
 
-  console.log(values);
+  // console.log(values);
   const { user, setUser } = useContext(AuthContext);
   const handleClickShowPassword = () => {
     setValues({
@@ -43,10 +49,11 @@ function Login() {
         password,
       });
 
-      console.log('LogRes: ', res);
+      // console.log('LogRes: ', res);
       setToken(res.data.token);
       setUser(res.data.token);
       history.push('/');
+      setLoginStatus(false);
       window.location.reload();
     } catch (error) {
       console.dir(error);
@@ -55,7 +62,7 @@ function Login() {
 
   return (
     <>
-      <form action='' onSubmit={handleSubmitLogin}>
+      <form className='formLoginMain' action='' onSubmit={handleSubmitLogin}>
         <div className='LoginForm'>
           <span className='spanLogin'>Login</span>
           <div className='divLogin'>
@@ -110,7 +117,7 @@ function Login() {
           </div>
         </div>
       </form>
-      <div className='divCloseAll'></div>
+      <div className='divCloseAll' onClick={handleClickCloseLogin}></div>
     </>
   );
 }

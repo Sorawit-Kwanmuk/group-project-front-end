@@ -13,7 +13,7 @@ function MyProfile() {
 
   // console.log(image);
   const [alignment, setAlignment] = useState('');
-  console.log(alignment);
+  // console.log(alignment);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };

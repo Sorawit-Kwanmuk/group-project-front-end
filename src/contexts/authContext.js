@@ -5,9 +5,10 @@ const AuthContext = createContext();
 
 function AuthContextProvider({ children }) {
   const [user, setUser] = useState(initialUser);
-  console.log('user', user);
+  const [toggle, setToggle] = useState(false);
+  // console.log('user', user);
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, setUser, toggle, setToggle }}>
       {children}
     </AuthContext.Provider>
   );

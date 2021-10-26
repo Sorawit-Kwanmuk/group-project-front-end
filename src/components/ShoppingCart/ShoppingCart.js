@@ -58,18 +58,18 @@ function ShoppingCart() {
   //   });
   // };
   const handleClick = e => {
-    console.log('Click');
+    // console.log('Click');
     e.preventDefault();
     OmiseCard.open({
       amount: 10000,
       submitFormTarget: '#credit-card',
       onCreateTokenSuccess: async nonce => {
-        console.log('nonce: ', nonce);
+        // console.log('nonce: ', nonce);
         const res = await axios.post('/checkout', {
           token: nonce,
           amount: 10000,
         });
-        console.log(res);
+        // console.log(res);
       },
       onFormClosed: () => {},
     });

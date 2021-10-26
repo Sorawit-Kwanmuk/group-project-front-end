@@ -3,7 +3,7 @@ import Script from 'react-load-script';
 
 function checkOutCreditCard() {
   const handleLoadScript = () => {
-    console.log(window.OmiseCard);
+    // console.log(window.OmiseCard);
   };
   return (
     <div>

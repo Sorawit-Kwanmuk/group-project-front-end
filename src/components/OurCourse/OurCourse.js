@@ -12,14 +12,28 @@ import CourseCard from '../CourseCard/CourseCard';
 import Pagination from '@mui/material/Pagination';
 
 import { InputBaseConfig, IconButtonConfig, ButtonConfig } from './muiConfig';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from '../../config/axios';
 function OurCourse() {
   const [orderBy, setOrderBy] = useState('');
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-
+  const [courses, setCourses] = useState([]);
   const handleSummitSearch = e => {};
+  useEffect(() => {
+    const fetchDataAllCourse = async () => {
+      try {
+        const res = await axios.get('/course/');
+        // console.log(res);
+        setCourses(res.data.courseResult);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
+    fetchDataAllCourse();
+  }, []);
+  console.log('courses: ', courses);
   return (
     <>
       <div className='divMainControllerOurCourse'>
@@ -88,18 +102,9 @@ function OurCourse() {
             </div>
           </div>
           <div className='outputSearchField'>
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
-            <CourseCard />
+            {courses.map(item => (
+              <CourseCard key={item.id} item={item} />
+            ))}
           </div>
         </div>
         <div className='divPaginationSearch'>
