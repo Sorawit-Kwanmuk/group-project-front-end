@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const createQuizTemplate = {
   subjectName: "CREATE",
@@ -16,11 +20,16 @@ const createQuizTemplate = {
 
 function CreateQuiz({
   setDisableAddNewSubject,
-  setDisableBtnContQuiz,
+  setDisableBtnGroup,
   displayQuizCreate,
   setDisplayQuizCreate
 }) {
   const [fromQuiz, setFromQuiz] = useState(createQuizTemplate);
+  const [subject, setSubject] = useState("");
+
+  const handleChange = (event) => {
+    setSubject(event.target.value);
+  };
 
   return (
     <>
@@ -44,17 +53,23 @@ function CreateQuiz({
                   alignItems: "center"
                 }}
               >
-                <label className="w3-margin-right">Lesson:</label>
-                <input
-                  type="text"
-                  style={{ width: "100%" }}
-                  onChange={(e) => {
-                    setFromQuiz((quiz) => ({
-                      ...quiz,
-                      subjectName: e.target.value
-                    }));
-                  }}
-                />
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Subject list
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={subject}
+                    label="Subject list"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={"html"}>HTML</MenuItem>
+                    <MenuItem value={"css"}>CSS</MenuItem>
+                    <MenuItem value={"javascript"}>JAVASCRIPT</MenuItem>
+                  </Select>
+                </FormControl>
+
                 <div className="w3-block w3-right">
                   <button className="w3-green w3-button w3-ripple w3-mobile w3-margin-left">
                     Save create
@@ -65,7 +80,7 @@ function CreateQuiz({
                       setFromQuiz(createQuizTemplate);
                       setDisplayQuizCreate(false);
                       setDisableAddNewSubject(false);
-                      setDisableBtnContQuiz([true, true]);
+                      setDisableBtnGroup([true, true, true]);
                     }}
                   >
                     Cancel

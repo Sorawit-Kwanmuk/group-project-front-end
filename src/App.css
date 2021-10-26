@@ -36,3 +36,16 @@
     transform: rotate(360deg);
   }
 }
+
+.Admin__section {
+  display: flex;
+  align-items: flex-start;
+}
+
+.Quiz__choice {
+  cursor: pointer;
+  background-color: #0096c7;
+  border-radius: 4px 4px;
+  min-width: 160px;
+  width: 40%;
+}

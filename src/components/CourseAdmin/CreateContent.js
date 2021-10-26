@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
-function AdminContent({
+function CreateContent({
   setDisableAddNewSubject,
-  setDisableBtnContQuiz,
+  setDisableBtnGroup,
   setDisplayContCreate
 }) {
   const [content, setContent] = useState({
     subject: "",
-    subLesson: "",
+    lesson: "",
     vdoLink: "",
-    slideLink: "",
-    instructor: ""
+    slideLink: ""
   });
+  const [subject, setSubject] = useState("");
 
-  console.log("content:", content);
+  const handleChange = (event) => {
+    setSubject(event.target.value);
+  };
 
   return (
     <div>
@@ -25,23 +31,24 @@ function AdminContent({
           <b>Content</b>{" "}
         </p>
         <p>
-          <label className="w3-text-blue">
-            <b>Subject</b>
-          </label>
-          <input
-            className="w3-input w3-border"
-            type="text"
-            onChange={(e) =>
-              setContent({
-                ...content,
-                subject: e.target.value
-              })
-            }
-          />
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Subject list</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={subject}
+              label="Subject list"
+              onChange={handleChange}
+            >
+              <MenuItem value={"html"}>HTML</MenuItem>
+              <MenuItem value={"css"}>CSS</MenuItem>
+              <MenuItem value={"javascript"}>JAVASCRIPT</MenuItem>
+            </Select>
+          </FormControl>
         </p>
         <p>
           <label className="w3-text-blue">
-            <b>Sub-lesson name</b>
+            <b>Lesson name</b>
           </label>
           <input
             className="w3-input w3-border"
@@ -49,7 +56,7 @@ function AdminContent({
             onChange={(e) =>
               setContent({
                 ...content,
-                subject: e.target.value
+                lesson: e.target.value
               })
             }
           />
@@ -84,21 +91,6 @@ function AdminContent({
             }
           />
         </p>
-        <p>
-          <label className="w3-text-blue">
-            <b>Instructor</b>
-          </label>
-          <input
-            className="w3-input w3-border"
-            type="text"
-            onChange={(e) =>
-              setContent({
-                ...content,
-                instructor: e.target.value
-              })
-            }
-          />
-        </p>
 
         <div className="w3-bar-item w3-center w3-margin-bottom">
           <button
@@ -111,7 +103,7 @@ function AdminContent({
             className="w3-red w3-button w3-ripple w3-mobile"
             onClick={() => {
               setDisableAddNewSubject(false);
-              setDisableBtnContQuiz([true, true]);
+              setDisableBtnGroup([true, true, true]);
               setDisplayContCreate(false);
             }}
           >
@@ -123,4 +115,4 @@ function AdminContent({
   );
 }
 
-export default AdminContent;
+export default CreateContent;

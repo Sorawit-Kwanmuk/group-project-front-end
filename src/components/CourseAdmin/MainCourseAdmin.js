@@ -22,7 +22,6 @@ function MainCourseAdmin() {
     shortDescription: "",
     aboutCourse: ""
   });
-  console.log("courseInfo:", courseInfo);
 
   return (
     <>

@@ -12,26 +12,3 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: Merriweather, serif;
-  font-size: 46px;
-}
-
-.Admin__section {
-  display: flex;
-  align-items: flex-start;
-}
-
-.Quiz__choice {
-  cursor: pointer;
-  background-color: #0096c7;
-  border-radius: 4px 4px;
-  min-width: 160px;
-  width: 40%;
-}

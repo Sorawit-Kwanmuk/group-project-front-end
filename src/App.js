@@ -16,28 +16,6 @@ function App() {
   console.log("routes: ", routes);
   return (
     <>
-      <Header />
-      {/* <Home /> */}
-      {/* <AdminHome /> */}
-      {/* <CourseCard /> */}
-      {/* <MyProfile /> */}
-      {/* <ForgetPassword /> */}
-      {/* <Register /> */}
-      {/* <Login /> */}
-      {/* <ShoppingCart /> */}
-      {/* <OurCourse /> */}
-      {/* <OurTeam /> */}
-      {/* <Instructor /> */}
-      {/* <MainCourseAdmin /> */}
-      {/* <CourseClassroomAdmin /> */}
-      {/* <ContactUsEdit /> */}
-      {/* <ContactUsUser /> */}
-      {/* <ClassroomILearn /> */}
-      {/* <OurTeamAdmin /> */}
-      {/* <InstructorEdit /> */}
-      {/* <FeedbackAdmin /> */}
-      {/* <HomeBannerAdmin /> */}
-      <Footer />
       <BrowserRouter>
         <Header />
         {role && (

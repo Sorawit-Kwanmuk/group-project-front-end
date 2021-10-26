@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import AdminContent from "./AdminContent";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import CreateQuiz from "./CreateQuiz";
+import CreateTopic from "./CreateTopic";
+import CreateContent from "./CreateContent";
 
 const quizBank = [
   {
@@ -50,7 +51,8 @@ function CourseClassroomAdmin() {
   const [displayEdit, setDisplayEdit] = useState(true);
 
   const [disableAddNewSubject, setDisableAddNewSubject] = useState(false);
-  const [disableBtnContQuiz, setDisableBtnContQuiz] = useState([true, true]);
+  const [disableBtnGroup, setDisableBtnGroup] = useState([true, true, true]);
+  const [displayTopicCreate, setDisplayTopicCreate] = useState(false);
   const [displayContCreate, setDisplayContCreate] = useState(false);
   const [displayQuizCreate, setDisplayQuizCreate] = useState(false);
 
@@ -92,7 +94,7 @@ function CourseClassroomAdmin() {
                   className="w3-button w3-block w3-ripple w3-blue"
                   onClick={() => {
                     setDisableAddNewSubject(true);
-                    setDisableBtnContQuiz([false, false]);
+                    setDisableBtnGroup([false, false]);
                   }}
                   disabled={disableAddNewSubject}
                 >
@@ -114,9 +116,21 @@ function CourseClassroomAdmin() {
                 >
                   <div className="w3-right">
                     <button
-                      className="w3-blue w3-button w3-ripple w3-mobile w3-margin-left"
-                      disabled={disableBtnContQuiz[0]}
+                      className="w3-green w3-button w3-ripple w3-mobile w3-margin-left"
+                      disabled={disableBtnGroup[0]}
                       onClick={() => {
+                        setDisplayTopicCreate(true);
+                        setDisplayContCreate(false);
+                        setDisplayQuizCreate(false);
+                      }}
+                    >
+                      Topic
+                    </button>
+                    <button
+                      className="w3-blue w3-button w3-ripple w3-mobile"
+                      disabled={disableBtnGroup[1]}
+                      onClick={() => {
+                        setDisplayTopicCreate(false);
                         setDisplayContCreate(true);
                         setDisplayQuizCreate(false);
                       }}
@@ -125,10 +139,11 @@ function CourseClassroomAdmin() {
                     </button>
                     <button
                       className="w3-purple w3-button w3-ripple w3-mobile"
-                      disabled={disableBtnContQuiz[1]}
+                      disabled={disableBtnGroup[2]}
                       onClick={() => {
-                        setDisplayQuizCreate(true);
+                        setDisplayTopicCreate(false);
                         setDisplayContCreate(false);
+                        setDisplayQuizCreate(true);
                       }}
                     >
                       Quiz
@@ -136,19 +151,28 @@ function CourseClassroomAdmin() {
                   </div>
                 </div>
 
-                {/* Content */}
-                {displayContCreate && (
-                  <AdminContent
-                    setDisplayContCreate={setDisplayContCreate}
-                    setDisableBtnContQuiz={setDisableBtnContQuiz}
+                {/* # Topic */}
+                {displayTopicCreate && (
+                  <CreateTopic
                     setDisableAddNewSubject={setDisableAddNewSubject}
+                    setDisableBtnGroup={setDisableBtnGroup}
+                    setDisplayTopicCreate={setDisplayTopicCreate}
                   />
                 )}
 
-                {/* Quiz */}
+                {/* # Content */}
+                {displayContCreate && (
+                  <CreateContent
+                    setDisableAddNewSubject={setDisableAddNewSubject}
+                    setDisableBtnGroup={setDisableBtnGroup}
+                    setDisplayContCreate={setDisplayContCreate}
+                  />
+                )}
+
+                {/* # Quiz */}
                 <CreateQuiz
                   setDisableAddNewSubject={setDisableAddNewSubject}
-                  setDisableBtnContQuiz={setDisableBtnContQuiz}
+                  setDisableBtnGroup={setDisableBtnGroup}
                   displayQuizCreate={displayQuizCreate}
                   setDisplayQuizCreate={setDisplayQuizCreate}
                 />
