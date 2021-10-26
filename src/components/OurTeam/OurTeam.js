@@ -74,13 +74,22 @@ function OurCourse() {
                   size='small'
                   sx={{ backgroundColor: '#f5f5f5' }}
                   onChange={e => setOrderBy(e.target.value)}>
-                  <MenuItem size='small' value={'html'}>
+                  <MenuItem
+                    size='small'
+                    sx={{ minWidth: '200px' }}
+                    value={'html'}>
                     HTML
                   </MenuItem>
-                  <MenuItem size='small' value={'Css'}>
+                  <MenuItem
+                    size='small'
+                    sx={{ minWidth: '200px' }}
+                    value={'Css'}>
                     Css
                   </MenuItem>
-                  <MenuItem size='small' value={'javaScript'}>
+                  <MenuItem
+                    size='small'
+                    sx={{ minWidth: '200px' }}
+                    value={'javaScript'}>
                     JavaScript
                   </MenuItem>
                 </Select>

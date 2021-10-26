@@ -21,6 +21,7 @@ function Login() {
   const [values, setValues] = useState({
     showPassword: false,
   });
+
   console.log(values);
   const { user, setUser } = useContext(AuthContext);
   const handleClickShowPassword = () => {
@@ -46,6 +47,7 @@ function Login() {
       setToken(res.data.token);
       setUser(res.data.token);
       history.push('/');
+      window.location.reload();
     } catch (error) {
       console.dir(error);
     }
