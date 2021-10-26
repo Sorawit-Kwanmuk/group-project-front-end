@@ -15,9 +15,10 @@ const createQuizTemplate = {
 };
 
 function CreateQuiz({
-  displayCreate,
-  setDisplayCreate,
-  setDisableAddNewSubject
+  setDisableAddNewSubject,
+  setDisableBtnContQuiz,
+  displayQuizCreate,
+  setDisplayQuizCreate
 }) {
   const [fromQuiz, setFromQuiz] = useState(createQuizTemplate);
 
@@ -25,7 +26,7 @@ function CreateQuiz({
     <>
       <section className="Admin__section">
         {/* <!-- Create Questions --> */}
-        {displayCreate && (
+        {displayQuizCreate && (
           <div
             style={{
               width: "100%",
@@ -61,9 +62,10 @@ function CreateQuiz({
                   <button
                     className="w3-red w3-button w3-ripple w3-mobile w3-margin-left"
                     onClick={() => {
-                      setDisplayCreate(false);
-                      setDisableAddNewSubject(false);
                       setFromQuiz(createQuizTemplate);
+                      setDisplayQuizCreate(false);
+                      setDisableAddNewSubject(false);
+                      setDisableBtnContQuiz([true, true]);
                     }}
                   >
                     Cancel

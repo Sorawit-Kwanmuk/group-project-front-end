@@ -37,8 +37,8 @@ function App() {
       {/* <OurCourse /> */}
       {/* <OurTeam /> */}
       {/* <Instructor /> */}
-      {/* <MainCourseAdmin /> */}
-      <CourseClassroomAdmin />
+      <MainCourseAdmin />
+      {/* <CourseClassroomAdmin /> */}
       {/* <ContactUsEdit /> */}
       {/* <ContactUsUser /> */}
       {/* <ClassroomILearn /> */}

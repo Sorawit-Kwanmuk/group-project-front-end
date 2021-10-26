@@ -48,8 +48,11 @@ const quizBank = [
 function CourseClassroomAdmin() {
   const [subjectOptions, setSubjectOptions] = useState([...quizBank]);
   const [displayEdit, setDisplayEdit] = useState(true);
-  const [displayCreate, setDisplayCreate] = useState(false);
+
   const [disableAddNewSubject, setDisableAddNewSubject] = useState(false);
+  const [disableBtnContQuiz, setDisableBtnContQuiz] = useState([true, true]);
+  const [displayContCreate, setDisplayContCreate] = useState(false);
+  const [displayQuizCreate, setDisplayQuizCreate] = useState(false);
 
   return (
     <div style={{ minHeight: 580 }}>
@@ -88,8 +91,8 @@ function CourseClassroomAdmin() {
                   href="#"
                   className="w3-button w3-block w3-ripple w3-blue"
                   onClick={() => {
-                    setDisplayCreate(true);
                     setDisableAddNewSubject(true);
+                    setDisableBtnContQuiz([false, false]);
                   }}
                   disabled={disableAddNewSubject}
                 >
@@ -110,12 +113,23 @@ function CourseClassroomAdmin() {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <div className="w3-right">
-                    <button className="w3-blue w3-button w3-ripple w3-mobile w3-margin-left">
+                    <button
+                      className="w3-blue w3-button w3-ripple w3-mobile w3-margin-left"
+                      disabled={disableBtnContQuiz[0]}
+                      onClick={() => {
+                        setDisplayContCreate(true);
+                        setDisplayQuizCreate(false);
+                      }}
+                    >
                       Content
                     </button>
                     <button
                       className="w3-purple w3-button w3-ripple w3-mobile"
-                      onClick={() => {}}
+                      disabled={disableBtnContQuiz[1]}
+                      onClick={() => {
+                        setDisplayQuizCreate(true);
+                        setDisplayContCreate(false);
+                      }}
                     >
                       Quiz
                     </button>
@@ -123,13 +137,20 @@ function CourseClassroomAdmin() {
                 </div>
 
                 {/* Content */}
-                {/* <AdminContent /> */}
+                {displayContCreate && (
+                  <AdminContent
+                    setDisplayContCreate={setDisplayContCreate}
+                    setDisableBtnContQuiz={setDisableBtnContQuiz}
+                    setDisableAddNewSubject={setDisableAddNewSubject}
+                  />
+                )}
 
                 {/* Quiz */}
                 <CreateQuiz
-                  displayCreate={displayCreate}
-                  setDisplayCreate={setDisplayCreate}
                   setDisableAddNewSubject={setDisableAddNewSubject}
+                  setDisableBtnContQuiz={setDisableBtnContQuiz}
+                  displayQuizCreate={displayQuizCreate}
+                  setDisplayQuizCreate={setDisplayQuizCreate}
                 />
               </div>
             )}

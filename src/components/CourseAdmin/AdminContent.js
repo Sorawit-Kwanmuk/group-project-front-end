@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-function AdminContent() {
+function AdminContent({
+  setDisableAddNewSubject,
+  setDisableBtnContQuiz,
+  setDisplayContCreate
+}) {
   const [content, setContent] = useState({
     subject: "",
     subLesson: "",
@@ -13,7 +17,10 @@ function AdminContent() {
 
   return (
     <div>
-      <form className="w3-container w3-card-4">
+      <form
+        className="w3-container w3-card-4"
+        onSubmit={(e) => e.preventDefault()}
+      >
         <p className="w3-text-blue w3-center">
           <b>Content</b>{" "}
         </p>
@@ -102,7 +109,11 @@ function AdminContent() {
           </button>
           <button
             className="w3-red w3-button w3-ripple w3-mobile"
-            onClick={() => {}}
+            onClick={() => {
+              setDisableAddNewSubject(false);
+              setDisableBtnContQuiz([true, true]);
+              setDisplayContCreate(false);
+            }}
           >
             Cancel
           </button>
