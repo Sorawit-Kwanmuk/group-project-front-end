@@ -5,7 +5,6 @@ import { AuthContext } from "./contexts/authContext";
 import { useContext, useState } from "react";
 import { Redirect, Switch, Route, BrowserRouter } from "react-router-dom";
 import routes from "./config/route";
-import CourseClassroomAdmin from "./components/CourseAdmin/CourseClassroomAdmin";
 
 function App() {
   const { user, setUser } = useContext(AuthContext);

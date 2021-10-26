@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AdminContent from "./AdminContent";
-import AdminQuiz from "./AdminQuiz";
 import { AppBar, Toolbar, Typography } from "@mui/material";
+import CreateQuiz from "./CreateQuiz";
 
 const quizBank = [
   {
@@ -48,7 +48,11 @@ const quizBank = [
 function CourseClassroomAdmin() {
   const [subjectOptions, setSubjectOptions] = useState([...quizBank]);
   const [displayEdit, setDisplayEdit] = useState(true);
+
   const [disableAddNewSubject, setDisableAddNewSubject] = useState(false);
+  const [disableBtnContQuiz, setDisableBtnContQuiz] = useState([true, true]);
+  const [displayContCreate, setDisplayContCreate] = useState(false);
+  const [displayQuizCreate, setDisplayQuizCreate] = useState(false);
 
   return (
     <div style={{ minHeight: 580 }}>
@@ -86,7 +90,10 @@ function CourseClassroomAdmin() {
                 <button
                   href="#"
                   className="w3-button w3-block w3-ripple w3-blue"
-                  onClick={() => {}}
+                  onClick={() => {
+                    setDisableAddNewSubject(true);
+                    setDisableBtnContQuiz([false, false]);
+                  }}
                   disabled={disableAddNewSubject}
                 >
                   +Add New Subject
@@ -106,12 +113,23 @@ function CourseClassroomAdmin() {
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <div className="w3-right">
-                    <button className="w3-blue w3-button w3-ripple w3-mobile w3-margin-left">
+                    <button
+                      className="w3-blue w3-button w3-ripple w3-mobile w3-margin-left"
+                      disabled={disableBtnContQuiz[0]}
+                      onClick={() => {
+                        setDisplayContCreate(true);
+                        setDisplayQuizCreate(false);
+                      }}
+                    >
                       Content
                     </button>
                     <button
                       className="w3-purple w3-button w3-ripple w3-mobile"
-                      onClick={() => {}}
+                      disabled={disableBtnContQuiz[1]}
+                      onClick={() => {
+                        setDisplayQuizCreate(true);
+                        setDisplayContCreate(false);
+                      }}
                     >
                       Quiz
                     </button>
@@ -119,10 +137,21 @@ function CourseClassroomAdmin() {
                 </div>
 
                 {/* Content */}
-                <AdminContent />
+                {displayContCreate && (
+                  <AdminContent
+                    setDisplayContCreate={setDisplayContCreate}
+                    setDisableBtnContQuiz={setDisableBtnContQuiz}
+                    setDisableAddNewSubject={setDisableAddNewSubject}
+                  />
+                )}
 
                 {/* Quiz */}
-                <AdminQuiz subjectOptions={subjectOptions} />
+                <CreateQuiz
+                  setDisableAddNewSubject={setDisableAddNewSubject}
+                  setDisableBtnContQuiz={setDisableBtnContQuiz}
+                  displayQuizCreate={displayQuizCreate}
+                  setDisplayQuizCreate={setDisplayQuizCreate}
+                />
               </div>
             )}
           </section>
