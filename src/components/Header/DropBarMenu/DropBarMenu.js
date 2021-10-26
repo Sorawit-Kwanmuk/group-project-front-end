@@ -15,10 +15,10 @@ import { useHistory } from 'react-router';
 import { Fragment, useContext, useState } from 'react';
 import { AuthContext } from '../../../contexts/authContext';
 import { removeToken } from '../../../services/localStorage';
-function DropBarMenu() {
+function DropBarMenu({ setOpen, setRole }) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { user, setUser } = useContext(AuthContext);
-  const [role, setRole] = useState(user ? user.role : 'guest');
+  const { user, setUser, toggle, setToggle } = useContext(AuthContext);
+
   const history = useHistory();
   const open = Boolean(anchorEl);
   const handleClick = event => {
@@ -27,9 +27,12 @@ function DropBarMenu() {
   const handleClickLogout = () => {
     setUser(null);
     removeToken();
+    setRole('guest');
+    // history.push('/');
+    setToggle(current => !current);
+    setOpen(current => !current);
     console.log('user after logout:', user);
-    history.push('/');
-    window.location.reload();
+    // window.location.reload();
   };
   const handleClose = () => {
     setAnchorEl(null);

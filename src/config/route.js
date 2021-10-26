@@ -173,10 +173,7 @@ const routes = {
         path: '/course-classroom-admin',
         component: CourseClassroomAdmin,
       },
-      {
-        path: '/admin-quiz',
-        component: AdminQuiz,
-      },
+
       {
         path: '/our-team-admin',
         component: OurTeamAdmin,

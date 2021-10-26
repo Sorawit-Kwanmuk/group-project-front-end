@@ -15,11 +15,21 @@ import { useHistory } from 'react-router';
 import iconCode from '../../public/images/code.png';
 import John from '../../public/images/john.jpg';
 import DropBarMenu from './DropBarMenu/DropBarMenu';
+import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
 function Header() {
-  const { user, setUser } = useContext(AuthContext);
+  const { user, setUser, toggle, setToggle } = useContext(AuthContext);
   const [role, setRole] = useState(user ? user.role : 'guest');
-  console.log('roleHeader:', role);
+  const [open, setOpen] = useState(false);
+  // console.log('roleHeader:', role);
   const history = useHistory();
+  const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
+    useContext(LoginRegisStatusContext);
+  const handleClickLogin = () => {
+    setLoginStatus(true);
+  };
+  const handleClickRegister = () => {
+    setRegisterStatus(true);
+  };
 
   return (
     <div className='MenuItem'>
@@ -60,7 +70,7 @@ function Header() {
           <Button
             variant='contained'
             sx={buttonLogin}
-            onClick={() => history.push('/login')}>
+            onClick={handleClickLogin}>
             Login
           </Button>
         )}
@@ -68,11 +78,11 @@ function Header() {
           <Button
             variant='contained'
             sx={buttonRegister}
-            onClick={() => history.push('/register')}>
+            onClick={handleClickRegister}>
             Register
           </Button>
         )}
-        {user && <DropBarMenu />}
+        {user && <DropBarMenu setOpen={setOpen} setRole={setRole} />}
       </div>
     </div>
   );

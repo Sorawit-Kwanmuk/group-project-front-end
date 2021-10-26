@@ -5,18 +5,25 @@ import { AuthContext } from './contexts/authContext';
 import { useContext, useState } from 'react';
 import { Redirect, Switch, Route, BrowserRouter } from 'react-router-dom';
 import routes from './config/route';
+import Login from './components/Login/Login';
+import { LoginRegisStatusContext } from './contexts/loginRegisStatus';
+import Register from './components/Register/Register';
 
 function App() {
   const { user, setUser } = useContext(AuthContext);
+  const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
+    useContext(LoginRegisStatusContext);
   const [role, setRole] = useState(user ? user.role : 'guest');
-  console.log(user);
+  // console.log(user);
 
   // const role = user ? 'user' : 'guest';
-  console.log('role: ', role);
-  console.log('routes: ', routes);
+  // console.log('role: ', role);
+  // console.log('routes: ', routes);
   return (
     <>
       <BrowserRouter>
+        {loginStatus === true && <Login />}
+        {registerStatus === true && <Register />}
         <Header />
         {role && (
           <Switch>

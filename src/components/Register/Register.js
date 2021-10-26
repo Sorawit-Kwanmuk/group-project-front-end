@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import './styleRegister.css';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -8,6 +8,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import { TextFieldConfig, ButtonRegisterConfig } from './muiConfig';
 import axios from '../../config/axios';
 import { useHistory } from 'react-router';
+import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -18,10 +19,12 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [mobileNo, setMobileNo] = useState('');
-
+  const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
+    useContext(LoginRegisStatusContext);
   const history = useHistory();
+
   const handleSubmitRegister = e => {
-    console.log('Submit');
+    // console.log('Submit');
     e.preventDefault();
     axios
       .post('/auth/register', {
@@ -35,11 +38,14 @@ function Register() {
       })
       .then(res => {
         history.push('/login');
-        console.log(res);
+        // console.log(res);
       })
       .catch(err => {
         console.log(err);
       });
+  };
+  const handleCloseRegister = () => {
+    setRegisterStatus(false);
   };
   return (
     <>
@@ -147,7 +153,7 @@ function Register() {
           </Button>
         </div>
       </div>
-      <div className='divCloseAll'></div>
+      <div className='divCloseAll' onClick={handleCloseRegister}></div>
     </>
   );
 }

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     box-shadow: gray 0px 0px 5px;
-    width: 300px;
+    width: 430px;
     height: auto;
     padding: 5px;
     margin: 5px 15px 15px 15px;
@@ -37,4 +37,41 @@ img {
     margin: 0;
     font-size: 18px;
     margin-bottom: 15px;
+}
+
+.threeTagControl {
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+}
+
+.frontEnd {
+    width: 100%;
+    height: 100%;
+    background-color: #00bcd4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.backEnd {
+    width: 100%;
+    height: 100%;
+    background-color: #ff9800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.uxUi {
+    width: 100%;
+    height: 100%;
+    background-color: #9c27b0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.divCourseDetail {
+    width: 200px;
 }
