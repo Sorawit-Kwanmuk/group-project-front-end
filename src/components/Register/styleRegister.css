@@ -10,7 +10,7 @@
     margin: 0 auto;
     border-radius: 10px;
     position: absolute;
-    z-index: 100000;
+    z-index: 1000;
     top: 20%;
     left: 40%;
     padding-bottom: 20px;
@@ -61,4 +61,10 @@
 
 .usernameRegister {
     margin-top: -10px;
+}
+
+.MuiDialog-container,
+.MuiDialog-scrollPaper,
+.css-hz1bth-MuiDialog-container {
+    z-index: 300000;
 }

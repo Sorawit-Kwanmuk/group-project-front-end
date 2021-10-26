@@ -4,19 +4,22 @@ import CourseCard from '../../CourseCard/CourseCard';
 import './styleBody.css';
 
 function Body() {
-  const [courseHome, setCourseHome] = useState([]);
-  console.log('courseHome: ', courseHome);
+  const [courseRatingHome, setCourseRatingHome] = useState([]);
+  const [coursePromotionHome, setCoursePromotionHome] = useState([]);
+  console.log('courseRatingHome: ', courseRatingHome);
+  console.log('coursePromotionHome: ', coursePromotionHome);
   useEffect(() => {
     const fetchDataAllCourseForHome = async () => {
       try {
-        const res = await axios.get('/course/');
+        const res = await axios.get('/course/byrating');
         // console.log(res);
-        setCourseHome(res.data.courseResult);
+        setCourseRatingHome(res.data.courseResult);
+        const res2 = await axios.get('/course/bypromotion');
+        setCoursePromotionHome(res2.data.courseResult);
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchDataAllCourseForHome();
   }, []);
   return (
@@ -25,7 +28,7 @@ function Body() {
         <label className='label_mostPopular'>Most Popular</label>
         <div className='popular_item_controller'>
           <div className='popular_item'>
-            {courseHome
+            {courseRatingHome
               .filter((item, index) => index < 4)
               .map(item => (
                 <CourseCard key={item.id} item={item} />
@@ -36,7 +39,7 @@ function Body() {
           <label className='label_sale'>Sale!</label>
           <div className='popular_item_controller'>
             <div className='sale_item'>
-              {courseHome
+              {coursePromotionHome
                 .filter((item, index) => index < 4)
                 .map(item => (
                   <CourseCard key={item.id} item={item} />

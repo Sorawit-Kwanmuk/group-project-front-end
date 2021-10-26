@@ -1,7 +1,9 @@
+import { useHistory } from 'react-router';
 import courseImage from '../../public/images/javascript-training-120620.jpg';
 import './styleCourseCard.css';
 function CourseCard({ item }) {
   const {
+    id,
     courseName,
     rating,
     price,
@@ -11,11 +13,14 @@ function CourseCard({ item }) {
     courseImage,
   } = item;
   const result = item.CourseCats.map(item => item.categoryId);
-
+  const history = useHistory();
   // console.log('item: ', item);
   // console.log('item: ', item.CourseCats);
+  const handleClickToCourseCardDetail = () => {
+    history.push(`/shopping-card/${id}`);
+  };
   return (
-    <div className='cardBody'>
+    <div className='cardBody' onClick={handleClickToCourseCardDetail}>
       <div className='divCourseImage'>
         <img src={courseImage} alt='' />
       </div>

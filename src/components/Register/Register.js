@@ -93,6 +93,7 @@ function Register() {
               <DatePicker
                 label='Birth Date'
                 value={birthDate}
+                sx={{ zIndex: 3000001 }}
                 onChange={newValue => {
                   setBirthDate(newValue);
                 }}

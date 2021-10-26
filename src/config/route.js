@@ -36,7 +36,7 @@ const routes = {
         component: OurTeam,
       },
       {
-        path: '/shopping-card',
+        path: '/shopping-card/:id',
         component: ShoppingCard,
       },
       {
@@ -81,7 +81,7 @@ const routes = {
         component: OurTeam,
       },
       {
-        path: '/shopping-card',
+        path: '/shopping-card/:id',
         component: ShoppingCard,
       },
       {
@@ -114,7 +114,7 @@ const routes = {
         component: OurTeam,
       },
       {
-        path: '/shopping-card',
+        path: '/shopping-card/:id',
         component: ShoppingCard,
       },
       {
