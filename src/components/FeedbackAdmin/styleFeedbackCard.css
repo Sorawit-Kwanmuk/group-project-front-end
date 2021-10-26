@@ -1,4 +1,4 @@
-.cardBody {
+.FeedbackCardBody {
   display: flex;
   flex-direction: column;
   box-shadow: gray 0px 0px 5px;

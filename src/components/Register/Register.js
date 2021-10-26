@@ -7,24 +7,19 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { TextFieldConfig, ButtonRegisterConfig } from './muiConfig';
 import axios from '../../config/axios';
+import { useHistory } from 'react-router';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [fullName, setFullName] = useState('');
-  // const [value, setValue] = useState(null);
+
   const [birthDate, setBirthDate] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [mobileNo, setMobileNo] = useState('');
-  // const [value, setValue] = useState(null);
-  // console.log('username: ', username);
-  // console.log('fullName: ', fullName);
-  // console.log('birthDate: ', birthDate);
-  // console.log('email: ', email);
-  // console.log('password: ', password);
-  // console.log('confirmPassword: ', confirmPassword);
-  // console.log(value);
+
+  const history = useHistory();
   const handleSubmitRegister = e => {
     console.log('Submit');
     e.preventDefault();
@@ -39,6 +34,7 @@ function Register() {
         confirmPassword,
       })
       .then(res => {
+        history.push('/login');
         console.log(res);
       })
       .catch(err => {
@@ -136,60 +132,6 @@ function Register() {
               onChange={e => setConfirmPassword(e.target.value)}
             />
           </div>
-          {/* <div className='divRegister'>
-          <FormControl sx={{ m: 1, width: '26.25ch' }} variant='outlined'>
-            <InputLabel htmlFor='outlined-adornment-password'>
-              Password
-            </InputLabel>
-            <OutlinedInput
-              id='outlined-adornment-password'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              sx={TextFieldPasswordConfig}
-              size='small'
-              onChange={handleChange('password')}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge='end'>
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label='Password'
-            />
-          </FormControl>
-        </div>
-        <div className='divRegister'>
-          <FormControl sx={{ m: 1, width: '26.25ch' }} variant='outlined'>
-            <InputLabel htmlFor='outlined-adornment-password'>
-              confirmPassword
-            </InputLabel>
-            <OutlinedInput
-              id='outlined-adornment-password'
-              sx={TextFieldPasswordConfig}
-              size='small'
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.confirmPassword}
-              onChange={handleChange('confirmPassword')}
-              endAdornment={
-                <InputAdornment position='end'>
-                  <IconButton
-                    aria-label='toggle password visibility'
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge='end'>
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label='confirmPassword'
-            />
-          </FormControl>
-        </div> */}
           <div className='divRegister buttonLogin'>
             <Button variant='contained' sx={ButtonRegisterConfig} type='submit'>
               Register
@@ -197,7 +139,10 @@ function Register() {
           </div>
         </form>
         <div className='divRegister'>
-          <Button variant='contained' sx={ButtonRegisterConfig}>
+          <Button
+            variant='contained'
+            sx={ButtonRegisterConfig}
+            onClick={() => history.push('/login')}>
             Login
           </Button>
         </div>

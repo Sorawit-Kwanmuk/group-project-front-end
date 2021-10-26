@@ -1,28 +1,20 @@
 import "./App.css";
-import CourseCard from "./components/CourseCard/CourseCard";
-import CourseClassroomAdmin from "./components/CourseAdmin/CourseClassroomAdmin";
-import MainCourseAdmin from "./components/CourseAdmin/MainCourseAdmin";
-import ContactUsUser from "./components/ContactUs/ContactUsUser";
-import ContactUsEdit from "./components/ContactUs/ContactUsEdit";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
-import MyProfile from "./components/MyProfile/MyProfile";
-import Register from "./components/Register/Register";
-import ForgetPassword from "./components/ForgetPassword/ForgetPassword";
-import Login from "./components/Login/Login";
-import ShoppingCart from "./components/ShoppingCart/ShoppingCart";
-import OurCourse from "./components/OurCourse/OurCourse";
-import OurTeam from "./components/OurTeam/OurTeam";
-import Instructor from "./components/InstructorCard/InstructorCard";
-import ClassroomILearn from "./components/ClassroomILearn/ClassroomILearn";
-import AdminHome from "./components/AdminHome/AdminHome";
-import OurTeamAdmin from "./components/OurTeamAdmin/OurTeamAdmin";
-import InstructorEdit from "./components/InstructorEdit/InstructorEdit";
-import FeedbackAdmin from "./components/FeedbackAdmin/FeedbackAdmin";
-import HomeBannerAdmin from "./components/HomeBannerAdmin/HomeBannerAdmin";
-import Home from "./components/Home/Home";
+import { AuthContext } from "./contexts/authContext";
+import { useContext, useState } from "react";
+import { Redirect, Switch, Route, BrowserRouter } from "react-router-dom";
+import routes from "./config/route";
+import CourseClassroomAdmin from "./components/CourseAdmin/CourseClassroomAdmin";
 
 function App() {
+  const { user, setUser } = useContext(AuthContext);
+  const [role, setRole] = useState(user ? user.role : "guest");
+  console.log(user);
+
+  // const role = user ? 'user' : 'guest';
+  console.log("role: ", role);
+  console.log("routes: ", routes);
   return (
     <>
       <Header />
@@ -38,7 +30,7 @@ function App() {
       {/* <OurTeam /> */}
       {/* <Instructor /> */}
       {/* <MainCourseAdmin /> */}
-      <CourseClassroomAdmin />
+      {/* <CourseClassroomAdmin /> */}
       {/* <ContactUsEdit /> */}
       {/* <ContactUsUser /> */}
       {/* <ClassroomILearn /> */}
@@ -47,6 +39,23 @@ function App() {
       {/* <FeedbackAdmin /> */}
       {/* <HomeBannerAdmin /> */}
       <Footer />
+      <BrowserRouter>
+        <Header />
+        {role && (
+          <Switch>
+            {routes[role].route.map((item) => (
+              <Route
+                key={item.path}
+                exact
+                path={item.path}
+                component={item.component}
+              />
+            ))}
+            <Redirect to={routes[role].redirect} />
+          </Switch>
+        )}
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }
