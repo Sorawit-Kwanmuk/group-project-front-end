@@ -18,7 +18,8 @@ import DropBarMenu from './DropBarMenu/DropBarMenu';
 import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
 function Header() {
   const { user, setUser, toggle, setToggle } = useContext(AuthContext);
-  const [role, setRole] = useState(user ? user.role : 'guest');
+  // const [role, setRole] = useState(user ? user.role : 'guest');
+  const role = user ? user.role : 'guest';
   const [open, setOpen] = useState(false);
   // console.log('roleHeader:', role);
   const history = useHistory();
@@ -82,7 +83,7 @@ function Header() {
             Register
           </Button>
         )}
-        {user && <DropBarMenu setOpen={setOpen} setRole={setRole} />}
+        {user && <DropBarMenu setOpen={setOpen} />}
       </div>
     </div>
   );

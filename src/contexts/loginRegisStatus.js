@@ -4,7 +4,7 @@ const LoginRegisStatusContext = createContext();
 function LoginRegisStatusContextProvider({ children }) {
   const [loginStatus, setLoginStatus] = useState(false);
   const [registerStatus, setRegisterStatus] = useState(false);
-  console.log('loginStatus: ', loginStatus);
+  // console.log('loginStatus: ', loginStatus);
   return (
     <LoginRegisStatusContext.Provider
       value={{
