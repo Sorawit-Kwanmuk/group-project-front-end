@@ -5,6 +5,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import axios from "../../config/axios";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -17,12 +18,12 @@ const MenuProps = {
   }
 };
 
-const names = ["Front-End", "Back-End", "UX-UI"];
+const names = ["UX-UI", "Front-End", "Back-End"];
 
-function getStyles(name, personName, theme) {
+function getStyles(name, categoryName, theme) {
   return {
     fontWeight:
-      personName.indexOf(name) === -1
+      categoryName.indexOf(name) === -1
         ? theme.typography.fontWeightRegular
         : theme.typography.fontWeightMedium
   };
@@ -30,20 +31,32 @@ function getStyles(name, personName, theme) {
 
 export default function CategorySelect({ setCourseInfo }) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
+  const [categoryName, setCategoryName] = React.useState([]);
+  // const [names, setNames] = React.useState([]);
+
+  // # !!!!! Underconstruction !!!!!
+  // React.useEffect(() => {
+  //   const getCategory = async () => {
+  //     const category4map = await axios.get("http://localhost:8090/category");
+  //     console.log("@#@category4map:", category4map);
+  //     setNames(() => {});
+  //   };
+  //   getCategory();
+  // }, []);
 
   const handleChange = (event) => {
     const {
       target: { value }
     } = event;
-    setPersonName(
+    setCategoryName(
       // On autofill we get a the stringified value.
       typeof value === "string" ? value.split(",") : value
     );
     setCourseInfo((courseInfo) => ({
       ...courseInfo,
-      category: event.target.value
+      categoryId: value
     }));
+    console.log("@@@CategoryArr:", value);
   };
 
   return (
@@ -54,17 +67,17 @@ export default function CategorySelect({ setCourseInfo }) {
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
           multiple
-          value={personName}
+          value={categoryName}
           onChange={handleChange}
           input={<OutlinedInput label="Category *" />}
           MenuProps={MenuProps}
           required
         >
-          {names.map((name) => (
+          {names.map((name, idx) => (
             <MenuItem
               key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
+              value={idx + 1}
+              style={getStyles(name, categoryName, theme)}
             >
               {name}
             </MenuItem>
