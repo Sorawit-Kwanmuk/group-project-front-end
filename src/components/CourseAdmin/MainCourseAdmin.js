@@ -8,20 +8,60 @@ import Typography from "@mui/material/Typography";
 import AddIcon from "@mui/icons-material/Add";
 import CategorySelect from "./CategoryDropDown";
 import { AppBar, Toolbar } from "@mui/material";
+import axios from "../../config/axios";
+import { API_URL } from "../../config/env";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 function MainCourseAdmin() {
   const [courseInfo, setCourseInfo] = useState({
     courseName: "",
-    category: "",
+    categoryId: "",
     level: "",
-    courseDuration: "",
+    duration: "",
     price: "",
-    discount: "",
+    discountRate: "",
     discountUntil: "",
-    courseImg: "",
+    thisisinput: "",
+    clip: "",
     shortDescription: "",
-    aboutCourse: ""
+    about: ""
   });
+  const [subject, setSubject] = useState("");
+
+  const handleChange = (event) => {
+    setSubject(event.target.value);
+    setCourseInfo({
+      ...courseInfo,
+      level: event.target.value
+    });
+  };
+
+  const createMainCourse = async () => {
+    const data = new FormData();
+    data.append("courseName", courseInfo.courseName);
+    data.append("categoryId", courseInfo.categoryId);
+    data.append("level", courseInfo.level);
+    data.append("duration", courseInfo.duration);
+    data.append("price", courseInfo.price);
+    data.append("discountRate", courseInfo.discountRate);
+    data.append("discountUntil", courseInfo.discountUntil);
+    data.append("thisisinput", courseInfo.thisisinput);
+    data.append("clip", courseInfo.clip);
+    data.append("shortDescription", courseInfo.shortDescription);
+    data.append("about", courseInfo.about);
+
+    console.log("@@@courseInfo:", courseInfo);
+    console.log("@@@data:", data);
+    try {
+      const res = await axios.post(`${API_URL}/course`, data);
+      console.log("@@@res:", res);
+    } catch (error) {
+      console.dir("@@@error:", error);
+    }
+  };
 
   return (
     <>
@@ -70,20 +110,24 @@ function MainCourseAdmin() {
                       <CategorySelect setCourseInfo={setCourseInfo} />
                     </Grid>
                     <Grid xs={12} item>
-                      <TextField
-                        label="Level"
-                        placeholder="Enter Level"
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        required
-                        onChange={(e) =>
-                          setCourseInfo({
-                            ...courseInfo,
-                            level: e.target.value
-                          })
-                        }
-                      />
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Level list
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={subject}
+                          label="Subject list"
+                          onChange={handleChange}
+                        >
+                          <MenuItem value={"Beginner"}>Beginner</MenuItem>
+                          <MenuItem value={"Intermediate"}>
+                            Intermediate
+                          </MenuItem>
+                          <MenuItem value={"Expert"}>Expert</MenuItem>
+                        </Select>
+                      </FormControl>
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
@@ -96,7 +140,7 @@ function MainCourseAdmin() {
                         onChange={(e) =>
                           setCourseInfo({
                             ...courseInfo,
-                            courseDuration: e.target.value
+                            duration: +e.target.value
                           })
                         }
                       />
@@ -112,7 +156,7 @@ function MainCourseAdmin() {
                         onChange={(e) =>
                           setCourseInfo({
                             ...courseInfo,
-                            price: e.target.value
+                            price: +e.target.value
                           })
                         }
                       />
@@ -128,14 +172,15 @@ function MainCourseAdmin() {
                         onChange={(e) =>
                           setCourseInfo({
                             ...courseInfo,
-                            discount: e.target.value
+                            discountRate: +e.target.value
                           })
                         }
                       />
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
-                        label="Discout until"
+                        type="date"
+                        // label="Discount until"
                         placeholder="Enter Discout until"
                         variant="outlined"
                         size="small"
@@ -151,7 +196,8 @@ function MainCourseAdmin() {
                     </Grid>
                     <Grid xs={12} item>
                       <TextField
-                        label="Course image link"
+                        type="file"
+                        // label="Course image link"
                         placeholder="Enter Course image link"
                         variant="outlined"
                         size="small"
@@ -160,10 +206,21 @@ function MainCourseAdmin() {
                         onChange={(e) =>
                           setCourseInfo({
                             ...courseInfo,
-                            courseImg: e.target.value
+                            thisisinput: e.target.files[0]
                           })
                         }
                       />
+                    </Grid>
+                    <Grid xs={12} item>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="warning"
+                        size="large"
+                        fullWidth
+                      >
+                        Status
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -172,10 +229,26 @@ function MainCourseAdmin() {
                   <Grid container spacing={1}>
                     <Grid xs={12} item>
                       <TextField
+                        label="Preview Course vdo-link"
+                        placeholder="Enter Preview Course vdo-link"
+                        variant="outlined"
+                        size="small"
+                        fullWidth
+                        required
+                        onChange={(e) =>
+                          setCourseInfo({
+                            ...courseInfo,
+                            clip: e.target.value
+                          })
+                        }
+                      />
+                    </Grid>
+                    <Grid xs={12} item>
+                      <TextField
                         label="Short description"
                         placeholder="Enter Short description"
                         multiline
-                        rows={5}
+                        rows={4}
                         variant="outlined"
                         size="small"
                         fullWidth
@@ -188,7 +261,6 @@ function MainCourseAdmin() {
                         }
                       />
                     </Grid>
-
                     <Grid xs={12} item>
                       <TextField
                         label="About this course"
@@ -202,7 +274,7 @@ function MainCourseAdmin() {
                         onChange={(e) =>
                           setCourseInfo({
                             ...courseInfo,
-                            aboutCourse: e.target.value
+                            about: e.target.value
                           })
                         }
                       />
@@ -232,6 +304,7 @@ function MainCourseAdmin() {
                 variant="contained"
                 color="primary"
                 fullWidth
+                onClick={createMainCourse}
               >
                 Create
               </Button>
