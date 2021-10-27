@@ -2,24 +2,46 @@ import './styleShoppingCard.css';
 import shoppingCardBanner from '../../public/images/shoppingCard.png';
 import Button from '@mui/material/Button';
 import { ButtonConfig, ToggleButtonConfig } from './muiConfig';
-import SkillYouWillLearnTag from './SkillYouWillLearnTag/SkillYouWillLearnTag';
 import InstructorCard from '../InstructorCard/InstructorCard';
 import NevBarLeftList from '../ClassroomILearn/NevBarLeftList/NevBarLeftList';
 import BarRating from './BarRating/BarRating';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import OutputFilterByRating from './OutputFilterByRating/OutputFilterByRating';
 import CourseCard from '../CourseCard/CourseCard';
 import ShoppingCardFixed from './ShoppingCardFixed/ShoppingCardFixed';
+import axios from '../../config/axios';
+import { useParams } from 'react-router';
 
 function ShoppingCard() {
   const [alignment, setAlignment] = useState('web');
-
+  const [shoppingCard, setShoppingCard] = useState([]);
+  const [shoppingCardFixed, setShoppingCardFixed] = useState([]);
+  // console.log('shoppingCard: ', shoppingCard);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
+  const params = useParams();
 
+  useEffect(() => {
+    const fetchDataShoppingCard = async () => {
+      try {
+        const response = await axios.get(`/course/${params.id}`);
+        setShoppingCard(response.data.courseResult);
+        // console.log('shoppingCard: ', shoppingCard.Topics);
+        // console.log(Array.isArray(response.data.courseResult.Topics));
+        setShoppingCardFixed(
+          response.data.courseResult.Topics.map(item => item)
+        );
+      } catch (error) {
+        console.dir(error);
+      }
+    };
+    fetchDataShoppingCard();
+  }, []);
+  // console.log('shoppingCard: ', shoppingCard.Topics);
+  console.log('shoppingCardFixed: ', shoppingCardFixed);
   return (
     <div className='divMainShoppingCardController'>
       <div
@@ -28,22 +50,18 @@ function ShoppingCard() {
           backgroundImage: `url(${shoppingCardBanner})`,
         }}>
         <div className='textOnShoppingCardBannerControl'>
-          <h3 className='ShoppingCardH3'>
-            Basic JavaScript For Front - End Development
-          </h3>
+          <h3 className='ShoppingCardH3'>{shoppingCard.courseName}</h3>
           <div className='ShoppingCardH4Control'>
             <h4 className='ShoppingCardH4'>Rating : </h4>&nbsp;&nbsp;
-            <h4 className='ShoppingCardH4'> 4.8 / 5</h4>
+            <h4 className='ShoppingCardH4'> {shoppingCard.rating} / 5</h4>
           </div>
           <div className='ShoppingCardH4Control'>
-            <h4 className='ShoppingCardH4'>36,761</h4>&nbsp;&nbsp;
+            <h4 className='ShoppingCardH4'>{shoppingCard.ratingAmount}</h4>
+            &nbsp;&nbsp;
             <h4 className='ShoppingCardH4'>Enrolls</h4>
           </div>
           <div>
-            <p className='ShoppingCardP'>
-              First Step to develop dynamics website with basic JavaScript which
-              is including with neccessary skill for front-end development
-            </p>
+            <p className='ShoppingCardP'>{shoppingCard.shortDescription}</p>
           </div>
         </div>
       </div>
@@ -63,25 +81,7 @@ function ShoppingCard() {
       </div>
       <div className='aboutThisCourseControl'>
         <h4 className='aboutThisCourseH4'>About This Course</h4>
-        <p className='aboutThisCourseP'>
-          First Step to develop dynamics website with basic JavaScript which is
-          including with basic and neccessary skill for front-end development
-          First Step to develop dynamics website with basic JavaScript which is
-          including with basic and neccessary skill for front-end development
-          First Step to develop dynamics website with basic JavaScript which is
-          including with basic and neccessary skill for front-end development
-          First Step to develop dynamics website with basic JavaScript which is
-          including with basic and neccessary skill for front-end development
-        </p>
-      </div>
-      <div className='skillYouWillLearnConTrol'>
-        <h4 className='aboutThisCourseH4'>Skill you'll learn</h4>
-        <div className='skillYouWillLearnTagController'>
-          <SkillYouWillLearnTag />
-          <SkillYouWillLearnTag />
-          <SkillYouWillLearnTag />
-          <SkillYouWillLearnTag />
-        </div>
+        <p className='aboutThisCourseP'>{shoppingCard.about}</p>
       </div>
       <div className='grayLine'></div>
       <div className='divInstructorController'>
@@ -165,8 +165,8 @@ function ShoppingCard() {
         <div className='divMoreFrontEndCourseHeader'>
           <h4 className='aboutThisCourseH4'>More Front - End Course</h4>
         </div>
-        <CourseCard />
-        <CourseCard />
+        {/* <CourseCard />
+        <CourseCard /> */}
       </div>
       <ShoppingCardFixed />
     </div>

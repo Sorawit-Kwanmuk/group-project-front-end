@@ -3,7 +3,7 @@ import banner from '../../../public/images/banner.PNG';
 function Banner() {
   return (
     <div className='homeBanner'>
-      <img src={banner} alt='' />
+      <img className='homeBanner' src={banner} alt='' />
     </div>
   );
 }

@@ -1,7 +1,9 @@
+import { useHistory } from 'react-router';
 import courseImage from '../../public/images/javascript-training-120620.jpg';
 import './styleCourseCard.css';
 function CourseCard({ item }) {
   const {
+    id,
     courseName,
     rating,
     price,
@@ -9,13 +11,17 @@ function CourseCard({ item }) {
     level,
     duration,
     courseImage,
-  } = item;
-  const result = item.CourseCats.map(item => item.categoryId);
-
+  } = item.Course ? item.Course : item;
+  // console.log('item: ', item.Course);
+  // const result = item.CourseCats.map(item => item.categoryId);
+  const history = useHistory();
   // console.log('item: ', item);
   // console.log('item: ', item.CourseCats);
+  const handleClickToCourseCardDetail = () => {
+    history.push(`/shopping-card/${id}`);
+  };
   return (
-    <div className='cardBody'>
+    <div className='cardBody' onClick={handleClickToCourseCardDetail}>
       <div className='divCourseImage'>
         <img src={courseImage} alt='' />
       </div>
@@ -38,7 +44,7 @@ function CourseCard({ item }) {
           <p className='pCourseCard'>{price} THB</p>
         </div>
       </div>
-      <div className='threeTagControl'>
+      {/* <div className='threeTagControl'>
         {(result[0] === 1 || result[1] === 1 || result[2] === 1) && (
           <div className='frontEnd'>Front End</div>
         )}
@@ -48,7 +54,7 @@ function CourseCard({ item }) {
         {(result[0] === 3 || result[1] === 3 || result[2] === 3) && (
           <div className='uxUi'>UX/UI</div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

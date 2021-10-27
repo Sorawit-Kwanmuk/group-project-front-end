@@ -23,7 +23,7 @@ function OurCourse() {
   useEffect(() => {
     const fetchDataAllCourse = async () => {
       try {
-        const res = await axios.get('/course/');
+        const res = await axios.get('/course/byrating');
         // console.log(res);
         setCourses(res.data.courseResult);
       } catch (error) {
@@ -33,7 +33,7 @@ function OurCourse() {
 
     fetchDataAllCourse();
   }, []);
-  console.log('courses: ', courses);
+  // console.log('courses: ', courses);
   return (
     <>
       <div className='divMainControllerOurCourse'>

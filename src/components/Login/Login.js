@@ -51,10 +51,10 @@ function Login() {
 
       // console.log('LogRes: ', res);
       setToken(res.data.token);
-      setUser(res.data.token);
+      setUser(jwtDecode(res.data.token));
       history.push('/');
       setLoginStatus(false);
-      window.location.reload();
+      // window.location.reload();
     } catch (error) {
       console.dir(error);
     }

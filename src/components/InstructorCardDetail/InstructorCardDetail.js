@@ -5,11 +5,68 @@ import InstructorCard from '../InstructorCard/InstructorCard';
 import CourseCard from '../CourseCard/CourseCard';
 import { Avatar } from '@mui/material';
 import { imageConfig, buttonConfig2 } from './muiConfig';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Instructor from '../../public/images/Instructor.png';
 import AreaOfExpertiseTag from './AreaOfExpertiseTag/AreaOfExpertiseTag';
+import { useParams } from 'react-router';
+import axios from '../../config/axios';
+import { ToggleContext } from '../../contexts/toggleContext';
 function InstructorCardDetail() {
   const [image, setImage] = useState({ profileImage: '' });
+  const [instructor, setInstructor] = useState({});
+  const [instructorByInsId, setInstructorByInsId] = useState([]);
+  const [instructorTopics, setInstructorTopics] = useState([]);
+  const [i, setI] = useState(5);
+  const [instructorFront, setInstructorFront] = useState([]);
+  const [instructorBack, setInstructorBack] = useState([]);
+  const [instructorUxUi, setInstructorUxUi] = useState([]);
+  const { toggle, setToggle } = useContext(ToggleContext);
+  const params = useParams();
+  setToggle(currentToggle => !currentToggle);
+  useEffect(() => {
+    const fetchDataInstructorById = async () => {
+      try {
+        const response = await axios.get(`/instructor/${params.id}`);
+        const response2 = await axios.get(`/topic/ins/${params.id}`);
+        const response3 = await axios.get(`/insCat/byinstructor/${params.id}`);
+        const newArr = response3.data.result.map(item => item.categoryId);
+
+        setInstructor(response.data.instructorResult);
+        setInstructorTopics(response2.data.result);
+        setInstructorByInsId(newArr);
+
+        if (newArr.includes(1)) {
+          const response4 = await axios.get(`/insCat/bycat/${1}`);
+          setInstructorFront(response4.data.result);
+        }
+        if (newArr.includes(2)) {
+          const response5 = await axios.get(`/insCat/bycat/${2}`);
+          setInstructorBack(response5.data.result);
+        }
+        if (newArr.includes(3)) {
+          const response6 = await axios.get(`/insCat/bycat/${3}`);
+          setInstructorUxUi(response6.data.result);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataInstructorById();
+  }, [toggle]);
+
+  const handleClickToWebsite = () => {
+    window.open(instructor.website, '_blank');
+  };
+  const handleClickSeeMore = () => {
+    setI(i + 3);
+  };
+  const handleClickToEmail = () => {
+    window.location.href = `mailto:${instructor.email}?subject=Offer Inquiry&cc=support@email.com&bcc=info@company.com&body=test mail send massage`;
+  };
+
+  console.log('instructorFront: ', instructorFront);
+  console.log('instructorBack: ', instructorBack);
+  console.log('instructorUxUi: ', instructorUxUi);
   return (
     <div className='divMainInstructorCardController'>
       <div
@@ -18,28 +75,24 @@ function InstructorCardDetail() {
           backgroundImage: `url(${ShoppingCardBanner})`,
         }}>
         <div className='textOnInstructorCardBannerControl'>
-          <h3 className='InstructorCardH3'>
-            Basic JavaScript For Front - End Development
-          </h3>
+          <h3 className='InstructorCardH3'>{instructor.fullName}</h3>
           <div className='InstructorCardH4Control'>
             <h4 className='InstructorCardH4'>Rating : </h4>&nbsp;&nbsp;
-            <h4 className='InstructorCardH4'> 4.8 / 5</h4>
+            <h4 className='InstructorCardH4'> {instructor.rating} / 5</h4>
           </div>
           <div className='InstructorCardH4Control'>
-            <h4 className='InstructorCardH4'>36,761</h4>&nbsp;&nbsp;
+            <h4 className='InstructorCardH4'>{instructor.learner}</h4>
+            &nbsp;&nbsp;
             <h4 className='InstructorCardH4'>Enrolls</h4>
           </div>
           <div>
-            <p className='InstructorCardP'>
-              First Step to develop dynamics website with basic JavaScript which
-              is including with neccessary skill for front-end development
-            </p>
+            <p className='InstructorCardP'>{instructor.jobTitle}</p>
           </div>
         </div>
         <div className='InstructorCardImage'>
           <Avatar
             alt='Remy Sharp'
-            src={Instructor}
+            src={instructor.profileImage}
             sx={imageConfig}
             onClick={() => {
               setImage({ profileImage: Instructor });
@@ -51,42 +104,58 @@ function InstructorCardDetail() {
         <div className='InstructorCardContentLeft'>
           <div className='aboutThisMeControl'>
             <h4 className='aboutThisMeH4'>About Me</h4>
-            <p className='aboutThisMeP'>
-              First Step to develop dynamics website with basic JavaScript which
-              is including with basic and neccessary skill for front-end
-              development First Step to develop dynamics website with basic
-              JavaScript which is including with basic and neccessary skill for
-              front-end development First Step to develop dynamics website with
-              basic JavaScript which is including with basic and neccessary
-              skill for front-end development First Step to develop dynamics
-              website with basic JavaScript which is including with basic and
-              neccessary skill for front-end development
-            </p>
+            <p className='aboutThisMeP'>{instructor.about}</p>
           </div>
           <div className='grayLine'></div>
           <div className='divMoreFrontEndCourse'>
             <div className='divMoreFrontEndCourseHeader'>
-              <h4 className='aboutThisMeH4'>More Front - End Course</h4>
+              <h4 className='aboutThisMeH4'>My Course</h4>
             </div>
             <div className='InstructorCardCourseCardControl'>
-              <CourseCard />
-              <CourseCard />
-              <CourseCard />
-              <CourseCard />
-              <CourseCard />
+              {instructorTopics
+                ?.filter((item, index) => index < i)
+                .map(item => (
+                  <CourseCard key={item.id} item={item} />
+                ))}
             </div>
 
             <div className='SeeMoreControl'>
-              <p className='SeeMoreP'>{`<-- See More -->`}</p>
+              <p className='SeeMoreP' onClick={handleClickSeeMore}>
+                {`<-- See More -->`}
+              </p>
             </div>
           </div>
           <div className='grayLine'></div>
-          <div className='divMoreFrontEndInstructor'>
-            <h4 className='aboutThisMeH4'>More Front - End Instructor</h4>
-            <InstructorCard />
-            <InstructorCard />
-            <InstructorCard />
-          </div>
+          {instructorFront.length !== 0 && (
+            <div className='divMoreFrontEndInstructor'>
+              <h4 className='aboutThisMeH4'>More Front - End Instructor</h4>
+              {instructorFront
+                ?.filter((item, index) => index < 4)
+                .map(item => (
+                  <InstructorCard key={item.id} item={item} />
+                ))}
+            </div>
+          )}
+          {instructorBack.length !== 0 && (
+            <div className='divMoreFrontEndInstructor'>
+              <h4 className='aboutThisMeH4'>More Back - End Instructor</h4>
+              {instructorBack
+                ?.filter((item, index) => index < 4)
+                .map(item => (
+                  <InstructorCard key={item.id} item={item} />
+                ))}
+            </div>
+          )}
+          {instructorUxUi.length !== 0 && (
+            <div className='divMoreFrontEndInstructor'>
+              <h4 className='aboutThisMeH4'>More UX/UI Instructor</h4>
+              {instructorUxUi
+                ?.filter((item, index) => index < 4)
+                .map(item => (
+                  <InstructorCard key={item.id} item={item} />
+                ))}
+            </div>
+          )}
         </div>
         <div className='InstructorCardContentRight'>
           <h4 className='aboutThisMeH4'>Area of Expertise</h4>
@@ -98,10 +167,16 @@ function InstructorCardDetail() {
           </div>
           <div className='grayLineRight'></div>
           <div className='InstructorCardContentRightButton'>
-            <Button sx={buttonConfig2} variant='contained'>
+            <Button
+              sx={buttonConfig2}
+              variant='contained'
+              onClick={handleClickToWebsite}>
               Website
             </Button>
-            <Button sx={buttonConfig2} variant='contained'>
+            <Button
+              sx={buttonConfig2}
+              variant='contained'
+              onClick={handleClickToEmail}>
               Email
             </Button>
             <Button sx={buttonConfig2} variant='contained'>

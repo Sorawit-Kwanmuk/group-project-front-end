@@ -28,7 +28,7 @@ function Test() {
   }, []);
 
   const handleClick = e => {
-    console.log('Click');
+    // console.log('Click');
     e.preventDefault();
     // creditCardConfigure();
   };
