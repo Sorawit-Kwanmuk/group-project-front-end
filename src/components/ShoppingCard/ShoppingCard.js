@@ -86,16 +86,19 @@ function ShoppingCard() {
       <div className='grayLine'></div>
       <div className='divInstructorController'>
         <h4 className='aboutThisCourseH4'>Instructor</h4>
-        <InstructorCard />
-        <InstructorCard />
+        {shoppingCardFixed
+          ?.filter((item, index) => index < 4)
+          .map(item => (
+            <InstructorCard key={item.id} item={item} />
+          ))}
       </div>
       <div className='grayLine'></div>
       <div className='divSyllabusCourseContent'>
         <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
-        <NevBarLeftList />
-        <NevBarLeftList />
-        <NevBarLeftList />
-        <NevBarLeftList />
+
+        {shoppingCardFixed.map(item => (
+          <NevBarLeftList key={item.id} item={item} />
+        ))}
       </div>
       <div className='grayLine'></div>
       <div className='divStudentFeedback'>
