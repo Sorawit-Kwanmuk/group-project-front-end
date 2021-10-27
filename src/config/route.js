@@ -1,10 +1,8 @@
 import Home from '../components/Home/Home';
-import Login from '../components/Login/Login';
-import Register from '../components/Register/Register';
 import OurCourse from '../components/OurCourse/OurCourse';
 import OurTeam from '../components/OurTeam/OurTeam';
 import ShoppingCard from '../components/ShoppingCard/ShoppingCard';
-import InstructorCard from '../components/InstructorCard/InstructorCard';
+import InstructorCard from '../components/InstructorCardDetail/InstructorCardDetail';
 import ForgetPassword from '../components/ForgetPassword/ForgetPassword';
 import ContactUsUser from '../components/ContactUs/ContactUsUser';
 import ClassroomILearn from '../components/ClassroomILearn/ClassroomILearn';
@@ -13,7 +11,6 @@ import ShoppingCart from '../components/ShoppingCart/ShoppingCart';
 import AdminHome from '../components/AdminHome/AdminHome';
 import MainCourseAdmin from '../components/CourseAdmin/MainCourseAdmin';
 import CourseClassroomAdmin from '../components/CourseAdmin/CourseClassroomAdmin';
-// import AdminQuiz from '../components/CourseAdmin/AdminQuiz';
 import OurTeamAdmin from '../components/OurTeamAdmin/OurTeamAdmin';
 import InstructorEdit from '../components/InstructorEdit/InstructorEdit';
 import FeedbackAdmin from '../components/FeedbackAdmin/FeedbackAdmin';
@@ -40,7 +37,7 @@ const routes = {
         component: ShoppingCard,
       },
       {
-        path: '/instructor-card',
+        path: '/instructor-card/:id',
         component: InstructorCard,
       },
       {
@@ -85,7 +82,7 @@ const routes = {
         component: ShoppingCard,
       },
       {
-        path: '/instructor-card',
+        path: '/instructor-card/:id',
         component: InstructorCard,
       },
       {
@@ -118,7 +115,7 @@ const routes = {
         component: ShoppingCard,
       },
       {
-        path: '/instructor-card',
+        path: '/instructor-card/:id',
         component: InstructorCard,
       },
       {

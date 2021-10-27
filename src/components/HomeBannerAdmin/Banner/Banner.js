@@ -2,7 +2,7 @@ import './styleBaner.css';
 import banner from '../../../public/images/banner.PNG';
 function Banner() {
   return (
-    <div className='homeBanner'>
+    <div className='homeBannerAdmin'>
       <img src={banner} alt='' />
     </div>
   );

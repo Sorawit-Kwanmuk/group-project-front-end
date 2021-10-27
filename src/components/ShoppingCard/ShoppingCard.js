@@ -17,7 +17,8 @@ import { useParams } from 'react-router';
 function ShoppingCard() {
   const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
-  console.log('shoppingCard: ', shoppingCard);
+  const [shoppingCardFixed, setShoppingCardFixed] = useState([]);
+  // console.log('shoppingCard: ', shoppingCard);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
@@ -28,13 +29,19 @@ function ShoppingCard() {
       try {
         const response = await axios.get(`/course/${params.id}`);
         setShoppingCard(response.data.courseResult);
+        // console.log('shoppingCard: ', shoppingCard.Topics);
+        // console.log(Array.isArray(response.data.courseResult.Topics));
+        setShoppingCardFixed(
+          response.data.courseResult.Topics.map(item => item)
+        );
       } catch (error) {
         console.dir(error);
       }
     };
     fetchDataShoppingCard();
   }, []);
-
+  // console.log('shoppingCard: ', shoppingCard.Topics);
+  console.log('shoppingCardFixed: ', shoppingCardFixed);
   return (
     <div className='divMainShoppingCardController'>
       <div

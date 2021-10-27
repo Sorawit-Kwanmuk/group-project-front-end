@@ -11,8 +11,9 @@ function CourseCard({ item }) {
     level,
     duration,
     courseImage,
-  } = item;
-  const result = item.CourseCats.map(item => item.categoryId);
+  } = item.Course ? item.Course : item;
+  // console.log('item: ', item.Course);
+  // const result = item.CourseCats.map(item => item.categoryId);
   const history = useHistory();
   // console.log('item: ', item);
   // console.log('item: ', item.CourseCats);
@@ -43,7 +44,7 @@ function CourseCard({ item }) {
           <p className='pCourseCard'>{price} THB</p>
         </div>
       </div>
-      <div className='threeTagControl'>
+      {/* <div className='threeTagControl'>
         {(result[0] === 1 || result[1] === 1 || result[2] === 1) && (
           <div className='frontEnd'>Front End</div>
         )}
@@ -53,7 +54,7 @@ function CourseCard({ item }) {
         {(result[0] === 3 || result[1] === 3 || result[2] === 3) && (
           <div className='uxUi'>UX/UI</div>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -21,7 +21,7 @@ function Header() {
   // const [role, setRole] = useState(user ? user.role : 'guest');
   const role = user ? user.role : 'guest';
   const [open, setOpen] = useState(false);
-  console.log('roleHeader:', role);
+  // console.log('roleHeader:', role);
   const history = useHistory();
   const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
     useContext(LoginRegisStatusContext);

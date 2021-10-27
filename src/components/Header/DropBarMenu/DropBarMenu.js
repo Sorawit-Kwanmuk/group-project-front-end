@@ -31,7 +31,7 @@ function DropBarMenu({ setOpen }) {
     // history.push('/');
     setToggle(current => !current);
     setOpen(current => !current);
-    console.log('user after logout:', user);
+    // console.log('user after logout:', user);
     // window.location.reload();
   };
   const handleClose = () => {

@@ -33,7 +33,7 @@ function OurCourse() {
 
     fetchDataAllCourse();
   }, []);
-  console.log('courses: ', courses);
+  // console.log('courses: ', courses);
   return (
     <>
       <div className='divMainControllerOurCourse'>
