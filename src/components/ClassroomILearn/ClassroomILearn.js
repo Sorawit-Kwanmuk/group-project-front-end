@@ -1,4 +1,4 @@
-import './styleClassroomILearn.css';
+import "./styleClassroomILearn.css";
 // import ListSubheader from '@mui/material/ListSubheader';
 // import List from '@mui/material/List';
 // import ListItemButton from '@mui/material/ListItemButton';
@@ -13,20 +13,20 @@ import './styleClassroomILearn.css';
 // import ToggleButton from '@mui/material/ToggleButton';
 // import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 // import { ToggleButtonConfig, ListItemTextConfig } from './muiConfig';
-import NevBarLeftList from './NevBarLeftList/NevBarLeftList';
-import ContentRightClass from './ContentRightClass/ContentRightClass';
+import NevBarLeftList from "./NevBarLeftList/NevBarLeftList";
+import ContentRightClass from "./ContentRightClass/ContentRightClass";
 function ClassroomILearn() {
   return (
-    <div className='mainDivClassroomILearn'>
-      <div className='divLessonList'>
-        <h3 className='ClassroomILearnH3'>Lesson List</h3>
+    <div className="mainDivClassroomILearn">
+      <div className="divLessonList">
+        <h3 className="ClassroomILearnH3">Lesson List</h3>
 
         <NevBarLeftList />
-        <NevBarLeftList />
-        <NevBarLeftList />
+        {/* <NevBarLeftList />
+        <NevBarLeftList /> */}
       </div>
-      <div className='divRightClassroomILearn'>
-        <ContentRightClass />
+      <div className="divRightClassroomILearn">
+        {/* <ContentRightClass /> */}
       </div>
     </div>
   );
