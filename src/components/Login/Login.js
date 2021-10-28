@@ -16,7 +16,7 @@ import { AuthContext } from '../../contexts/authContext';
 import { useHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
 import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
-import { Link } from 'react-router-dom';
+import Link from '@mui/material/Link';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -63,6 +63,11 @@ function Login() {
   const handleClickToRegister = () => {
     setLoginStatus(false);
     setRegisterStatus(true);
+  };
+  const handleClickToForgotPassword = e => {
+    e.preventDefault();
+    history.push('/forget-password');
+    setLoginStatus(false);
   };
   return (
     <>
@@ -123,7 +128,7 @@ function Login() {
             </Button>
           </div>
           <div className='textForget'>
-            <Link onClick={() => history.push('/forget-password')}>
+            <Link onClick={handleClickToForgotPassword}>
               Did you forget your password?
             </Link>
           </div>
