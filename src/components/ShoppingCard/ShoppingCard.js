@@ -9,15 +9,20 @@ import { useEffect, useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import OutputFilterByRating from './OutputFilterByRating/OutputFilterByRating';
-import CourseCard from '../CourseCard/CourseCard';
+import CourseCard2 from '../CourseCard/CourseCard2';
 import ShoppingCardFixed from './ShoppingCardFixed/ShoppingCardFixed';
 import axios from '../../config/axios';
 import { useParams } from 'react-router';
-
+import { Link } from 'react-router-dom';
 function ShoppingCard() {
   const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
   const [shoppingCardFixed, setShoppingCardFixed] = useState([]);
+  const [allComment, setAllComment] = useState([]);
+  const [i, setI] = useState(3);
+  const [courseCatOne, setCourseCatOne] = useState([]);
+  const [courseCatTwo, setCourseCatTwo] = useState([]);
+  const [courseCatThree, setCourseCatThree] = useState([]);
   // console.log('shoppingCard: ', shoppingCard);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -28,20 +33,52 @@ function ShoppingCard() {
     const fetchDataShoppingCard = async () => {
       try {
         const response = await axios.get(`/course/${params.id}`);
+        const response2 = await axios.get(
+          `/comment/all/${response.data.courseResult.id}`
+        );
+        const response3 = await axios.get(
+          `/courseCat/bycourse/${response.data.courseResult.id}`
+        );
         setShoppingCard(response.data.courseResult);
+        setAllComment(response2.data.result);
+
+        // console.log('response2: ', response2.data.result);
+        // console.log('response: ', response.data.courseResult.id);
         // console.log('shoppingCard: ', shoppingCard.Topics);
         // console.log(Array.isArray(response.data.courseResult.Topics));
         setShoppingCardFixed(
           response.data.courseResult.Topics.map(item => item)
         );
+
+        const newArr = response3.data.result.map(item => item.categoryId);
+
+        if (newArr.includes(1)) {
+          const response4 = await axios.get(`/courseCat/bycat/${1}`);
+          const result = response4.data.result;
+          console.log(result);
+          // const response5 = await axios.get(`/course/${result}`);
+          setCourseCatOne(response4.data.result);
+        }
+        if (newArr.includes(2)) {
+          const response5 = await axios.get(`/courseCat/bycat/${2}`);
+          setCourseCatTwo(response5.data.result);
+        }
+        if (newArr.includes(3)) {
+          const response6 = await axios.get(`/courseCat/bycat/${3}`);
+          setCourseCatThree(response6.data.result);
+        }
       } catch (error) {
         console.dir(error);
       }
     };
     fetchDataShoppingCard();
   }, []);
+  const handleClickSeeMore = () => {
+    setI(i + 3);
+  };
+  console.log('courseCatOne: ', courseCatOne);
   // console.log('shoppingCard: ', shoppingCard.Topics);
-  console.log('shoppingCardFixed: ', shoppingCardFixed);
+  // console.log('shoppingCardFixed: ', shoppingCardFixed);
   return (
     <div className='divMainShoppingCardController'>
       <div
@@ -67,10 +104,10 @@ function ShoppingCard() {
       </div>
       <div className='nevBarInShoppingCard'>
         <Button sx={ButtonConfig} variant='text'>
-          About
+          <a href='#about'>About</a>
         </Button>
         <Button sx={ButtonConfig} variant='text'>
-          Instructor
+          <a href='#studentFeedback'>Instructor</a>
         </Button>
         <Button sx={ButtonConfig} variant='text'>
           Syllabus
@@ -79,32 +116,35 @@ function ShoppingCard() {
           Reviews
         </Button>
       </div>
-      <div className='aboutThisCourseControl'>
+      <div id='about' className='aboutThisCourseControl'>
         <h4 className='aboutThisCourseH4'>About This Course</h4>
         <p className='aboutThisCourseP'>{shoppingCard.about}</p>
       </div>
       <div className='grayLine'></div>
       <div className='divInstructorController'>
         <h4 className='aboutThisCourseH4'>Instructor</h4>
-        <InstructorCard />
-        <InstructorCard />
+        {shoppingCardFixed
+          ?.filter((item, index) => index < 4)
+          .map(item => (
+            <InstructorCard key={item.id} item={item} />
+          ))}
       </div>
       <div className='grayLine'></div>
       <div className='divSyllabusCourseContent'>
         <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
-        <NevBarLeftList />
-        <NevBarLeftList />
-        <NevBarLeftList />
-        <NevBarLeftList />
+
+        {shoppingCardFixed.map(item => (
+          <NevBarLeftList key={item.id} item={item} />
+        ))}
       </div>
       <div className='grayLine'></div>
-      <div className='divStudentFeedback'>
+      <div id='studentFeedback' className='divStudentFeedback'>
         <h4 className='aboutThisCourseH4'>Student Feedback</h4>
         <div className='divStudentFeedbackControl'>
           <div className='divLeftStudentFeedback'>
-            <h1 className='divStudentFeedbackH1'>4.8</h1>
+            <h1 className='divStudentFeedbackH1'>{shoppingCard.rating}</h1>
             <div className='CountReviews'>
-              <p>2,456</p> &nbsp;&nbsp;
+              <p>{shoppingCard.ratingAmount}</p> &nbsp;&nbsp;
               <p>Reviews</p>
             </div>
           </div>
@@ -151,22 +191,47 @@ function ShoppingCard() {
           </ToggleButtonGroup>
         </div>
         <div className='outputFilterCommentByRating'>
-          <OutputFilterByRating />
-          <OutputFilterByRating />
-          <OutputFilterByRating />
-          <OutputFilterByRating />
+          {allComment
+            ?.filter((item, index) => index < i)
+            .map(item => (
+              <OutputFilterByRating key={item.id} item={item} />
+            ))}
         </div>
         <div className='SeeMoreControl'>
-          <p className='SeeMoreP'>{`<-- See More -->`}</p>
+          <p
+            className='SeeMoreP'
+            onClick={handleClickSeeMore}>{`<-- See More -->`}</p>
         </div>
       </div>
       <div className='grayLine'></div>
       <div className='divMoreFrontEndCourse'>
-        <div className='divMoreFrontEndCourseHeader'>
-          <h4 className='aboutThisCourseH4'>More Front - End Course</h4>
-        </div>
-        {/* <CourseCard />
-        <CourseCard /> */}
+        {courseCatOne.length > 0 && (
+          <div className='divMoreFrontEndCourseHeader'>
+            <h4 className='aboutThisCourseH4'>More Front - End Course</h4>
+          </div>
+        )}
+        {courseCatOne.length > 0 &&
+          courseCatOne
+            ?.filter((item, index) => index < 3)
+            .map(item => <CourseCard2 key={item.id} item={item} />)}
+        {courseCatTwo.length > 0 && (
+          <div className='divMoreFrontEndCourseHeader'>
+            <h4 className='aboutThisCourseH4'>More Back - End Course</h4>
+          </div>
+        )}
+        {courseCatTwo.length > 0 &&
+          courseCatTwo
+            ?.filter((item, index) => index < 3)
+            .map(item => <CourseCard2 key={item.id} item={item} />)}
+        {courseCatThree.length > 0 && (
+          <div className='divMoreFrontEndCourseHeader'>
+            <h4 className='aboutThisCourseH4'>More UX/UI Course</h4>
+          </div>
+        )}
+        {courseCatThree.length > 0 &&
+          courseCatThree
+            ?.filter((item, index) => index < 3)
+            .map(item => <CourseCard2 key={item.id} item={item} />)}
       </div>
       <ShoppingCardFixed />
     </div>

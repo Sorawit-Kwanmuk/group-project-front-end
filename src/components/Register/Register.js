@@ -9,6 +9,9 @@ import { TextFieldConfig, ButtonRegisterConfig } from './muiConfig';
 import axios from '../../config/axios';
 import { useHistory } from 'react-router';
 import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
+import { setToken } from '../../services/localStorage';
+import { AuthContext } from '../../contexts/authContext';
+import jwtDecode from 'jwt-decode';
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -22,12 +25,22 @@ function Register() {
   const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
     useContext(LoginRegisStatusContext);
   const history = useHistory();
+  const { user, setUser } = useContext(AuthContext);
 
-  const handleSubmitRegister = e => {
-    // console.log('Submit');
-    e.preventDefault();
-    axios
-      .post('/auth/register', {
+  // setRegisterStatus(false);
+  // const res = axios.post('/auth/login', {
+  //   username,
+  //   password,
+  // });
+  // setToken(res.data.token);
+  // setUser(jwtDecode(res.data.token));
+  // history.push('/');
+  // setLoginStatus(false);
+
+  const handleSubmitRegister = async e => {
+    try {
+      e.preventDefault();
+      await axios.post('/auth/register', {
         fullName,
         birthDate,
         email,
@@ -35,16 +48,22 @@ function Register() {
         username,
         password,
         confirmPassword,
-      })
-      .then(res => {
-        history.push('/login');
-        // console.log(res);
-      })
-      .catch(err => {
-        console.log(err);
       });
+      setRegisterStatus(false);
+      const res = await axios.post('/auth/login', {
+        username,
+        password,
+      });
+      console.log(res);
+      setToken(res.data.token);
+      setUser(jwtDecode(res.data.token));
+    } catch (error) {}
   };
   const handleCloseRegister = () => {
+    setRegisterStatus(false);
+  };
+  const handleToggleLogin = () => {
+    setLoginStatus(true);
     setRegisterStatus(false);
   };
   return (
@@ -149,7 +168,7 @@ function Register() {
           <Button
             variant='contained'
             sx={ButtonRegisterConfig}
-            onClick={() => history.push('/login')}>
+            onClick={handleToggleLogin}>
             Login
           </Button>
         </div>

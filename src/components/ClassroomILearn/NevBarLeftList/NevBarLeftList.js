@@ -6,29 +6,39 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ToggleButtonLeftBar from './ToggleButtonLeftBar/ToggleButtonLeftBar';
 import {
   ToggleButtonConfig,
   ListItemTextConfig,
   styleButton,
 } from '../muiConfig';
 import '../styleClassroomILearn.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from '../../../config/axios';
 
-function NevBarLeftList() {
+function NevBarLeftList({ item }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState('list');
-
+  const [subtopic, setSubtopic] = useState([]);
+  const { topicName } = item;
   const handleChange = (event, nextView) => {
     setView(nextView);
   };
-
+  useEffect(() => {
+    const fetchDataTopics = async () => {
+      const response = await axios.get(`/subtopic/${item.id}`);
+      setSubtopic(response.data.result);
+    };
+    fetchDataTopics();
+  }, []);
+  // console.log('item: ', item.id);
   const handleClick = () => {
     setOpen(!open);
   };
   return (
     <>
       <ListItemButton onClick={handleClick} sx={styleButton}>
-        <ListItemText sx={ListItemTextConfig} primary='HTML' />
+        <ListItemText sx={ListItemTextConfig} primary={topicName} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse
@@ -44,7 +54,11 @@ function NevBarLeftList() {
               sx={ToggleButtonConfig}
               exclusive
               onChange={handleChange}>
-              <ToggleButton sx={ToggleButtonConfig} value='htmlWww'>
+              {subtopic.map(item => (
+                <ToggleButtonLeftBar key={item.id} item={item} />
+              ))}
+
+              {/* <ToggleButton sx={ToggleButtonConfig} value='htmlWww'>
                 HTML - WWW
               </ToggleButton>
               <ToggleButton sx={ToggleButtonConfig} value='htmlStructure'>
@@ -58,7 +72,7 @@ function NevBarLeftList() {
               </ToggleButton>
               <ToggleButton sx={ToggleButtonConfig} value='htmlLessonQuiz'>
                 HTML - lesson quiz
-              </ToggleButton>
+              </ToggleButton> */}
             </ToggleButtonGroup>
           </ListItemButton>
         </List>
