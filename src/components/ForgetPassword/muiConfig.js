@@ -1,5 +1,10 @@
 const TextFieldConfig = {
-  width: '60%',
+  width: "60%",
+  padding: "",
 };
 
-export { TextFieldConfig };
+const HeaderConfig = {
+  marginBottom: "-10px",
+};
+
+export { TextFieldConfig, HeaderConfig };
