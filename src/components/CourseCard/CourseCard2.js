@@ -23,7 +23,7 @@ function CourseCard({ item }) {
     };
     fetchDataCourse();
   }, []);
-  console.log('item: ', item);
+  // console.log('item: ', item);
   // const result = item.CourseCats.map(item => item.categoryId);
   const history = useHistory();
   // console.log('item: ', item);

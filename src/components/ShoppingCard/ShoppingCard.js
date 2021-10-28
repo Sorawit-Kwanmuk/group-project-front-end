@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 function ShoppingCard() {
   const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
-  const [shoppingCardFixed, setShoppingCardFixed] = useState([]);
+  const [shoppingCardTopic, setShoppingCardTopic] = useState([]);
   const [allComment, setAllComment] = useState([]);
   const [i, setI] = useState(3);
   const [courseCatOne, setCourseCatOne] = useState([]);
@@ -46,7 +46,7 @@ function ShoppingCard() {
         // console.log('response: ', response.data.courseResult.id);
         // console.log('shoppingCard: ', shoppingCard.Topics);
         // console.log(Array.isArray(response.data.courseResult.Topics));
-        setShoppingCardFixed(
+        setShoppingCardTopic(
           response.data.courseResult.Topics.map(item => item)
         );
 
@@ -76,9 +76,10 @@ function ShoppingCard() {
   const handleClickSeeMore = () => {
     setI(i + 3);
   };
-  console.log('courseCatOne: ', courseCatOne);
+  // console.log('courseCatOne: ', courseCatOne);
   // console.log('shoppingCard: ', shoppingCard.Topics);
   // console.log('shoppingCardFixed: ', shoppingCardFixed);
+  console.log('shoppingCard: ', shoppingCard);
   return (
     <div className='divMainShoppingCardController'>
       <div
@@ -123,7 +124,7 @@ function ShoppingCard() {
       <div className='grayLine'></div>
       <div className='divInstructorController'>
         <h4 className='aboutThisCourseH4'>Instructor</h4>
-        {shoppingCardFixed
+        {shoppingCardTopic
           ?.filter((item, index) => index < 4)
           .map(item => (
             <InstructorCard key={item.id} item={item} />
@@ -133,7 +134,7 @@ function ShoppingCard() {
       <div className='divSyllabusCourseContent'>
         <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
 
-        {shoppingCardFixed.map(item => (
+        {shoppingCardTopic.map(item => (
           <NevBarLeftList key={item.id} item={item} />
         ))}
       </div>
@@ -233,7 +234,7 @@ function ShoppingCard() {
             ?.filter((item, index) => index < 3)
             .map(item => <CourseCard2 key={item.id} item={item} />)}
       </div>
-      <ShoppingCardFixed />
+      <ShoppingCardFixed item={shoppingCard} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Button } from '@mui/material';
 import '../styleShoppingCard.css';
-function ShoppingCardFixed() {
+function ShoppingCardFixed({ item }) {
+  console.log('item: ', item);
   return (
     <div className='ShoppingCardFixed'>
       <div className='ShoppingCardIframeControl'>
@@ -14,18 +15,34 @@ function ShoppingCardFixed() {
           allowFullScreen></iframe>
       </div>
       <div className='ShoppingCardPrice'>
-        <div className='PriceControl'>
-          <h2 className='ShoppingCardPriceH2'>1,500 THB</h2>
-          <div className='PriceDetail'>
-            <p className='PriceDetailP'>3,000 THB</p>
-            <div className='grayLineMini'></div>
-            <p className='PriceDetailP'>(50% off)</p>
+        {item.discountRate ? (
+          <>
+            <div className='PriceControl'style={{alignItems.center}}>
+              <h2 className='ShoppingCardPriceH2'>
+                {item.price - (item.price * item.discountRate) / 100} THB
+              </h2>
+              <div className='PriceDetail'>
+                <p className='PriceDetailP'>{item.price} THB</p>
+                <div className='grayLineMini'></div>
+                <p className='PriceDetailP'>({item.discountRate}% off)</p>
+              </div>
+            </div>
+            <div className='SellOffDurationDate'>
+              <p className='SellOffDurationDateP'>
+                This price until {item.discountUntil}
+              </p>
+            </div>
+          </>
+        ) : (
+          <div className='PriceControl'>
+            <h2 className='ShoppingCardPriceH2' style={{ color: 'gray' }}>
+              {item.price} THB
+            </h2>
           </div>
-        </div>
-        <div className='SellOffDurationDate'>
-          <p className='SellOffDurationDateP'>This price until 27-11-2021</p>
-        </div>
-        <div className='ShoppingCardPriceButton'>
+        )}
+        <div
+          className='ShoppingCardPriceButton'
+          style={{ alignItems: 'center' }}>
           <Button sx={{ margin: 'auto' }} variant='contained' color='success'>
             Buy Now
           </Button>
