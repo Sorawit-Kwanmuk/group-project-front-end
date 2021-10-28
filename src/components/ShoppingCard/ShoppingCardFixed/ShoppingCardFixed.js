@@ -1,8 +1,19 @@
 import { Button } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { useHistory } from 'react-router';
+import { PaymentContext } from '../../../contexts/paymentContext';
+
 import '../styleShoppingCard.css';
 function ShoppingCardFixed({ item }) {
+  const { paymentCon, setPaymentCon } = useContext(PaymentContext);
+  const history = useHistory();
   const chapter = item.Topics;
+  // console.log('item', item);
+  const handleClickPayment = () => {
+    setPaymentCon(item);
+    history.push('/shopping-cart');
+  };
+  console.log('paymentCon', paymentCon);
   return (
     <div className='ShoppingCardFixed'>
       <div className='ShoppingCardIframeControl'>
@@ -47,7 +58,11 @@ function ShoppingCardFixed({ item }) {
         <div
           className='ShoppingCardPriceButton'
           style={{ alignItems: 'center' }}>
-          <Button sx={{ margin: 'auto' }} variant='contained' color='success'>
+          <Button
+            sx={{ margin: 'auto' }}
+            variant='contained'
+            color='success'
+            onClick={handleClickPayment}>
             Buy Now
           </Button>
         </div>

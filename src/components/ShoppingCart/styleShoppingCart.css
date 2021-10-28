@@ -84,7 +84,10 @@
 .shoppingCartBottom {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
     width: 80%;
+    align-items: center;
+
 }
 
 .CoursesInCart {
