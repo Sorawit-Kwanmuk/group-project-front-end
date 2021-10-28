@@ -1,6 +1,8 @@
 import '../styleShoppingCard.css';
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
-function OutputFilterByRating() {
+function OutputFilterByRating({ item }) {
+  const { commentName, rating, commentBody, createdAt } = item;
+  // console.log('item: ', item);
   return (
     <div className='OutputFilterByRatingControl'>
       <div className='FiberManualRecordIconControl'>
@@ -12,18 +14,15 @@ function OutputFilterByRating() {
         </div>
       </div>
       <div className='OutputFilterByRatingName'>
-        <h4 className='OutputFilterByRatingScoreH4'>KetchupBoy1996</h4>
+        <h4 className='OutputFilterByRatingScoreH4'>{commentName}</h4>
       </div>
       <div className='OutputFilterByRatingScore'>
-        <p className='OutputFilterByRatingScoreP'>4</p> &nbsp;&nbsp;
+        <p className='OutputFilterByRatingScoreP'>{rating}</p> &nbsp;&nbsp;
         <p className='OutputFilterByRatingScoreP'>Score:</p> &nbsp;
-        <p className='OutputFilterByRatingScoreP'>(17-10-21)</p>
+        <p className='OutputFilterByRatingScoreP'>({createdAt.slice(0, 10)})</p>
       </div>
       <div className='OutputFilterByRatingComment'>
-        <p className='OutputFilterByRatingScoreP'>
-          This course is a good way to start programming with JavaScript
-          framework that easy for newbies
-        </p>
+        <p className='OutputFilterByRatingScoreP'>{commentBody}</p>
       </div>
     </div>
   );

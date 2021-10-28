@@ -64,9 +64,10 @@ function InstructorCardDetail() {
     window.location.href = `mailto:${instructor.email}?subject=Offer Inquiry&cc=support@email.com&bcc=info@company.com&body=test mail send massage`;
   };
 
-  console.log('instructorFront: ', instructorFront);
-  console.log('instructorBack: ', instructorBack);
-  console.log('instructorUxUi: ', instructorUxUi);
+  // console.log('instructorFront: ', instructorFront);
+  // console.log('instructorBack: ', instructorBack);
+  // console.log('instructorUxUi: ', instructorUxUi);
+  console.log('instructorTopics: ', instructorTopics);
   return (
     <div className='divMainInstructorCardController'>
       <div

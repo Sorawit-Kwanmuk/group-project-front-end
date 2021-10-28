@@ -45,7 +45,7 @@ const routes = {
         component: ContactUsUser,
       },
       {
-        path: '/classroom-i-learn',
+        path: '/classroom-i-learn/:id',
         component: ClassroomILearn,
       },
       {

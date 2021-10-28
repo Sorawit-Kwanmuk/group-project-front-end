@@ -16,6 +16,7 @@ import { AuthContext } from '../../contexts/authContext';
 import { useHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
 import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
+import { Link } from 'react-router-dom';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -59,27 +60,32 @@ function Login() {
       console.dir(error);
     }
   };
-
+  const handleClickToRegister = () => {
+    setLoginStatus(false);
+    setRegisterStatus(true);
+  };
   return (
     <>
       <form className='formLoginMain' action='' onSubmit={handleSubmitLogin}>
         <div className='LoginForm'>
           <span className='spanLogin'>Login</span>
           <div className='divLogin'>
-            <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-              <TextField
-                error
-                id='outlined-basic'
-                type='text'
-                label='Username'
-                variant='outlined'
-                value={username}
-                onChange={e => setUsername(e.target.value)}
-              />
-            </Box>
+            <TextField
+              className='divConfig MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root'
+              error
+              sx={{ width: '230px', marginBottom: '10px' }}
+              id='outlined-basic'
+              type='text'
+              label='Username'
+              variant='outlined'
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
           </div>
           <div className='divLogin'>
-            <FormControl sx={{ m: 1, width: '26.25ch' }} variant='outlined'>
+            <FormControl
+              variant='outlined'
+              className='divConfig css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root'>
               <InputLabel htmlFor='outlined-adornment-password'>
                 Password
               </InputLabel>
@@ -104,16 +110,22 @@ function Login() {
             </FormControl>
           </div>
           <div className='divLogin buttonLogin'>
-            <Button variant='contained' type='submit'>
+            <Button variant='contained' type='submit' sx={{ width: '100px' }}>
               Login
             </Button>
           </div>
           <div className='divLogin'>
             <Button
               variant='contained'
-              onClick={() => history.push('/register')}>
+              onClick={handleClickToRegister}
+              sx={{ width: '100px', paddingRight: '0px' }}>
               Register
             </Button>
+          </div>
+          <div className='textForget'>
+            <Link onClick={() => history.push('/forget-password')}>
+              Did you forget your password?
+            </Link>
           </div>
         </div>
       </form>
