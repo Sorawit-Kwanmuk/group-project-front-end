@@ -14,11 +14,6 @@ function App() {
   const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
     useContext(LoginRegisStatusContext);
   const [role, setRole] = useState(user ? user.role : 'guest');
-  // console.log(user);
-
-  // const role = user ? 'user' : 'guest';
-  // console.log('role: ', role);
-  // console.log('routes: ', routes);
   return (
     <>
       <BrowserRouter>
@@ -27,7 +22,7 @@ function App() {
         <Header />
         {role && (
           <Switch>
-            {routes[role].route.map((item) => (
+            {routes[role].route.map(item => (
               <Route
                 key={item.path}
                 exact

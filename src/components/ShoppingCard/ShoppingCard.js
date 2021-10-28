@@ -5,7 +5,7 @@ import { ButtonConfig, ToggleButtonConfig } from './muiConfig';
 import InstructorCard from '../InstructorCard/InstructorCard';
 import NevBarLeftList from '../ClassroomILearn/NevBarLeftList/NevBarLeftList';
 import BarRating from './BarRating/BarRating';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import OutputFilterByRating from './OutputFilterByRating/OutputFilterByRating';
@@ -14,7 +14,11 @@ import ShoppingCardFixed from './ShoppingCardFixed/ShoppingCardFixed';
 import axios from '../../config/axios';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/authContext';
+
 function ShoppingCard() {
+  const { user, setUser } = useContext(AuthContext);
+  const role = user ? user.role : 'guest';
   const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
   const [shoppingCardTopic, setShoppingCardTopic] = useState([]);
@@ -234,7 +238,7 @@ function ShoppingCard() {
             ?.filter((item, index) => index < 3)
             .map(item => <CourseCard2 key={item.id} item={item} />)}
       </div>
-      <ShoppingCardFixed item={shoppingCard} />
+      {role !== 'user' && <ShoppingCardFixed item={shoppingCard} />}
     </div>
   );
 }

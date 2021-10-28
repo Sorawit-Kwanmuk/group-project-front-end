@@ -18,7 +18,7 @@ function CourseCard({ item }) {
   useEffect(() => {
     const fetchDataCourse = async () => {
       const response = await axios.get(`/course/${item.courseId}`);
-      console.log('response: ', response.data.courseResult);
+      // console.log('response: ', response.data.courseResult);
       setCourse(response.data.courseResult);
     };
     fetchDataCourse();

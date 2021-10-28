@@ -1,14 +1,15 @@
 import { Button } from '@mui/material';
+import { useState } from 'react';
 import '../styleShoppingCard.css';
 function ShoppingCardFixed({ item }) {
-  console.log('item: ', item);
+  const chapter = item.Topics;
   return (
     <div className='ShoppingCardFixed'>
       <div className='ShoppingCardIframeControl'>
         <iframe
           width='100%'
           height='100%'
-          src='https://www.youtube.com/embed/zCQnedpbBM0'
+          src={item.clip}
           title='YouTube video player'
           frameBorder='0'
           allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
@@ -17,7 +18,10 @@ function ShoppingCardFixed({ item }) {
       <div className='ShoppingCardPrice'>
         {item.discountRate ? (
           <>
-            <div className='PriceControl'style={{alignItems.center}}>
+            <div
+              className='PriceControl'
+              // style={{alignItems.center}}
+            >
               <h2 className='ShoppingCardPriceH2'>
                 {item.price - (item.price * item.discountRate) / 100} THB
               </h2>
@@ -50,10 +54,12 @@ function ShoppingCardFixed({ item }) {
       </div>
       <div className='ThisCourseIncludes'>
         <h4 className='ThisCourseIncludesH4'>This course includes :</h4>
-        <p className='ThisCourseIncludesP'>15 chapters</p>
+        <p className='ThisCourseIncludesP'>{chapter?.length} chapters</p>
         <p className='ThisCourseIncludesP'>50 hours on-demand video</p>
-        <p className='ThisCourseIncludesP'>24 downloadable resourse</p>
-        <p className='ThisCourseIncludesP'>2 months access</p>
+        <p className='ThisCourseIncludesP'>24 downloadable resource</p>
+        <p className='ThisCourseIncludesP'>
+          {item.duration / 30} months access
+        </p>
         <p className='ThisCourseIncludesP'>Certificate of completion</p>
       </div>
     </div>
