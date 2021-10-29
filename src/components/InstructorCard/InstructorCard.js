@@ -34,7 +34,7 @@ function InstructorCard({ item }) {
   useEffect(() => {
     const fetchDataInstructorById = async () => {
       try {
-        console.log('params', params);
+        // console.log('params', params);
         const response = await axios.get(
           `/instructor/${item.instructorId ? item.instructorId : item.id}`
         );
@@ -44,9 +44,15 @@ function InstructorCard({ item }) {
     fetchDataInstructorById();
   }, [toggle]);
   const handleClickToInstructorCard = () => {
-    history.push(
-      `/instructor-card/${item.instructorId ? item.instructorId : item.id}`
-    );
+    // history.push(
+    //   `/instructor-card/${item.instructorId ? item.instructorId : item.id}`,
+    // );
+    history.push({
+      pathname: `/instructor-card/${
+        item.instructorId ? item.instructorId : item.id
+      }`,
+      state: { instructor: instructor },
+    });
     setToggle(current => !current);
   };
 

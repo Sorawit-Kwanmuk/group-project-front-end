@@ -56,7 +56,7 @@ function NevBarLeftList({
   const handleToggleButtonClick = async (link, topicId) => {
     try {
       const resQuestion = await axios.get(`/quiz/${topicId}`);
-      console.log("@#@resQuestion:", resQuestion.data.result.Questions);
+      // console.log("@#@resQuestion:", resQuestion.data.result.Questions);
       setQuestions(resQuestion.data.result.Questions);
     } catch (error) {
       console.log(error);

@@ -5,10 +5,10 @@ import "./styleMyProfileDetail.css";
 function MyProfileDetail({ data }) {
   const userSplit = data.createdAt.split("T");
 
-  console.log(`userSplit`, userSplit);
+  // console.log(`userSplit`, userSplit);
   const userDate = userSplit[0];
 
-  console.log(`userData`, userDate);
+  // console.log(`userData`, userDate);
 
   const [date, setDate] = useState(userDate);
 

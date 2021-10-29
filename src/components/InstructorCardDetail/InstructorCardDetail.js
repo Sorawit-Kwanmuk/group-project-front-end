@@ -8,9 +8,11 @@ import { imageConfig, buttonConfig2 } from './muiConfig';
 import { useContext, useEffect, useState } from 'react';
 import Instructor from '../../public/images/Instructor.png';
 import AreaOfExpertiseTag from './AreaOfExpertiseTag/AreaOfExpertiseTag';
-import { useParams } from 'react-router';
+import { useLocation, useParams } from 'react-router-dom';
 import axios from '../../config/axios';
 import { ToggleContext } from '../../contexts/toggleContext';
+import DummyHeaderLocation from './DummyHeader/DummyHeaderLocation';
+import DummyHeaderInst from './DummyHeader/DummyHeaderInst';
 function InstructorCardDetail() {
   const [image, setImage] = useState({ profileImage: '' });
   const [instructor, setInstructor] = useState({});
@@ -21,8 +23,11 @@ function InstructorCardDetail() {
   const [instructorBack, setInstructorBack] = useState([]);
   const [instructorUxUi, setInstructorUxUi] = useState([]);
   const { toggle, setToggle } = useContext(ToggleContext);
+  const [firstLoad, setFirstLoad] = useState(false);
   const params = useParams();
+  const location = useLocation();
 
+  // console.log('location', location.state);
   useEffect(() => {
     const fetchDataInstructorById = async () => {
       try {
@@ -34,7 +39,7 @@ function InstructorCardDetail() {
         setInstructor(response.data.instructorResult);
         setInstructorTopics(response2.data.result);
         setInstructorByInsId(newArr);
-
+        // console.log('res: ', response.data.instructorResult);
         if (newArr.includes(1)) {
           const response4 = await axios.get(`/insCat/bycat/${1}`);
           setInstructorFront(response4.data.result);
@@ -48,12 +53,13 @@ function InstructorCardDetail() {
           setInstructorUxUi(response6.data.result);
         }
         setToggle(currentToggle => !currentToggle);
+        setFirstLoad(true);
       } catch (error) {
         console.log(error);
       }
     };
     fetchDataInstructorById();
-  }, [toggle]);
+  }, []);
 
   const handleClickToWebsite = () => {
     window.open(instructor.website, '_blank');
@@ -68,40 +74,12 @@ function InstructorCardDetail() {
   // console.log('instructorFront: ', instructorFront);
   // console.log('instructorBack: ', instructorBack);
   // console.log('instructorUxUi: ', instructorUxUi);
-  console.log('instructorTopics: ', instructorTopics);
+  // console.log('instructorTopics: ', instructorTopics);
   return (
     <div className='divMainInstructorCardController'>
-      <div
-        className='divMainHeaderInstructorCard'
-        style={{
-          backgroundImage: `url(${ShoppingCardBanner})`,
-        }}>
-        <div className='textOnInstructorCardBannerControl'>
-          <h3 className='InstructorCardH3'>{instructor.fullName}</h3>
-          <div className='InstructorCardH4Control'>
-            <h4 className='InstructorCardH4'>Rating : </h4>&nbsp;&nbsp;
-            <h4 className='InstructorCardH4'> {instructor.rating} / 5</h4>
-          </div>
-          <div className='InstructorCardH4Control'>
-            <h4 className='InstructorCardH4'>{instructor.learner}</h4>
-            &nbsp;&nbsp;
-            <h4 className='InstructorCardH4'>Enrolls</h4>
-          </div>
-          <div>
-            <p className='InstructorCardP'>{instructor.jobTitle}</p>
-          </div>
-        </div>
-        <div className='InstructorCardImage'>
-          <Avatar
-            alt='Remy Sharp'
-            src={instructor.profileImage}
-            sx={imageConfig}
-            onClick={() => {
-              setImage({ profileImage: Instructor });
-            }}
-          />
-        </div>
-      </div>
+      {/* <DummyHeaderInst item={instructor} setImage={setImage} /> */}
+      <DummyHeaderInst item={location.state} setImage={setImage} />
+
       <div className='InstructorCardContent'>
         <div className='InstructorCardContentLeft'>
           <div className='aboutThisMeControl'>
