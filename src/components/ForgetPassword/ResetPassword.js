@@ -6,7 +6,7 @@ import { useState } from "react";
 import axios from "../../config/axios";
 import { useHistory, useParams } from "react-router-dom";
 
-function ForgetPassword() {
+function ResetPassword() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -82,4 +82,4 @@ function ForgetPassword() {
   );
 }
 
-export default ForgetPassword;
+export default ResetPassword;

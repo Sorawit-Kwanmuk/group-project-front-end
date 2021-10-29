@@ -26,10 +26,6 @@ const routes = {
         component: ForgetPassword,
       },
       {
-        path: "/reset-password/:token",
-        component: ResetPassword,
-      },
-      {
         path: "/our-course",
         component: OurCourse,
       },
@@ -50,7 +46,7 @@ const routes = {
         component: ContactUsUser,
       },
       {
-        path: "/classroom-i-learn",
+        path: "/classroom-i-learn/:id",
         component: ClassroomILearn,
       },
       {
@@ -110,10 +106,6 @@ const routes = {
       {
         path: "/forget-password",
         component: ForgetPassword,
-      },
-      {
-        path: "/reset-password",
-        component: ResetPassword,
       },
       {
         path: "/our-course",
