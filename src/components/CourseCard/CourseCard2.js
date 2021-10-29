@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import courseImage from '../../public/images/javascript-training-120620.jpg';
 import './styleCourseCard.css';
-function CourseCard({ item }) {
+function CourseCard({ item, setToggle }) {
+  const [course, setCourse] = useState([]);
   const {
     id,
     courseName,
@@ -13,15 +14,23 @@ function CourseCard({ item }) {
     level,
     duration,
     courseImage,
-  } = item.Course ? item.Course : item;
-
-  // console.log('item: ', item.Course);
+  } = course;
+  useEffect(() => {
+    const fetchDataCourse = async () => {
+      const response = await axios.get(`/course/${item.courseId}`);
+      // console.log('response: ', response.data.courseResult);
+      setCourse(response.data.courseResult);
+    };
+    fetchDataCourse();
+  }, []);
+  // console.log('item: ', item);
   // const result = item.CourseCats.map(item => item.categoryId);
   const history = useHistory();
   // console.log('item: ', item);
   // console.log('item: ', item.CourseCats);
   const handleClickToCourseCardDetail = () => {
     history.push(`/shopping-card/${id}`);
+    setToggle(current => !current);
   };
   return (
     <div className='cardBody' onClick={handleClickToCourseCardDetail}>

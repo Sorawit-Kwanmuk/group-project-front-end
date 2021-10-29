@@ -22,7 +22,7 @@ function InstructorCardDetail() {
   const [instructorUxUi, setInstructorUxUi] = useState([]);
   const { toggle, setToggle } = useContext(ToggleContext);
   const params = useParams();
-  setToggle(currentToggle => !currentToggle);
+
   useEffect(() => {
     const fetchDataInstructorById = async () => {
       try {
@@ -47,6 +47,7 @@ function InstructorCardDetail() {
           const response6 = await axios.get(`/insCat/bycat/${3}`);
           setInstructorUxUi(response6.data.result);
         }
+        setToggle(currentToggle => !currentToggle);
       } catch (error) {
         console.log(error);
       }
@@ -64,9 +65,10 @@ function InstructorCardDetail() {
     window.location.href = `mailto:${instructor.email}?subject=Offer Inquiry&cc=support@email.com&bcc=info@company.com&body=test mail send massage`;
   };
 
-  console.log('instructorFront: ', instructorFront);
-  console.log('instructorBack: ', instructorBack);
-  console.log('instructorUxUi: ', instructorUxUi);
+  // console.log('instructorFront: ', instructorFront);
+  // console.log('instructorBack: ', instructorBack);
+  // console.log('instructorUxUi: ', instructorUxUi);
+  console.log('instructorTopics: ', instructorTopics);
   return (
     <div className='divMainInstructorCardController'>
       <div
