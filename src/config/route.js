@@ -16,163 +16,168 @@ import InstructorEdit from "../components/InstructorEdit/InstructorEdit";
 import FeedbackAdmin from "../components/FeedbackAdmin/FeedbackAdmin";
 import ContactUsEdit from "../components/ContactUs/ContactUsEdit";
 import HomeBannerAdmin from "../components/HomeBannerAdmin/HomeBannerAdmin";
+import ResetPassword from "../components/ForgetPassword/ResetPassword";
 
 const routes = {
   user: {
     route: [
       {
         path: "/forget-password",
-        component: ForgetPassword
+        component: ForgetPassword,
       },
       {
         path: "/our-course",
-        component: OurCourse
+        component: OurCourse,
       },
       {
         path: "/our-team",
-        component: OurTeam
+        component: OurTeam,
       },
       {
         path: "/shopping-card/:id",
-        component: ShoppingCard
+        component: ShoppingCard,
       },
       {
         path: "/instructor-card/:id",
-        component: InstructorCard
+        component: InstructorCard,
       },
       {
         path: "/contact-us",
-        component: ContactUsUser
+        component: ContactUsUser,
       },
       {
         path: "/classroom-i-learn/:id",
-        component: ClassroomILearn
+        component: ClassroomILearn,
       },
       {
         path: "/my-profile",
-        component: MyProfile
+        component: MyProfile,
       },
       {
         path: "/shopping-cart",
-        component: ShoppingCart
+        component: ShoppingCart,
       },
       {
         path: "/",
-        component: Home
-      }
+        component: Home,
+      },
     ],
-    redirect: "/"
+    redirect: "/",
   },
   guest: {
     route: [
       {
         path: "/forget-password",
-        component: ForgetPassword
+        component: ForgetPassword,
+      },
+      {
+        path: "/reset-password/:token",
+        component: ResetPassword,
       },
       {
         path: "/our-course",
-        component: OurCourse
+        component: OurCourse,
       },
       {
         path: "/our-team",
-        component: OurTeam
+        component: OurTeam,
       },
       {
         path: "/shopping-card/:id",
-        component: ShoppingCard
+        component: ShoppingCard,
       },
       {
         path: "/instructor-card/:id",
-        component: InstructorCard
+        component: InstructorCard,
       },
       {
         path: "/contact-us",
-        component: ContactUsUser
+        component: ContactUsUser,
       },
       {
         path: "/",
-        component: Home
-      }
+        component: Home,
+      },
     ],
-    redirect: "/"
+    redirect: "/",
   },
   admin: {
     route: [
       {
         path: "/forget-password",
-        component: ForgetPassword
+        component: ForgetPassword,
       },
       {
         path: "/our-course",
-        component: OurCourse
+        component: OurCourse,
       },
       {
         path: "/our-team",
-        component: OurTeam
+        component: OurTeam,
       },
       {
         path: "/shopping-card/:id",
-        component: ShoppingCard
+        component: ShoppingCard,
       },
       {
         path: "/instructor-card/:id",
-        component: InstructorCard
+        component: InstructorCard,
       },
       {
         path: "/contact-us",
-        component: ContactUsUser
+        component: ContactUsUser,
       },
       {
         path: "/classroom-i-learn",
-        component: ClassroomILearn
+        component: ClassroomILearn,
       },
       {
         path: "/my-profile",
-        component: MyProfile
+        component: MyProfile,
       },
       {
         path: "/shopping-cart",
-        component: ShoppingCart
+        component: ShoppingCart,
       },
       {
         path: "/admin-home",
-        component: AdminHome
+        component: AdminHome,
       },
       {
         path: "/main-course-admin",
-        component: MainCourseAdmin
+        component: MainCourseAdmin,
       },
       {
         path: "/course-classroom-admin",
-        component: CourseClassroomAdmin
+        component: CourseClassroomAdmin,
       },
       {
         path: "/our-team-admin",
-        component: OurTeamAdmin
+        component: OurTeamAdmin,
       },
       {
         path: "/instructor-edit",
-        component: InstructorEdit
+        component: InstructorEdit,
       },
       {
         path: "/feedback",
-        component: FeedbackAdmin
+        component: FeedbackAdmin,
       },
       {
         path: "/contact-us-edit",
-        component: ContactUsEdit
+        component: ContactUsEdit,
       },
       {
         path: "/home-banner-admin",
-        component: HomeBannerAdmin
+        component: HomeBannerAdmin,
       },
       {
         path: "/",
-        component: Home
-      }
+        component: Home,
+      },
     ],
-    redirect: "/"
-  }
+    redirect: "/",
+  },
 };
 
 export default routes;

@@ -1,12 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
 
-import { AuthContextProvider } from './contexts/authContext';
-import { CourseContextProvider } from './contexts/courseContext';
-import { PaymentContextProvider } from './contexts/paymentContext';
-import { LoginRegisStatusContextProvider } from './contexts/loginRegisStatus';
-import { ToggleContextProvider } from './contexts/toggleContext';
+import { AuthContextProvider } from "./contexts/authContext";
+import { CourseContextProvider } from "./contexts/courseContext";
+import { PaymentContextProvider } from "./contexts/paymentContext";
+import { LoginRegisStatusContextProvider } from "./contexts/loginRegisStatus";
+import { ToggleContextProvider } from "./contexts/toggleContext";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,5 +22,5 @@ ReactDOM.render(
       </AuthContextProvider>
     </ToggleContextProvider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
