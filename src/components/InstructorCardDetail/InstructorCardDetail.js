@@ -22,7 +22,7 @@ function InstructorCardDetail() {
   const [instructorUxUi, setInstructorUxUi] = useState([]);
   const { toggle, setToggle } = useContext(ToggleContext);
   const params = useParams();
-  setToggle(currentToggle => !currentToggle);
+
   useEffect(() => {
     const fetchDataInstructorById = async () => {
       try {
@@ -47,6 +47,7 @@ function InstructorCardDetail() {
           const response6 = await axios.get(`/insCat/bycat/${3}`);
           setInstructorUxUi(response6.data.result);
         }
+        setToggle(currentToggle => !currentToggle);
       } catch (error) {
         console.log(error);
       }

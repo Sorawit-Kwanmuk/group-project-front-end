@@ -6,7 +6,7 @@ import {
   FormControlConfig,
   FormShortControlConfig,
 } from './muiConfig';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -19,8 +19,13 @@ import Button from '@mui/material/Button';
 import CourseCard from '../CourseCard/CourseCard';
 import { publicKey } from '../../confidential/keys';
 import axios from '../../config/axios';
+import { PaymentContext } from '../../contexts/paymentContext';
+import { AuthContext } from '../../contexts/authContext';
+import { useHistory } from 'react-router';
 
 function ShoppingCart() {
+  const { paymentCon, setPaymentCon } = useContext(PaymentContext);
+  const { user } = useContext(AuthContext);
   const [image, setImage] = useState({ profileImage: '' });
   const [payment, setPayment] = useState('Visa');
   const [month, setMonth] = useState('');
@@ -28,13 +33,18 @@ function ShoppingCart() {
   const [cardHolderName, setCardHolderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [ccv, setCcv] = useState('');
-
+  console.log(paymentCon.id);
+  // console.log(paymentCon);
+  const history = useHistory();
+  const amount =
+    paymentCon.price - (paymentCon.price * paymentCon.discountRate) / 100;
+  console.log(user);
   let OmiseCard;
 
   OmiseCard = window.OmiseCard;
   OmiseCard.configure({
     publicKey,
-    frameLabel: 'Sabai Shop',
+    frameLabel: 'Clone Camp',
     submitLabel: 'PAY NOW',
     currency: 'thb',
   });
@@ -46,30 +56,25 @@ function ShoppingCart() {
     });
     OmiseCard.attach();
   }, []);
-  // const omiseCardHandler = () => {
-  //   const { cart, createCreditCardCharge } = props;
-  //   OmiseCard.open({
-  //     frameDescription: 'Invoice #3847',
-  //     amount: cart.amount,
-  //     onCreateTokenSuccess: token => {
-  //       createCreditCardCharge(cart.email, cart.name, cart.amount, token);
-  //     },
-  //     onFormClosed: () => {},
-  //   });
-  // };
   const handleClick = e => {
-    // console.log('Click');
+    console.log('Click');
     e.preventDefault();
     OmiseCard.open({
-      amount: 10000,
+      amount: amount * 100,
       submitFormTarget: '#credit-card',
       onCreateTokenSuccess: async nonce => {
-        // console.log('nonce: ', nonce);
+        console.log('nonce: ', nonce);
         const res = await axios.post('/checkout', {
           token: nonce,
-          amount: 10000,
+          courseId: paymentCon.id,
         });
-        // console.log(res);
+        console.log(res);
+        if (res.status === 200) {
+          alert('Payment Success');
+          history.push('/');
+        } else {
+          alert('Payment Fail');
+        }
       },
       onFormClosed: () => {},
     });
@@ -89,7 +94,7 @@ function ShoppingCart() {
                 setImage({ profileImage: John });
               }}
             />
-            <h1 className='ShoppingCartH1'>Username</h1>
+            <h1 className='ShoppingCartH1'>{user.username}</h1>
           </div>
           <div className='grayLine'></div>
         </div>
@@ -98,14 +103,14 @@ function ShoppingCart() {
             <div className='CoursesInCartHeader'>
               <h2>Shopping Cart</h2>
             </div>
-            <div className='grayLine'></div>
-            <CourseCard />
+
+            <CourseCard item={paymentCon} />
           </div>
           <div className='inputPayment'>
             <div className='inputPaymentCalculate'>
               <h2>Total:</h2>
               <div className='inputPaymentCalculateAmount'>
-                <h1>3000</h1>
+                <h1>{amount}</h1>
                 <h1>THB</h1>
               </div>
               <div className='grayLine'></div>

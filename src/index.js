@@ -4,24 +4,21 @@ import App from "./App";
 
 import { AuthContextProvider } from "./contexts/authContext";
 import { CourseContextProvider } from "./contexts/courseContext";
-import { InstructorContextProvider } from "./contexts/instructorContext";
+import { PaymentContextProvider } from "./contexts/paymentContext";
 import { LoginRegisStatusContextProvider } from "./contexts/loginRegisStatus";
 import { ToggleContextProvider } from "./contexts/toggleContext";
-import { UserContextProvider } from "./contexts/userContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <ToggleContextProvider>
       <AuthContextProvider>
-        <InstructorContextProvider>
+        <PaymentContextProvider>
           <CourseContextProvider>
-            <UserContextProvider>
-              <LoginRegisStatusContextProvider>
-                <App />
-              </LoginRegisStatusContextProvider>
-            </UserContextProvider>
+            <LoginRegisStatusContextProvider>
+              <App />
+            </LoginRegisStatusContextProvider>
           </CourseContextProvider>
-        </InstructorContextProvider>
+        </PaymentContextProvider>
       </AuthContextProvider>
     </ToggleContextProvider>
   </React.StrictMode>,

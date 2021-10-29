@@ -5,7 +5,7 @@ import { ButtonConfig, ToggleButtonConfig } from './muiConfig';
 import InstructorCard from '../InstructorCard/InstructorCard';
 import NevBarLeftList from '../ClassroomILearn/NevBarLeftList/NevBarLeftList';
 import BarRating from './BarRating/BarRating';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import OutputFilterByRating from './OutputFilterByRating/OutputFilterByRating';
@@ -14,16 +14,26 @@ import ShoppingCardFixed from './ShoppingCardFixed/ShoppingCardFixed';
 import axios from '../../config/axios';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/authContext';
+import { InputAdornment, TextField, Typography } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import Rating from '@mui/material/Rating';
+
 function ShoppingCard() {
+  const { user, setUser } = useContext(AuthContext);
+  const role = user ? user.role : 'guest';
   const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
-  const [shoppingCardFixed, setShoppingCardFixed] = useState([]);
+  const [shoppingCardTopic, setShoppingCardTopic] = useState([]);
   const [allComment, setAllComment] = useState([]);
   const [i, setI] = useState(3);
   const [courseCatOne, setCourseCatOne] = useState([]);
   const [courseCatTwo, setCourseCatTwo] = useState([]);
   const [courseCatThree, setCourseCatThree] = useState([]);
   // console.log('shoppingCard: ', shoppingCard);
+  const [rating, setRating] = useState(2);
+  const [comment, setComment] = useState('');
+  const [toggle, setToggle] = useState(false);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
@@ -46,7 +56,7 @@ function ShoppingCard() {
         // console.log('response: ', response.data.courseResult.id);
         // console.log('shoppingCard: ', shoppingCard.Topics);
         // console.log(Array.isArray(response.data.courseResult.Topics));
-        setShoppingCardFixed(
+        setShoppingCardTopic(
           response.data.courseResult.Topics.map(item => item)
         );
 
@@ -55,7 +65,7 @@ function ShoppingCard() {
         if (newArr.includes(1)) {
           const response4 = await axios.get(`/courseCat/bycat/${1}`);
           const result = response4.data.result;
-          console.log(result);
+          // console.log(result);
           // const response5 = await axios.get(`/course/${result}`);
           setCourseCatOne(response4.data.result);
         }
@@ -72,13 +82,30 @@ function ShoppingCard() {
       }
     };
     fetchDataShoppingCard();
-  }, []);
+  }, [toggle]);
   const handleClickSeeMore = () => {
     setI(i + 3);
   };
-  console.log('courseCatOne: ', courseCatOne);
+  // console.log('user: ', user);
+  const handleSubmitComment = async e => {
+    e.preventDefault();
+    console.log('comment: ', comment);
+    console.log('rating: ', rating);
+    console.log('shoppingCardId: ', shoppingCard.id);
+    console.log('username: ', user.username);
+    const response = await axios.post(`/comment/`, {
+      commentName: user.username,
+      rating: rating,
+      commentBody: comment,
+      courseId: shoppingCard.id,
+    });
+    setToggle(current => !current);
+    console.log('responseComment: ', response);
+  };
+  // console.log('courseCatOne: ', courseCatOne);
   // console.log('shoppingCard: ', shoppingCard.Topics);
   // console.log('shoppingCardFixed: ', shoppingCardFixed);
+  // console.log('shoppingCard: ', shoppingCard);
   return (
     <div className='divMainShoppingCardController'>
       <div
@@ -123,17 +150,21 @@ function ShoppingCard() {
       <div className='grayLine'></div>
       <div className='divInstructorController'>
         <h4 className='aboutThisCourseH4'>Instructor</h4>
-        {shoppingCardFixed
+        {shoppingCardTopic
           ?.filter((item, index) => index < 4)
           .map(item => (
-            <InstructorCard key={item.id} item={item} />
+            <InstructorCard
+              key={item.id}
+              item={item}
+              setToggleShop={setToggle}
+            />
           ))}
       </div>
       <div className='grayLine'></div>
       <div className='divSyllabusCourseContent'>
         <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
 
-        {shoppingCardFixed.map(item => (
+        {shoppingCardTopic.map(item => (
           <NevBarLeftList key={item.id} item={item} />
         ))}
       </div>
@@ -191,10 +222,50 @@ function ShoppingCard() {
           </ToggleButtonGroup>
         </div>
         <div className='outputFilterCommentByRating'>
+          {role !== 'guest' && (
+            <form onSubmit={handleSubmitComment}>
+              <TextField
+                id='outlined-multiline-static'
+                label='Comment'
+                multiline
+                value={comment}
+                onChange={e => setComment(e.target.value)}
+                sx={{
+                  width: '100%',
+                  marginTop: '10px',
+                  marginBottom: '5px',
+                }}
+                rows={4}
+              />
+              <div className='ratingButton'>
+                <div>
+                  <Typography component='legend'>Give Rating</Typography>
+                  <Rating
+                    name='simple-controlled'
+                    value={rating}
+                    size='large'
+                    sx={{ color: '#ffc107' }}
+                    onChange={(event, newValue) => {
+                      setRating(newValue);
+                    }}
+                  />
+                </div>
+                <div>
+                  <Button type='submit' variant='contained'>
+                    Send Comment
+                  </Button>
+                </div>
+              </div>
+            </form>
+          )}
           {allComment
             ?.filter((item, index) => index < i)
             .map(item => (
-              <OutputFilterByRating key={item.id} item={item} />
+              <OutputFilterByRating
+                key={item.id}
+                item={item}
+                setToggle={setToggle}
+              />
             ))}
         </div>
         <div className='SeeMoreControl'>
@@ -213,7 +284,9 @@ function ShoppingCard() {
         {courseCatOne.length > 0 &&
           courseCatOne
             ?.filter((item, index) => index < 3)
-            .map(item => <CourseCard2 key={item.id} item={item} />)}
+            .map(item => (
+              <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
+            ))}
         {courseCatTwo.length > 0 && (
           <div className='divMoreFrontEndCourseHeader'>
             <h4 className='aboutThisCourseH4'>More Back - End Course</h4>
@@ -222,7 +295,9 @@ function ShoppingCard() {
         {courseCatTwo.length > 0 &&
           courseCatTwo
             ?.filter((item, index) => index < 3)
-            .map(item => <CourseCard2 key={item.id} item={item} />)}
+            .map(item => (
+              <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
+            ))}
         {courseCatThree.length > 0 && (
           <div className='divMoreFrontEndCourseHeader'>
             <h4 className='aboutThisCourseH4'>More UX/UI Course</h4>
@@ -231,9 +306,11 @@ function ShoppingCard() {
         {courseCatThree.length > 0 &&
           courseCatThree
             ?.filter((item, index) => index < 3)
-            .map(item => <CourseCard2 key={item.id} item={item} />)}
+            .map(item => (
+              <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
+            ))}
       </div>
-      <ShoppingCardFixed />
+      {role !== 'user' && <ShoppingCardFixed item={shoppingCard} />}
     </div>
   );
 }
