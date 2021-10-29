@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import courseImage from '../../public/images/javascript-training-120620.jpg';
 import './styleCourseCard.css';
-function CourseCard({ item }) {
+function CourseCard({ item, setToggle }) {
   const [course, setCourse] = useState([]);
   const {
     id,
@@ -30,6 +30,7 @@ function CourseCard({ item }) {
   // console.log('item: ', item.CourseCats);
   const handleClickToCourseCardDetail = () => {
     history.push(`/shopping-card/${id}`);
+    setToggle(current => !current);
   };
   return (
     <div className='cardBody' onClick={handleClickToCourseCardDetail}>

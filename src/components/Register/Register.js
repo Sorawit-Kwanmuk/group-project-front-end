@@ -110,9 +110,10 @@ function Register() {
           <div className='divRegister'>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
+                className='Config css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root'
                 label='Birth Date'
                 value={birthDate}
-                sx={{ zIndex: 3000001 }}
+                sx={{ zIndex: 3000001, alignSelf: '' }}
                 onChange={newValue => {
                   setBirthDate(newValue);
                 }}

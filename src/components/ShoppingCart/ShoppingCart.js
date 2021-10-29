@@ -21,6 +21,7 @@ import { publicKey } from '../../confidential/keys';
 import axios from '../../config/axios';
 import { PaymentContext } from '../../contexts/paymentContext';
 import { AuthContext } from '../../contexts/authContext';
+import { useHistory } from 'react-router';
 
 function ShoppingCart() {
   const { paymentCon, setPaymentCon } = useContext(PaymentContext);
@@ -32,8 +33,9 @@ function ShoppingCart() {
   const [cardHolderName, setCardHolderName] = useState('');
   const [cardNumber, setCardNumber] = useState('');
   const [ccv, setCcv] = useState('');
-  // console.log(paymentCon.id);
+  console.log(paymentCon.id);
   // console.log(paymentCon);
+  const history = useHistory();
   const amount =
     paymentCon.price - (paymentCon.price * paymentCon.discountRate) / 100;
   console.log(user);
@@ -55,20 +57,21 @@ function ShoppingCart() {
     OmiseCard.attach();
   }, []);
   const handleClick = e => {
-    // console.log('Click');
+    console.log('Click');
     e.preventDefault();
     OmiseCard.open({
       amount: amount * 100,
       submitFormTarget: '#credit-card',
       onCreateTokenSuccess: async nonce => {
-        // console.log('nonce: ', nonce);
+        console.log('nonce: ', nonce);
         const res = await axios.post('/checkout', {
           token: nonce,
           courseId: paymentCon.id,
         });
         console.log(res);
-        if (res.data.status === 'success') {
+        if (res.status === 200) {
           alert('Payment Success');
+          history.push('/');
         } else {
           alert('Payment Fail');
         }
@@ -91,7 +94,7 @@ function ShoppingCart() {
                 setImage({ profileImage: John });
               }}
             />
-            <h1 className='ShoppingCartH1'>Username</h1>
+            <h1 className='ShoppingCartH1'>{user.username}</h1>
           </div>
           <div className='grayLine'></div>
         </div>

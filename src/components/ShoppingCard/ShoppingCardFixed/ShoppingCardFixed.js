@@ -13,7 +13,7 @@ function ShoppingCardFixed({ item }) {
     setPaymentCon(item);
     history.push('/shopping-cart');
   };
-  console.log('paymentCon', paymentCon);
+  // console.log('paymentCon', paymentCon);
   return (
     <div className='ShoppingCardFixed'>
       <div className='ShoppingCardIframeControl'>

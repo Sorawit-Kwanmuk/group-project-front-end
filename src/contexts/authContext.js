@@ -18,8 +18,8 @@ function AuthContextProvider({ children }) {
   //   };
   //   fetchUserData();
   // }, [user]);
-  if (user.role === 'admin' || user.role === 'user') {
-  }
+  // if (user.role === 'admin' || user.role === 'user') {
+  // }
 
   return (
     <AuthContext.Provider
