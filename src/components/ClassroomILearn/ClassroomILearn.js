@@ -15,18 +15,49 @@ import "./styleClassroomILearn.css";
 // import { ToggleButtonConfig, ListItemTextConfig } from './muiConfig';
 import NevBarLeftList from "./NevBarLeftList/NevBarLeftList";
 import ContentRightClass from "./ContentRightClass/ContentRightClass";
+import { useEffect, useState } from "react";
+import axios from "../../config/axios";
+import { useParams } from "react-router";
+
 function ClassroomILearn() {
+  const param = useParams();
+  const [topicArr, setTopicArr] = useState([]);
+  const [rightIframeOn, setRightIframeOn] = useState(false);
+  const [vdoLink, setVdoLink] = useState(null);
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    const getLeftLists = async () => {
+      try {
+        const resTopic = await axios.get(`/topic`);
+        // console.log("@@@resTopic:", resTopic.data.result);
+        setTopicArr(resTopic.data.result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getLeftLists();
+  }, [param.id]);
+
   return (
     <div className="mainDivClassroomILearn">
       <div className="divLessonList">
         <h3 className="ClassroomILearnH3">Lesson List</h3>
-
-        <NevBarLeftList />
-        {/* <NevBarLeftList />
-        <NevBarLeftList /> */}
+        {topicArr.map((item) => (
+          <NevBarLeftList
+            key={item.id}
+            topicId={item.id}
+            topicName={item.topicName}
+            setRightIframeOn={setRightIframeOn}
+            setVdoLink={setVdoLink}
+            setQuestions={setQuestions}
+          />
+        ))}
       </div>
       <div className="divRightClassroomILearn">
-        {/* <ContentRightClass /> */}
+        {rightIframeOn && (
+          <ContentRightClass vdoLink={vdoLink} questions={questions} />
+        )}
       </div>
     </div>
   );

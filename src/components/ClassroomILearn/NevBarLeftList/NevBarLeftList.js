@@ -16,20 +16,30 @@ import { useEffect, useState } from "react";
 import axios from "../../../config/axios";
 import { useParams } from "react-router";
 
-function NevBarLeftList() {
+function NevBarLeftList({
+  topicId,
+  topicName,
+  setRightIframeOn,
+  setVdoLink,
+  setQuestions
+}) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
+  const [topicIdArr, setTopicIdArr] = useState([]);
 
   const param = useParams();
 
   useEffect(() => {
     const getLeftLists = async () => {
       try {
-        console.log("tttyt");
-        const res = await axios.get(`/topic/${param.id}`);
-        console.log("@@@res:", res.data.result);
+        // console.log("- B4resSubtop -");
+        const resSubTopic = await axios.get(`/subtopic`);
+        // console.log("@@@resSubTopic:", resSubTopic.data.result);
+        const resQuiz = await axios.get(`/quiz`);
+        // console.log("@@@resQuiz:", resQuiz.data.result);
+        setTopicIdArr(resSubTopic.data.result.concat(resQuiz.data.result));
       } catch (error) {
-        console.log(error);
+        console.log("useEffectSubTopicErr:", error);
       }
     };
     getLeftLists();
@@ -42,10 +52,23 @@ function NevBarLeftList() {
   const handleClick = () => {
     setOpen(!open);
   };
+
+  const handleToggleButtonClick = async (link, topicId) => {
+    try {
+      const resQuestion = await axios.get(`/quiz/${topicId}`);
+      console.log("@#@resQuestion:", resQuestion.data.result.Questions);
+      setQuestions(resQuestion.data.result.Questions);
+    } catch (error) {
+      console.log(error);
+    }
+    setRightIframeOn(true);
+    setVdoLink(link);
+  };
+
   return (
     <>
       <ListItemButton onClick={handleClick} sx={styleButton}>
-        <ListItemText sx={ListItemTextConfig} primary="HTML" />
+        <ListItemText sx={ListItemTextConfig} primary={topicName} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse
@@ -63,21 +86,20 @@ function NevBarLeftList() {
               exclusive
               onChange={handleChange}
             >
-              <ToggleButton sx={ToggleButtonConfig} value="htmlWww">
-                HTML - WWW
-              </ToggleButton>
-              <ToggleButton sx={ToggleButtonConfig} value="htmlStructure">
-                HTML - structure
-              </ToggleButton>
-              <ToggleButton sx={ToggleButtonConfig} value="htmlElementTag">
-                HTML - element/tag
-              </ToggleButton>
-              <ToggleButton sx={ToggleButtonConfig} value="htmlW3S">
-                HTML - w3s
-              </ToggleButton>
-              <ToggleButton sx={ToggleButtonConfig} value="htmlLessonQuiz">
-                HTML - lesson quiz
-              </ToggleButton>
+              {topicIdArr
+                .filter((chosenTopic) => chosenTopic.topicId === topicId)
+                .map((item, idx) => (
+                  <ToggleButton
+                    key={idx}
+                    sx={ToggleButtonConfig}
+                    value={item.subTopName ? item.subTopName : item.quizName}
+                    onClick={() =>
+                      handleToggleButtonClick(item.video, item.topicId)
+                    }
+                  >
+                    {item.subTopName ? item.subTopName : item.quizName}
+                  </ToggleButton>
+                ))}
             </ToggleButtonGroup>
           </ListItemButton>
         </List>
