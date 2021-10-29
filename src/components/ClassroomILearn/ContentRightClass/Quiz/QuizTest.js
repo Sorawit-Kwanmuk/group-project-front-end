@@ -1,62 +1,78 @@
-import '../../styleClassroomILearn.css';
-import { ToggleButtonGroupConfig, ToggleButtonConfig2 } from '../../muiConfig';
+import "../../styleClassroomILearn.css";
+import { ToggleButtonGroupConfig, ToggleButtonConfig2 } from "../../muiConfig";
 
-import { useState } from 'react';
-import { Button } from '@mui/material';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { useState } from "react";
+import { Button } from "@mui/material";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
-function QuizTest() {
-  const [view, setView] = useState('list');
+function QuizTest({ quiz, quizNo, setAnswerCheck }) {
+  const [view, setView] = useState("list");
 
   const handleChange = (event, nextView) => {
     setView(nextView);
   };
+
+  const handleButtonClick = (ans) => {
+    if (ans === quiz.correct)
+      return setAnswerCheck((curr) => ({ ...curr, [quiz.question]: true }));
+    setAnswerCheck((curr) => ({ ...curr, [quiz.question]: false }));
+  };
+
   return (
-    <div className='mailDivControlQuiz'>
-      <div className='quizTop'>
-        <h3>1.</h3>
-        <h3>What is the meaning of HTML</h3>
+    <div className="mailDivControlQuiz">
+      <div className="quizTop">
+        <h3>{`${quizNo}.`}</h3>
+        <h3>{quiz.question}</h3>
       </div>
-      <div className='divChoiceQuiz'>
+      <div className="divChoiceQuiz">
         <ToggleButtonGroup
-          orientation='vertical'
+          orientation="vertical"
           value={view}
-          size='small'
+          size="small"
           sx={ToggleButtonGroupConfig}
           exclusive
-          onChange={handleChange}>
+          onChange={handleChange}
+        >
           <ToggleButton
-            size='small'
-            value='1'
-            aria-label='list'
-            sx={ToggleButtonConfig2}>
+            size="small"
+            value={quiz.choiceA}
+            aria-label="list"
+            sx={ToggleButtonConfig2}
+            onClick={() => handleButtonClick(quiz.choiceA)}
+          >
             <h4 className="quizH4">A.</h4>
-            <p className='quizP'>Answer</p>
+            <p className="quizP">{quiz.choiceA}</p>
           </ToggleButton>
           <ToggleButton
-            size='small'
-            value='2'
-            aria-label='module'
-            sx={ToggleButtonConfig2}>
+            size="small"
+            value={quiz.choiceB}
+            aria-label="module"
+            sx={ToggleButtonConfig2}
+            onClick={() => handleButtonClick(quiz.choiceB)}
+          >
             <h4 className="quizH4">B.</h4>
-            <p className='quizP'>Answer</p>
+            <p className="quizP">{quiz.choiceB}</p>
           </ToggleButton>
           <ToggleButton
-            size='small'
-            value='3'
-            aria-label='module'
-            sx={ToggleButtonConfig2}>
+            size="small"
+            value={quiz.choiceC}
+            aria-label="module"
+            sx={ToggleButtonConfig2}
+            onClick={() => handleButtonClick(quiz.choiceC)}
+          >
             <h4 className="quizH4">C.</h4>
-            <p className='quizP'>Answer</p>
+            <p className="quizP">{quiz.choiceC}</p>
           </ToggleButton>
           <ToggleButton
-            size='small'
-            value='4'
-            aria-label='quilt'
-            sx={ToggleButtonConfig2}>
+            size="small"
+            value={quiz.choiceD}
+            aria-label="quilt"
+            sx={ToggleButtonConfig2}
+            onClick={() => handleButtonClick(quiz.choiceD)}
+          >
             <h4 className="quizH4">D.</h4>
-            <p className='quizP'>Answer</p>
+            <p className="quizP">{quiz.choiceD}</p>
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
