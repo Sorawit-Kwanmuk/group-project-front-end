@@ -48,14 +48,7 @@ function NevBarLeftList({
   const handleChange = (event, nextView) => {
     setView(nextView);
   };
-  useEffect(() => {
-    const fetchDataTopics = async () => {
-      const response = await axios.get(`/subtopic/${item.id}`);
-      setSubtopic(response.data.result);
-    };
-    fetchDataTopics();
-  }, []);
-  // console.log('item: ', item.id);
+
   const handleClick = () => {
     setOpen(!open);
   };
