@@ -16,6 +16,14 @@ function MyProfile() {
 
   // console.log(image);
   const [alignment, setAlignment] = useState('');
+  const [data, setData] = useState({
+    fullName: '',
+    birthDate: '',
+    profileImage: '',
+    email: '',
+    mobileNo: '',
+    username: '',
+  });
   // console.log(alignment);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -34,21 +42,15 @@ function MyProfile() {
         const data = await axios.get('/user/userId');
         // console.log(`data`, data.data.result);
         setData(data.data.result);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchUser();
   }, []);
 
-  const [data, setData] = useState({
-    fullName: '',
-    birthDate: '',
-    profileImage: '',
-    email: '',
-    mobileNo: '',
-    username: '',
-  });
   // console.log(`data`, data);
-
+  const handleClickUpdateProfileImg = async => {};
   return (
     <>
       <div className='mainDivController'>
@@ -60,10 +62,10 @@ function MyProfile() {
               src={data.profileImage ? data.profileImage : image}
               sx={imageConfig}
               onClick={() => {
-                setImage({ profileImage: John });
+                setImage(handleClickUpdateProfileImg);
               }}
             />
-            <h1 className='MyProfileH1'>Username</h1>
+            <h1 className='MyProfileH1'>{data.username}</h1>
           </div>
           <div className='grayLine'></div>
         </div>

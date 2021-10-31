@@ -3,7 +3,7 @@ import ShoppingCardBanner from '../../../public/images/shoppingCard.png';
 import { imageConfig, buttonConfig2 } from '../muiConfig';
 import Instructor from '../../../public/images/Instructor.png';
 function DummyHeaderInst({ item, setImage }) {
-  console.log('log', item.instructor.id);
+  // console.log('log', item.instructor.id);
   return (
     <div
       className='divMainHeaderInstructorCard'

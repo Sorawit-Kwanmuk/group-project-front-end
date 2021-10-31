@@ -34,8 +34,10 @@ function InstructorCardDetail() {
         const response = await axios.get(`/instructor/${params.id}`);
         const response2 = await axios.get(`/topic/ins/${params.id}`);
         const response3 = await axios.get(`/insCat/byinstructor/${params.id}`);
-        const newArr = response3.data.result.map(item => item.categoryId);
-
+        const newArr = location.state.instructor.InstructorCats.map(
+          item => item.categoryId
+        );
+        console.log('response3', response3.data);
         setInstructor(response.data.instructorResult);
         setInstructorTopics(response2.data.result);
         setInstructorByInsId(newArr);
@@ -43,14 +45,17 @@ function InstructorCardDetail() {
         if (newArr.includes(1)) {
           const response4 = await axios.get(`/insCat/bycat/${1}`);
           setInstructorFront(response4.data.result);
+          // console.log('response4', response4.data.result);
         }
         if (newArr.includes(2)) {
           const response5 = await axios.get(`/insCat/bycat/${2}`);
           setInstructorBack(response5.data.result);
+          // console.log('response5', response5.data.result);
         }
         if (newArr.includes(3)) {
           const response6 = await axios.get(`/insCat/bycat/${3}`);
           setInstructorUxUi(response6.data.result);
+          // console.log('response6', response6.data.result);
         }
         setToggle(currentToggle => !currentToggle);
         setFirstLoad(true);
@@ -59,7 +64,7 @@ function InstructorCardDetail() {
       }
     };
     fetchDataInstructorById();
-  }, []);
+  }, [params.id, location.state.instructor]);
 
   const handleClickToWebsite = () => {
     window.open(instructor.website, '_blank');
@@ -70,7 +75,8 @@ function InstructorCardDetail() {
   const handleClickToEmail = () => {
     window.location.href = `mailto:${instructor.email}?subject=Offer Inquiry&cc=support@email.com&bcc=info@company.com&body=test mail send massage`;
   };
-
+  // console.log('location', location.state.instructor.InstructorCats);
+  console.log('location', location);
   // console.log('instructorFront: ', instructorFront);
   // console.log('instructorBack: ', instructorBack);
   // console.log('instructorUxUi: ', instructorUxUi);
@@ -109,24 +115,24 @@ function InstructorCardDetail() {
           {instructorFront.length !== 0 && (
             <div className='divMoreFrontEndInstructor'>
               <h4 className='aboutThisMeH4'>More Front - End Instructor</h4>
-              {instructorFront
+              {location.state.instructorFront
                 ?.filter((item, index) => index < 4)
                 .map(item => (
                   <InstructorCard key={item.id} item={item} />
                 ))}
             </div>
           )}
-          {instructorBack.length !== 0 && (
+          {location.state.instructorBack.length !== 0 && (
             <div className='divMoreFrontEndInstructor'>
               <h4 className='aboutThisMeH4'>More Back - End Instructor</h4>
-              {instructorBack
+              {location.state.instructorBack
                 ?.filter((item, index) => index < 4)
                 .map(item => (
                   <InstructorCard key={item.id} item={item} />
                 ))}
             </div>
           )}
-          {instructorUxUi.length !== 0 && (
+          {location.state.instructorUxUi.length !== 0 && (
             <div className='divMoreFrontEndInstructor'>
               <h4 className='aboutThisMeH4'>More UX/UI Instructor</h4>
               {instructorUxUi
