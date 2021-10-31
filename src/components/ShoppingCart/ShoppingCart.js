@@ -38,7 +38,7 @@ function ShoppingCart() {
   const history = useHistory();
   const amount =
     paymentCon.price - (paymentCon.price * paymentCon.discountRate) / 100;
-  console.log(user);
+  // console.log(user);
   let OmiseCard;
 
   OmiseCard = window.OmiseCard;
@@ -57,18 +57,18 @@ function ShoppingCart() {
     OmiseCard.attach();
   }, []);
   const handleClick = e => {
-    console.log('Click');
+    // console.log('Click');
     e.preventDefault();
     OmiseCard.open({
       amount: amount * 100,
       submitFormTarget: '#credit-card',
       onCreateTokenSuccess: async nonce => {
-        console.log('nonce: ', nonce);
+        // console.log('nonce: ', nonce);
         const res = await axios.post('/checkout', {
           token: nonce,
           courseId: paymentCon.id,
         });
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           alert('Payment Success');
           history.push('/');

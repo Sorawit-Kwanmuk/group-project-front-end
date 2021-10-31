@@ -89,18 +89,6 @@ function DropBarMenu({ setOpen }) {
           </MenuItem>
           <MenuItem>My Course</MenuItem>
           <Divider />
-          <MenuItem>
-            <ListItemIcon>
-              <PersonAdd fontSize='small' />
-            </ListItemIcon>
-            Add another account
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize='small' />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
           <MenuItem onClick={handleClickLogout}>
             <ListItemIcon>
               <Logout fontSize='small' />

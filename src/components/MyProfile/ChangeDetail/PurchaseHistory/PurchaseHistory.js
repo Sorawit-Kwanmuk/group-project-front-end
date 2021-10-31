@@ -1,6 +1,21 @@
+import axios from '../../../../config/axios';
+import { useEffect, useState } from 'react';
 import './stylePurchaseHistory.css';
 import TableBody from './TableBody/TableBody';
 function PurchaseHistory() {
+  const [purchaseHistory, setPurchaseHistory] = useState([]);
+  useEffect(() => {
+    const fetchDataAllMyCoursesPurchaseHistory = async () => {
+      try {
+        const response = await axios.get('/mycourse/my');
+        // console.log(response.data.result);
+        setPurchaseHistory(response.data.result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataAllMyCoursesPurchaseHistory();
+  }, []);
   return (
     <div>
       <div className='tablePurchaseHistory'>
@@ -10,15 +25,9 @@ function PurchaseHistory() {
         <div className='tableHeader4'>Price</div>
       </div>
       <div>
-        <TableBody />
-        <TableBody />
-        <TableBody />
-        <TableBody />
-        <TableBody />
-        <TableBody />
-        <TableBody />
-        <TableBody />
-        <TableBody />
+        {purchaseHistory.map(item => (
+          <TableBody key={item.id} item={item} />
+        ))}
       </div>
     </div>
   );

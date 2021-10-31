@@ -7,46 +7,65 @@ import { ToggleContext } from '../../contexts/toggleContext';
 function InstructorCard({ item }) {
   const [instructor, setInstructor] = useState({});
   const params = useParams();
+  const [instructorFront, setInstructorFront] = useState([]);
+  const [instructorBack, setInstructorBack] = useState([]);
+  const [instructorUxUi, setInstructorUxUi] = useState([]);
   // console.log('instructor: ', instructor);
 
   const history = useHistory();
   const { toggle, setToggle } = useContext(ToggleContext);
-  // useEffect(() => {
-  //   const fetchDataInstructorById = async () => {
-  //     try {
-  //       if (params.id) {
-  //         const response = await axios.get(`/instructor/${params.id}`);
-  //         setInstructor(response.data.instructorResult);
-  //       } else if (item.id) {
-  //         const response = await axios.get(`/instructor/${item.id}`);
-  //         setInstructor(response.data.instructorResult);
-  //       } else if (item.instructorId) {
-  //         const response = await axios.get(`/instructor/${item.instructorId}`);
-  //         setInstructor(response.data.instructorResult);
-  //       }
-  //       console.log('params', params);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchDataInstructorById();
-  // }, [toggle]);
   useEffect(() => {
     const fetchDataInstructorById = async () => {
       try {
-        console.log('params', params);
+        // console.log('params', params);
         const response = await axios.get(
           `/instructor/${item.instructorId ? item.instructorId : item.id}`
         );
+        const newArr = response.data.instructorResult.InstructorCats.map(
+          item => item.categoryId
+        );
+        // setInstructor(response.data.instructorResult);
+        // setInstructorTopics(response2.data.result);
+        // setInstructorByInsId(newArr);
+        // console.log('res: ', response.data.instructorResult);
+        if (newArr.includes(1)) {
+          const response4 = await axios.get(`/insCat/bycat/${1}`);
+          setInstructorFront(response4.data.result);
+          // console.log('response4', response4.data.result);
+        }
+        if (newArr.includes(2)) {
+          const response5 = await axios.get(`/insCat/bycat/${2}`);
+          setInstructorBack(response5.data.result);
+          // console.log('response5', response5.data.result);
+        }
+        if (newArr.includes(3)) {
+          const response6 = await axios.get(`/insCat/bycat/${3}`);
+          setInstructorUxUi(response6.data.result);
+          // console.log('response6', response6.data.result);
+        }
         setInstructor(response.data.instructorResult);
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchDataInstructorById();
   }, [toggle]);
+
   const handleClickToInstructorCard = () => {
-    history.push(
-      `/instructor-card/${item.instructorId ? item.instructorId : item.id}`
-    );
+    // history.push(
+    //   `/instructor-card/${item.instructorId ? item.instructorId : item.id}`,
+    // );
+    history.push({
+      pathname: `/instructor-card/${
+        item.instructorId ? item.instructorId : item.id
+      }`,
+      state: {
+        instructor: instructor,
+        instructorFront: instructorFront,
+        instructorBack: instructorBack,
+        instructorUxUi: instructorUxUi,
+      },
+    });
     setToggle(current => !current);
   };
 

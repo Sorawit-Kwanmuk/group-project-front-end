@@ -1,15 +1,30 @@
 import './styleDashBoard.css';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CoursesCardStatus from './CoursesCardStatus/CoursesCardStatus';
+import axios from '../../../../config/axios';
 function DashBoard() {
-  const [alignment, setAlignment] = useState('left');
+  const [alignment, setAlignment] = useState('1');
+  const [courseData, setCourseData] = useState([]);
+  const [courseStatus, setCourseStatus] = useState([]);
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
     }
   };
+  useEffect(() => {
+    const fetchDataAllMyCourses = async () => {
+      try {
+        const response = await axios.get('/mycourse/my');
+        console.log(response.data.result);
+        setCourseData(response.data.result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataAllMyCourses();
+  }, []);
   return (
     <>
       <div>
@@ -32,9 +47,13 @@ function DashBoard() {
         </div>
         <div className='grayLine'></div>
         <div>
-          <CoursesCardStatus />
-          <CoursesCardStatus />
-          <CoursesCardStatus />
+          {courseData.map(item => (
+            <CoursesCardStatus
+              key={item.id}
+              item={item}
+              alignment={alignment}
+            />
+          ))}
         </div>
       </div>
     </>

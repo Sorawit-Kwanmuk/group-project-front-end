@@ -89,10 +89,10 @@ function ShoppingCard() {
   // console.log('user: ', user);
   const handleSubmitComment = async e => {
     e.preventDefault();
-    console.log('comment: ', comment);
-    console.log('rating: ', rating);
-    console.log('shoppingCardId: ', shoppingCard.id);
-    console.log('username: ', user.username);
+    // console.log('comment: ', comment);
+    // console.log('rating: ', rating);
+    // console.log('shoppingCardId: ', shoppingCard.id);
+    // console.log('username: ', user.username);
     const response = await axios.post(`/comment/`, {
       commentName: user.username,
       rating: rating,

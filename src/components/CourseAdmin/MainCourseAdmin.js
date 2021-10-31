@@ -53,11 +53,11 @@ function MainCourseAdmin() {
     data.append("shortDescription", courseInfo.shortDescription);
     data.append("about", courseInfo.about);
 
-    console.log("@@@courseInfo:", courseInfo);
-    console.log("@@@data:", data);
+    // console.log("@@@courseInfo:", courseInfo);
+    // console.log("@@@data:", data);
     try {
       const res = await axios.post(`${API_URL}/course`, data);
-      console.log("@@@res:", res);
+      // console.log("@@@res:", res);
     } catch (error) {
       console.dir("@@@error:", error);
     }

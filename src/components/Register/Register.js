@@ -54,7 +54,7 @@ function Register() {
         username,
         password,
       });
-      console.log(res);
+      // console.log(res);
       setToken(res.data.token);
       setUser(jwtDecode(res.data.token));
     } catch (error) {}
