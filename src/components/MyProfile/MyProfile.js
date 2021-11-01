@@ -9,13 +9,17 @@ import Dashboard from './ChangeDetail/DashBoard/DashBoard';
 import MyProfileDetail from './ChangeDetail/MyProfileDetail/MyProfileDetail';
 import PurchaseHistory from './ChangeDetail/PurchaseHistory/PurchaseHistory';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 function MyProfile() {
   const [image, setImage] = useState(
     'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png'
   );
-
+  const location = useLocation();
+  console.log('location: ', location);
   // console.log(image);
-  const [alignment, setAlignment] = useState('');
+  const [alignment, setAlignment] = useState(
+    location.state.alignmentHistory ? location.state.alignmentHistory : ''
+  );
   const [data, setData] = useState({
     fullName: '',
     birthDate: '',

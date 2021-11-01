@@ -8,19 +8,8 @@ import IncompletedCourse from './IncompletedCourse/IncompletedCourse';
 import CompletedCoures from './CompletedCoures/CompletedCoures';
 function CoursesCardStatus({ item, alignment }) {
   const [courseName, setCourseName] = useState('');
-  const {
-    courseId,
-    createdAt,
-    currentStage,
-    duration,
-    id,
-    price,
-    status,
-    totalStage,
-    updatedAt,
-    userId,
-  } = item;
-  console.log('status', status);
+  const { id, status } = item;
+  // console.log('status', status);
   useEffect(() => {
     const fetchDataCourseName = async () => {
       try {

@@ -24,3 +24,6 @@
 - `npm install @mui/styles`
 - `npm i date-fns@next @date-io/date-fns`
 - `npm i react-load-script`
+- `npm i embla-carousel`
+
+- `npm install embla-carousel-react --save`

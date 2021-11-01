@@ -37,6 +37,7 @@ function DropBarMenu({ setOpen }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <>
       <Fragment>
@@ -87,7 +88,19 @@ function DropBarMenu({ setOpen }) {
             }}>
             My Profile
           </MenuItem>
-          <MenuItem>My Course</MenuItem>
+          <MenuItem
+            onClick={() => {
+              console.log('11111111');
+              history.push({
+                pathname: `/my-profile`,
+                state: {
+                  alignmentHistory: 'dashboard',
+                  alignmentDashboard: '2',
+                },
+              });
+            }}>
+            My Course
+          </MenuItem>
           <Divider />
           <MenuItem onClick={handleClickLogout}>
             <ListItemIcon>

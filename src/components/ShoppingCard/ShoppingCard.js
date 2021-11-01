@@ -18,9 +18,12 @@ import { AuthContext } from '../../contexts/authContext';
 import { InputAdornment, TextField, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Rating from '@mui/material/Rating';
+import { UserContext } from '../../contexts/userContext';
 
 function ShoppingCard() {
   const { user, setUser } = useContext(AuthContext);
+  const { userById, setUserById } = useContext(UserContext);
+  const { userCourseId, setUserCourseId } = useContext(UserContext);
   const role = user ? user.role : 'guest';
   const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
@@ -38,7 +41,10 @@ function ShoppingCard() {
     setAlignment(newAlignment);
   };
   const params = useParams();
-
+  // console.log('user', userById);
+  // console.log('params', +params.id);
+  // console.log('userCourseId: ', userCourseId);
+  console.log('allComment', allComment);
   useEffect(() => {
     const fetchDataShoppingCard = async () => {
       try {
@@ -100,7 +106,9 @@ function ShoppingCard() {
       courseId: shoppingCard.id,
     });
     setToggle(current => !current);
-    console.log('responseComment: ', response);
+    // console.log('responseComment: ', response);
+    setComment('');
+    setRating(2);
   };
   // console.log('courseCatOne: ', courseCatOne);
   // console.log('shoppingCard: ', shoppingCard.Topics);
@@ -222,7 +230,8 @@ function ShoppingCard() {
           </ToggleButtonGroup>
         </div>
         <div className='outputFilterCommentByRating'>
-          {role !== 'guest' && (
+          {userCourseId?.includes(+params.id) !== false && (
+            // role !== 'guest' &&
             <form onSubmit={handleSubmitComment}>
               <TextField
                 id='outlined-multiline-static'
@@ -310,7 +319,9 @@ function ShoppingCard() {
               <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
             ))}
       </div>
-      {role !== 'user' && <ShoppingCardFixed item={shoppingCard} />}
+      {userCourseId?.includes(+params.id) !== true && (
+        <ShoppingCardFixed item={shoppingCard} />
+      )}
     </div>
   );
 }

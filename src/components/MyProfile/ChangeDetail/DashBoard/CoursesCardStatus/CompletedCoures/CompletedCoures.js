@@ -67,7 +67,7 @@ function CompletedCoures({ item, courseName }) {
                   </span>
                 </div>
                 <div className='bottomCardDetail'>
-                  <span>{(currentStage / totalStage) * 100}% </span>
+                  <span>{((currentStage / totalStage) * 100).toFixed(0)}%</span>
                   <p>Complete</p>
                 </div>
               </div>
