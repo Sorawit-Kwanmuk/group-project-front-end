@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { PrevButton, NextButton } from './CarouselButton';
-import useEmblaCarousel from 'embla-carousel-react';
-import { bannerByIndex } from './media/index';
-import './embla.css';
+import React, { useState, useEffect, useCallback } from "react";
+import { PrevButton, NextButton } from "./CarouselButton";
+import useEmblaCarousel from "embla-carousel-react";
+import { bannerByIndex } from "./media/index";
+import "./embla.css";
 function Carousel({ slides }) {
   const [viewportRef, embla] = useEmblaCarousel({
     loop: true,
-    skipSnaps: false,
+    skipSnaps: false
   });
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
@@ -20,21 +20,21 @@ function Carousel({ slides }) {
 
   useEffect(() => {
     if (!embla) return;
-    embla.on('select', onSelect);
+    embla.on("select", onSelect);
     onSelect();
   }, [embla, onSelect]);
   return (
     <>
-      <div className='embla'>
-        <div className='embla__viewport' ref={viewportRef}>
-          <div className='embla__container'>
-            {slides.map(index => (
-              <div className='embla__slide' key={index}>
-                <div className='embla__slide__inner'>
+      <div className="embla">
+        <div className="embla__viewport" ref={viewportRef}>
+          <div className="embla__container">
+            {slides.map((index) => (
+              <div className="embla__slide" key={index}>
+                <div className="embla__slide__inner">
                   <img
-                    className='embla__slide__img'
+                    className="embla__slide__img"
                     src={bannerByIndex(index)}
-                    alt='A cool cat.'
+                    alt="A cool cat."
                   />
                 </div>
               </div>
