@@ -84,13 +84,17 @@ function DropBarMenu({ setOpen }) {
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
           <MenuItem
             onClick={() => {
-              history.push('/my-profile');
+              history.push({
+                pathname: `/my-profile`,
+                state: {
+                  alignmentHistory: 'myProfile',
+                },
+              });
             }}>
             My Profile
           </MenuItem>
           <MenuItem
             onClick={() => {
-              console.log('11111111');
               history.push({
                 pathname: `/my-profile`,
                 state: {
