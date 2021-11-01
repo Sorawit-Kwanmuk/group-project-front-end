@@ -1,6 +1,6 @@
 .homeBannerAdmin {
-  width: 100%;
+  width: auto;
   height: 200px;
-  background-color: wheat;
+  background-color: azure;
   text-align: center;
 }

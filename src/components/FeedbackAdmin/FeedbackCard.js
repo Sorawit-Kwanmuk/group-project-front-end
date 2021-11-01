@@ -1,36 +1,56 @@
-import { TextField } from '@mui/material';
-import './styleFeedbackCard.css';
+import { TextField } from "@mui/material";
+import "./styleFeedbackCard.css";
 
-function FeedbackCard() {
+function FeedbackCard({
+  issueNo,
+  status,
+  dateSent,
+  email,
+  topic,
+  content,
+  setIssueInfo,
+  index
+}) {
+  const handleButtonToggle = () => {
+    setIssueInfo((curr) => {
+      const issueArr = [...curr];
+      const currentIssueObj = issueArr[index];
+      currentIssueObj.status = !status;
+      return issueArr;
+    });
+  };
   return (
-    <div className='FeedbackCardBody'>
-      <div className='divDetailCard'>
-        <p className='topic'>Issue #25</p>
-        <span className='topic'>Resolved</span>
+    <div
+      className={status ? `FeedbackCardBody-done` : `FeedbackCardBody-undone`}
+    >
+      <div className="divDetailCard">
+        <p className="topic">{`Issue #${issueNo}`}</p>
+        <span className="topic resolveBtn" onClick={handleButtonToggle}>
+          {status ? `Resolved` : `Unresolved`}
+        </span>
       </div>
-      <div className=''>
-        <span className='topic'>Date sent: </span>
-        <span>18/10/2021</span>
+      <div className="">
+        <span className="topic">Date sent: </span>
+        <span>{dateSent}</span>
       </div>
-      <div className=''>
-        <span className='topic'>Topic: </span>
-        <span>Can't get Certificate from JS course</span>
+      <div className="">
+        <span className="topic">Email: </span>
+        <span>{email}</span>
       </div>
-      <div className=''>
-        <span className='topic'>Email: </span>
-        <span>Goodguy@gmail.com</span>
+      <div className="">
+        <span className="topic">Topic: </span>
+        <span>{topic}</span>
       </div>
-      <div className=''>
+      <div className="">
         <TextField
           sx={{ marginY: 2 }}
-          label='Content'
-          placeholder='Enter Content'
           multiline
           rows={5}
-          variant='outlined'
-          size='small'
+          variant="outlined"
+          size="small"
           fullWidth
           required
+          value={content}
         />
       </div>
     </div>
