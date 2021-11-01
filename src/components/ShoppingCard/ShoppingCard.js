@@ -18,9 +18,12 @@ import { AuthContext } from '../../contexts/authContext';
 import { InputAdornment, TextField, Typography } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Rating from '@mui/material/Rating';
+import { UserContext } from '../../contexts/userContext';
 
 function ShoppingCard() {
   const { user, setUser } = useContext(AuthContext);
+  const { userById, setUserById } = useContext(UserContext);
+  const { userCourseId, setUserCourseId } = useContext(UserContext);
   const role = user ? user.role : 'guest';
   const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
@@ -34,11 +37,26 @@ function ShoppingCard() {
   const [rating, setRating] = useState(2);
   const [comment, setComment] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [eachRating, setEachRating] = useState([]);
+  const [ratingSelect, setRatingSelect] = useState('all');
+  // const [one, setOne] = useState([]);
+  // const [two, setTwo] = useState([]);
+  // const [three, setThree] = useState([]);
+  // const [four, setFour] = useState([]);
+  // const [five, setFive] = useState([]);
+  const [sumRating, setSumRating] = useState(0);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
   const params = useParams();
-
+  // console.log('user', userById);
+  // console.log('params', +params.id);
+  // console.log('userCourseId: ', userCourseId);
+  console.log('allComment', allComment);
+  // console.log('eachRating', eachRating);
+  // console.log('one-five', one, two, three, four, five);
+  // console.log('eachRating', eachRating);
+  // console.log('sum', sumRating);
   useEffect(() => {
     const fetchDataShoppingCard = async () => {
       try {
@@ -51,7 +69,32 @@ function ShoppingCard() {
         );
         setShoppingCard(response.data.courseResult);
         setAllComment(response2.data.result);
-
+        const newArrRating = response2.data.result.map(item => item.rating);
+        // console.log('newArrRating', newArrRating);
+        const arrayOne = [];
+        const arrayTwo = [];
+        const arrayThree = [];
+        const arrayFour = [];
+        const arrayFive = [];
+        for (let i = 0; i < newArrRating.length; i++) {
+          if (newArrRating[i] === '1') {
+            arrayOne.push(newArrRating[i]);
+          }
+          if (newArrRating[i] === '2') {
+            arrayTwo.push(newArrRating[i]);
+          }
+          if (newArrRating[i] === '3') {
+            arrayThree.push(newArrRating[i]);
+          }
+          if (newArrRating[i] === '4') {
+            arrayFour.push(newArrRating[i]);
+          }
+          if (newArrRating[i] === '5') {
+            arrayFive.push(newArrRating[i]);
+          }
+          setSumRating(i + 1);
+          setEachRating([arrayFive, arrayFour, arrayThree, arrayTwo, arrayOne]);
+        }
         // console.log('response2: ', response2.data.result);
         // console.log('response: ', response.data.courseResult.id);
         // console.log('shoppingCard: ', shoppingCard.Topics);
@@ -100,7 +143,9 @@ function ShoppingCard() {
       courseId: shoppingCard.id,
     });
     setToggle(current => !current);
-    console.log('responseComment: ', response);
+    // console.log('responseComment: ', response);
+    setComment('');
+    setRating(2);
   };
   // console.log('courseCatOne: ', courseCatOne);
   // console.log('shoppingCard: ', shoppingCard.Topics);
@@ -134,13 +179,13 @@ function ShoppingCard() {
           <a href='#about'>About</a>
         </Button>
         <Button sx={ButtonConfig} variant='text'>
-          <a href='#studentFeedback'>Instructor</a>
+          <a href='#instructor'>Instructor</a>
         </Button>
         <Button sx={ButtonConfig} variant='text'>
-          Syllabus
+          <a href='#SyllabusCourseContent'>Syllabus</a>
         </Button>
         <Button sx={ButtonConfig} variant='text'>
-          Reviews
+          <a href='#studentFeedback'>Reviews</a>
         </Button>
       </div>
       <div id='about' className='aboutThisCourseControl'>
@@ -151,7 +196,7 @@ function ShoppingCard() {
       <div className='divInstructorController'>
         <h4 className='aboutThisCourseH4'>Instructor</h4>
         {shoppingCardTopic
-          ?.filter((item, index) => index < 4)
+          ?.filter((item, index) => index < 4 && item.rating === '5')
           .map(item => (
             <InstructorCard
               key={item.id}
@@ -161,7 +206,7 @@ function ShoppingCard() {
           ))}
       </div>
       <div className='grayLine'></div>
-      <div className='divSyllabusCourseContent'>
+      <div id='SyllabusCourseContent' className='divSyllabusCourseContent'>
         <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
 
         {shoppingCardTopic.map(item => (
@@ -181,11 +226,9 @@ function ShoppingCard() {
           </div>
           <div className='divRightStudentFeedback'>
             <div className='barRating'>
-              <BarRating />
-              <BarRating />
-              <BarRating />
-              <BarRating />
-              <BarRating />
+              {eachRating.map(item => (
+                <BarRating item={item} sumRating={sumRating} />
+              ))}
             </div>
           </div>
         </div>
@@ -201,28 +244,47 @@ function ShoppingCard() {
             }}
             exclusive
             onChange={handleChange}>
-            <ToggleButton sx={ToggleButtonConfig} value=''>
+            <ToggleButton
+              sx={ToggleButtonConfig}
+              value='all'
+              onClick={() => setRatingSelect('all')}>
               All
             </ToggleButton>
-            <ToggleButton sx={ToggleButtonConfig} value='5'>
+            <ToggleButton
+              sx={ToggleButtonConfig}
+              value='5'
+              onClick={() => setRatingSelect('5')}>
               5
             </ToggleButton>
-            <ToggleButton sx={ToggleButtonConfig} value='4'>
+            <ToggleButton
+              sx={ToggleButtonConfig}
+              value='4'
+              onClick={() => setRatingSelect('4')}>
               4
             </ToggleButton>
-            <ToggleButton sx={ToggleButtonConfig} value='3'>
+            <ToggleButton
+              sx={ToggleButtonConfig}
+              value='3'
+              onClick={() => setRatingSelect('3')}>
               3
             </ToggleButton>
-            <ToggleButton sx={ToggleButtonConfig} value='2'>
+            <ToggleButton
+              sx={ToggleButtonConfig}
+              value='2'
+              onClick={() => setRatingSelect('2')}>
               2
             </ToggleButton>
-            <ToggleButton sx={ToggleButtonConfig} value='1'>
+            <ToggleButton
+              sx={ToggleButtonConfig}
+              value='1'
+              onClick={() => setRatingSelect('1')}>
               1
             </ToggleButton>
           </ToggleButtonGroup>
         </div>
         <div className='outputFilterCommentByRating'>
-          {role !== 'guest' && (
+          {userCourseId?.includes(+params.id) !== false && (
+            // role !== 'guest' &&
             <form onSubmit={handleSubmitComment}>
               <TextField
                 id='outlined-multiline-static'
@@ -258,15 +320,25 @@ function ShoppingCard() {
               </div>
             </form>
           )}
-          {allComment
-            ?.filter((item, index) => index < i)
-            .map(item => (
-              <OutputFilterByRating
-                key={item.id}
-                item={item}
-                setToggle={setToggle}
-              />
-            ))}
+          {ratingSelect !== 'all'
+            ? allComment?.map(item => (
+                <OutputFilterByRating
+                  key={item.id}
+                  item={item}
+                  setToggle={setToggle}
+                  ratingSelect={ratingSelect}
+                />
+              ))
+            : allComment
+                ?.filter((item, index) => index < i)
+                .map(item => (
+                  <OutputFilterByRating
+                    key={item.id}
+                    item={item}
+                    setToggle={setToggle}
+                    ratingSelect={ratingSelect}
+                  />
+                ))}
         </div>
         <div className='SeeMoreControl'>
           <p
@@ -310,7 +382,9 @@ function ShoppingCard() {
               <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
             ))}
       </div>
-      {role !== 'user' && <ShoppingCardFixed item={shoppingCard} />}
+      {userCourseId?.includes(+params.id) !== true && (
+        <ShoppingCardFixed item={shoppingCard} />
+      )}
     </div>
   );
 }

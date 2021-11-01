@@ -4,10 +4,15 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import { useEffect, useState } from 'react';
 import CoursesCardStatus from './CoursesCardStatus/CoursesCardStatus';
 import axios from '../../../../config/axios';
+import { useLocation } from 'react-router-dom';
 function DashBoard() {
-  const [alignment, setAlignment] = useState('1');
+  const location = useLocation();
+  const [alignment, setAlignment] = useState(
+    location.state.alignmentDashboard ? location.state.alignmentDashboard : '1'
+  );
   const [courseData, setCourseData] = useState([]);
   const [courseStatus, setCourseStatus] = useState([]);
+  // console.log('locationDash: ', location);
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment);
