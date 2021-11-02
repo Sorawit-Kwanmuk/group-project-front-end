@@ -1,37 +1,49 @@
 import { TextField } from "@mui/material";
+import axios from "../../config/axios";
 import "./styleFeedbackCard.css";
 
 function FeedbackCard({
   issueNo,
   status,
   dateSent,
+  name,
   email,
   topic,
-  content,
-  setIssueInfo,
-  index
+  content
 }) {
   const handleButtonToggle = () => {
-    setIssueInfo((curr) => {
-      const issueArr = [...curr];
-      const currentIssueObj = issueArr[index];
-      currentIssueObj.status = !status;
-      return issueArr;
-    });
+    axios
+      .put(`/feedback/${issueNo}`, {
+        status: status === "solved" ? "unsolved" : "solved"
+      })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div
-      className={status ? `FeedbackCardBody-done` : `FeedbackCardBody-undone`}
+      className={
+        status === "solved"
+          ? `FeedbackCardBody-done`
+          : `FeedbackCardBody-undone`
+      }
     >
       <div className="divDetailCard">
         <p className="topic">{`Issue #${issueNo}`}</p>
         <span className="topic resolveBtn" onClick={handleButtonToggle}>
-          {status ? `Resolved` : `Unresolved`}
+          {status === "solved" ? `Resolved` : `Unresolved`}
         </span>
       </div>
       <div className="">
         <span className="topic">Date sent: </span>
-        <span>{dateSent}</span>
+        <span>{dateSent?.slice(0, 10)}</span>
+      </div>
+      <div className="">
+        <span className="topic">Name: </span>
+        <span>{name}</span>
       </div>
       <div className="">
         <span className="topic">Email: </span>

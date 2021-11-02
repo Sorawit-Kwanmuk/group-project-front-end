@@ -17,8 +17,6 @@ function EditBanner({ bannerInfoEdit, setRerender }) {
   const [editting, setEditting] = useState(false);
   const [previewImg, setPreviewImg] = useState(editInput.image);
 
-  console.log("@editInput:", editInput);
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const submitBanner = async () => {
