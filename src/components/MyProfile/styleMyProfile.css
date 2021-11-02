@@ -98,3 +98,8 @@
     z-index: 1001;
     cursor: pointer;
 }
+
+.spanStatusUploadImage {
+    position: absolute;
+    z-index: 1002;
+}

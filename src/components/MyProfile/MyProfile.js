@@ -33,7 +33,10 @@ function MyProfile() {
   });
   const [toggleProfile, setToggleProfile] = useState(false);
   const [loading, setLoading] = useState(false);
-  console.log('data: ', data);
+  const [preViewImage, setPreViewImage] = useState('');
+  const [upLoadImageStatus, setUpLoadImageStatus] = useState('');
+  // console.log('data: ', data);
+  console.log('upLoadImageStatus: ', upLoadImageStatus);
   // console.log(alignment);
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
@@ -53,26 +56,44 @@ function MyProfile() {
         const res = await axios.get('/user/userId');
         // console.log(`data`, data.data.result);
         setData(res.data.result);
+        setPreViewImage(res.data.result.profileImage);
       } catch (error) {
         console.log(error);
       }
     };
     fetchUser();
   }, [location.state, toggleProfile]);
-
+  useEffect(() => {
+    if (!upLoadImageStatus) {
+      return;
+    } else if (upLoadImageStatus) {
+      setTimeout(() => {
+        setUpLoadImageStatus('');
+      }, 5000);
+    }
+  }, [upLoadImageStatus]);
   // console.log(`data`, data);
   const handleClickUpdateProfileImg = async e => {
     console.log('Image2: ', e.target.files[0]);
     try {
       setLoading(true);
+      const render = new FileReader();
+      render.readAsDataURL(e.target.files[0]);
+      render.onloadend = () => {
+        setPreViewImage(render.result);
+      };
       const formData = new FormData();
       formData.append('thisisinput', e.target.files[0]);
       const res = await axios.put('/user/updateImage', formData);
       console.log('res: ', res);
       if (res.status === 200) {
-        setLoading(false);
+        // setLoading(false);
         // console.log('loading2', loading);
         setToggleProfile(current => !current);
+        setUpLoadImageStatus(true);
+        // setPreViewImage('');
+      } else {
+        setUpLoadImageStatus(false);
       }
     } catch (error) {
       console.log(error);
@@ -83,9 +104,19 @@ function MyProfile() {
     <>
       <div className='mainDivController'>
         <div className='MyProfileConTroller'>
+          {upLoadImageStatus === true && (
+            <span className='v' style={{ color: 'green' }}>
+              Upload Profile Image Success
+            </span>
+          )}
+          {upLoadImageStatus === false && (
+            <span className='spanStatusUploadImage' style={{ color: 'red' }}>
+              Upload Profile Image Fail!
+            </span>
+          )}
           <div className='MyProfileTop'>
-            {loading && <CircularProgress />}
-            {!loading && (
+            {/* {loading && <CircularProgress />} */}
+            {!preViewImage && (
               <>
                 <label for='files' class='inputImageProfileLabel'></label>
                 <Avatar
@@ -106,7 +137,26 @@ function MyProfile() {
                 />
               </>
             )}
-
+            {preViewImage && (
+              <>
+                <label for='files' class='inputImageProfileLabel'></label>
+                <Avatar
+                  className='MyProfileAvatar'
+                  alt='Remy Sharp'
+                  src={preViewImage}
+                  sx={imageConfig}
+                />
+                <input
+                  id='files'
+                  className='inputImageProfile'
+                  type='file'
+                  onChange={e => {
+                    setImage(e.target.files[0]);
+                    handleClickUpdateProfileImg(e);
+                  }}
+                />
+              </>
+            )}
             <h1 className='MyProfileH1'>{data.username}</h1>
           </div>
           <div className='grayLine'></div>
