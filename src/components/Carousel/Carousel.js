@@ -1,22 +1,13 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, useCallback, useContext } from "react";
-import { PrevButton, NextButton } from "./CarouselButton";
-import useEmblaCarousel from "embla-carousel-react";
-import { bannerByIndex } from "./media/index";
-import "./embla.css";
-import { CarouselContext } from "../../contexts/CarouselContext";
-=======
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { PrevButton, NextButton } from './CarouselButton';
 import useEmblaCarousel from 'embla-carousel-react';
 import './embla.css';
 import { CarouselContext } from '../../contexts/CarouselContext';
 import { useHistory } from 'react-router-dom';
->>>>>>> six
 function Carousel({ slides }) {
   const [viewportRef, embla] = useEmblaCarousel({
     loop: true,
-    skipSnaps: false
+    skipSnaps: false,
   });
   const history = useHistory();
   const carouselContext = useContext(CarouselContext);
@@ -36,7 +27,7 @@ function Carousel({ slides }) {
 
   useEffect(() => {
     if (!embla) return;
-    embla.on("select", onSelect);
+    embla.on('select', onSelect);
     onSelect();
   }, [embla, onSelect]);
   const handleClickLinkToPage = index => {
@@ -44,12 +35,12 @@ function Carousel({ slides }) {
   };
   return (
     <>
-      <div className="embla">
-        <div className="embla__viewport" ref={viewportRef}>
-          <div className="embla__container">
-            {slides.map((index) => (
-              <div className="embla__slide" key={index}>
-                <div className="embla__slide__inner">
+      <div className='embla'>
+        <div className='embla__viewport' ref={viewportRef}>
+          <div className='embla__container'>
+            {slides.map(index => (
+              <div className='embla__slide' key={index}>
+                <div className='embla__slide__inner'>
                   <img
                     className='embla__slide__img'
                     onClick={() => handleClickLinkToPage(index)}
