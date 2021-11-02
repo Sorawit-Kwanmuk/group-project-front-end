@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { PrevButton, NextButton } from './CarouselButton';
 import useEmblaCarousel from 'embla-carousel-react';
 import { bannerByIndex } from './media/index';
 import './embla.css';
+import { CarouselContext } from '../../contexts/CarouselContext';
 function Carousel({ slides }) {
   const [viewportRef, embla] = useEmblaCarousel({
     loop: true,
     skipSnaps: false,
   });
+  // const carouselContext = useContext(CarouselContext);
+
   const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const scrollPrev = useCallback(() => embla && embla.scrollPrev(), [embla]);

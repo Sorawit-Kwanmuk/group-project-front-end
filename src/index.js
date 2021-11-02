@@ -8,6 +8,7 @@ import { PaymentContextProvider } from './contexts/paymentContext';
 import { LoginRegisStatusContextProvider } from './contexts/loginRegisStatus';
 import { ToggleContextProvider } from './contexts/toggleContext';
 import { UserContextProvider } from './contexts/userContext';
+import { CarouselContextProvider } from './contexts/CarouselContext';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,11 +16,13 @@ ReactDOM.render(
       <AuthContextProvider>
         <UserContextProvider>
           <PaymentContextProvider>
-            <CourseContextProvider>
-              <LoginRegisStatusContextProvider>
-                <App />
-              </LoginRegisStatusContextProvider>
-            </CourseContextProvider>
+            <CarouselContextProvider>
+              <CourseContextProvider>
+                <LoginRegisStatusContextProvider>
+                  <App />
+                </LoginRegisStatusContextProvider>
+              </CourseContextProvider>
+            </CarouselContextProvider>
           </PaymentContextProvider>
         </UserContextProvider>
       </AuthContextProvider>

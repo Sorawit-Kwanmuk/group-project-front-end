@@ -9,22 +9,24 @@ function MyProfileDetail({ data, setToggleProfile }) {
     /(\d{3})(\d{3})(\d{4})/,
     '$1-$2-$3'
   );
+  // console.log('data: ', data);
   const [editProfile, setEditProfile] = useState(true);
-  const [fullNameChange, setFullNameChange] = useState('');
-  const [birthDateChange, setBirthDateChange] = useState('');
-  const [emailChange, setEmailChange] = useState('');
-  const [mobileNoChange, setMobileNoChange] = useState('');
-  // console.log('fullNameChange: ', fullNameChange);
-  // console.log('birthDateChange: ', birthDateChange);
-  // console.log('emailChange: ', emailChange);
-  // console.log('mobileNoChange: ', mobileNoChange);
-  // console.log('editProfile:', editProfile);
-  useEffect(() => {
-    setFullNameChange(fullName);
-    setBirthDateChange(birthDate);
-    setEmailChange(email);
-    setMobileNoChange(mobileNoChangeForm);
-  }, []);
+  const [fullNameChange, setFullNameChange] = useState(fullName);
+  const [birthDateChange, setBirthDateChange] = useState(birthDate);
+  const [emailChange, setEmailChange] = useState(email);
+  const [mobileNoChange, setMobileNoChange] = useState(mobileNoChangeForm);
+  console.log('fullNameChange: ', fullNameChange);
+  console.log('birthDateChange: ', birthDateChange);
+  console.log('emailChange: ', emailChange);
+  console.log('mobileNoChange: ', mobileNoChange);
+  console.log('editProfile:', editProfile);
+  // useEffect(() => {
+  //   setFullNameChange(fullName);
+  //   setBirthDateChange(birthDate);
+  //   setEmailChange(email);
+  //   setMobileNoChange(mobileNoChangeForm);
+  //   setToggleProfile(currentToggle => !currentToggle);
+  // }, []);
 
   const handleSubmitUpdateProfile = async e => {
     e.preventDefault();

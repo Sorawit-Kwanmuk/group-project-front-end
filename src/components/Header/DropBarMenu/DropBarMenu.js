@@ -43,7 +43,7 @@ function DropBarMenu({ setOpen }) {
       <Fragment>
         <Box
           sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-          <Tooltip title='Account settings'>
+          <Tooltip title='User Menu'>
             <IconButton onClick={handleClick} size='small' sx={{ ml: 2 }}>
               <Avatar sx={{ width: 32, height: 32 }} src={John}></Avatar>
             </IconButton>
