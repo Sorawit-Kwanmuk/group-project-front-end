@@ -1,11 +1,12 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import axios from '../../config/axios';
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import axios from "../../config/axios";
+import { useEffect } from "react";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -18,18 +19,30 @@ const MenuProps = {
   },
 };
 
-const names = ['UX-UI', 'Front-End', 'Back-End'];
+export default function CategorySelect({ setCategoryId, catMap }) {
+  const [cat, setCat] = React.useState([]);
+  useEffect(() => {
+    axios
+      .get("/category")
+      .then(res => {
+        console.log("Context Waste", res.data.category);
+        setCat(res.data.category);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+  // console.log(`names`, cat);
 
-function getStyles(name, categoryName, theme) {
-  return {
-    fontWeight:
-      categoryName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-export default function CategorySelect({ setCourseInfo }) {
+  function getStyles(name, categoryName, theme) {
+    return {
+      fontWeight:
+        categoryName.indexOf(name) === -1
+          ? theme.typography.fontWeightRegular
+          : theme.typography.fontWeightMedium,
+    };
+  }
+  console.log(`catMap`, catMap);
   const theme = useTheme();
   const [categoryName, setCategoryName] = React.useState([]);
   // const [names, setNames] = React.useState([]);
@@ -50,34 +63,44 @@ export default function CategorySelect({ setCourseInfo }) {
     } = event;
     setCategoryName(
       // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value
+      typeof value === "string" ? value.split(",") : value
     );
-    setCourseInfo(courseInfo => ({
-      ...courseInfo,
-      categoryId: value,
-    }));
+    setCategoryId(event.target.value);
+    // console.log(`event.target.value`, event.target.value);
     // console.log("@@@CategoryArr:", value);
   };
 
+  // names.map(item => (
+  //     <MenuItem
+  //       key={item.id}
+  //       value={item.id}
+  //       style={getStyles(item, categoryName, theme)}
+  //     >
+  //       {item.categoryName}
+  //     </MenuItem>
+  //   ));
+
   return (
     <div>
-      <FormControl sx={{ m: 0, width: '100%' }}>
-        <InputLabel id='demo-multiple-name-label'>Category *</InputLabel>
+      <FormControl sx={{ m: 0, width: "100%" }}>
+        <InputLabel id="demo-multiple-name-label">Category *</InputLabel>
         <Select
-          labelId='demo-multiple-name-label'
-          id='demo-multiple-name'
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
           multiple
           value={categoryName}
           onChange={handleChange}
-          input={<OutlinedInput label='Category *' />}
+          input={<OutlinedInput label="Category *" />}
           MenuProps={MenuProps}
-          required>
-          {names.map((name, idx) => (
+          required
+        >
+          {cat.map(item => (
             <MenuItem
-              key={name}
-              value={idx + 1}
-              style={getStyles(name, categoryName, theme)}>
-              {name}
+              key={item.id}
+              value={item.id}
+              style={getStyles(item, categoryName, theme)}
+            >
+              {item.categoryName}
             </MenuItem>
           ))}
         </Select>
