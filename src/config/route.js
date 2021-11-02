@@ -17,6 +17,7 @@ import FeedbackAdmin from "../components/FeedbackAdmin/FeedbackAdmin";
 import ContactUsEdit from "../components/ContactUs/ContactUsEdit";
 import HomeBannerAdmin from "../components/HomeBannerAdmin/HomeBannerAdmin";
 import ResetPassword from "../components/ForgetPassword/ResetPassword";
+import CreateTopic from "../components/CourseAdmin/CreateTopic";
 
 const routes = {
   user: {
@@ -107,6 +108,7 @@ const routes = {
         path: "/forget-password",
         component: ForgetPassword,
       },
+
       {
         path: "/our-course",
         component: OurCourse,
@@ -148,7 +150,7 @@ const routes = {
         component: MainCourseAdmin,
       },
       {
-        path: "/course-classroom-admin",
+        path: "/course-classroom-admin/:id",
         component: CourseClassroomAdmin,
       },
       {

@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import CreateQuiz from "./CreateQuiz";
 import CreateTopic from "./CreateTopic";
 import CreateContent from "./CreateContent";
+import { useLocation } from "react-router";
+import axios from "axios";
+import EditTopic from "./EditTopic";
 
 const quizBank = [
   {
@@ -14,8 +17,8 @@ const quizBank = [
           { answerText: "New York", isCorrect: false },
           { answerText: "London", isCorrect: false },
           { answerText: "Paris", isCorrect: true },
-          { answerText: "Dublin", isCorrect: false }
-        ]
+          { answerText: "Dublin", isCorrect: false },
+        ],
       },
       {
         questionText: "Who is CEO of Tesla?",
@@ -23,10 +26,10 @@ const quizBank = [
           { answerText: "Jeff Bezos", isCorrect: false },
           { answerText: "Elon Musk", isCorrect: true },
           { answerText: "Bill Gates", isCorrect: false },
-          { answerText: "Tony Stark", isCorrect: false }
-        ]
-      }
-    ]
+          { answerText: "Tony Stark", isCorrect: false },
+        ],
+      },
+    ],
   },
   {
     subjectName: "CSS Greate Quiz",
@@ -37,11 +40,11 @@ const quizBank = [
           { answerText: "Jeff Bezos", isCorrect: false },
           { answerText: "Elon Musk", isCorrect: true },
           { answerText: "Bill Gates", isCorrect: false },
-          { answerText: "Tony Stark", isCorrect: false }
-        ]
-      }
-    ]
-  }
+          { answerText: "Tony Stark", isCorrect: false },
+        ],
+      },
+    ],
+  },
 ];
 
 // ##################################################################
@@ -53,9 +56,43 @@ function CourseClassroomAdmin() {
   const [disableAddNewSubject, setDisableAddNewSubject] = useState(false);
   const [disableBtnGroup, setDisableBtnGroup] = useState([true, true, true]);
   const [displayTopicCreate, setDisplayTopicCreate] = useState(false);
+  const [displayTopicEdit, setDisplayTopicEdit] = useState(false);
   const [displayContCreate, setDisplayContCreate] = useState(false);
   const [displayQuizCreate, setDisplayQuizCreate] = useState(false);
+  const [topicList, setTopicList] = useState([]);
 
+  const [topicItem, setTopicItem] = useState([]);
+
+  const location = useLocation();
+
+  console.log(`topicList`, topicList);
+  const courseDetail = location.state.list;
+  console.log(`location`, location);
+  // console.log(`location.state`, courseDetail);
+
+  useEffect(() => {
+    axios
+      .get(`/topic/course/${location.state.key}`)
+      .then(res => {
+        setTopicList(res.data.result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`/topic/course/${location.state.key}`)
+      .then(res => {
+        setTopicList(res.data.result);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  console.log(`topicList--->`, topicList);
   return (
     <div style={{ minHeight: 580 }}>
       <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
@@ -67,7 +104,7 @@ function CourseClassroomAdmin() {
             align="center"
             sx={{ width: "100%" }}
           >
-            Classroom Admin
+            Course : {courseDetail.courseName}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -80,10 +117,23 @@ function CourseClassroomAdmin() {
               className="w3-bar-block w3-light-gray"
               style={{ width: "25%" }}
             >
-              {subjectOptions.map((subjectObj, idx) => (
+              {topicList.map((topic, idx) => (
                 <div key={idx} className="">
-                  <button href="#" className="w3-button w3-block w3-ripple">
-                    {subjectObj.subjectName}
+                  <button
+                    href="#"
+                    className="w3-button w3-block w3-ripple"
+                    onClick={() => {
+                      setDisplayTopicCreate(false);
+                      setDisplayContCreate(false);
+                      setDisplayQuizCreate(false);
+                      setDisplayTopicEdit(true);
+                      setDisableBtnGroup([true, true, true]);
+                      setTopicItem(topic);
+                      setDisableAddNewSubject(false);
+                      // console.log(`topicItem`, topicItem);
+                    }}
+                  >
+                    {topic.topicName}
                   </button>
                 </div>
               ))}
@@ -95,6 +145,7 @@ function CourseClassroomAdmin() {
                   onClick={() => {
                     setDisableAddNewSubject(true);
                     setDisableBtnGroup([false, false]);
+                    setDisplayTopicEdit(false);
                   }}
                   disabled={disableAddNewSubject}
                 >
@@ -107,7 +158,7 @@ function CourseClassroomAdmin() {
             {displayEdit && (
               <div
                 style={{
-                  width: "75%"
+                  width: "75%",
                 }}
               >
                 <div
@@ -157,6 +208,19 @@ function CourseClassroomAdmin() {
                     setDisableAddNewSubject={setDisableAddNewSubject}
                     setDisableBtnGroup={setDisableBtnGroup}
                     setDisplayTopicCreate={setDisplayTopicCreate}
+                    courseDetail={courseDetail}
+                    setTopicList={setTopicList}
+                  />
+                )}
+                {displayTopicEdit && (
+                  <EditTopic
+                    // setDisableAddNewSubject={setDisableAddNewSubject}
+                    setDisableBtnGroup={setDisableBtnGroup}
+                    setDisplayTopicCreate={setDisplayTopicCreate}
+                    setDisplayTopicEdit={setDisplayTopicEdit}
+                    courseDetail={courseDetail}
+                    setTopicList={setTopicList}
+                    topicItem={topicItem}
                   />
                 )}
 
@@ -166,6 +230,7 @@ function CourseClassroomAdmin() {
                     setDisableAddNewSubject={setDisableAddNewSubject}
                     setDisableBtnGroup={setDisableBtnGroup}
                     setDisplayContCreate={setDisplayContCreate}
+                    topicList={topicList}
                   />
                 )}
 
