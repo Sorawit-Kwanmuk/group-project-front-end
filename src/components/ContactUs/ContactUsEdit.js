@@ -7,36 +7,37 @@ import {
   Typography
 } from "@mui/material";
 import { AppBar, Toolbar } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "../../config/axios";
 
-const initData = {
-  map: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15502.240787727475!2d100.5147665248554!3d13.745056245627854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2994d0b8d7e6b%3A0x75f3888fdec83b87!2sMint%20Tower!5e0!3m2!1sen!2sth!4v1634896022779!5m2!1sen!2sth",
-  address: "719 ถนน บรรทัดทอง Wang Mai, Pathum Wan District, Bangkok 10330",
-  email: "support@clonecamp.com",
-  phone: "+6689-876-5432",
-  facebookLink: "mockup-fackbook",
-  youtubeLink: "mockup-youtube",
-  twitterLink: "mockup-twitter",
-  lineLink: "mockup-line"
-};
-
 function ContactUsEdit() {
-  const [contactForm, setContactForm] = useState(initData);
+  const [contactForm, setContactForm] = useState({});
 
-  console.log("@contactForm:", contactForm);
+  useEffect(() => {
+    axios
+      .get("/contactus")
+      .then((res) => {
+        setContactForm(res.data.result[0]);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const handleButtonSave = async () => {
-    try {
-      // const resSave = await axios.post("/", contactForm);
-      // console.log("@resSave:", resSave);
-    } catch (error) {
-      console.log("@contactEditError:", error);
+    if (window.confirm("Are you sure to save the change?")) {
+      try {
+        const resSave = contactForm.id
+          ? await axios.put(`/contactus/${contactForm.id}`, contactForm)
+          : await axios.post("/contactus", contactForm);
+
+        console.log("@resSave:", resSave);
+      } catch (error) {
+        console.log("@contactEditError:", error);
+      }
     }
   };
 
-  const handleButtonCancel = async () => {
-    setContactForm(initData);
+  const handleButtonCancel = () => {
+    if (window.confirm("Are you sure to empty all inputs?")) setContactForm({});
   };
 
   return (
@@ -72,6 +73,9 @@ function ContactUsEdit() {
                     variant="outlined"
                     fullWidth
                     required
+                    // InputLabelProps={{ shrink: true }}
+                    // value={contactForm.map}
+                    value={contactForm.map || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
@@ -87,6 +91,7 @@ function ContactUsEdit() {
                     variant="outlined"
                     fullWidth
                     required
+                    value={contactForm.address || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
@@ -103,6 +108,7 @@ function ContactUsEdit() {
                     variant="outlined"
                     fullWidth
                     required
+                    value={contactForm.email || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
@@ -113,16 +119,17 @@ function ContactUsEdit() {
                 </Grid>
                 <Grid xs={12} item>
                   <TextField
-                    type="number"
+                    type="text"
                     label="Phone"
                     placeholder="Enter phone number"
                     variant="outlined"
                     fullWidth
                     required
+                    value={contactForm.phoneNo || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
-                        phone: e.target.value
+                        phoneNo: e.target.value
                       }));
                     }}
                   />
@@ -135,10 +142,11 @@ function ContactUsEdit() {
                     variant="outlined"
                     fullWidth
                     required
+                    value={contactForm.facebook || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
-                        facebookLink: e.target.value
+                        facebook: e.target.value
                       }));
                     }}
                   />
@@ -151,10 +159,11 @@ function ContactUsEdit() {
                     variant="outlined"
                     fullWidth
                     required
+                    value={contactForm.youtube || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
-                        youtubeLink: e.target.value
+                        youtube: e.target.value
                       }));
                     }}
                   />
@@ -167,10 +176,11 @@ function ContactUsEdit() {
                     variant="outlined"
                     fullWidth
                     required
+                    value={contactForm.twitter || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
-                        twitterLink: e.target.value
+                        twitter: e.target.value
                       }));
                     }}
                   />
@@ -183,10 +193,11 @@ function ContactUsEdit() {
                     variant="outlined"
                     fullWidth
                     required
+                    value={contactForm.line || ""}
                     onChange={(e) => {
                       setContactForm((curr) => ({
                         ...curr,
-                        lineLink: e.target.value
+                        line: e.target.value
                       }));
                     }}
                   />
@@ -204,7 +215,7 @@ function ContactUsEdit() {
                 </Grid>
                 <Grid xs={12} sm={6} item>
                   <Button
-                    type="submit"
+                    type="button"
                     variant="contained"
                     color="error"
                     fullWidth

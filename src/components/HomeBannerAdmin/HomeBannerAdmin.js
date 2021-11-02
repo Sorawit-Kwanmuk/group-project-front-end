@@ -14,8 +14,6 @@ function HomeBannerAdmin() {
   const [createForm, setCreateForm] = useState(false);
   const [rerender, setRerender] = useState(false);
 
-  console.log("@#@getBannerArr:", getBannerArr);
-
   useEffect(() => {
     const getBanner = async () => {
       const resGetAll = await axios.get("/banner");
