@@ -10,6 +10,7 @@ import MyProfileDetail from './ChangeDetail/MyProfileDetail/MyProfileDetail';
 import PurchaseHistory from './ChangeDetail/PurchaseHistory/PurchaseHistory';
 import axios from '../../config/axios';
 import { useLocation } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 function MyProfile() {
   const [image, setImage] = useState(
     'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png'
@@ -31,6 +32,7 @@ function MyProfile() {
     username: '',
   });
   const [toggleProfile, setToggleProfile] = useState(false);
+  const [loading, setLoading] = useState(false);
   console.log('data: ', data);
   // console.log(alignment);
   const handleChange = (event, newAlignment) => {
@@ -43,10 +45,11 @@ function MyProfile() {
   // } else if (alignment === 'purchaseHistory') {
   //   return 'Purchase History';
   // }
-  console.log('image: ', image);
+  // console.log('image: ', image);
   useEffect(() => {
     const fetchUser = async () => {
       try {
+        console.log('loading', loading);
         const res = await axios.get('/user/userId');
         // console.log(`data`, data.data.result);
         setData(res.data.result);
@@ -58,11 +61,19 @@ function MyProfile() {
   }, [location.state, toggleProfile]);
 
   // console.log(`data`, data);
-  const handleClickUpdateProfileImg = async () => {
+  const handleClickUpdateProfileImg = async e => {
+    console.log('Image2: ', e.target.files[0]);
     try {
+      setLoading(true);
       const formData = new FormData();
-      formData.append('thisisinput', image);
+      formData.append('thisisinput', e.target.files[0]);
       const res = await axios.put('/user/updateImage', formData);
+      console.log('res: ', res);
+      if (res.status === 200) {
+        setLoading(false);
+        // console.log('loading2', loading);
+        setToggleProfile(current => !current);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -73,23 +84,28 @@ function MyProfile() {
       <div className='mainDivController'>
         <div className='MyProfileConTroller'>
           <div className='MyProfileTop'>
-            <label for='files' class='inputImageProfileLabel'></label>
-            <Avatar
-              className='MyProfileAvatar'
-              alt='Remy Sharp'
-              src={data.profileImage ? data.profileImage : image}
-              sx={imageConfig}
-              onClick={handleClickUpdateProfileImg}
-            />
-            <input
-              id='files'
-              className='inputImageProfile'
-              type='file'
-              onChange={e => {
-                setImage(e.target.files[0]);
-                handleClickUpdateProfileImg();
-              }}
-            />
+            {loading && <CircularProgress />}
+            {!loading && (
+              <>
+                <label for='files' class='inputImageProfileLabel'></label>
+                <Avatar
+                  className='MyProfileAvatar'
+                  alt='Remy Sharp'
+                  src={data.profileImage ? data.profileImage : image}
+                  sx={imageConfig}
+                  onClick={handleClickUpdateProfileImg}
+                />
+                <input
+                  id='files'
+                  className='inputImageProfile'
+                  type='file'
+                  onChange={e => {
+                    setImage(e.target.files[0]);
+                    handleClickUpdateProfileImg(e);
+                  }}
+                />
+              </>
+            )}
 
             <h1 className='MyProfileH1'>{data.username}</h1>
           </div>
@@ -123,16 +139,18 @@ function MyProfile() {
                   (alignment === 'purchaseHistory' && 'Purchase History')}
               </h2>
             </div>
-            <div className='divChangeDetail'>
-              {(alignment === 'myProfile' || alignment === null) && (
-                <MyProfileDetail
-                  data={data}
-                  setToggleProfile={setToggleProfile}
-                />
-              )}
-              {alignment === 'dashboard' && <Dashboard />}
-              {alignment === 'purchaseHistory' && <PurchaseHistory />}
-            </div>
+            {data.id && (
+              <div className='divChangeDetail'>
+                {(alignment === 'myProfile' || alignment === null) && (
+                  <MyProfileDetail
+                    data={data}
+                    setToggleProfile={setToggleProfile}
+                  />
+                )}
+                {alignment === 'dashboard' && <Dashboard />}
+                {alignment === 'purchaseHistory' && <PurchaseHistory />}
+              </div>
+            )}
           </div>
         </div>
       </div>
