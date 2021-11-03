@@ -15,10 +15,11 @@ import { useHistory } from 'react-router';
 import { Fragment, useContext, useState } from 'react';
 import { AuthContext } from '../../../contexts/authContext';
 import { removeToken } from '../../../services/localStorage';
+import { UserContext } from '../../../contexts/userContext';
 function DropBarMenu({ setOpen }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const { user, setUser, toggle, setToggle } = useContext(AuthContext);
-
+  const { userById } = useContext(UserContext);
   const history = useHistory();
   const open = Boolean(anchorEl);
   const handleClick = event => {
@@ -37,7 +38,7 @@ function DropBarMenu({ setOpen }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  console.log('userById2', userById.profileImage);
   return (
     <>
       <Fragment>
@@ -45,7 +46,9 @@ function DropBarMenu({ setOpen }) {
           sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
           <Tooltip title='User Menu'>
             <IconButton onClick={handleClick} size='small' sx={{ ml: 2 }}>
-              <Avatar sx={{ width: 32, height: 32 }} src={John}></Avatar>
+              <Avatar
+                sx={{ width: 32, height: 32 }}
+                src={userById.profileImage}></Avatar>
             </IconButton>
           </Tooltip>
         </Box>

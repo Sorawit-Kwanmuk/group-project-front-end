@@ -8,8 +8,8 @@ function CarouselContextProvider({ children }) {
   const [carouselImage, setCarouselImage] = useState([]);
   const [bannerImage, setBannerImage] = useState([]);
   const [bannerLinkTo, setBannerLinkTo] = useState([]);
-  console.log('bannerImage: ', bannerImage);
-  console.log('bannerLinkTo: ', bannerLinkTo);
+  //   console.log('bannerImage: ', bannerImage);
+  //   console.log('bannerLinkTo: ', bannerLinkTo);
   useEffect(() => {
     try {
       const fetchDataBanner = async () => {

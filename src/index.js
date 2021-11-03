@@ -9,21 +9,24 @@ import { LoginRegisStatusContextProvider } from './contexts/loginRegisStatus';
 import { ToggleContextProvider } from './contexts/toggleContext';
 import { UserContextProvider } from './contexts/userContext';
 import { CarouselContextProvider } from './contexts/CarouselContext';
+import { CategoryContextProvider } from './contexts/categoryContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <ToggleContextProvider>
       <AuthContextProvider>
         <UserContextProvider>
-          <PaymentContextProvider>
-            <CarouselContextProvider>
-              <CourseContextProvider>
-                <LoginRegisStatusContextProvider>
-                  <App />
-                </LoginRegisStatusContextProvider>
-              </CourseContextProvider>
-            </CarouselContextProvider>
-          </PaymentContextProvider>
+          <CategoryContextProvider>
+            <PaymentContextProvider>
+              <CarouselContextProvider>
+                <CourseContextProvider>
+                  <LoginRegisStatusContextProvider>
+                    <App />
+                  </LoginRegisStatusContextProvider>
+                </CourseContextProvider>
+              </CarouselContextProvider>
+            </PaymentContextProvider>
+          </CategoryContextProvider>
         </UserContextProvider>
       </AuthContextProvider>
     </ToggleContextProvider>

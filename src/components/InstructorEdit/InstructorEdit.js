@@ -1,221 +1,279 @@
-import { AppBar, Avatar, Divider, Toolbar, Typography } from "@mui/material";
-import { Button, CssBaseline, Grid, TextField } from "@mui/material";
-import Container from "@mui/material/Container";
-import CategorySelect from "./CategoryDropDown";
-import John from "../../public/images/john.jpg";
-import CourseCard from "../CourseCard/CourseCard";
+import './styleInstructorEdit.css';
+import Button from '@mui/material/Button';
+import InstructorCard from '../InstructorCard/InstructorCard';
+import { Avatar, TextField } from '@mui/material';
+import {
+  imageConfig,
+  buttonConfig2,
+  buttonConfig3,
+  textFieldConfig2,
+} from './muiConfig';
+import { useContext, useEffect, useState } from 'react';
 
+import AreaOfExpertiseTag from './AreaOfExpertiseTag/AreaOfExpertiseTag';
+import { useLocation, useParams, useHistory } from 'react-router-dom';
+import axios from '../../config/axios';
+
+import DummyHeaderInst from './DummyHeader/DummyHeaderInst';
+import { CategoryContext } from '../../contexts/categoryContext';
+import CourseCard from '../CourseCard/CourseCard';
+import { ToggleContext } from '../../contexts/toggleContext';
 function InstructorEdit() {
+  const [i, setI] = useState(3);
+  const handleClickSeeMore = () => {
+    setI(i + 3);
+  };
+  const location = useLocation();
+  console.log('location', location.state.instructor.id);
+  const [instructor, setInstructor] = useState({});
+  const [courses, setCourses] = useState([]);
+  const [toggle, setToggle] = useState(false);
+  const [instructorEdit, setInstructorEdit] = useState({
+    fullName: '',
+    jobTitle: '',
+    about: '',
+    expertise: [],
+    category: [],
+    website: '',
+    email: '',
+    facebook: '',
+    youtube: '',
+    linkedin: '',
+    twitter: '',
+    profileImage: '',
+    profileImageName: '',
+  });
+  console.log('instructorEdit: ', instructorEdit);
+  const params = useParams();
+  const history = useHistory();
+  useEffect(() => {
+    const fetchDataInstructorCardById = async () => {
+      const response = await axios.get(`/instructor/${params.id}`);
+      const response2 = await axios.get(
+        `/topic/ins/${
+          location.state.instructor.id
+            ? location.state.instructor.id
+            : params.id
+        }`
+      );
+      console.log(
+        'response.data.instructorResult: ',
+        response.data.instructorResult
+      );
+      setInstructor(response.data.instructorResult);
+      // console.log('response2', response2.data.result);
+      setCourses(response2.data.result);
+    };
+    fetchDataInstructorCardById();
+  }, [toggle]);
+  const handleSubmitUpdateInstructor = async e => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append('fullName', instructorEdit.fullName);
+    data.append('jobTitle', instructorEdit.jobTitle);
+    data.append('about', instructorEdit.about);
+    data.append('expertise', instructorEdit.expertise);
+    // data.append('category', instructorEdit.category);
+    data.append('website', instructorEdit.website);
+    data.append('email', instructorEdit.email);
+    data.append('facebook', instructorEdit.facebook);
+    data.append('youtube', instructorEdit.youtube);
+    data.append('linkedin', instructorEdit.linkedin);
+    data.append('twitter', instructorEdit.twitter);
+    data.append('thisisinput', instructorEdit.profileImage);
+    try {
+      const response = await axios.put(
+        `/instructor/${
+          location.state.instructor.id
+            ? location.state.instructor.id
+            : params.id
+        }`,
+        data
+      );
+      setToggle(current => !current);
+      history.push(`/our-team-admin`);
+      console.log('response', response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div>
-      <CssBaseline />
+    <div className='divMainInstructorEditController'>
+      <form action='' onSubmit={handleSubmitUpdateInstructor}>
+        <div className='divH2InstructorEdit'>
+          <h2 className='InstructorEditH2'>Instructor Edit System</h2>
+        </div>
+        {/* <DummyHeaderInst item={instructor} setImage={setImage} /> */}
+        <DummyHeaderInst
+          item={location.state.instructor}
+          setInstructorEdit={setInstructorEdit}
+          instructorEdit={instructorEdit}
+          toggle2={toggle}
+          setToggle2={setToggle}
+        />
 
-      <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
-        <Toolbar variant="dense">
-          <Typography
-            variant="h6"
-            color="inherit"
-            component="div"
-            align="center"
-            sx={{ width: "100%" }}
-          >
-            Instructor Edit
-          </Typography>
-        </Toolbar>
-      </AppBar>
+        <div className='InstructorEditContent'>
+          <div className='InstructorEditContentLeft'>
+            <div className='aboutThisMeControl'>
+              <h4 className='aboutThisMeH4'>About Me</h4>
+              <TextField
+                id='outlined-multiline-static'
+                sx={buttonConfig3}
+                label='About ( Max. 500 Character)'
+                onChange={e =>
+                  setInstructorEdit({
+                    ...instructorEdit,
+                    about: e.target.value,
+                  })
+                }
+                multiline
+                value={instructorEdit.about}
+                shrink={true}
+                rows={6}
+              />
+            </div>
+            <div className='grayLine'></div>
+            <div className='divMoreFrontEndCourse'>
+              <div className='divMoreFrontEndCourseHeader'>
+                <h4 className='aboutThisMeH4'>My Course</h4>
+              </div>
+              <div className='InstructorEditCourseCardControl'>
+                {courses
+                  ?.filter((item, index) => index < i)
+                  .map(item => (
+                    <CourseCard key={item.id} item={item} />
+                  ))}
+              </div>
 
-      {/* Upper part */}
-      <Container maxWidth="xlg" sx={{ bgcolor: "#eee", paddingY: 3 }}>
-        <form>
-          <Grid container spacing={5}>
-            <Grid xs={12} sm={6} item>
-              <Grid container spacing={1}>
-                <Grid xs={12} item>
-                  <TextField
-                    label="Instructor name"
-                    placeholder="Enter Instructor name"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <TextField
-                    label="Job title"
-                    placeholder="Enter Job title"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <CategorySelect />
-                </Grid>
+              <div className='SeeMoreControl'>
+                <p
+                  className='SeeMoreP'
+                  style={{ marginBottom: '10px' }}
+                  onClick={handleClickSeeMore}>
+                  {`<-- See More -->`}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className='InstructorEditContentRight'>
+            <h4 className='aboutThisMeH4'>Area of Expertise</h4>
+            <div className='AreaOfExpertiseTagController'>
+              <TextField
+                id='outlined-multiline-static'
+                sx={(buttonConfig3, { width: '80%' })}
+                label='Expertise ( Max. 100 Character)'
+                value={instructorEdit.expertise}
+                shrink={true}
+                onChange={e =>
+                  setInstructorEdit({
+                    ...instructorEdit,
+                    expertise: e.target.value,
+                  })
+                }
+                multiline
+                rows={6}
+              />
+            </div>
+            <div className='grayLineRight'></div>
+            <TextField
+              id='outlined-basic'
+              label='Website'
+              sx={textFieldConfig2}
+              size='small'
+              variant='outlined'
+              value={instructorEdit.website}
+              shrink={true}
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  website: e.target.value,
+                })
+              }
+            />
+            <TextField
+              id='outlined-basic'
+              label='Email'
+              sx={textFieldConfig2}
+              size='small'
+              variant='outlined'
+              value={instructorEdit.email}
+              shrink={true}
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  email: e.target.value,
+                })
+              }
+            />
+            <TextField
+              id='outlined-basic'
+              label='Facebook'
+              sx={textFieldConfig2}
+              size='small'
+              variant='outlined'
+              value={instructorEdit.facebook}
+              shrink={true}
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  facebook: e.target.value,
+                })
+              }
+            />
+            <TextField
+              id='outlined-basic'
+              label='Youtube'
+              sx={textFieldConfig2}
+              value={instructorEdit.youtube}
+              shrink={true}
+              size='small'
+              variant='outlined'
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  youtube: e.target.value,
+                })
+              }
+            />
+            <TextField
+              id='outlined-basic'
+              value={instructorEdit.linkedin}
+              shrink={true}
+              label='Linkedin'
+              sx={textFieldConfig2}
+              size='small'
+              variant='outlined'
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  linkedin: e.target.value,
+                })
+              }
+            />
+            <TextField
+              id='outlined-basic'
+              label='Twitter'
+              sx={textFieldConfig2}
+              value={instructorEdit.twitter}
+              shrink={true}
+              size='small'
+              variant='outlined'
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  twitter: e.target.value,
+                })
+              }
+            />
 
-                <Grid xs={12} item>
-                  <TextField
-                    label="Bio"
-                    placeholder="Enter Bio"
-                    multiline
-                    rows={5}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid xs={12} sm={6} item>
-              <Grid container spacing={1}>
-                <Grid xs={12} item>
-                  <Avatar
-                    alt="Instructor Image"
-                    src={John}
-                    sx={{ width: 180, height: 180, m: "0 auto" }}
-                  />
-                </Grid>
-                <Grid xs={6} sx={{ marginX: "auto" }} item>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    fullWidth
-                  >
-                    {"Save Edit"}
-                  </Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </form>
-      </Container>
-
-      {/* Below part */}
-      <Container maxWidth="xlg" sx={{ bgcolor: "", marginY: 5 }}>
-        <form>
-          <Grid container spacing={5}>
-            {/* Left-side column */}
-            <Grid xs={12} sm={6} item>
-              <Grid container spacing={1}>
-                <Grid xs={12} item>
-                  <TextField
-                    label="About me"
-                    placeholder="Enter About me"
-                    multiline
-                    rows={5}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                  <Divider sx={{ bgcolor: "", marginTop: 4 }} />
-                </Grid>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ width: "100%", margin: 2 }}
-                >
-                  Refer to My course
-                </Typography>
-                <Grid xs={12} item>
-                  <CourseCard />
-                </Grid>
-                <Grid xs={12} item>
-                  <CourseCard />
-                </Grid>
-                <Grid xs={12} item>
-                  <CourseCard />
-                </Grid>
-              </Grid>
-            </Grid>
-
-            {/* Right-side column */}
-            <Grid xs={12} sm={6} item>
-              <Grid container spacing={1}>
-                <Grid xs={12} item>
-                  <TextField
-                    label="Area of Expertise"
-                    placeholder="Enter Area of Expertise"
-                    multiline
-                    rows={5}
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                  <Divider sx={{ bgcolor: "", marginY: 4 }} />
-                </Grid>
-
-                <Grid xs={12} item>
-                  <TextField
-                    label="Website"
-                    placeholder="Enter Website"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <TextField
-                    label="Email"
-                    placeholder="Enter Email"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <TextField
-                    label="Facebook"
-                    placeholder="Enter Facebook"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <TextField
-                    label="Youtube"
-                    placeholder="Enter Youtube"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <TextField
-                    label="LinkedIn"
-                    placeholder="Enter LinkedIn"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-                <Grid xs={12} item>
-                  <TextField
-                    label="Twitter"
-                    placeholder="Enter Twitter"
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    required
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </form>
-      </Container>
+            <div className='InstructorEditContentRightButton'>
+              <Button type='submit' variant='contained' sx={{ width: '50%' }}>
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   );
 }

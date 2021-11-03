@@ -12,6 +12,9 @@ function DummyHeaderInst({ item, setImage }) {
       }}>
       <div className='textOnInstructorCardBannerControl'>
         <h3 className='InstructorCardH3'>{item.instructor.fullName}</h3>
+        <div>
+          <p className='InstructorCardP'>{item.instructor.jobTitle}</p>{' '}
+        </div>
         <div className='InstructorCardH4Control'>
           <h4 className='InstructorCardH4'>Rating : </h4>&nbsp;&nbsp;
           <h4 className='InstructorCardH4'> {item.instructor.rating} / 5</h4>
@@ -20,9 +23,6 @@ function DummyHeaderInst({ item, setImage }) {
           <h4 className='InstructorCardH4'>{item.instructor.learner}</h4>
           &nbsp;&nbsp;
           <h4 className='InstructorCardH4'>Enrolls</h4>
-        </div>
-        <div>
-          <p className='InstructorCardP'>{item.instructor.jobTitle}</p>{' '}
         </div>
       </div>
       <div className='InstructorCardImage'>

@@ -23,6 +23,7 @@ function UserContextProvider({ children }) {
     fetchUser();
   }, []);
   // console.log('userCourseId', userCourseId);
+  console.log('userById', userById);
   return (
     <UserContext.Provider
       value={{ userById, setUserById, userCourseId, setUserCourseId }}>

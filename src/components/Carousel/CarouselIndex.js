@@ -1,11 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { CarouselContext } from '../../contexts/CarouselContext';
 import Carousel from './Carousel';
 
 function CarouselIndex() {
   const { carouselImage } = useContext(CarouselContext);
-  const SLIDE_COUNT = carouselImage.length;
-  const slides = Array.from(Array(SLIDE_COUNT).keys());
+  const [slideCount, setSlideCount] = useState(5);
+  // const SLIDE_COUNT = carouselImage.length;
+  useEffect(() => {
+    if (carouselImage.length > 0) {
+      setSlideCount(carouselImage.length);
+    } else {
+      setSlideCount(5);
+    }
+  }, [carouselImage.length]);
+  // const SLIDE_COUNT = slideCount;
+  const slides = Array.from(Array(slideCount).keys());
   // console.log('slides: ', slides);
   return (
     <div>
