@@ -23,18 +23,27 @@ function DummyHeaderInst({ item }) {
   // console.log('categories: ', categories);
   const [personName, setPersonName] = useState([]);
   const [category, setCategory] = useState([]);
+  const [category2, setCategory2] = useState([]);
   const [instCategory, setInstCategory] = useState([]);
   const [checked, setChecked] = useState([]);
+  const [checked2, setChecked2] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [currentCat, setCurrentCat] = useState([]);
+  const [test, setTest] = useState([]);
   // console.log('category: ', category);
   // console.log('personName: ', personName);
-  // console.log('instCategory: ', instCategory);
+  console.log('instCategory: ', instCategory);
+  console.log('currentCat', currentCat);
   console.log('checked: ', checked);
+  console.log('checked2: ', checked2);
+  console.log('category2', category2);
   useEffect(() => {
     const fetchDataCategory = async () => {
       try {
         const response = await axios.get('/category');
         setCategory(response.data.category.map(item => item.categoryName));
+        setCategory2(response.data.category.map(item => item.categoryName));
+        // setChecked2(response.data.category.map(item => item.categoryName));
         // console.log(
         //   'response: ',
         //   item.InstructorCats.map(item => item.Category.categoryName)
@@ -46,6 +55,8 @@ function DummyHeaderInst({ item }) {
         const inst = item.InstructorCats.map(
           item => item.Category.categoryName
         );
+        // setTest(item.InstructorCats.map(item => item.Category.categoryName));
+        setTest(names2);
         // console.log('cat: ', typeof cat);
         // console.log('cat: ', cat);
         // console.log('inst: ', inst);
@@ -56,6 +67,7 @@ function DummyHeaderInst({ item }) {
         //     setChecked[i](false);
         //   }
         // }
+        // console.log('inst: ', inst);
         setChecked(
           cat.map(item => {
             if (inst.includes(item)) {
@@ -65,6 +77,15 @@ function DummyHeaderInst({ item }) {
             }
           })
         );
+        setChecked2(
+          checked.filter(item => {
+            if (inst.includes(item)) {
+              return inst[inst.indexOf(item)];
+            }
+          })
+        );
+
+        setCurrentCat();
       } catch (error) {
         console.log(error);
       }
@@ -90,7 +111,8 @@ function DummyHeaderInst({ item }) {
       },
     },
   };
-
+  const names = ['front_end', 'back_end', 'ux_ui'];
+  const names2 = ['front_end', 'back_end'];
   return (
     <div
       className='divMainHeaderInstructorCard'
@@ -116,6 +138,43 @@ function DummyHeaderInst({ item }) {
           />
         </div>
         <div className='textFieldInstructorEditHeader'>
+          {/* {checked.length > 0 && (
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
+              <Select
+                labelId='demo-multiple-checkbox-label'
+                id='demo-multiple-checkbox'
+                multiple
+                sx={buttonConfig3}
+                value={category}
+                // name={checked}
+                onChange={handleChange}
+                onClick={() => setToggle(!toggle)}
+                input={<OutlinedInput label='Tag' />}
+                renderValue={selected => selected.join(', ')}
+                MenuProps={MenuProps}>
+                {category.map((item, index) => (
+                  <MenuItem key={item.id} name={checked[index]} value={item}>
+                    <Checkbox
+                      checked={checked[index]}
+                      onChange={e =>
+                        setChecked(curr =>
+                          curr.map((item, idx) =>
+                            idx === index ? e.target.checked : item
+                          )
+                        )
+                      }
+                      // checked={instCategory.includes(item)}
+                      // defaultChecked={true}
+                    />
+
+                    <ListItemText primary={item} />
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          )} */}
+
           <FormControl sx={{ width: '100%' }}>
             <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
             <Select
@@ -123,27 +182,16 @@ function DummyHeaderInst({ item }) {
               id='demo-multiple-checkbox'
               multiple
               sx={buttonConfig3}
-              value={personName}
+              value={test}
+              // name={checked}
               onChange={handleChange}
               onClick={() => setToggle(!toggle)}
               input={<OutlinedInput label='Tag' />}
               renderValue={selected => selected.join(', ')}
               MenuProps={MenuProps}>
-              {category.map((item, index) => (
-                <MenuItem key={item.id} value={item}>
-                  <Checkbox
-                    checked={checked[index]}
-                    onChange={e =>
-                      setChecked(curr =>
-                        curr.map((item, idx) =>
-                          idx === index ? e.target.checked : item
-                        )
-                      )
-                    }
-                    // checked={instCategory.includes(item)}
-                    // defaultChecked={true}
-                  />
-
+              {names.map(item => (
+                <MenuItem key={item} value={item}>
+                  <Checkbox checked={test.indexOf(item) > -1} />
                   <ListItemText primary={item} />
                 </MenuItem>
               ))}
