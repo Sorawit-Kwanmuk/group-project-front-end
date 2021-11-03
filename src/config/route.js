@@ -17,6 +17,7 @@ import FeedbackAdmin from '../components/FeedbackAdmin/FeedbackAdmin';
 import ContactUsEdit from '../components/ContactUs/ContactUsEdit';
 import HomeBannerAdmin from '../components/HomeBannerAdmin/HomeBannerAdmin';
 import ResetPassword from '../components/ForgetPassword/ResetPassword';
+import CreateInstructorCard from '../components/CreateInstructorCard/CreateInstructorCard';
 
 const routes = {
   user: {
@@ -103,6 +104,10 @@ const routes = {
   },
   admin: {
     route: [
+      {
+        path: '/create-instructor-card',
+        component: CreateInstructorCard,
+      },
       {
         path: '/forget-password',
         component: ForgetPassword,

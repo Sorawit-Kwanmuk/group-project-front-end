@@ -17,7 +17,7 @@ function Footer() {
       })
       .catch(err => console.log(err));
   }, []);
-  console.log('contactInfo', contactInfo);
+  // console.log('contactInfo', contactInfo);
 
   return (
     <div className='FooterItem'>

@@ -47,6 +47,13 @@ export default function AdminHome() {
           size='large'
           variant='contained'
           sx={{ width: 800 }}
+          onClick={() => history.push('/create-instructor-card')}>
+          Create Instructor Card
+        </Button>
+        <Button
+          size='large'
+          variant='contained'
+          sx={{ width: 800 }}
           onClick={() => history.push('/home-banner-admin')}>
           Course Banner
         </Button>

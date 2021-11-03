@@ -38,7 +38,7 @@ function DropBarMenu({ setOpen }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log('userById2', userById.profileImage);
+  // console.log('userById2', userById.profileImage);
   return (
     <>
       <Fragment>
