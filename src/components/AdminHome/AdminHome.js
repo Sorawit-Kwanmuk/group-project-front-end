@@ -40,7 +40,7 @@ export default function AdminHome() {
           size='large'
           variant='contained'
           sx={{ width: 800 }}
-          onClick={() => history.push('/instructor-edit')}>
+          onClick={() => history.push('/our-team-admin')}>
           Instructor System
         </Button>
         <Button
