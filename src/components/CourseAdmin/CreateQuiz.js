@@ -12,22 +12,23 @@ const createQuizTemplate = {
       questionText: "",
       answerOptions: [
         { id: "a1", answerText: "", isCorrect: false },
-        { id: "a2", answerText: "", isCorrect: false }
-      ]
-    }
-  ]
+        { id: "a2", answerText: "", isCorrect: false },
+      ],
+    },
+  ],
 };
 
 function CreateQuiz({
   setDisableAddNewSubject,
   setDisableBtnGroup,
   displayQuizCreate,
-  setDisplayQuizCreate
+  setDisplayQuizCreate,
+  topicList,
 }) {
   const [fromQuiz, setFromQuiz] = useState(createQuizTemplate);
   const [subject, setSubject] = useState("");
-
-  const handleChange = (event) => {
+  console.log(`fromQuiz`, fromQuiz);
+  const handleChange = event => {
     setSubject(event.target.value);
   };
 
@@ -39,7 +40,7 @@ function CreateQuiz({
           <div
             style={{
               width: "100%",
-              backgroundColor: "#CAF0F8"
+              backgroundColor: "#CAF0F8",
             }}
           >
             <div className="w3-row w3-margin-left">
@@ -50,7 +51,7 @@ function CreateQuiz({
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <FormControl fullWidth>
@@ -64,9 +65,15 @@ function CreateQuiz({
                     label="Subject list"
                     onChange={handleChange}
                   >
-                    <MenuItem value={"html"}>HTML</MenuItem>
-                    <MenuItem value={"css"}>CSS</MenuItem>
-                    <MenuItem value={"javascript"}>JAVASCRIPT</MenuItem>
+                    {topicList.map(item => (
+                      <MenuItem
+                        key={item.id}
+                        value={item.id}
+                        // style={getStyles(item, instructor.fullName, theme)}
+                      >
+                        {item.topicName}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
 
@@ -96,7 +103,7 @@ function CreateQuiz({
                   onClick={() => {
                     const cloneObj = { ...fromQuiz };
                     const index = cloneObj.questions.findIndex(
-                      (item) => item.id === CurrQuestionObj.id
+                      item => item.id === CurrQuestionObj.id
                     );
                     cloneObj.questions.splice(index, 1);
                     setFromQuiz(cloneObj);
@@ -116,15 +123,15 @@ function CreateQuiz({
                   <input
                     type="text"
                     style={{ width: "100%" }}
-                    onChange={(e) => {
+                    onChange={e => {
                       const { questions } = { ...fromQuiz };
                       const index = questions.findIndex(
-                        (item) => item.id === CurrQuestionObj.id
+                        item => item.id === CurrQuestionObj.id
                       );
                       questions[index].questionText = e.target.value;
-                      setFromQuiz((quiz) => ({
+                      setFromQuiz(quiz => ({
                         ...quiz,
-                        questions
+                        questions,
                       }));
                     }}
                     placeholder="Enter Question text..."
@@ -145,16 +152,16 @@ function CreateQuiz({
                         <input
                           type="checkbox"
                           className="w3-margin-right"
-                          onChange={(e) => {
+                          onChange={e => {
                             const { questions } = { ...fromQuiz };
                             const index = questions.findIndex(
-                              (item) => item.id === CurrQuestionObj.id
+                              item => item.id === CurrQuestionObj.id
                             );
                             questions[index].answerOptions[ansIdx].isCorrect =
                               e.target.checked;
-                            setFromQuiz((quiz) => ({
+                            setFromQuiz(quiz => ({
                               ...quiz,
-                              questions
+                              questions,
                             }));
                           }}
                         />
@@ -163,18 +170,18 @@ function CreateQuiz({
                         <input
                           type="text"
                           style={{
-                            width: "93%"
+                            width: "93%",
                           }}
-                          onChange={(e) => {
+                          onChange={e => {
                             const { questions } = { ...fromQuiz };
                             const index = questions.findIndex(
-                              (item) => item.id === CurrQuestionObj.id
+                              item => item.id === CurrQuestionObj.id
                             );
                             questions[index].answerOptions[ansIdx].answerText =
                               e.target.value;
-                            setFromQuiz((quiz) => ({
+                            setFromQuiz(quiz => ({
                               ...quiz,
-                              questions
+                              questions,
                             }));
                           }}
                           value={
@@ -192,12 +199,12 @@ function CreateQuiz({
                               const { questions } = { ...fromQuiz };
                               const choices = questions[idx].answerOptions;
                               const index = choices.findIndex(
-                                (item) => item.id === currAnswer.id
+                                item => item.id === currAnswer.id
                               );
                               choices.splice(index, 1);
-                              setFromQuiz((quiz) => ({
+                              setFromQuiz(quiz => ({
                                 ...quiz,
-                                questions
+                                questions,
                               }));
                             }}
                           >
@@ -218,7 +225,7 @@ function CreateQuiz({
                           cloneObj.questions[idx].answerOptions.push({
                             id: new Date().getTime(),
                             answerText: "",
-                            isCorrect: false
+                            isCorrect: false,
                           });
                           setFromQuiz(cloneObj);
                         }}
@@ -243,8 +250,8 @@ function CreateQuiz({
                     questionText: "",
                     answerOptions: [
                       { id: "@1", answerText: "", isCorrect: false },
-                      { id: "@2", answerText: "", isCorrect: false }
-                    ]
+                      { id: "@2", answerText: "", isCorrect: false },
+                    ],
                   });
                   setFromQuiz(cloneArr);
                 }}

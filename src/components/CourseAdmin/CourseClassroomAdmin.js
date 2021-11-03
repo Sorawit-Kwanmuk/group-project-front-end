@@ -240,6 +240,7 @@ function CourseClassroomAdmin() {
                   setDisableBtnGroup={setDisableBtnGroup}
                   displayQuizCreate={displayQuizCreate}
                   setDisplayQuizCreate={setDisplayQuizCreate}
+                  topicList={topicList}
                 />
               </div>
             )}

@@ -37,9 +37,21 @@ function CourseAdminCard({ list, setCourseList }) {
   const [shortDescription, setShortDescription] = useState(
     list.shortDescription
   );
+
+  useEffect(() => {
+    axios
+      .get(`/courseCat/bycourse/${list.id}`)
+      .then(res => {
+        console.log(`res.data`, res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
   const [about, setAbout] = useState(list.about);
   const [status, setStatus] = useState(list.status);
-  console.log(`status ------>`, status);
+  console.log(`new cat id --->`, categoryId);
 
   const [edit, setEdit] = useState(0);
 
@@ -49,12 +61,18 @@ function CourseAdminCard({ list, setCourseList }) {
     return item;
   });
 
+  const mapCatId = catMap.map(item => {
+    return { id: item.Category.id, name: item.Category.categoryName };
+  });
+
+  console.log(`mapCatId`, mapCatId);
+
   const mapCatName = catMap.map(item => {
     return item.Category.categoryName;
   });
 
-  console.log(`cat___Map ------->`, catMap);
-  console.log(`cat___Map____Name ------->`, list);
+  console.log(`cat___Map ------->`, mapCatName.id);
+  // console.log(`cat___Map____Name ------->`, list);
 
   // const handleChange = event => {
   //   setSubject(event.target.value);
@@ -83,17 +101,32 @@ function CourseAdminCard({ list, setCourseList }) {
     data.append("clip", clip);
     data.append("shortDescription", shortDescription);
     data.append("about", about);
-    console.log(`----- updateImage -----`, discountUntil);
+
+    console.log(`categoryId`, categoryId);
+    console.log("@@@res:", data);
 
     //   console.log("@@@courseInfo:", courseInfo);
     //   console.log("@@@data:", data);
     try {
       const res = await axios.put(`/course/${list.id}`, data);
-      console.log("@@@res:", res);
+
       alert("update course successfully");
       window.location.reload();
     } catch (error) {
       console.dir("@@@error:", error);
+    }
+  };
+
+  const deleteCat = async (e, itemId) => {
+    try {
+      e.preventDefault();
+      console.log(`itemId`, itemId);
+      const res = await axios.delete(`/courseCat/${list.id}/${itemId}`);
+      console.log(`deleteRes--->`, res);
+      alert("delete Category Successful");
+      window.location.reload();
+    } catch (error) {
+      console.dir(error);
     }
   };
 
@@ -200,18 +233,29 @@ function CourseAdminCard({ list, setCourseList }) {
                       <p>{about}</p>
                     </Grid>
                     <Grid xs={12} item>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        fullWidth
-                        onClick={() => {
-                          window.location = `/course-classroom-admin/${list.id}`;
+                      <Link
+                        to={{
+                          pathname: `/course-classroom-admin/${list.id}`,
+                          state: {
+                            key: list.id,
+                            list: list,
+                            // store: storeList,
+                          },
                         }}
                       >
-                        {"View & Edit"}
-                      </Button>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          fullWidth
+                          // onClick={() => {
+                          //   window.location = `/course-classroom-admin/${list.id}`;
+                          // }}
+                        >
+                          {"View & Edit"}
+                        </Button>
+                      </Link>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -286,6 +330,29 @@ function CourseAdminCard({ list, setCourseList }) {
                           setCategoryId={setCategoryId}
                         />
                       </Grid>
+
+                      <Grid xs={12} item>
+                        {mapCatId.map(item => (
+                          <button
+                            style={{ margin: "10px" }}
+                            onClick={e => deleteCat(e, item.id)}
+                            value={item.id}
+                          >
+                            {item.name} x
+                          </button>
+                        ))}
+                      </Grid>
+
+                      {/* {cat.map(item => (
+            <MenuItem
+              key={item.id}
+              value={item.id}
+              style={getStyles(item, categoryName, theme)}
+            >
+              {item.categoryName}
+            </MenuItem>
+          ))} */}
+
                       <Grid xs={12} item>
                         <FormControl fullWidth>
                           <InputLabel id="demo-simple-select-label">
