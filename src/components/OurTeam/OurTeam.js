@@ -33,7 +33,7 @@ function OurCourse() {
     };
 
     fetchDataOurTeam();
-  });
+  }, []);
 
   return (
     <>

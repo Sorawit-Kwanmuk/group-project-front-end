@@ -28,8 +28,9 @@ const buttonConfig3 = {
   width: '100%',
 };
 const textFieldConfig2 = {
-  marginTop: '10px',
-  width: '100%',
+  margin: '10px',
+
+  width: '90%',
 };
 export {
   ButtonConfig,

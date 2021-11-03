@@ -178,3 +178,15 @@
 .textFieldInstructorEditHeader {
     margin: 5px;
 }
+
+.spanInsEditImageUpload {
+    background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    width: 50%;
+}
+
+.textFieldInstructorEditHeader {
+    display: flex;
+    flex-direction: column;
+}

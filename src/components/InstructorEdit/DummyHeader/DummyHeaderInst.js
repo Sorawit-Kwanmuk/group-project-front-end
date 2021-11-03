@@ -3,6 +3,8 @@ import ShoppingCardBanner from '../../../public/images/shoppingCard.png';
 import { imageConfig, buttonConfig3 } from '../muiConfig';
 import Instructor from '../../../public/images/Instructor.png';
 import { useContext, useEffect, useState } from 'react';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -12,90 +14,48 @@ import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 // import { CategoryContext } from '../../../contexts/categoryContext';
 import axios from '../../../config/axios';
-function DummyHeaderInst({ item }) {
-  // console.log('log', item.instructor.id);
-  // const category = useContext(CategoryContext);
-  // const categories = category?.map(item => item.categoryName);
-  // console.log('categories: ', categories);
-  // console.log('category: ', category);
-  // console.log('item: ', item);
-
-  // console.log('categories: ', categories);
+import '../styleInstructorEdit.css';
+function DummyHeaderInst({
+  item,
+  setInstructorEdit,
+  instructorEdit,
+  toggle2,
+  setToggle2,
+}) {
   const [personName, setPersonName] = useState([]);
   const [category, setCategory] = useState([]);
-  const [category2, setCategory2] = useState([]);
-  const [instCategory, setInstCategory] = useState([]);
-  const [checked, setChecked] = useState([]);
-  const [checked2, setChecked2] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const [currentCat, setCurrentCat] = useState([]);
-  const [test, setTest] = useState([]);
-  // console.log('category: ', category);
-  // console.log('personName: ', personName);
-  console.log('instCategory: ', instCategory);
-  console.log('currentCat', currentCat);
-  console.log('checked: ', checked);
-  console.log('checked2: ', checked2);
-  console.log('category2', category2);
+  const [itemDetail, setItemDetail] = useState({});
+  const Input = styled('input')({
+    display: 'none',
+  });
+  console.log(item);
   useEffect(() => {
     const fetchDataCategory = async () => {
       try {
         const response = await axios.get('/category');
         setCategory(response.data.category.map(item => item.categoryName));
-        setCategory2(response.data.category.map(item => item.categoryName));
-        // setChecked2(response.data.category.map(item => item.categoryName));
-        // console.log(
-        //   'response: ',
-        //   item.InstructorCats.map(item => item.Category.categoryName)
-        // );
-        setInstCategory(
+        setPersonName(
           item.InstructorCats.map(item => item.Category.categoryName)
         );
-        const cat = response.data.category.map(item => item.categoryName);
-        const inst = item.InstructorCats.map(
-          item => item.Category.categoryName
-        );
-        // setTest(item.InstructorCats.map(item => item.Category.categoryName));
-        setTest(names2);
-        // console.log('cat: ', typeof cat);
-        // console.log('cat: ', cat);
-        // console.log('inst: ', inst);
-        // for (let i = 0; i < cat.length; i++) {
-        //   if (cat[i].includes(inst)) {
-        //     setChecked[i](true);
-        //   } else {
-        //     setChecked[i](false);
-        //   }
-        // }
-        // console.log('inst: ', inst);
-        setChecked(
-          cat.map(item => {
-            if (inst.includes(item)) {
-              return true;
-            } else {
-              return false;
-            }
-          })
-        );
-        setChecked2(
-          checked.filter(item => {
-            if (inst.includes(item)) {
-              return inst[inst.indexOf(item)];
-            }
-          })
-        );
-
-        setCurrentCat();
+        const map = item.InstructorCats.map(item => item.Category.categoryName);
+        // console.log('map', map);
+        setInstructorEdit({
+          ...instructorEdit,
+          category: map,
+          ...item,
+        });
       } catch (error) {
         console.log(error);
       }
     };
     fetchDataCategory();
-  }, [item]);
+  }, [item, toggle2]);
   const handleChange = event => {
     const {
       target: { value },
     } = event;
+    setInstructorEdit({ ...instructorEdit, category: value });
     setPersonName(
       // On autofill we get a the stringified value.
       typeof value === 'string' ? value.split(',') : value
@@ -111,8 +71,7 @@ function DummyHeaderInst({ item }) {
       },
     },
   };
-  const names = ['front_end', 'back_end', 'ux_ui'];
-  const names2 = ['front_end', 'back_end'];
+  // console.log(item.fullName);
   return (
     <div
       className='divMainHeaderInstructorCard'
@@ -121,13 +80,21 @@ function DummyHeaderInst({ item }) {
       }}>
       <div className='textOnInstructorCardBannerControl'>
         <div className='textFieldInstructorEditHeader'>
-          <TextField
-            sx={buttonConfig3}
-            id='outlined-basic'
-            label='Enter Instructor Name'
-            variant='outlined'
-            value={item.fullName || ''}
-          />
+          {item.fullName && (
+            <TextField
+              sx={buttonConfig3}
+              id='outlined-basic'
+              label='Enter Instructor Name'
+              defaultValue={item.fullName}
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  fullName: e.target.value,
+                })
+              }
+              variant='outlined'
+            />
+          )}
         </div>
         <div className='textFieldInstructorEditHeader'>
           <TextField
@@ -135,46 +102,13 @@ function DummyHeaderInst({ item }) {
             id='outlined-basic'
             label='Job Title'
             variant='outlined'
+            onChange={e =>
+              setInstructorEdit({ ...instructorEdit, jobTitle: e.target.value })
+            }
+            defaultValue={item.jobTitle}
           />
         </div>
         <div className='textFieldInstructorEditHeader'>
-          {/* {checked.length > 0 && (
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
-              <Select
-                labelId='demo-multiple-checkbox-label'
-                id='demo-multiple-checkbox'
-                multiple
-                sx={buttonConfig3}
-                value={category}
-                // name={checked}
-                onChange={handleChange}
-                onClick={() => setToggle(!toggle)}
-                input={<OutlinedInput label='Tag' />}
-                renderValue={selected => selected.join(', ')}
-                MenuProps={MenuProps}>
-                {category.map((item, index) => (
-                  <MenuItem key={item.id} name={checked[index]} value={item}>
-                    <Checkbox
-                      checked={checked[index]}
-                      onChange={e =>
-                        setChecked(curr =>
-                          curr.map((item, idx) =>
-                            idx === index ? e.target.checked : item
-                          )
-                        )
-                      }
-                      // checked={instCategory.includes(item)}
-                      // defaultChecked={true}
-                    />
-
-                    <ListItemText primary={item} />
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )} */}
-
           <FormControl sx={{ width: '100%' }}>
             <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
             <Select
@@ -182,16 +116,15 @@ function DummyHeaderInst({ item }) {
               id='demo-multiple-checkbox'
               multiple
               sx={buttonConfig3}
-              value={test}
-              // name={checked}
+              value={personName}
               onChange={handleChange}
               onClick={() => setToggle(!toggle)}
               input={<OutlinedInput label='Tag' />}
               renderValue={selected => selected.join(', ')}
               MenuProps={MenuProps}>
-              {names.map(item => (
+              {category.map(item => (
                 <MenuItem key={item} value={item}>
-                  <Checkbox checked={test.indexOf(item) > -1} />
+                  <Checkbox checked={personName.indexOf(item) > -1} />
                   <ListItemText primary={item} />
                 </MenuItem>
               ))}
@@ -199,21 +132,43 @@ function DummyHeaderInst({ item }) {
           </FormControl>
         </div>
         <div className='textFieldInstructorEditHeader'>
-          <TextField
-            id='outlined-multiline-static'
-            sx={buttonConfig3}
-            label='Bio ( Max. 250 Character)'
-            multiline
-            rows={6}
-          />
+          <label
+            htmlFor='contained-button-file'
+            className='labelUploadImageInsEdit'>
+            <Input
+              accept='image/*'
+              id='contained-button-file'
+              multiple
+              type='file'
+              onChange={e =>
+                setInstructorEdit({
+                  ...instructorEdit,
+                  profileImage: e.target.files[0],
+                  profileImageName: e.target.value,
+                })
+              }
+            />
+            <Button
+              variant='contained'
+              component='span'
+              sx={{ marginBottom: '10px' }}>
+              Upload Instructor Image
+            </Button>
+          </label>
+          {instructorEdit.profileImage && (
+            <TextField
+              id='outlined-multiline-static'
+              label='File name'
+              multiline
+              rows={4}
+              sx={{ backgroundColor: '#f5f5f5', borderRadius: '5px' }}
+              value={instructorEdit.profileImageName}
+            />
+          )}
         </div>
       </div>
       <div className='InstructorCardImage'>
-        <Avatar
-          alt='Remy Sharp'
-          // src={item.instructor.profileImage}
-          sx={imageConfig}
-        />
+        <Avatar alt='Remy Sharp' src={item.profileImage} sx={imageConfig} />
       </div>
     </div>
   );
