@@ -62,6 +62,7 @@ function ClassroomILearn() {
             setQuizId={setQuizId}
             currentStage={currentStage}
             setCurrentStage={setCurrentStage}
+            topicLen={topicArr.length}
           />
         ))}
       </div>

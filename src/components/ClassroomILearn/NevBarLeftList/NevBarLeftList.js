@@ -25,7 +25,8 @@ function NevBarLeftList({
   arrIndex,
   setQuizId,
   currentStage,
-  setCurrentStage
+  setCurrentStage,
+  topicLen
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
@@ -48,7 +49,9 @@ function NevBarLeftList({
         setSubObjArr(
           resSubTopic.data.result
             .concat(resQuiz.data.result)
-            .concat([{ subTopName: "< Claim certificate >", topicId: 4 }])
+            .concat([
+              { subTopName: "< Claim certificate >", topicId: topicLen }
+            ])
         );
       } catch (error) {
         console.log("useEffectSubTopicErr:", error);
