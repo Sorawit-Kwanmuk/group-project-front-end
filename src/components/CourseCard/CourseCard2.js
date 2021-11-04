@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import courseImage from '../../public/images/javascript-training-120620.jpg';
 import './styleCourseCard.css';
-function CourseCard({ item, setToggle }) {
-  const [course, setCourse] = useState([]);
+function CourseCard2({ item, setToggle }) {
+  const [course, setCourse] = useState({});
   const {
     id,
     courseName,
@@ -18,7 +18,7 @@ function CourseCard({ item, setToggle }) {
   useEffect(() => {
     const fetchDataCourse = async () => {
       const response = await axios.get(`/course/${item.courseId}`);
-      // console.log('response: ', response.data.courseResult);
+      console.log('response: ', response.data.courseResult);
       setCourse(response.data.courseResult);
     };
     fetchDataCourse();
@@ -71,4 +71,4 @@ function CourseCard({ item, setToggle }) {
   );
 }
 
-export default CourseCard;
+export default CourseCard2;
