@@ -76,8 +76,9 @@ function MainCourseAdmin() {
       const res = await axios.post(`/course`, data);
       console.log("@@@res:", res);
       alert("create new course successfully");
+      window.location.reload();
 
-      const courseCatMap = res.map;
+      // const courseCatMap = res.map;
     } catch (error) {
       console.dir("@@@error:", error);
     }

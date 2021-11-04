@@ -57,13 +57,21 @@ function CourseAdminCard({ list, setCourseList }) {
 
   const [subject, setSubject] = useState("");
 
+  const [cat, setCat] = useState([]);
+
+  const catList = list.CourseCats.map(item => {
+    return item;
+  });
+
   const catMap = list.CourseCats.map(item => {
     return item;
   });
 
   const mapCatId = catMap.map(item => {
+    // setCat({ id: item.Category.id, name: item.Category.categoryName });
     return { id: item.Category.id, name: item.Category.categoryName };
   });
+  console.log(`cat`, catMap);
 
   console.log(`mapCatId`, mapCatId);
 
@@ -165,36 +173,129 @@ function CourseAdminCard({ list, setCourseList }) {
           <Card sx={{ minWidth: 275, bgcolor: "", marginY: 5 }}>
             <CardContent>
               <Grid container spacing={1}>
-                <Grid xs={12} sm={6} item>
+                <Grid xs={12} sm={2} item>
                   <Grid container spacing={1}>
-                    <Grid xs={12} item>
-                      <p>{courseName}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{mapCatName.toString()}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{level}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{duration}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{price}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{discountRate}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{discountUntil}</p>
-                    </Grid>
                     <Grid xs={12} item>
                       <img
                         src={image}
                         alt={image}
-                        style={{ width: "150px", height: "150px" }}
+                        style={{
+                          width: "200px",
+                          height: "200px",
+                          border: "solid 1px black",
+                        }}
                       />
                     </Grid>
+                    <Grid xs={12} item></Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid xs={12} sm={2} item>
+                  <Grid container spacing={1}>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Course Name : </b>
+                      </span>
+                      <span>{courseName}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Category : </b>
+                      </span>
+                      <span>{mapCatName.toString()}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Level : </b>
+                      </span>
+                      <span>{level}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Duration : </b>
+                      </span>
+                      <span>{duration} days</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>net Price : </b>
+                      </span>
+                      <span>{price}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Discount % : </b>
+                      </span>
+                      <span>{discountRate}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Discount Until: </b>
+                      </span>
+                      <span>{discountUntil}</span>
+                    </Grid>
+
+                    <Grid xs={12} item></Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid xs={12} sm={5} item>
+                  <Grid container spacing={1}>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Trailer : </b>
+                      </span>
+                      <span>{clip}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>Short Description : </b>
+                      </span>
+                      <span>{shortDescription}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <span>
+                        <b>About : </b>
+                      </span>
+                      <span>{about}</span>
+                    </Grid>
+                    <Grid xs={12} item>
+                      <Link
+                        to={{
+                          pathname: `/course-classroom-admin/${list.id}`,
+                          state: {
+                            key: list.id,
+                            list: list,
+                            // store: storeList,
+                          },
+                        }}
+                        style={{
+                          textDecoration: "none",
+                        }}
+                      >
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          style={{
+                            width: "270px",
+                            height: "35px",
+                          }}
+                          // size="large"
+                          // fullWidth
+                          // onClick={() => {
+                          //   window.location = `/course-classroom-admin/${list.id}`;
+                          // }}
+                        >
+                          {"View & Edit"}
+                        </Button>
+                      </Link>
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                <Grid xs={12} sm={3} item>
+                  <Grid container spacing={1}>
                     <Grid xs={12} item>
                       {status === "notReady" ? (
                         <Button
@@ -203,6 +304,10 @@ function CourseAdminCard({ list, setCourseList }) {
                           color="warning"
                           size="large"
                           fullWidth
+                          style={{
+                            height: "35px",
+                            // marginLeft: "-27px",
+                          }}
                         >
                           Status : Not Publish
                         </Button>
@@ -218,50 +323,34 @@ function CourseAdminCard({ list, setCourseList }) {
                         </Button>
                       )}
                     </Grid>
-                  </Grid>
-                </Grid>
-
-                <Grid xs={12} sm={6} item>
-                  <Grid container spacing={1}>
                     <Grid xs={12} item>
-                      <p>{clip}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{shortDescription}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <p>{about}</p>
-                    </Grid>
-                    <Grid xs={12} item>
-                      <Link
-                        to={{
-                          pathname: `/course-classroom-admin/${list.id}`,
-                          state: {
-                            key: list.id,
-                            list: list,
-                            // store: storeList,
-                          },
-                        }}
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        onClick={e => setEdit(1)}
                       >
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                          size="large"
-                          fullWidth
-                          // onClick={() => {
-                          //   window.location = `/course-classroom-admin/${list.id}`;
-                          // }}
-                        >
-                          {"View & Edit"}
-                        </Button>
-                      </Link>
+                        Edit
+                      </Button>
+                    </Grid>
+
+                    <Grid xs={12} item>
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        onClick={handleDelete}
+                      >
+                        Delete
+                      </Button>
                     </Grid>
                   </Grid>
                 </Grid>
               </Grid>
             </CardContent>
-            <CardActions
+            {/* <CardActions
               style={{ display: "flex", justifyContent: "space-evenly" }}
             >
               <Grid xs={3} item>
@@ -276,6 +365,34 @@ function CourseAdminCard({ list, setCourseList }) {
                 </Button>
               </Grid>
               <Grid xs={3} item>
+                {status === "notReady" ? (
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="warning"
+                    size="large"
+                    fullWidth
+                    style={{
+                      height: "35px",
+                      // marginLeft: "-27px",
+                    }}
+                  >
+                    Status : Not Publish
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="success"
+                    size="large"
+                    fullWidth
+                  >
+                    Status : Publish !
+                  </Button>
+                )}
+              </Grid>
+
+              <Grid xs={3} item>
                 <Button
                   type="submit"
                   variant="contained"
@@ -286,22 +403,7 @@ function CourseAdminCard({ list, setCourseList }) {
                   Delete
                 </Button>
               </Grid>
-            </CardActions>
-          </Card>
-          <Card
-            sx={{
-              minWidth: 275,
-              minHeight: 350,
-              bgcolor: "",
-              marginY: 5,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Button>
-              <AddIcon fontSize="large" />
-            </Button>
+            </CardActions> */}
           </Card>
         </Container>
       ) : (

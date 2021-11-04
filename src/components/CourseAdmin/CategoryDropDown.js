@@ -42,7 +42,31 @@ export default function CategorySelect({ setCategoryId, catMap }) {
           : theme.typography.fontWeightMedium,
     };
   }
-  console.log(`catMap`, catMap);
+
+  const dropCat = [];
+  if (catMap) {
+    const catMapId = catMap.map(item => item.categoryId);
+
+    console.log(`catMapinDrop --->`, catMapId);
+    const dropCatFilter = cat.filter(item => !catMapId.includes(item.id));
+    dropCatFilter.forEach(item => {
+      dropCat.push(item);
+    });
+    console.log(`catMapId`, catMapId);
+    console.log(`catinDrop --->`, dropCatFilter);
+  }
+  // var arr1 = [1, 2, 3, 4],
+  //   arr2 = [2, 4],
+  //   resExample = arr1.filter(item => !arr2.includes(item));
+  // console.log(resExample);
+
+  // if (catMap) {
+  //   const dropCatFilter = cat.filter(
+  //     item => !catMap.categoryId.includes(item.id)
+  //   );
+  //   console.log(`dropCatFilter`, dropCatFilter);
+  // }
+
   const theme = useTheme();
   const [categoryName, setCategoryName] = React.useState([]);
   // const [names, setNames] = React.useState([]);
@@ -94,7 +118,7 @@ export default function CategorySelect({ setCategoryId, catMap }) {
           MenuProps={MenuProps}
           required
         >
-          {cat.map(item => (
+          {dropCat.map(item => (
             <MenuItem
               key={item.id}
               value={item.id}
