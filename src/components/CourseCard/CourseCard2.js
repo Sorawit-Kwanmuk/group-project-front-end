@@ -1,10 +1,21 @@
-import axios from '../../config/axios';
-import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router';
-import courseImage from '../../public/images/javascript-training-120620.jpg';
-import './styleCourseCard.css';
-function CourseCard({ item, setToggle }) {
-  const [course, setCourse] = useState([]);
+import axios from "../../config/axios";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
+import courseImage from "../../public/images/javascript-training-120620.jpg";
+import "./styleCourseCard.css";
+function CourseCard2({ item, setToggle }) {
+  const [course, setCourse] = useState({
+    id: "",
+    courseName: "",
+    rating: "",
+    price: "",
+    ratingAmount: "",
+    level: "",
+    duration: "",
+    courseImage: "",
+  });
+  console.log(`item`, item);
+  console.log(`course`, course);
   const {
     id,
     courseName,
@@ -19,7 +30,9 @@ function CourseCard({ item, setToggle }) {
     const fetchDataCourse = async () => {
       const response = await axios.get(`/course/${item.courseId}`);
       // console.log('response: ', response.data.courseResult);
-      setCourse(response.data.courseResult);
+      if (response.data.courseResult) {
+        setCourse(response.data.courseResult);
+      }
     };
     fetchDataCourse();
   }, []);
@@ -33,27 +46,27 @@ function CourseCard({ item, setToggle }) {
     setToggle(current => !current);
   };
   return (
-    <div className='cardBody' onClick={handleClickToCourseCardDetail}>
-      <div className='divCourseImage'>
-        <img src={courseImage} alt='' />
+    <div className="cardBody" onClick={handleClickToCourseCardDetail}>
+      <div className="divCourseImage">
+        <img src={courseImage} alt="" />
       </div>
-      <div className='divCourseDetail'>
-        <h1 className='divCourseName'>{courseName}</h1>
-        <div className='divDetailCourseCard'>
-          <h2 className='h2CourseCard'>{rating}/5</h2>&nbsp;&nbsp;
-          <p className='pCourseCard'>({ratingAmount} Reviews)</p>
+      <div className="divCourseDetail">
+        <h1 className="divCourseName">{courseName}</h1>
+        <div className="divDetailCourseCard">
+          <h2 className="h2CourseCard">{rating}/5</h2>&nbsp;&nbsp;
+          <p className="pCourseCard">({ratingAmount} Reviews)</p>
         </div>
-        <div className='divDetailCourseCard'>
-          <h2 className='h2CourseCard'>Level : </h2>&nbsp;&nbsp;
-          <p className='pCourseCard'>{level}</p>
+        <div className="divDetailCourseCard">
+          <h2 className="h2CourseCard">Level : </h2>&nbsp;&nbsp;
+          <p className="pCourseCard">{level}</p>
         </div>
-        <div className='divDetailCourseCard'>
-          <h2 className='h2CourseCard'>Duration : </h2>&nbsp;&nbsp;
-          <p className='pCourseCard'>{duration} day</p>
+        <div className="divDetailCourseCard">
+          <h2 className="h2CourseCard">Duration : </h2>&nbsp;&nbsp;
+          <p className="pCourseCard">{duration} day</p>
         </div>
-        <div className='divDetailCourseCard'>
-          <h2 className='h2CourseCard'>Price : </h2>&nbsp;&nbsp;
-          <p className='pCourseCard'>{price} THB</p>
+        <div className="divDetailCourseCard">
+          <h2 className="h2CourseCard">Price : </h2>&nbsp;&nbsp;
+          <p className="pCourseCard">{price} THB</p>
         </div>
       </div>
       {/* <div className='threeTagControl'>
@@ -71,4 +84,4 @@ function CourseCard({ item, setToggle }) {
   );
 }
 
-export default CourseCard;
+export default CourseCard2;

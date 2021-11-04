@@ -9,7 +9,7 @@ import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import {
   ToggleButtonConfig,
   ListItemTextConfig,
-  styleButton
+  styleButton,
 } from "../muiConfig";
 import "../styleClassroomILearn.css";
 import { useEffect, useState } from "react";
@@ -26,7 +26,7 @@ function NevBarLeftList({
   setQuizId,
   currentStage,
   setCurrentStage,
-  topicLen
+  topicLen,
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
@@ -50,7 +50,7 @@ function NevBarLeftList({
           resSubTopic.data.result
             .concat(resQuiz.data.result)
             .concat([
-              { subTopName: "< Claim certificate >", topicId: topicLen }
+              { subTopName: "< Claim certificate >", topicId: topicLen },
             ])
         );
       } catch (error) {
@@ -63,12 +63,12 @@ function NevBarLeftList({
   useEffect(() => {
     axios
       .get(`/mycourse/my/${param.id}`)
-      .then((res) => {
-        // console.log("@myCourse:", res.data.result);
+      .then(res => {
+        console.log("@myCourse:", res.data);
         setCurrentStage(res.data.result.currentStage);
         setCurrentStatus(res.data.result.status);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }, [param, setCurrentStage]);
 
   const handleChange = (event, nextView) => {
@@ -85,8 +85,8 @@ function NevBarLeftList({
         pathname: `/my-profile`,
         state: {
           alignmentHistory: "dashboard",
-          alignmentDashboard: "3"
-        }
+          alignmentDashboard: "3",
+        },
       });
     }
     try {
@@ -122,7 +122,7 @@ function NevBarLeftList({
               onChange={handleChange}
             >
               {subObjArr
-                .filter((chosenTopic) => chosenTopic.topicId === topicId)
+                .filter(chosenTopic => chosenTopic.topicId === topicId)
                 .map((item, idx) => (
                   <ToggleButton
                     key={idx}

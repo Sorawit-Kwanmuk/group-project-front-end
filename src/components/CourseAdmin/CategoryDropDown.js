@@ -105,30 +105,60 @@ export default function CategorySelect({ setCategoryId, catMap }) {
   //   ));
 
   return (
-    <div>
-      <FormControl sx={{ m: 0, width: "100%" }}>
-        <InputLabel id="demo-multiple-name-label">Category *</InputLabel>
-        <Select
-          labelId="demo-multiple-name-label"
-          id="demo-multiple-name"
-          multiple
-          value={categoryName}
-          onChange={handleChange}
-          input={<OutlinedInput label="Category *" />}
-          MenuProps={MenuProps}
-          required
-        >
-          {dropCat.map(item => (
-            <MenuItem
-              key={item.id}
-              value={item.id}
-              style={getStyles(item, categoryName, theme)}
+    <>
+      {catMap ? (
+        <div>
+          <FormControl sx={{ m: 0, width: "100%" }}>
+            <InputLabel id="demo-multiple-name-label">Category *</InputLabel>
+            <Select
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              multiple
+              value={categoryName}
+              onChange={handleChange}
+              input={<OutlinedInput label="Category *" />}
+              MenuProps={MenuProps}
+              required
             >
-              {item.categoryName}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-    </div>
+              {dropCat.map(item => (
+                <MenuItem
+                  key={item.id}
+                  value={item.id}
+                  style={getStyles(item, categoryName, theme)}
+                >
+                  {item.categoryName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+      ) : (
+        <div>
+          <FormControl sx={{ m: 0, width: "100%" }}>
+            <InputLabel id="demo-multiple-name-label">Category *</InputLabel>
+            <Select
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              multiple
+              value={categoryName}
+              onChange={handleChange}
+              input={<OutlinedInput label="Category *" />}
+              MenuProps={MenuProps}
+              required
+            >
+              {cat.map(item => (
+                <MenuItem
+                  key={item.id}
+                  value={item.id}
+                  style={getStyles(item, categoryName, theme)}
+                >
+                  {item.categoryName}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+      )}
+    </>
   );
 }
