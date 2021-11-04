@@ -2,7 +2,6 @@ import "../../styleClassroomILearn.css";
 import { ToggleButtonGroupConfig, ToggleButtonConfig2 } from "../../muiConfig";
 
 import { useState } from "react";
-import { Button } from "@mui/material";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 
@@ -41,7 +40,7 @@ function QuizTest({ quiz, quizNo, setAnswerCheck }) {
             sx={ToggleButtonConfig2}
             onClick={() => handleButtonClick(quiz.choiceA)}
           >
-            <h4 className="quizH4">A.</h4>
+            <h4 className="quizH4">A. </h4>
             <p className="quizP">{quiz.choiceA}</p>
           </ToggleButton>
           <ToggleButton
@@ -51,7 +50,7 @@ function QuizTest({ quiz, quizNo, setAnswerCheck }) {
             sx={ToggleButtonConfig2}
             onClick={() => handleButtonClick(quiz.choiceB)}
           >
-            <h4 className="quizH4">B.</h4>
+            <h4 className="quizH4">B. </h4>
             <p className="quizP">{quiz.choiceB}</p>
           </ToggleButton>
           <ToggleButton
@@ -61,7 +60,7 @@ function QuizTest({ quiz, quizNo, setAnswerCheck }) {
             sx={ToggleButtonConfig2}
             onClick={() => handleButtonClick(quiz.choiceC)}
           >
-            <h4 className="quizH4">C.</h4>
+            <h4 className="quizH4">C. </h4>
             <p className="quizP">{quiz.choiceC}</p>
           </ToggleButton>
           <ToggleButton
@@ -71,7 +70,7 @@ function QuizTest({ quiz, quizNo, setAnswerCheck }) {
             sx={ToggleButtonConfig2}
             onClick={() => handleButtonClick(quiz.choiceD)}
           >
-            <h4 className="quizH4">D.</h4>
+            <h4 className="quizH4">D. </h4>
             <p className="quizP">{quiz.choiceD}</p>
           </ToggleButton>
         </ToggleButtonGroup>
