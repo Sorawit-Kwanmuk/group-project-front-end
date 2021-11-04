@@ -14,20 +14,28 @@ import {
 import "../styleClassroomILearn.css";
 import { useEffect, useState } from "react";
 import axios from "../../../config/axios";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 function NevBarLeftList({
   topicId,
   topicName,
   setRightIframeOn,
   setVdoLink,
-  setQuestions
+  setQuestions,
+  arrIndex,
+  setQuizId,
+  currentStage,
+  setCurrentStage
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
-  const [topicIdArr, setTopicIdArr] = useState([]);
+  const [subObjArr, setSubObjArr] = useState([]);
+  const [currentStatus, setCurrentStatus] = useState("incompleted");
 
   const param = useParams();
+  const history = useHistory();
+
+  // console.log("@subObjInArrLeft:", subObjArr);
 
   useEffect(() => {
     const getLeftLists = async () => {
@@ -37,13 +45,28 @@ function NevBarLeftList({
         // console.log("@@@resSubTopic:", resSubTopic.data.result);
         const resQuiz = await axios.get(`/quiz`);
         // console.log("@@@resQuiz:", resQuiz.data.result);
-        setTopicIdArr(resSubTopic.data.result.concat(resQuiz.data.result));
+        setSubObjArr(
+          resSubTopic.data.result
+            .concat(resQuiz.data.result)
+            .concat([{ subTopName: "< Claim certificate >", topicId: 4 }])
+        );
       } catch (error) {
         console.log("useEffectSubTopicErr:", error);
       }
     };
     getLeftLists();
   }, [param.id]);
+
+  useEffect(() => {
+    axios
+      .get(`/mycourse/my/${param.id}`)
+      .then((res) => {
+        // console.log("@myCourse:", res.data.result);
+        setCurrentStage(res.data.result.currentStage);
+        setCurrentStatus(res.data.result.status);
+      })
+      .catch((err) => console.log(err));
+  }, [param, setCurrentStage]);
 
   const handleChange = (event, nextView) => {
     setView(nextView);
@@ -54,10 +77,19 @@ function NevBarLeftList({
   };
 
   const handleToggleButtonClick = async (link, topicId) => {
+    if (currentStatus === "completed") {
+      return history.push({
+        pathname: `/my-profile`,
+        state: {
+          alignmentHistory: "dashboard",
+          alignmentDashboard: "3"
+        }
+      });
+    }
     try {
       const resQuestion = await axios.get(`/quiz/${topicId}`);
-      // console.log("@#@resQuestion:", resQuestion.data.result.Questions);
       setQuestions(resQuestion.data.result.Questions);
+      setQuizId(topicId);
     } catch (error) {
       console.log(error);
     }
@@ -86,18 +118,19 @@ function NevBarLeftList({
               exclusive
               onChange={handleChange}
             >
-              {topicIdArr
+              {subObjArr
                 .filter((chosenTopic) => chosenTopic.topicId === topicId)
                 .map((item, idx) => (
                   <ToggleButton
                     key={idx}
                     sx={ToggleButtonConfig}
-                    value={item.subTopName ? item.subTopName : item.quizName}
+                    value={item.subTopName || item.quizName}
                     onClick={() =>
                       handleToggleButtonClick(item.video, item.topicId)
                     }
+                    disabled={currentStage < arrIndex + 1}
                   >
-                    {item.subTopName ? item.subTopName : item.quizName}
+                    {item.subTopName || item.quizName}
                   </ToggleButton>
                 ))}
             </ToggleButtonGroup>

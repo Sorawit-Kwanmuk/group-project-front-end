@@ -25,6 +25,13 @@ function ClassroomILearn() {
   const [rightIframeOn, setRightIframeOn] = useState(false);
   const [vdoLink, setVdoLink] = useState(null);
   const [questions, setQuestions] = useState([]);
+  const [quizId, setQuizId] = useState(null);
+  const [currentStage, setCurrentStage] = useState(0);
+
+  // console.log("@param:", param);
+  // console.log("@topicArr:", topicArr);
+  // console.log("@vdoLink:", vdoLink);
+  // console.log("@questions:", questions);
 
   useEffect(() => {
     const getLeftLists = async () => {
@@ -43,7 +50,7 @@ function ClassroomILearn() {
     <div className="mainDivClassroomILearn">
       <div className="divLessonList">
         <h3 className="ClassroomILearnH3">Lesson List</h3>
-        {topicArr.map((item) => (
+        {topicArr.map((item, idx) => (
           <NevBarLeftList
             key={item.id}
             topicId={item.id}
@@ -51,12 +58,42 @@ function ClassroomILearn() {
             setRightIframeOn={setRightIframeOn}
             setVdoLink={setVdoLink}
             setQuestions={setQuestions}
+            arrIndex={idx}
+            setQuizId={setQuizId}
+            currentStage={currentStage}
+            setCurrentStage={setCurrentStage}
           />
         ))}
       </div>
       <div className="divRightClassroomILearn">
-        {rightIframeOn && (
-          <ContentRightClass vdoLink={vdoLink} questions={questions} />
+        {rightIframeOn ? (
+          <ContentRightClass
+            vdoLink={vdoLink}
+            questions={questions}
+            quizId={quizId}
+            currentStage={currentStage}
+          />
+        ) : (
+          <>
+            <h2
+              style={{
+                textAlign: "center",
+                backgroundColor: "deepskyblue",
+                padding: 10
+              }}
+            >
+              Check on the left "Lesson List"
+            </h2>
+            <p
+              style={{
+                textAlign: "center",
+                backgroundColor: "greenyellow",
+                padding: 10
+              }}
+            >
+              Please watch VDO contents and take exam to unlock the next stage.
+            </p>
+          </>
         )}
       </div>
     </div>

@@ -3,19 +3,17 @@ import Button from "@mui/material/Button";
 import { ButtonConfig, ButtonConfig2 } from "../muiConfig";
 import VideoLink from "./VideoLink/VideoLink";
 import QuizTest from "./Quiz/QuizTest";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "../../../config/axios";
-function ContentRightClass({ vdoLink, questions }) {
+import { useParams } from "react-router";
+
+function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
   const [answerCheck, setAnswerCheck] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [result, setResult] = useState("");
   const [pass, setPass] = useState(false);
 
-  useEffect(() => {
-    const isPassed = async () => {
-      const resPass = await axios.post();
-    };
-  }, [pass]);
+  const param = useParams();
 
   let col = 0;
   for (const value in answerCheck) {
@@ -26,11 +24,22 @@ function ContentRightClass({ vdoLink, questions }) {
 
   const handleButtonSubmit = () => {
     setSubmitted(true);
+
     if (col === questions.length) {
       setResult(
         `${col}/${questions.length} Congratulation! You passed the test. Now the next lesson is available!`
       );
+
       setPass(true);
+
+      if (quizId >= currentStage) {
+        axios
+          .put(`/mycourse/${param.id}`)
+          .then((res) => {
+            // console.log("@resPutMycourse:", res.data.result);
+          })
+          .catch((err) => console.log(err));
+      }
     } else {
       setResult(`${col}/${questions.length} Sorry! You failed the test.`);
       setPass(false);
@@ -50,10 +59,12 @@ function ContentRightClass({ vdoLink, questions }) {
         <Button variant="contained" sx={ButtonConfig}>
           My Course
         </Button>
-        <div className="textLabelContentRightClass">HTML - Element / Tag</div>
-        <Button variant="contained" sx={ButtonConfig} disabled>
-          Completed !
-        </Button>
+        <div className="textLabelContentRightClass">
+          <i>- Keep going Keep growing -</i>
+        </div>
+        {/* <Button variant="contained" sx={ButtonConfig}>
+          Lesson Document
+        </Button> */}
       </div>
       {/* <div className="lineCompleteController">
         <div className="lineCompleteStatusSuccess"></div>
@@ -92,7 +103,7 @@ function ContentRightClass({ vdoLink, questions }) {
                     <Button
                       sx={ButtonConfig2}
                       variant="contained"
-                      // onClick={}
+                      onClick={() => window.location.reload()}
                     >
                       Next
                     </Button>
