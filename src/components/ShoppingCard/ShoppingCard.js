@@ -104,7 +104,7 @@ function ShoppingCard() {
         );
 
         const newArr = response3.data.result.map(item => item.categoryId);
-
+        console.log('newArr', newArr);
         if (newArr.includes(1)) {
           const response4 = await axios.get(`/courseCat/bycat/${1}`);
           const result = response4.data.result;
@@ -136,6 +136,7 @@ function ShoppingCard() {
     // console.log('rating: ', rating);
     // console.log('shoppingCardId: ', shoppingCard.id);
     // console.log('username: ', user.username);
+    console.log('courseCatOne: ', courseCatOne);
     const response = await axios.post(`/comment/`, {
       commentName: user.username,
       rating: rating,

@@ -1,18 +1,18 @@
-import { useState } from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import axios from "axios";
+import { useState } from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import axios from 'axios';
 
 const createQuizTemplate = {
-  subjectName: "CREATE",
+  subjectName: 'CREATE',
   questions: [
     {
-      questionText: "",
+      questionText: '',
       answerOptions: [
-        { idx: "a1", answerText: "", isCorrect: false },
-        { idx: "a2", answerText: "", isCorrect: false },
+        { idx: 'a1', answerText: '', isCorrect: false },
+        { idx: 'a2', answerText: '', isCorrect: false },
       ],
     },
   ],
@@ -26,12 +26,12 @@ function CreateQuiz({
   topicList,
 }) {
   const [fromQuiz, setFromQuiz] = useState(createQuizTemplate);
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState('');
   console.log(`fromQuiz`, fromQuiz);
   // const handleChange = event => {
   //   setSubject(event.target.value);
   // };
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   console.log(`subject`, subject);
   console.log(`name`, name);
 
@@ -56,48 +56,46 @@ function CreateQuiz({
       // setDisableAddNewSubject(false);
       // setDisableBtnGroup([true, true, true]);
       // setDisplayContCreate(false);
+      window.location.reload();
     } catch (error) {
-      console.dir("@@@error:", error);
+      console.dir('@@@error:', error);
     }
   };
 
   return (
     <>
-      <section className="Admin__section">
+      <section className='Admin__section'>
         {/* <!-- Create Questions --> */}
         {displayQuizCreate && (
           <div
             style={{
-              width: "100%",
-              backgroundColor: "#CAF0F8",
-            }}
-          >
-            <div className="w3-row w3-margin-left">
-              <p className="w3-text-blue w3-center ">
+              width: '100%',
+              backgroundColor: '#CAF0F8',
+            }}>
+            <div className='w3-row w3-margin-left'>
+              <p className='w3-text-blue w3-center '>
                 <b>Quiz</b>
               </p>
               <div
                 style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
+                  <InputLabel id='demo-simple-select-label'>
                     Subject list
                   </InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId='demo-simple-select-label'
+                    id='demo-simple-select'
                     value={`${subject}/${name}`}
-                    label="Subject list"
+                    label='Subject list'
                     // onChange={handleChange}
                     onChange={e => {
-                      setSubject(e.target.value.split("/")[0]);
-                      setName(e.target.value.split("/")[1]);
-                    }}
-                  >
+                      setSubject(e.target.value.split('/')[0]);
+                      setName(e.target.value.split('/')[1]);
+                    }}>
                     {topicList.map(item => (
                       <MenuItem
                         key={item.id}
@@ -110,22 +108,20 @@ function CreateQuiz({
                   </Select>
                 </FormControl>
 
-                <div className="w3-block w3-right">
+                <div className='w3-block w3-right'>
                   <button
-                    className="w3-green w3-button w3-ripple w3-mobile w3-margin-left"
-                    onClick={submitQuiz}
-                  >
+                    className='w3-green w3-button w3-ripple w3-mobile w3-margin-left'
+                    onClick={submitQuiz}>
                     Save create
                   </button>
                   <button
-                    className="w3-red w3-button w3-ripple w3-mobile w3-margin-left"
+                    className='w3-red w3-button w3-ripple w3-mobile w3-margin-left'
                     onClick={() => {
                       setFromQuiz(createQuizTemplate);
                       setDisplayQuizCreate(false);
                       setDisableAddNewSubject(false);
                       setDisableBtnGroup([true, true, true]);
-                    }}
-                  >
+                    }}>
                     Cancel
                   </button>
                 </div>
@@ -133,7 +129,7 @@ function CreateQuiz({
             </div>
 
             {fromQuiz.questions.map((CurrQuestionObj, idx) => (
-              <article key={idx} className="w3-display-container">
+              <article key={idx} className='w3-display-container'>
                 {/* # Button Delete Question */}
                 <span
                   onClick={() => {
@@ -144,21 +140,20 @@ function CreateQuiz({
                     cloneObj.questions.splice(index, 1);
                     setFromQuiz(cloneObj);
                   }}
-                  className="w3-button w3-red w3-border-black w3-leftbar w3-display-topright w3-small w3-ripple w3-margin-right"
-                >
+                  className='w3-button w3-red w3-border-black w3-leftbar w3-display-topright w3-small w3-ripple w3-margin-right'>
                   &times;
                 </span>
 
                 {/* # Question Number */}
-                <p className="w3-margin-left">
+                <p className='w3-margin-left'>
                   ?{idx + 1} of {fromQuiz.questions.length}
                 </p>
 
                 {/* # Question Text */}
-                <p className="w3-margin-left w3-margin-right">
+                <p className='w3-margin-left w3-margin-right'>
                   <input
-                    type="text"
-                    style={{ width: "100%" }}
+                    type='text'
+                    style={{ width: '100%' }}
                     onChange={e => {
                       const { questions } = { ...fromQuiz };
                       const index = questions.findIndex(
@@ -170,7 +165,7 @@ function CreateQuiz({
                         questions,
                       }));
                     }}
-                    placeholder="Enter Question text..."
+                    placeholder='Enter Question text...'
                     value={fromQuiz.questions[idx].questionText}
                   />
                 </p>
@@ -181,13 +176,12 @@ function CreateQuiz({
                     (currAnswer, ansIdx) => (
                       <div
                         key={ansIdx}
-                        className="w3-padding-small w3-margin w3-mobile w3-small w3-ripple Quiz__choice"
-                        style={{ minHeight: "2rem", width: "100%" }}
-                      >
+                        className='w3-padding-small w3-margin w3-mobile w3-small w3-ripple Quiz__choice'
+                        style={{ minHeight: '2rem', width: '100%' }}>
                         {/* # Answer Checkbox */}
                         <input
-                          type="checkbox"
-                          className="w3-margin-right"
+                          type='checkbox'
+                          className='w3-margin-right'
                           onChange={e => {
                             const { questions } = { ...fromQuiz };
                             const index = questions.findIndex(
@@ -204,9 +198,9 @@ function CreateQuiz({
 
                         {/* # Answer Text */}
                         <input
-                          type="text"
+                          type='text'
                           style={{
-                            width: "93%",
+                            width: '93%',
                           }}
                           onChange={e => {
                             const { questions } = { ...fromQuiz };
@@ -224,13 +218,13 @@ function CreateQuiz({
                             fromQuiz.questions[idx].answerOptions[ansIdx]
                               .answerText
                           }
-                          placeholder="Enter Answer text..."
+                          placeholder='Enter Answer text...'
                         />
 
                         {/* # Answer Delete Option */}
                         {CurrQuestionObj.answerOptions.length > 2 && (
                           <span
-                            className="w3-button w3-red w3-ripple w3-right"
+                            className='w3-button w3-red w3-ripple w3-right'
                             onClick={() => {
                               const { questions } = { ...fromQuiz };
                               const choices = questions[idx].answerOptions;
@@ -242,8 +236,7 @@ function CreateQuiz({
                                 ...quiz,
                                 questions,
                               }));
-                            }}
-                          >
+                            }}>
                             &times;
                           </span>
                         )}
@@ -253,19 +246,18 @@ function CreateQuiz({
 
                   {/* # Answer Add Option */}
                   {CurrQuestionObj.answerOptions.length < 4 && (
-                    <div className="Quiz">
+                    <div className='Quiz'>
                       <p
-                        className="w3-padding-small w3-margin w3-mobile w3-small w3-button w3-ripple Quiz__choice w3-green"
+                        className='w3-padding-small w3-margin w3-mobile w3-small w3-button w3-ripple Quiz__choice w3-green'
                         onClick={() => {
                           const cloneObj = { ...fromQuiz };
                           cloneObj.questions[idx].answerOptions.push({
                             idx: new Date().getTime(),
-                            answerText: "",
+                            answerText: '',
                             isCorrect: false,
                           });
                           setFromQuiz(cloneObj);
-                        }}
-                      >
+                        }}>
                         +Add Answer Option
                       </p>
                     </div>
@@ -276,22 +268,21 @@ function CreateQuiz({
             ))}
 
             {/* # Question Add New */}
-            <div className="Quiz">
+            <div className='Quiz'>
               <p
-                className="w3-padding w3-margin w3-mobile w3-medium w3-button w3-ripple Quiz__choice w3-blue"
+                className='w3-padding w3-margin w3-mobile w3-medium w3-button w3-ripple Quiz__choice w3-blue'
                 onClick={() => {
                   const cloneArr = { ...fromQuiz };
                   cloneArr.questions.push({
                     idx: new Date().getTime(),
-                    questionText: "",
+                    questionText: '',
                     answerOptions: [
-                      { idx: "@1", answerText: "", isCorrect: false },
-                      { idx: "@2", answerText: "", isCorrect: false },
+                      { idx: '@1', answerText: '', isCorrect: false },
+                      { idx: '@2', answerText: '', isCorrect: false },
                     ],
                   });
                   setFromQuiz(cloneArr);
-                }}
-              >
+                }}>
                 +Add New Question
               </p>
             </div>
