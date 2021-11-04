@@ -9,7 +9,7 @@
 }
 
 
-.css-10hburv-MuiTypography-root {
+/* .css-10hburv-MuiTypography-root {
     text-align: center;
     color: #03045E;
 }
@@ -25,9 +25,9 @@
 .css-i4bv87-MuiSvgIcon-root {
     position: absolute;
     /* left: 90%; */
-}
+/* } */
 
-.divLessonList>h3 {
+*/ .divLessonList>h3 {
     text-align: center;
     background-color: #03045E;
     color: #fff
@@ -151,9 +151,9 @@
 
 }
 
-.css-6cf1jz-MuiButtonBase-root-MuiToggleButton-root {
+/* .css-6cf1jz-MuiButtonBase-root-MuiToggleButton-root {
     padding: 0px;
-}
+} */
 
 .quizH4,
 .quizP {
@@ -171,6 +171,6 @@
     margin: 10px;
 }
 
-.css-keslas-MuiButtonBase-root-MuiToggleButton-root {
+/* .css-keslas-MuiButtonBase-root-MuiToggleButton-root {
     padding: 0px;
-}
+} */

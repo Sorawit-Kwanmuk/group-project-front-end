@@ -18,10 +18,15 @@ import ContactUsEdit from '../components/ContactUs/ContactUsEdit';
 import HomeBannerAdmin from '../components/HomeBannerAdmin/HomeBannerAdmin';
 import ResetPassword from '../components/ForgetPassword/ResetPassword';
 import CreateInstructorCard from '../components/CreateInstructorCard/CreateInstructorCard';
+import Certificate from '../components/Certificate/Certificate';
 
 const routes = {
   user: {
     route: [
+      {
+        path: '/certificate',
+        component: Certificate,
+      },
       {
         path: '/forget-password',
         component: ForgetPassword,
@@ -104,6 +109,10 @@ const routes = {
   },
   admin: {
     route: [
+      {
+        path: '/certificate',
+        component: Certificate,
+      },
       {
         path: '/create-instructor-card',
         component: CreateInstructorCard,

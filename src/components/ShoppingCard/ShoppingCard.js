@@ -52,7 +52,7 @@ function ShoppingCard() {
   // console.log('user', userById);
   // console.log('params', +params.id);
   // console.log('userCourseId: ', userCourseId);
-  console.log('allComment', allComment);
+  // console.log('allComment', allComment);
   // console.log('eachRating', eachRating);
   // console.log('one-five', one, two, three, four, five);
   // console.log('eachRating', eachRating);
