@@ -6,6 +6,8 @@ import CreateContent from "./CreateContent";
 import { useLocation } from "react-router";
 import axios from "axios";
 import EditTopic from "./EditTopic";
+import EditContent from "./EditContent";
+import EditQuiz from "./EditQuiz";
 
 const quizBank = [
   {
@@ -57,11 +59,21 @@ function CourseClassroomAdmin() {
   const [disableBtnGroup, setDisableBtnGroup] = useState([true, true, true]);
   const [displayTopicCreate, setDisplayTopicCreate] = useState(false);
   const [displayTopicEdit, setDisplayTopicEdit] = useState(false);
+
   const [displayContCreate, setDisplayContCreate] = useState(false);
+
+  const [displayContentEdit, setDisplayContentEdit] = useState(false);
+  const [displayQuizEdit, setDisplayQuizEdit] = useState(false);
   const [displayQuizCreate, setDisplayQuizCreate] = useState(false);
   const [topicList, setTopicList] = useState([]);
-
   const [topicItem, setTopicItem] = useState([]);
+
+  const [subList, setSubList] = useState([]);
+  const [subItem, setSubItem] = useState({});
+
+  const [quizItem, setQuizItem] = useState({});
+  console.log(`quizItem------>`, quizItem);
+  console.log(`displayQuizEdit`, displayQuizEdit);
 
   const location = useLocation();
 
@@ -82,17 +94,41 @@ function CourseClassroomAdmin() {
   }, []);
 
   useEffect(() => {
+    const fetchTopic = async () => {
+      try {
+        const resTopic = await axios.get(`/topic/course/${location.state.key}`);
+        setTopicList(resTopic.data.result);
+        console.log(`resTopic`, resTopic.data.result);
+
+        const mapTopic = resTopic.data.result.map(item => {
+          return item.id;
+        });
+
+        console.log(`mapTopic`, mapTopic);
+        setSubList(mapTopic);
+
+        for (let i = 0; i < mapTopic.length; i++) {
+          const mapSub = axios;
+        }
+      } catch (error) {}
+    };
+
+    fetchTopic();
+  }, []);
+
+  useEffect(() => {
     axios
-      .get(`/topic/course/${location.state.key}`)
+      .get(`/subtopic`)
       .then(res => {
-        setTopicList(res.data.result);
+        setSubItem(res.data.result);
       })
       .catch(err => {
         console.log(err);
       });
   }, []);
-
+  console.log(`res ---- subTopic`, subItem);
   console.log(`topicList--->`, topicList);
+
   return (
     <div style={{ minHeight: 580 }}>
       <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
@@ -121,11 +157,12 @@ function CourseClassroomAdmin() {
                 <div key={idx} className="">
                   <button
                     href="#"
-                    className="w3-button w3-block w3-ripple"
+                    className="w3-button w3-block w3-ripple w3-light-blue"
                     onClick={() => {
                       setDisplayTopicCreate(false);
                       setDisplayContCreate(false);
                       setDisplayQuizCreate(false);
+                      setDisplayQuizEdit(false);
                       setDisplayTopicEdit(true);
                       setDisableBtnGroup([true, true, true]);
                       setTopicItem(topic);
@@ -133,8 +170,60 @@ function CourseClassroomAdmin() {
                       // console.log(`topicItem`, topicItem);
                     }}
                   >
-                    {topic.topicName}
+                    {idx + 1}. {topic.topicName}
                   </button>
+
+                  {topic.SubTopics.map((subTopic, subIdx) => (
+                    <div key={idx} className="">
+                      <button
+                        href="#"
+                        className="w3-button w3-block w3-ripple"
+                        onClick={() => {
+                          setDisplayTopicCreate(false);
+                          setDisplayContCreate(false);
+                          setDisplayQuizCreate(false);
+                          setDisplayTopicEdit(false);
+                          setDisplayQuizEdit(false);
+                          setDisplayContentEdit(true);
+                          setDisableBtnGroup([true, true, true]);
+                          setSubItem(subTopic);
+                          setTopicItem(topic);
+                          console.log(`subTopic`, subTopic);
+
+                          setDisableAddNewSubject(false);
+                          // console.log(`topicItem`, topicItem);
+                        }}
+                      >
+                        {subTopic.subTopName}
+                      </button>
+                    </div>
+                  ))}
+
+                  {topic.Quizzes.map((quiz, subIdx) => (
+                    <div key={idx} className="">
+                      <button
+                        href="#"
+                        className="w3-button w3-block w3-ripple"
+                        onClick={() => {
+                          setDisplayTopicCreate(false);
+                          setDisplayContCreate(false);
+
+                          setDisplayTopicEdit(false);
+                          setDisplayQuizEdit(true);
+                          setDisplayContentEdit(false);
+                          setDisableBtnGroup([true, true, true]);
+                          setQuizItem(quiz);
+                          setTopicItem(topic);
+                          // console.log(`subTopic`, subTopic);
+
+                          setDisableAddNewSubject(false);
+                          // console.log(`topicItem`, topicItem);
+                        }}
+                      >
+                        {quiz.quizName}
+                      </button>
+                    </div>
+                  ))}
                 </div>
               ))}
 
@@ -234,14 +323,41 @@ function CourseClassroomAdmin() {
                   />
                 )}
 
+                {displayContentEdit && (
+                  <EditContent
+                    setDisableAddNewSubject={setDisableAddNewSubject}
+                    setDisableBtnGroup={setDisableBtnGroup}
+                    setDisplayTopicCreate={setDisplayTopicCreate}
+                    setDisplayTopicEdit={setDisplayTopicEdit}
+                    // courseDetail={courseDetail}
+                    // setTopicList={setTopicList}
+                    topicList={topicList}
+                    subItem={subItem}
+                    topicItem={topicItem}
+                  />
+                )}
+
                 {/* # Quiz */}
-                <CreateQuiz
-                  setDisableAddNewSubject={setDisableAddNewSubject}
-                  setDisableBtnGroup={setDisableBtnGroup}
-                  displayQuizCreate={displayQuizCreate}
-                  setDisplayQuizCreate={setDisplayQuizCreate}
-                  topicList={topicList}
-                />
+                {displayQuizCreate && (
+                  <CreateQuiz
+                    setDisableAddNewSubject={setDisableAddNewSubject}
+                    setDisableBtnGroup={setDisableBtnGroup}
+                    displayQuizCreate={displayQuizCreate}
+                    setDisplayQuizCreate={setDisplayQuizCreate}
+                    topicList={topicList}
+                  />
+                )}
+
+                {displayQuizEdit && (
+                  <EditQuiz
+                    setDisableAddNewSubject={setDisableAddNewSubject}
+                    setDisableBtnGroup={setDisableBtnGroup}
+                    displayQuizEdit={displayQuizEdit}
+                    setDisplayQuizCreate={setDisplayQuizCreate}
+                    topicList={topicList}
+                    quizItem={quizItem}
+                  />
+                )}
               </div>
             )}
           </section>

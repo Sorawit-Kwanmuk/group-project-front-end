@@ -39,7 +39,8 @@ function CreateTopic({
       setSubject("");
       setInstructor("");
       alert("create new Topic successfully");
-      setTopicList(curr => [...curr, res.data.result]);
+      // setTopicList(curr => [...curr, res.data.result]);
+      window.location.reload();
     } catch (error) {
       console.dir("@@@error:", error);
     }

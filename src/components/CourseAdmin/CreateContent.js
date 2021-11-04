@@ -28,6 +28,7 @@ function CreateContent({
       });
 
       alert(`Create ${lesson} successfully`);
+      window.location.reload();
       setDisableAddNewSubject(false);
       setDisableBtnGroup([true, true, true]);
       setDisplayContCreate(false);
