@@ -17,6 +17,7 @@ import { useHistory } from 'react-router';
 import jwtDecode from 'jwt-decode';
 import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
 import Link from '@mui/material/Link';
+import GoogleIcon from '@mui/icons-material/Google';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -117,6 +118,14 @@ function Login() {
           <div className='divLogin buttonLogin'>
             <Button variant='contained' type='submit' sx={{ width: '100px' }}>
               Login
+            </Button>
+          </div>
+          <div className='divLogin buttonLogin'>
+            <Button
+              variant='contained'
+              endIcon={<GoogleIcon />}
+              sx={{ width: '100px' }}>
+              Send
             </Button>
           </div>
           <div className='divLogin'>

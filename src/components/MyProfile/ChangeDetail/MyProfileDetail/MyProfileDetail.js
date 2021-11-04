@@ -15,11 +15,11 @@ function MyProfileDetail({ data, setToggleProfile }) {
   const [birthDateChange, setBirthDateChange] = useState(birthDate);
   const [emailChange, setEmailChange] = useState(email);
   const [mobileNoChange, setMobileNoChange] = useState(mobileNoChangeForm);
-  console.log("fullNameChange: ", fullNameChange);
-  console.log("birthDateChange: ", birthDateChange);
-  console.log("emailChange: ", emailChange);
-  console.log("mobileNoChange: ", mobileNoChange);
-  console.log("editProfile:", editProfile);
+  // console.log('fullNameChange: ', fullNameChange);
+  // console.log('birthDateChange: ', birthDateChange);
+  // console.log('emailChange: ', emailChange);
+  // console.log('mobileNoChange: ', mobileNoChange);
+  // console.log('editProfile:', editProfile);
   // useEffect(() => {
   //   setFullNameChange(fullName);
   //   setBirthDateChange(birthDate);
@@ -39,7 +39,6 @@ function MyProfileDetail({ data, setToggleProfile }) {
     });
     console.log("response.status:", response.status);
     if (response.status === 200) {
-      console.log("1111111111111");
       setEditProfile(true);
     }
     setToggleProfile((setToggleProfile) => !setToggleProfile);

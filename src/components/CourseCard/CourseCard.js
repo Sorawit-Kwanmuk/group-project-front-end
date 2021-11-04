@@ -14,7 +14,7 @@ function CourseCard({ item }) {
     duration,
     courseImage,
   } = item.Course ? item.Course : item;
-
+  console.log(item);
   // console.log('item: ', item.Course);
   // const result = item.CourseCats.map(item => item.categoryId);
   const history = useHistory();

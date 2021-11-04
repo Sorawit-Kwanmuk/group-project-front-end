@@ -39,9 +39,11 @@ function CreateInstructorCard() {
     linkedin: '',
     twitter: '',
     profileImage: '',
+    profileImageName: '',
     categoryId: '',
   });
   // console.log('category2: ', category2);
+  console.log('createInstructor: ', createInstructor);
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -52,7 +54,7 @@ function CreateInstructorCard() {
       },
     },
   };
-  console.log('createInstructor: ', createInstructor);
+  // console.log('createInstructor: ', createInstructor);
   // console.log('category: ', category);
   useEffect(() => {
     const fetchDataCategory = async () => {
@@ -137,6 +139,18 @@ function CreateInstructorCard() {
       console.log(error);
     }
   };
+  const handleChangePreviewImage = e => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreViewImage(reader.result);
+    };
+    reader.readAsDataURL(e.target.files[0]);
+    setCreateInstructor({
+      ...createInstructor,
+      profileImage: e.target.files[0],
+      profileImageName: e.target.files[0].name,
+    });
+  };
 
   return (
     <>
@@ -147,7 +161,7 @@ function CreateInstructorCard() {
             <Avatar
               className='MyProfileAvatar'
               alt='Remy Sharp'
-              src={createInstructor.profileImage}
+              src={preViewImage}
               sx={imageConfig}
             />
             <label
@@ -158,18 +172,13 @@ function CreateInstructorCard() {
                 id='contained-button-file'
                 multiple
                 type='file'
-                onChange={e =>
-                  setCreateInstructor({
-                    ...createInstructor,
-                    profileImage: e.target.files[0],
-                    profileImageName: e.target.value,
-                  })
-                }
+                onChange={e => handleChangePreviewImage(e)}
               />
               <Button
                 variant='contained'
                 disabled={spinnerStatus}
                 component='span'
+                // onClick={handleClickPreviewImage}
                 sx={{ marginBottom: '10px', marginTop: '10px' }}>
                 Upload Instructor Image
               </Button>
@@ -189,7 +198,7 @@ function CreateInstructorCard() {
                 borderRadius: '5px',
                 width: '100%',
               }}
-              value={createInstructor.profileImageName || ''}
+              value={createInstructor.profileImageName}
             />
           </div>
 

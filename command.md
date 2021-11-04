@@ -27,3 +27,4 @@
 - `npm i embla-carousel`
 
 - `npm install embla-carousel-react --save`
+- `npm i react-google-button`

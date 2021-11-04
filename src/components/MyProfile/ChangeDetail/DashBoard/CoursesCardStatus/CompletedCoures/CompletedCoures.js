@@ -1,7 +1,9 @@
 import { Button } from '@mui/material';
 import { buttonConfig } from '../muiConfig';
 import courseImg from '../../../../../../public/images/course.png';
+import { useHistory } from 'react-router-dom';
 function CompletedCoures({ item, courseName }) {
+  const history = useHistory();
   const {
     courseId,
     createdAt,
@@ -14,6 +16,14 @@ function CompletedCoures({ item, courseName }) {
     updatedAt,
     userId,
   } = item;
+  const handleClickLocationToCertificate = () => {
+    history.push({
+      pathname: `/certificate/`,
+      state: {
+        item,
+      },
+    });
+  };
   return (
     <>
       {status === 'completed' && (
@@ -45,6 +55,7 @@ function CompletedCoures({ item, courseName }) {
                         Complete
                       </Button>
                       <Button
+                        onClick={handleClickLocationToCertificate}
                         variant='contained'
                         color='secondary'
                         sx={buttonConfig}>

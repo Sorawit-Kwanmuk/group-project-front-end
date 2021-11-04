@@ -59,12 +59,13 @@
     flex-direction: column;
 }
 
+
 .usernameRegister {
     margin-top: -10px;
 }
 
-.MuiDialog-container,
+/* .MuiDialog-container,
 .MuiDialog-scrollPaper,
 .css-hz1bth-MuiDialog-container {
     z-index: 300000;
-}
+} */
