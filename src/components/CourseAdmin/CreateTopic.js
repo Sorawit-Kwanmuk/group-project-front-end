@@ -1,23 +1,59 @@
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import InstructorDropdown from "./InstructorDropdown";
 
 function CreateTopic({
-  setDisableAddNewSubject,
+  // setDisableAddNewSubject,
   setDisableBtnGroup,
-  setDisplayTopicCreate
+  setDisplayTopicCreate,
+  courseDetail,
+  setTopicList,
 }) {
-  const [input, setInput] = useState({
-    subject: "",
-    instructor: ""
-  });
+  const [subject, setSubject] = useState("");
+  console.log(`subject`, subject);
+  const [instructor, setInstructor] = useState("");
+  const [instructorList, setInstructorList] = useState([]);
+  console.log(`courseDetail`, courseDetail);
+  useEffect(() => {
+    axios
+      .get("/instructor")
+      .then(res => {
+        setInstructorList(res.data.insResult);
+      })
+
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+  console.log(`instructorList`, instructorList);
+
+  const submitTopic = async e => {
+    e.preventDefault();
+    const instructorConvert = +instructor;
+    try {
+      const res = await axios.post(`/topic`, {
+        topicName: subject,
+        courseId: courseDetail.id,
+        instructorId: instructorConvert,
+      });
+      setSubject("");
+      setInstructor("");
+      alert("create new Topic successfully");
+      // setTopicList(curr => [...curr, res.data.result]);
+      window.location.reload();
+    } catch (error) {
+      console.dir("@@@error:", error);
+    }
+  };
 
   return (
     <div>
       <form
         className="w3-container w3-card-4"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={e => e.preventDefault()}
       >
         <p className="w3-text-blue w3-center">
-          <b>Topic</b>{" "}
+          <b>Topic</b>
         </p>
         <p>
           <label className="w3-text-blue">
@@ -26,41 +62,29 @@ function CreateTopic({
           <input
             className="w3-input w3-border"
             type="text"
-            onChange={(e) =>
-              setInput({
-                ...input,
-                subject: e.target.value
-              })
-            }
+            value={subject}
+            onChange={e => setSubject(e.target.value)}
           />
         </p>
         <p>
-          <label className="w3-text-blue">
-            <b>Instructor</b>
-          </label>
-          <input
-            className="w3-input w3-border"
-            type="text"
-            onChange={(e) =>
-              setInput({
-                ...input,
-                instructor: e.target.value
-              })
-            }
+          <InstructorDropdown
+            instructorList={instructorList}
+            setInstructor={setInstructor}
+            instructor={instructor}
           />
         </p>
 
         <div className="w3-bar-item w3-center w3-margin-bottom">
           <button
             className="w3-green w3-button w3-ripple w3-mobile w3-margin-right"
-            onClick={() => {}}
+            onClick={submitTopic}
           >
             Save
           </button>
           <button
             className="w3-red w3-button w3-ripple w3-mobile"
             onClick={() => {
-              setDisableAddNewSubject(false);
+              // setDisableAddNewSubject(false);
               setDisableBtnGroup([true, true, true]);
               setDisplayTopicCreate(false);
             }}

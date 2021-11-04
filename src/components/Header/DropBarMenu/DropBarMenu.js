@@ -22,7 +22,7 @@ function DropBarMenu({ setOpen }) {
   const { userById } = useContext(UserContext);
   const history = useHistory();
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
   const handleClickLogout = () => {
@@ -30,10 +30,11 @@ function DropBarMenu({ setOpen }) {
     removeToken();
     // setRole('guest');
     // history.push('/');
-    setToggle((current) => !current);
-    setOpen((current) => !current);
+    setToggle(current => !current);
+    setOpen(current => !current);
     // console.log('user after logout:', user);
     // window.location.reload();
+    history.push("/");
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -69,7 +70,7 @@ function DropBarMenu({ setOpen }) {
                 width: 32,
                 height: 32,
                 ml: -0.5,
-                mr: 1
+                mr: 1,
               },
               "&:before": {
                 content: '""',
@@ -81,9 +82,9 @@ function DropBarMenu({ setOpen }) {
                 height: 10,
                 bgcolor: "background.paper",
                 transform: "translateY(-50%) rotate(45deg)",
-                zIndex: 0
-              }
-            }
+                zIndex: 0,
+              },
+            },
           }}
           transformOrigin={{ horizontal: "right", vertical: "top" }}
           anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
@@ -93,8 +94,8 @@ function DropBarMenu({ setOpen }) {
               history.push({
                 pathname: `/my-profile`,
                 state: {
-                  alignmentHistory: "myProfile"
-                }
+                  alignmentHistory: "myProfile",
+                },
               });
             }}
           >
@@ -106,8 +107,8 @@ function DropBarMenu({ setOpen }) {
                 pathname: `/my-profile`,
                 state: {
                   alignmentHistory: "dashboard",
-                  alignmentDashboard: "2"
-                }
+                  alignmentDashboard: "2",
+                },
               });
             }}
           >

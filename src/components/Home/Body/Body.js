@@ -1,8 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
-import axios from '../../../config/axios';
-import { CourseContext } from '../../../contexts/courseContext';
-import CourseCard from '../../CourseCard/CourseCard';
-import './styleBody.css';
+import { useContext, useEffect, useState } from "react";
+import axios from "../../../config/axios";
+import { CourseContext } from "../../../contexts/courseContext";
+import CourseCard from "../../CourseCard/CourseCard";
+import "./styleBody.css";
 
 function Body() {
   const {
@@ -12,12 +12,14 @@ function Body() {
     setCourseByPromotion,
   } = useContext(CourseContext);
   // console.log('courseByRating At Home:', courseByRating);
+  console.log(`courseByRating`, courseByRating);
+  console.log(`courseByPromotion`, courseByPromotion);
   return (
     <div>
-      <div className='divBodyHome'>
-        <label className='label_mostPopular'>Most Popular</label>
-        <div className='popular_item_controller'>
-          <div className='popular_item'>
+      <div className="divBodyHome">
+        <label className="label_mostPopular">Most Popular</label>
+        <div className="popular_item_controller">
+          <div className="popular_item">
             {courseByRating
               ?.filter((item, index) => index < 4)
               .map(item => (
@@ -26,9 +28,9 @@ function Body() {
           </div>
         </div>
         <div>
-          <label className='label_sale'>Sale!</label>
-          <div className='popular_item_controller'>
-            <div className='sale_item'>
+          <label className="label_sale">Sale!</label>
+          <div className="popular_item_controller">
+            <div className="sale_item">
               {courseByPromotion
                 ?.filter((item, index) => index < 4)
                 .map(item => (

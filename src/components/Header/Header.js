@@ -6,7 +6,7 @@ import {
   buttonRegister,
   buttonOurCourse,
   buttonOurTeam,
-  buttonContactUs
+  buttonContactUs,
 } from "./muiConfig";
 import { AuthContext } from "../../contexts/authContext";
 import { useContext, useState } from "react";

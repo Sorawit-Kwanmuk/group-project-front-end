@@ -3,32 +3,62 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import axios from "axios";
 
 const createQuizTemplate = {
   subjectName: "CREATE",
   questions: [
     {
-      id: "q1",
       questionText: "",
       answerOptions: [
-        { id: "a1", answerText: "", isCorrect: false },
-        { id: "a2", answerText: "", isCorrect: false }
-      ]
-    }
-  ]
+        { idx: "a1", answerText: "", isCorrect: false },
+        { idx: "a2", answerText: "", isCorrect: false },
+      ],
+    },
+  ],
 };
 
 function CreateQuiz({
   setDisableAddNewSubject,
   setDisableBtnGroup,
   displayQuizCreate,
-  setDisplayQuizCreate
+  setDisplayQuizCreate,
+  topicList,
 }) {
   const [fromQuiz, setFromQuiz] = useState(createQuizTemplate);
   const [subject, setSubject] = useState("");
+  console.log(`fromQuiz`, fromQuiz);
+  // const handleChange = event => {
+  //   setSubject(event.target.value);
+  // };
+  const [name, setName] = useState("");
+  console.log(`subject`, subject);
+  console.log(`name`, name);
 
-  const handleChange = (event) => {
-    setSubject(event.target.value);
+  const questionMap = fromQuiz.questions.map(item => {
+    return item;
+  });
+  console.log(`item.questions---->`, questionMap);
+
+  const submitQuiz = async e => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(`/quiz`, {
+        quizName: `${name} - Quiz`,
+        score: fromQuiz.questions.length,
+        topicId: subject,
+        questionArray: fromQuiz.questions,
+      });
+      console.log(`res`, res);
+      alert(`Create question successfully`);
+      // window.location.reload();
+      // setDisableAddNewSubject(false);
+      // setDisableBtnGroup([true, true, true]);
+      // setDisplayContCreate(false);
+    } catch (error) {
+      console.dir("@@@error:", error);
+    }
   };
 
   return (
@@ -39,18 +69,18 @@ function CreateQuiz({
           <div
             style={{
               width: "100%",
-              backgroundColor: "#CAF0F8"
+              backgroundColor: "#CAF0F8",
             }}
           >
             <div className="w3-row w3-margin-left">
               <p className="w3-text-blue w3-center ">
-                <b>Quiz</b>{" "}
+                <b>Quiz</b>
               </p>
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
-                  alignItems: "center"
+                  alignItems: "center",
                 }}
               >
                 <FormControl fullWidth>
@@ -60,18 +90,31 @@ function CreateQuiz({
                   <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
-                    value={subject}
+                    value={`${subject}/${name}`}
                     label="Subject list"
-                    onChange={handleChange}
+                    // onChange={handleChange}
+                    onChange={e => {
+                      setSubject(e.target.value.split("/")[0]);
+                      setName(e.target.value.split("/")[1]);
+                    }}
                   >
-                    <MenuItem value={"html"}>HTML</MenuItem>
-                    <MenuItem value={"css"}>CSS</MenuItem>
-                    <MenuItem value={"javascript"}>JAVASCRIPT</MenuItem>
+                    {topicList.map(item => (
+                      <MenuItem
+                        key={item.id}
+                        value={`${item.id}/${item.topicName}`}
+                        // style={getStyles(item, instructor.fullName, theme)}
+                      >
+                        {item.topicName}
+                      </MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
 
                 <div className="w3-block w3-right">
-                  <button className="w3-green w3-button w3-ripple w3-mobile w3-margin-left">
+                  <button
+                    className="w3-green w3-button w3-ripple w3-mobile w3-margin-left"
+                    onClick={submitQuiz}
+                  >
                     Save create
                   </button>
                   <button
@@ -96,7 +139,7 @@ function CreateQuiz({
                   onClick={() => {
                     const cloneObj = { ...fromQuiz };
                     const index = cloneObj.questions.findIndex(
-                      (item) => item.id === CurrQuestionObj.id
+                      item => item.id === CurrQuestionObj.id
                     );
                     cloneObj.questions.splice(index, 1);
                     setFromQuiz(cloneObj);
@@ -116,15 +159,15 @@ function CreateQuiz({
                   <input
                     type="text"
                     style={{ width: "100%" }}
-                    onChange={(e) => {
+                    onChange={e => {
                       const { questions } = { ...fromQuiz };
                       const index = questions.findIndex(
-                        (item) => item.id === CurrQuestionObj.id
+                        item => item.idx === CurrQuestionObj.idx
                       );
                       questions[index].questionText = e.target.value;
-                      setFromQuiz((quiz) => ({
+                      setFromQuiz(quiz => ({
                         ...quiz,
-                        questions
+                        questions,
                       }));
                     }}
                     placeholder="Enter Question text..."
@@ -145,16 +188,16 @@ function CreateQuiz({
                         <input
                           type="checkbox"
                           className="w3-margin-right"
-                          onChange={(e) => {
+                          onChange={e => {
                             const { questions } = { ...fromQuiz };
                             const index = questions.findIndex(
-                              (item) => item.id === CurrQuestionObj.id
+                              item => item.idx === CurrQuestionObj.idx
                             );
                             questions[index].answerOptions[ansIdx].isCorrect =
                               e.target.checked;
-                            setFromQuiz((quiz) => ({
+                            setFromQuiz(quiz => ({
                               ...quiz,
-                              questions
+                              questions,
                             }));
                           }}
                         />
@@ -163,18 +206,18 @@ function CreateQuiz({
                         <input
                           type="text"
                           style={{
-                            width: "93%"
+                            width: "93%",
                           }}
-                          onChange={(e) => {
+                          onChange={e => {
                             const { questions } = { ...fromQuiz };
                             const index = questions.findIndex(
-                              (item) => item.id === CurrQuestionObj.id
+                              item => item.idx === CurrQuestionObj.idx
                             );
                             questions[index].answerOptions[ansIdx].answerText =
                               e.target.value;
-                            setFromQuiz((quiz) => ({
+                            setFromQuiz(quiz => ({
                               ...quiz,
-                              questions
+                              questions,
                             }));
                           }}
                           value={
@@ -192,12 +235,12 @@ function CreateQuiz({
                               const { questions } = { ...fromQuiz };
                               const choices = questions[idx].answerOptions;
                               const index = choices.findIndex(
-                                (item) => item.id === currAnswer.id
+                                item => item.idx === currAnswer.idx
                               );
                               choices.splice(index, 1);
-                              setFromQuiz((quiz) => ({
+                              setFromQuiz(quiz => ({
                                 ...quiz,
-                                questions
+                                questions,
                               }));
                             }}
                           >
@@ -216,9 +259,9 @@ function CreateQuiz({
                         onClick={() => {
                           const cloneObj = { ...fromQuiz };
                           cloneObj.questions[idx].answerOptions.push({
-                            id: new Date().getTime(),
+                            idx: new Date().getTime(),
                             answerText: "",
-                            isCorrect: false
+                            isCorrect: false,
                           });
                           setFromQuiz(cloneObj);
                         }}
@@ -239,12 +282,12 @@ function CreateQuiz({
                 onClick={() => {
                   const cloneArr = { ...fromQuiz };
                   cloneArr.questions.push({
-                    id: new Date().getTime(),
+                    idx: new Date().getTime(),
                     questionText: "",
                     answerOptions: [
-                      { id: "@1", answerText: "", isCorrect: false },
-                      { id: "@2", answerText: "", isCorrect: false }
-                    ]
+                      { idx: "@1", answerText: "", isCorrect: false },
+                      { idx: "@2", answerText: "", isCorrect: false },
+                    ],
                   });
                   setFromQuiz(cloneArr);
                 }}
