@@ -67,7 +67,7 @@ function CreateInstructorCard() {
         const newArr = [];
         for (let i = 0; i < map.length; i++) {
           newArr.push({
-            key: i,
+            key: i + 1,
             value: map[i],
           });
         }
