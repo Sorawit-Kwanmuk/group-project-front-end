@@ -6,6 +6,7 @@ const UserContext = createContext();
 function UserContextProvider({ children }) {
   const [userById, setUserById] = useState({});
   const [userCourseId, setUserCourseId] = useState([]);
+  const [toggleUser, setToggleUser] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,7 +27,14 @@ function UserContextProvider({ children }) {
   // console.log('userById', userById);
   return (
     <UserContext.Provider
-      value={{ userById, setUserById, userCourseId, setUserCourseId }}>
+      value={{
+        userById,
+        setUserById,
+        userCourseId,
+        setUserCourseId,
+        toggleUser,
+        setToggleUser,
+      }}>
       {children}
     </UserContext.Provider>
   );

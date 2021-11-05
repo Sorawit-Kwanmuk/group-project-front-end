@@ -1,51 +1,51 @@
-import { Avatar, Button, Input, TextField } from '@mui/material';
-import './styleCreateInstructorCard.css';
-import { styled } from '@mui/material/styles';
+import { Avatar, Button, Input, TextField } from "@mui/material";
+import "./styleCreateInstructorCard.css";
+import { styled } from "@mui/material/styles";
 import {
   TextFieldConfig,
   imageConfig,
   buttonConfig3,
   CircularProgressConfig,
-} from './muiConfig';
-import { useEffect, useState } from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import ListItemText from '@mui/material/ListItemText';
-import Select from '@mui/material/Select';
-import Checkbox from '@mui/material/Checkbox';
-import CircularProgress from '@mui/material/CircularProgress';
+} from "./muiConfig";
+import { useEffect, useState } from "react";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import ListItemText from "@mui/material/ListItemText";
+import Select from "@mui/material/Select";
+import Checkbox from "@mui/material/Checkbox";
+import CircularProgress from "@mui/material/CircularProgress";
 // import { CategoryContext } from '../../../contexts/categoryContext';
-import axios from '../../config/axios';
-import { useHistory } from 'react-router';
+import axios from "../../config/axios";
+import { useHistory } from "react-router";
 function CreateInstructorCard() {
-  const Input = styled('input')({
-    display: 'none',
+  const Input = styled("input")({
+    display: "none",
   });
   const history = useHistory();
-  const [preViewImage, setPreViewImage] = useState('');
+  const [preViewImage, setPreViewImage] = useState("");
   const [category, setCategory] = useState([]);
   const [category2, setCategory2] = useState([]);
   const [personName, setPersonName] = useState([]);
   const [spinnerStatus, setSpinnerStatus] = useState(false);
   const [createInstructor, setCreateInstructor] = useState({
-    fullName: '',
-    jobTitle: '',
-    about: '',
-    expertise: '',
-    website: '',
-    email: '',
-    facebook: '',
-    youtube: '',
-    linkedin: '',
-    twitter: '',
-    profileImage: '',
-    profileImageName: '',
-    categoryId: '',
+    fullName: "",
+    jobTitle: "",
+    about: "",
+    expertise: "",
+    website: "",
+    email: "",
+    facebook: "",
+    youtube: "",
+    linkedin: "",
+    twitter: "",
+    profileImage: "",
+    profileImageName: "",
+    categoryId: "",
   });
   // console.log('category2: ', category2);
-  console.log('createInstructor: ', createInstructor);
+  console.log("createInstructor: ", createInstructor);
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
   const MenuProps = {
@@ -61,17 +61,20 @@ function CreateInstructorCard() {
   useEffect(() => {
     const fetchDataCategory = async () => {
       try {
-        const response = await axios.get('/category');
+        const response = await axios.get("/category");
         setCategory(response.data.category.map(item => item.categoryName));
-        const map = response.data.category.map(item => item.categoryName);
-        const newArr = [];
-        for (let i = 0; i < map.length; i++) {
-          newArr.push({
-            key: i,
-            value: map[i],
-          });
-        }
-        setCategory2(newArr);
+        const map = response.data.category.map(item => ({
+          id: item.id,
+          value: item.categoryName,
+        }));
+        // const newArr = [];
+        // for (let i = 0; i < map.length; i++) {
+        //   newArr.push({
+        //     id: i,
+        //     value: map[i],
+        //   });
+        // }
+        setCategory2(map);
       } catch (error) {
         console.log(error);
       }
@@ -85,7 +88,7 @@ function CreateInstructorCard() {
     const newArr = [];
     category2.map(item => {
       if (value.includes(item.value)) {
-        return newArr.push(item.key);
+        return newArr.push(item.id);
       }
     });
     setCreateInstructor({
@@ -95,48 +98,50 @@ function CreateInstructorCard() {
 
     setPersonName(
       // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value
+      typeof value === "string" ? value.split(",") : value
     );
   };
+  console.log(category);
+  console.log(category2);
   const handleSubmitCreateInstructerCard = async e => {
     e.preventDefault();
     try {
       setSpinnerStatus(true);
       const data = new FormData();
-      data.append('fullName', createInstructor.fullName);
-      data.append('jobTitle', createInstructor.jobTitle);
-      data.append('about', createInstructor.about);
-      data.append('expertise', createInstructor.expertise);
-      data.append('website', createInstructor.website);
-      data.append('email', createInstructor.email);
-      data.append('facebook', createInstructor.facebook);
-      data.append('youtube', createInstructor.youtube);
-      data.append('linkedin', createInstructor.linkedin);
-      data.append('twitter', createInstructor.twitter);
-      data.append('thisisinput', createInstructor.profileImage);
-      data.append('categoryId', createInstructor.categoryId);
-      const response = await axios.post('/instructor', data);
-      console.log('response: ', response);
+      data.append("fullName", createInstructor.fullName);
+      data.append("jobTitle", createInstructor.jobTitle);
+      data.append("about", createInstructor.about);
+      data.append("expertise", createInstructor.expertise);
+      data.append("website", createInstructor.website);
+      data.append("email", createInstructor.email);
+      data.append("facebook", createInstructor.facebook);
+      data.append("youtube", createInstructor.youtube);
+      data.append("linkedin", createInstructor.linkedin);
+      data.append("twitter", createInstructor.twitter);
+      data.append("thisisinput", createInstructor.profileImage);
+      data.append("categoryId", createInstructor.categoryId);
+      const response = await axios.post("/instructor", data);
+      console.log("response: ", response);
       if (response.status === 200) {
         setCreateInstructor({
-          fullName: '',
-          jobTitle: '',
-          about: '',
-          expertise: '',
-          website: '',
-          email: '',
-          facebook: '',
-          youtube: '',
-          linkedin: '',
-          twitter: '',
-          profileImage: '',
-          categoryId: '',
+          fullName: "",
+          jobTitle: "",
+          about: "",
+          expertise: "",
+          website: "",
+          email: "",
+          facebook: "",
+          youtube: "",
+          linkedin: "",
+          twitter: "",
+          profileImage: "",
+          categoryId: "",
         });
         setSpinnerStatus(false);
-        history.push('/instructor');
+        history.push("/instructor");
       } else if (response.status === 500) {
         setSpinnerStatus(false);
-        alert('Something went wrong');
+        alert("Something went wrong");
       }
     } catch (error) {
       console.log(error);
@@ -158,60 +163,62 @@ function CreateInstructorCard() {
   return (
     <>
       {spinnerStatus && <CircularProgress sx={CircularProgressConfig} />}
-      <form action='' onSubmit={handleSubmitCreateInstructerCard}>
-        <div className='divCreateCardInstructorController'>
-          <div className='createImageInstructorCard'>
+      <form action="" onSubmit={handleSubmitCreateInstructerCard}>
+        <div className="divCreateCardInstructorController">
+          <div className="createImageInstructorCard">
             <Avatar
-              className='MyProfileAvatar'
-              alt='Remy Sharp'
+              className="MyProfileAvatar"
+              alt="Remy Sharp"
               src={preViewImage}
               sx={imageConfig}
             />
             <label
-              htmlFor='contained-button-file'
-              className='labelUploadImageInsEdit'>
+              htmlFor="contained-button-file"
+              className="labelUploadImageInsEdit"
+            >
               <Input
-                accept='image/*'
-                id='contained-button-file'
+                accept="image/*"
+                id="contained-button-file"
                 multiple
-                type='file'
+                type="file"
                 onChange={e => handleChangePreviewImage(e)}
               />
               <Button
-                variant='contained'
+                variant="contained"
                 disabled={spinnerStatus}
-                component='span'
+                component="span"
                 // onClick={handleClickPreviewImage}
-                sx={{ marginBottom: '10px', marginTop: '10px' }}>
+                sx={{ marginBottom: "10px", marginTop: "10px" }}
+              >
                 Upload Instructor Image
               </Button>
             </label>
             <TextField
-              size='small'
+              size="small"
               disabled={spinnerStatus}
               sx={TextFieldConfig}
-              id='outlined-multiline-static'
-              label='File name'
+              id="outlined-multiline-static"
+              label="File name"
               multiline
               rows={4}
-              shrink='true'
+              shrink="true"
               readOnly
               sx={{
-                backgroundColor: '#f5f5f5',
-                borderRadius: '5px',
-                width: '100%',
+                backgroundColor: "#f5f5f5",
+                borderRadius: "5px",
+                width: "100%",
               }}
               value={createInstructor.profileImageName}
             />
           </div>
 
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Instructor Name'
-            variant='outlined'
+            id="outlined-basic"
+            label="Instructor Name"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -220,12 +227,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Job Title'
-            variant='outlined'
+            id="outlined-basic"
+            label="Job Title"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -234,12 +241,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='About'
-            variant='outlined'
+            id="outlined-basic"
+            label="About"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -248,12 +255,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Expertise'
-            variant='outlined'
+            id="outlined-basic"
+            label="Expertise"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -262,12 +269,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Website'
-            variant='outlined'
+            id="outlined-basic"
+            label="Website"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -276,12 +283,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Email'
-            variant='outlined'
+            id="outlined-basic"
+            label="Email"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -290,12 +297,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Facebook'
-            variant='outlined'
+            id="outlined-basic"
+            label="Facebook"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -304,12 +311,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Youtube'
-            variant='outlined'
+            id="outlined-basic"
+            label="Youtube"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -318,12 +325,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Linkedin'
-            variant='outlined'
+            id="outlined-basic"
+            label="Linkedin"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -332,12 +339,12 @@ function CreateInstructorCard() {
             }}
           />
           <TextField
-            size='small'
+            size="small"
             disabled={spinnerStatus}
             sx={TextFieldConfig}
-            id='outlined-basic'
-            label='Twitter'
-            variant='outlined'
+            id="outlined-basic"
+            label="Twitter"
+            variant="outlined"
             onChange={e => {
               setCreateInstructor({
                 ...createInstructor,
@@ -346,20 +353,22 @@ function CreateInstructorCard() {
             }}
           />
           <FormControl
-            size='small'
+            size="small"
             disabled={spinnerStatus}
-            sx={TextFieldConfig}>
-            <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
+            sx={TextFieldConfig}
+          >
+            <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
             <Select
-              labelId='demo-multiple-checkbox-label'
-              id='demo-multiple-checkbox'
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
               multiple
               sx={buttonConfig3}
               value={personName}
               onChange={handleChange}
-              input={<OutlinedInput label='Tag' />}
-              renderValue={selected => selected.join(', ')}
-              MenuProps={MenuProps}>
+              input={<OutlinedInput label="Tag" />}
+              renderValue={selected => selected.join(", ")}
+              MenuProps={MenuProps}
+            >
               {category.map(item => (
                 <MenuItem key={item} value={item}>
                   <Checkbox checked={personName.indexOf(item) > -1} />
@@ -369,10 +378,11 @@ function CreateInstructorCard() {
             </Select>
           </FormControl>
           <Button
-            type='submit'
-            variant='contained'
+            type="submit"
+            variant="contained"
             disabled={spinnerStatus}
-            sx={{ width: '50%', marginBottom: '20px' }}>
+            sx={{ width: "50%", marginBottom: "20px" }}
+          >
             Save
           </Button>
         </div>

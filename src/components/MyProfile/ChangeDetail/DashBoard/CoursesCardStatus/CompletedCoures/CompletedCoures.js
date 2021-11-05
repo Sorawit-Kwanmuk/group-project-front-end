@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import { buttonConfig } from '../muiConfig';
 import courseImg from '../../../../../../public/images/course.png';
 import { useHistory } from 'react-router-dom';
+import '../../styleDashBoard.css';
 function CompletedCoures({ item, courseName }) {
   const history = useHistory();
   const {
@@ -16,9 +17,18 @@ function CompletedCoures({ item, courseName }) {
     updatedAt,
     userId,
   } = item;
+  console.log('itemMyPro:', item);
   const handleClickLocationToCertificate = () => {
     history.push({
       pathname: `/certificate/`,
+      state: {
+        item,
+      },
+    });
+  };
+  const handleClickLinkToClassroom = () => {
+    history.push({
+      pathname: `/classroom-i-learn/${item.id}`,
       state: {
         item,
       },
@@ -28,7 +38,9 @@ function CompletedCoures({ item, courseName }) {
     <>
       {status === 'completed' && (
         <>
-          <div className='divCoursesCardStatus'>
+          <div
+            className='divCoursesCardStatus'
+            onClick={handleClickLinkToClassroom}>
             <div className='coursesCardStatusControl'>
               <img src={courseImg} alt='' />
             </div>
@@ -78,13 +90,18 @@ function CompletedCoures({ item, courseName }) {
                   </span>
                 </div>
                 <div className='bottomCardDetail'>
-                  <span>{((currentStage / totalStage) * 100).toFixed(0)}%</span>
+                  <span>
+                    {((currentStage / totalStage) * 100).toFixed(0) === NaN
+                      ? '0'
+                      : ((currentStage / totalStage) * 100).toFixed(0)}
+                    %
+                  </span>
                   <p>Complete</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className='grayLine'></div>
+          {/* <div className='grayLine'></div> */}
         </>
       )}
     </>

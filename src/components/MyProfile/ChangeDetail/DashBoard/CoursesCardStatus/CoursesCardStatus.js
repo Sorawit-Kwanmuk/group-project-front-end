@@ -8,13 +8,15 @@ import IncompletedCourse from './IncompletedCourse/IncompletedCourse';
 import CompletedCoures from './CompletedCoures/CompletedCoures';
 function CoursesCardStatus({ item, alignment }) {
   const [courseName, setCourseName] = useState('');
-  const { id, status } = item;
+  const { id, status } = item.Course;
+  console.log('item: ', item);
   // console.log('status', status);
   useEffect(() => {
     const fetchDataCourseName = async () => {
       try {
         const response = await axios.get(`/course/${id}`);
         setCourseName(response.data.courseResult.courseName);
+        console.log('courseName', response.data.courseResult);
       } catch (error) {
         console.log(error);
       }
@@ -22,7 +24,8 @@ function CoursesCardStatus({ item, alignment }) {
     fetchDataCourseName();
   }, []);
   // console.log('currentStage', currentStage);
-  console.log('alignment', alignment);
+  // console.log('alignment', alignment);
+  // console.log('courseName', courseName);
   return (
     <>
       {alignment === '1' && (

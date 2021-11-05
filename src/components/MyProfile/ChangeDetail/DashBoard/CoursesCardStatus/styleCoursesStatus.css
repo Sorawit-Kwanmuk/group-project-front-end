@@ -3,6 +3,7 @@
     width: 100%;
     flex-direction: row;
     margin: 0 auto;
+    margin: 5px;
 }
 
 .coursesCardStatusDetail {

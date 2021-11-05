@@ -3,7 +3,7 @@ import shoppingCardBanner from "../../public/images/shoppingCard.png";
 import Button from "@mui/material/Button";
 import { ButtonConfig, ToggleButtonConfig } from "./muiConfig";
 import InstructorCard from "../InstructorCard/InstructorCard";
-import NevBarLeftList from "../ClassroomILearn/NevBarLeftList/NevBarLeftList";
+import NavBarLeftList from "./NavBarLeftList/NavBarLeftList";
 import BarRating from "./BarRating/BarRating";
 import { useEffect, useState, useContext } from "react";
 import ToggleButton from "@mui/material/ToggleButton";
@@ -104,7 +104,7 @@ function ShoppingCard() {
         );
 
         const newArr = response3.data.result.map(item => item.categoryId);
-        console.log('newArr', newArr);
+        console.log("newArr", newArr);
         if (newArr.includes(1)) {
           const response4 = await axios.get(`/courseCat/bycat/${1}`);
           const result = response4.data.result;
@@ -136,7 +136,7 @@ function ShoppingCard() {
     // console.log('rating: ', rating);
     // console.log('shoppingCardId: ', shoppingCard.id);
     // console.log('username: ', user.username);
-    console.log('courseCatOne: ', courseCatOne);
+    console.log("courseCatOne: ", courseCatOne);
     const response = await axios.post(`/comment/`, {
       commentName: user.username,
       rating: rating,
@@ -202,7 +202,7 @@ function ShoppingCard() {
       <div className="divInstructorController">
         <h4 className="aboutThisCourseH4">Instructor</h4>
         {shoppingCardTopic
-          ?.filter((item, index) => index < 4 && item.rating === "5")
+          ?.filter((item, index) => index < 4)
           .map(item => (
             <InstructorCard
               key={item.id}
@@ -216,7 +216,7 @@ function ShoppingCard() {
         <h4 className="aboutThisCourseH4">Syllabus - Course Content</h4>
 
         {shoppingCardTopic.map(item => (
-          <NevBarLeftList key={item.id} item={item} />
+          <NavBarLeftList key={item.id} item={item} />
         ))}
       </div>
       <div className="grayLine"></div>

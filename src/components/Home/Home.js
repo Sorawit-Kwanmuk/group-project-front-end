@@ -1,8 +1,8 @@
-import axios from '../../config/axios';
-import { useContext, useEffect, useState } from 'react';
-import Banner from './Banner/Banner';
-import Body from './Body/Body';
-import { CarouselContext } from '../../contexts/CarouselContext';
+import axios from "../../config/axios";
+import { useContext, useEffect, useState } from "react";
+import Banner from "./Banner/Banner";
+import Body from "./Body/Body";
+import { CarouselContext } from "../../contexts/CarouselContext";
 
 function Home() {
   const [getImg, setGetImg] = useState();
@@ -10,9 +10,9 @@ function Home() {
 
   useEffect(() => {
     const getImg = async () => {
-      const resGetImg = await axios.get('/banner');
+      const resGetImg = await axios.get("/banner");
       // console.log("@resGetImg:", resGetImg);
-      setGetImg(resGetImg.data.result[0].image);
+      setGetImg(resGetImg.data.result[0]?.image);
     };
     getImg();
   }, []);
