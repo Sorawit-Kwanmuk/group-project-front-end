@@ -5,7 +5,7 @@ import VideoLink from "./VideoLink/VideoLink";
 import QuizTest from "./Quiz/QuizTest";
 import { useState } from "react";
 import axios from "../../../config/axios";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 
 function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
   const [answerCheck, setAnswerCheck] = useState({});
@@ -14,6 +14,7 @@ function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
   const [pass, setPass] = useState(false);
 
   const param = useParams();
+  const history = useHistory();
 
   let col = 0;
   for (const value in answerCheck) {
@@ -56,7 +57,19 @@ function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
   return (
     <div className="mainDivControllerContentRightClass">
       <div className="navBarContentRightClass">
-        <Button variant="contained" sx={ButtonConfig}>
+        <Button
+          variant="contained"
+          sx={ButtonConfig}
+          onClick={() => {
+            history.push({
+              pathname: `/my-profile`,
+              state: {
+                alignmentHistory: "dashboard",
+                alignmentDashboard: "2"
+              }
+            });
+          }}
+        >
           My Course
         </Button>
         <div className="textLabelContentRightClass">
