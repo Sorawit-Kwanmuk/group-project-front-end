@@ -18,10 +18,12 @@ import Checkbox from '@mui/material/Checkbox';
 import CircularProgress from '@mui/material/CircularProgress';
 // import { CategoryContext } from '../../../contexts/categoryContext';
 import axios from '../../config/axios';
+import { useHistory } from 'react-router';
 function CreateInstructorCard() {
   const Input = styled('input')({
     display: 'none',
   });
+  const history = useHistory();
   const [preViewImage, setPreViewImage] = useState('');
   const [category, setCategory] = useState([]);
   const [category2, setCategory2] = useState([]);
@@ -131,6 +133,7 @@ function CreateInstructorCard() {
           categoryId: '',
         });
         setSpinnerStatus(false);
+        history.push('/instructor');
       } else if (response.status === 500) {
         setSpinnerStatus(false);
         alert('Something went wrong');

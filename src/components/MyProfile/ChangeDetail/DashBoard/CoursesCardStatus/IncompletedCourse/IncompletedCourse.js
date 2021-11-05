@@ -1,9 +1,10 @@
 import { Button } from "@mui/material";
 import { buttonConfig } from "../muiConfig";
 import courseImg from "../../../../../../public/images/course.png";
-import { useHistory } from "react-router";
-
+import { useHistory } from "react-router-dom";
+import "../../styleDashBoard.css";
 function IncompletedCourse({ item, courseName }) {
+  const history = useHistory();
   const {
     courseId,
     createdAt,
@@ -16,23 +17,26 @@ function IncompletedCourse({ item, courseName }) {
     updatedAt,
     userId
   } = item;
-  const history = useHistory();
-  console.log("@courseId@Card:", courseId);
+
+  const handleClickLinkToClassroom = () => {
+    history.push({
+      pathname: `/classroom-i-learn/${courseId}`,
+      state: {
+        item
+      }
+    });
+  };
 
   return (
     <>
       {status === "incompleted" && (
         <>
-          <div className="divCoursesCardStatus">
+          <div
+            className="divCoursesCardStatus"
+            onClick={handleClickLinkToClassroom}
+          >
             <div className="coursesCardStatusControl">
-              <img
-                src={courseImg}
-                alt=""
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  history.push(`/classroom-i-learn/${courseId}`);
-                }}
-              />
+              <img src={item.Course.courseImage} alt="" />
             </div>
             <div className="coursesCardStatusDetail">
               <div className="coursesCardStatusDetailTop">
@@ -72,25 +76,32 @@ function IncompletedCourse({ item, courseName }) {
               <div className="coursesCardStatusDetailBottom">
                 <div className="bottomCardDetail">
                   <p>total Lessons: </p>
-                  <span>{totalStage}</span>
+                  <span>{totalStage - 1}</span>
                 </div>
                 <div className="bottomCardDetail">
                   <p>Completed</p>&nbsp;
                   <p>Lessons:</p>
                   <span>
-                    {currentStage}/{totalStage}
+                    {currentStage - 1}/{totalStage - 1}
                   </span>
                 </div>
                 <div className="bottomCardDetail">
                   <span>
-                    {((currentStage / totalStage) * 100).toFixed(0)}%{" "}
+                    {isNaN(
+                      (((currentStage - 1) / (totalStage - 1)) * 100).toFixed(0)
+                    )
+                      ? "0"
+                      : (((currentStage - 1) / (totalStage - 1)) * 100).toFixed(
+                          0
+                        )}
+                    %
                   </span>
                   <p>Complete</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="grayLine"></div>
+          {/* <div className='grayLine'></div> */}
         </>
       )}
     </>

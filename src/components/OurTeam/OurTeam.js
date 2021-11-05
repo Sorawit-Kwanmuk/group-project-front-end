@@ -15,26 +15,96 @@ import { InputBaseConfig, IconButtonConfig, ButtonConfig } from './muiConfig';
 import { useEffect, useState } from 'react';
 import axios from '../../config/axios';
 function OurCourse() {
-  const [orderBy, setOrderBy] = useState('');
+  const [orderBy, setOrderBy] = useState('rating');
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [instructors, setInstructors] = useState([]);
-
-  const handleSummitSearch = e => {};
+  const [submit, setSubmit] = useState('');
+  const [buttonSelect, setButtonSelect] = useState('all');
+  const perPage = 6;
+  const ITEM_HEIGHT = 38;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+        width: 250,
+      },
+    },
+  };
+  const handleSummitSearch = e => {
+    e.preventDefault();
+    setSubmit(search);
+    // console.log('submit: ', submit);
+  };
+  const filterSearchBySearchBar = array => {
+    return array.filter(item => {
+      return item.lowerCaseCourseName.includes(submit.toLowerCase());
+    });
+  };
+  const filterSearchByOrderBy = array => {
+    if (orderBy === 'rating') {
+      return array.sort((a, b) => b.rating - a.rating);
+    } else if (orderBy === 'learner') {
+      return array.sort((a, b) => b.learner - a.learner);
+    }
+  };
+  const filterByButtonSelectCourse = array => {
+    // console.log('typeof:', typeof array);
+    const newArr2 = [];
+    // console.log('newArr2: ', newArr2);
+    for (let i = 0; i < array.length; i++) {
+      // console.log('array[i].category: ', array[i].category);
+      if (buttonSelect === 'all') {
+        newArr2.push(array[i]);
+      } else if (buttonSelect === 'front_end') {
+        if (array[i].category.includes(buttonSelect)) {
+          // console.log('in front end:', array[i]);
+          newArr2.push(array[i]);
+        }
+      } else if (buttonSelect === 'back_end') {
+        if (array[i].category.includes(buttonSelect)) {
+          newArr2.push(array[i]);
+        }
+      } else if (buttonSelect === 'ux_ui') {
+        if (array[i].category.includes(buttonSelect)) {
+          newArr2.push(array[i]);
+        }
+      }
+    }
+    return newArr2;
+  };
   useEffect(() => {
     const fetchDataOurTeam = async () => {
       try {
         const response = await axios.get(`/instructor/rt`);
         // console.log('responseIns: ', response.data.insResultRating);
-        setInstructors(response.data.insResultRating);
+        const newArr = response.data.insResultRating.map(item => {
+          return {
+            ...item,
+            lowerCaseCourseName: item.fullName.toLowerCase(),
+          };
+        });
+        console.log('newArr: ', newArr);
+        // setInstructors(
+        //   filterSearchByOrderBy(
+        //     filterSearchBySearchBar(filterByButtonSelectCourse(newArr))
+        //   )
+        // );
+        setInstructors(filterSearchByOrderBy(filterSearchBySearchBar(newArr)));
+        // setInstructors(response.data.insResultRating);
       } catch (error) {
         console.log('error: ', error);
       }
     };
 
     fetchDataOurTeam();
-  }, []);
-
+  }, [submit, orderBy]);
+  const handleClickShowAllCourse = () => {
+    // setButtonSelect('all');
+    setSubmit('');
+    // setOrderBy('rating');
+  };
   return (
     <>
       <div className='divMainControllerOurTeam'>
@@ -44,13 +114,28 @@ function OurCourse() {
         </div>
         <div className='OurTeamSearch'>
           <div className='buttonSelectOurTeam'>
-            <Button sx={ButtonConfig} variant='contained'>
+            <Button
+              sx={ButtonConfig}
+              variant='contained'
+              onClick={handleClickShowAllCourse}>
+              ALL COURSE
+            </Button>
+            <Button
+              sx={ButtonConfig}
+              variant='contained'
+              onClick={() => setButtonSelect('front_end')}>
               Front - End
             </Button>
-            <Button sx={ButtonConfig} variant='contained'>
+            <Button
+              sx={ButtonConfig}
+              variant='contained'
+              onClick={() => setButtonSelect('back_end')}>
               Back - End
             </Button>
-            <Button sx={ButtonConfig} variant='contained'>
+            <Button
+              sx={ButtonConfig}
+              variant='contained'
+              onClick={() => setButtonSelect('ux_ui')}>
               UX / UI Design
             </Button>
           </div>
@@ -87,34 +172,33 @@ function OurCourse() {
                   value={orderBy}
                   label='Part'
                   size='small'
+                  MenuProps={MenuProps}
                   sx={{ backgroundColor: '#f5f5f5' }}
                   onChange={e => setOrderBy(e.target.value)}>
                   <MenuItem
                     size='small'
                     sx={{ minWidth: '200px' }}
-                    value={'html'}>
-                    HTML
+                    value={'rating'}>
+                    Rating
                   </MenuItem>
                   <MenuItem
                     size='small'
                     sx={{ minWidth: '200px' }}
-                    value={'Css'}>
-                    Css
-                  </MenuItem>
-                  <MenuItem
-                    size='small'
-                    sx={{ minWidth: '200px' }}
-                    value={'javaScript'}>
-                    JavaScript
+                    value={'learner'}>
+                    learner
                   </MenuItem>
                 </Select>
               </FormControl>
             </div>
           </div>
           <div className='outputSearchFieldOurTeam'>
-            {instructors.map(item => (
-              <InstructorCard key={item.id} item={item} />
-            ))}
+            {instructors
+              ?.filter((item, index) => {
+                return index >= (page - 1) * perPage && index < page * perPage;
+              })
+              .map(item => (
+                <InstructorCard key={item.id} item={item} />
+              ))}
           </div>
         </div>
         <div className='divPaginationSearchOurTeam'>
