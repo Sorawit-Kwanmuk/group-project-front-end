@@ -41,7 +41,6 @@ function NevBarLeftList({
   useEffect(() => {
     const getLeftLists = async () => {
       try {
-        // console.log("- B4resSubtop -");
         const resSubTopic = await axios.get(`/subtopic`);
         // console.log("@@@resSubTopic:", resSubTopic.data.result);
         const resQuiz = await axios.get(`/quiz`);
@@ -58,7 +57,7 @@ function NevBarLeftList({
       }
     };
     getLeftLists();
-  }, [param.id]);
+  }, [param]);
 
   useEffect(() => {
     axios

@@ -28,7 +28,7 @@ function ClassroomILearn() {
   const [quizId, setQuizId] = useState(null);
   const [currentStage, setCurrentStage] = useState(0);
 
-  // console.log("@param:", param);
+  // console.log("@param:", param.id);
   // console.log("@topicArr:", topicArr);
   // console.log("@vdoLink:", vdoLink);
   // console.log("@questions:", questions);
@@ -38,13 +38,19 @@ function ClassroomILearn() {
       try {
         const resTopic = await axios.get(`/topic`);
         // console.log("@@@resTopic:", resTopic.data.result);
-        setTopicArr(resTopic.data.result);
+        // console.log(
+        //   "@#@filter:",
+        //   resTopic.data.result.filter((item) => item.courseId === +param.id)
+        // );
+        setTopicArr(
+          resTopic.data.result.filter((item) => item.courseId === +param.id)
+        );
       } catch (error) {
         console.log(error);
       }
     };
     getLeftLists();
-  }, [param.id]);
+  }, [param]);
 
   return (
     <div className="mainDivClassroomILearn">

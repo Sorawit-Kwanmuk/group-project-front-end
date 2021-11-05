@@ -2,7 +2,7 @@ import './styleMyProfile.css';
 import Avatar from '@mui/material/Avatar';
 import John from '../../public/images/john.jpg';
 import { imageConfig, ToggleButtonConfig } from './muiConfig';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Dashboard from './ChangeDetail/DashBoard/DashBoard';
@@ -11,10 +11,8 @@ import PurchaseHistory from './ChangeDetail/PurchaseHistory/PurchaseHistory';
 import axios from '../../config/axios';
 import { useLocation } from 'react-router-dom';
 import CircularProgress from '@mui/material/CircularProgress';
-import { UserContext } from '../../contexts/userContext';
 
 function MyProfile() {
-  const { toggleUser, setToggleUser } = useContext(UserContext);
   const [image, setImage] = useState(
     'https://i.pinimg.com/originals/0c/3b/3a/0c3b3adb1a7530892e55ef36d3be6cb8.png'
   );
@@ -98,7 +96,6 @@ function MyProfile() {
       } else {
         setUpLoadImageStatus(false);
       }
-      setToggleUser(current => !current);
     } catch (error) {
       console.log(error);
     }
