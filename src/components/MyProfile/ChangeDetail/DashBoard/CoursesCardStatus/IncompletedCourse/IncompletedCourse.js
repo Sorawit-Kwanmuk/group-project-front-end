@@ -19,7 +19,7 @@ function IncompletedCourse({ item, courseName }) {
   } = item;
   const handleClickLinkToClassroom = () => {
     history.push({
-      pathname: `/classroom-i-learn/${courseId}`,
+      pathname: `/classroom-i-learn/${item.courseId}`,
       state: {
         item,
       },
