@@ -22,6 +22,7 @@ import axios from '../../config/axios';
 import { PaymentContext } from '../../contexts/paymentContext';
 import { AuthContext } from '../../contexts/authContext';
 import { useHistory } from 'react-router';
+import { UserContext } from '../../contexts/userContext';
 
 function ShoppingCart() {
   const { paymentCon, setPaymentCon } = useContext(PaymentContext);
@@ -35,6 +36,8 @@ function ShoppingCart() {
   const [ccv, setCcv] = useState('');
   console.log(paymentCon.id);
   // console.log(paymentCon);
+  const { userById } = useContext(UserContext);
+  console.log('userById: ', userById);
   const history = useHistory();
   const amount =
     paymentCon.price - (paymentCon.price * paymentCon.discountRate) / 100;
@@ -88,11 +91,8 @@ function ShoppingCart() {
             <Avatar
               className='ShoppingCartAvatar'
               alt='Remy Sharp'
-              src={John}
+              src={userById.profileImage}
               sx={imageConfig}
-              onClick={() => {
-                setImage({ profileImage: John });
-              }}
             />
             <h1 className='ShoppingCartH1'>{user.username}</h1>
           </div>
@@ -127,7 +127,7 @@ function ShoppingCart() {
                   onClick={e => {
                     handleClick(e);
                   }}>
-                  Chech Out
+                  Check Out
                 </Button>
 
                 {/* </div> */}

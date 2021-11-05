@@ -13,8 +13,16 @@
 
 .grayLine {
     background-color: #E6E6E6;
-    margin: 5px;
+    margin: 10px;
     height: 2px;
     width: 100%;
 
+}
+
+.divCoursesCardStatus {
+    cursor: pointer;
+    margin: 5px;
+    border: lightgray solid 1px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px #888888;
 }

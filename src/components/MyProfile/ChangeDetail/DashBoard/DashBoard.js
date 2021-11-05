@@ -22,7 +22,7 @@ function DashBoard() {
     const fetchDataAllMyCourses = async () => {
       try {
         const response = await axios.get('/mycourse/my');
-        console.log(response.data.result);
+        console.log('mycourse: ', response.data.result);
         setCourseData(response.data.result);
       } catch (error) {
         console.log(error);

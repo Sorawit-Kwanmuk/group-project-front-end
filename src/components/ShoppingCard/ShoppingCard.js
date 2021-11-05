@@ -3,7 +3,7 @@ import shoppingCardBanner from '../../public/images/shoppingCard.png';
 import Button from '@mui/material/Button';
 import { ButtonConfig, ToggleButtonConfig } from './muiConfig';
 import InstructorCard from '../InstructorCard/InstructorCard';
-import NevBarLeftList from '../ClassroomILearn/NevBarLeftList/NevBarLeftList';
+import NavBarLeftList from './NavBarLeftList/NavBarLeftList';
 import BarRating from './BarRating/BarRating';
 import { useEffect, useState, useContext } from 'react';
 import ToggleButton from '@mui/material/ToggleButton';
@@ -197,7 +197,7 @@ function ShoppingCard() {
       <div className='divInstructorController'>
         <h4 className='aboutThisCourseH4'>Instructor</h4>
         {shoppingCardTopic
-          ?.filter((item, index) => index < 4 && item.rating === '5')
+          ?.filter((item, index) => index < 4)
           .map(item => (
             <InstructorCard
               key={item.id}
@@ -211,7 +211,7 @@ function ShoppingCard() {
         <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
 
         {shoppingCardTopic.map(item => (
-          <NevBarLeftList key={item.id} item={item} />
+          <NavBarLeftList key={item.id} item={item} />
         ))}
       </div>
       <div className='grayLine'></div>
