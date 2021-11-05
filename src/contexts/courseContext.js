@@ -1,5 +1,5 @@
-import axios from '../config/axios';
-import { createContext, useEffect, useState } from 'react';
+import axios from "../config/axios";
+import { createContext, useEffect, useState } from "react";
 
 const CourseContext = createContext();
 function CourseContextProvider({ children }) {
@@ -10,9 +10,10 @@ function CourseContextProvider({ children }) {
   useEffect(() => {
     const fetchDataAllCourseForHome = async () => {
       try {
-        const res = await axios.get('/course/byrating');
+        const res = await axios.get("/course/byrating");
+        console.log("@res.data:", res.data);
         setCourseByRating(res.data.courseResult);
-        const res2 = await axios.get('/course/bypromotion');
+        const res2 = await axios.get("/course/bypromotion");
         setCourseByPromotion(res2.data.courseResult);
       } catch (error) {
         console.log(error);
@@ -26,8 +27,9 @@ function CourseContextProvider({ children }) {
         courseByRating,
         setCourseByRating,
         courseByPromotion,
-        setCourseByPromotion,
-      }}>
+        setCourseByPromotion
+      }}
+    >
       {children}
     </CourseContext.Provider>
   );

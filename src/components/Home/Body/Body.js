@@ -9,7 +9,7 @@ function Body() {
     courseByRating,
     setCourseByRating,
     courseByPromotion,
-    setCourseByPromotion,
+    setCourseByPromotion
   } = useContext(CourseContext);
   // console.log('courseByRating At Home:', courseByRating);
   console.log(`courseByRating`, courseByRating);
@@ -22,7 +22,7 @@ function Body() {
           <div className="popular_item">
             {courseByRating
               ?.filter((item, index) => index < 4)
-              .map(item => (
+              .map((item) => (
                 <CourseCard key={item.id} item={item} />
               ))}
           </div>
@@ -33,7 +33,7 @@ function Body() {
             <div className="sale_item">
               {courseByPromotion
                 ?.filter((item, index) => index < 4)
-                .map(item => (
+                .map((item) => (
                   <CourseCard key={item.id} item={item} />
                 ))}
             </div>
