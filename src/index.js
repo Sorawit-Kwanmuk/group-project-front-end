@@ -10,6 +10,7 @@ import { ToggleContextProvider } from './contexts/toggleContext';
 import { UserContextProvider } from './contexts/userContext';
 import { CarouselContextProvider } from './contexts/CarouselContext';
 import { CategoryContextProvider } from './contexts/categoryContext';
+import { TogglePageContextProvider } from './contexts/togglePageContext';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,7 +22,9 @@ ReactDOM.render(
               <CarouselContextProvider>
                 <CourseContextProvider>
                   <LoginRegisStatusContextProvider>
-                    <App />
+                    <TogglePageContextProvider>
+                      <App />
+                    </TogglePageContextProvider>
                   </LoginRegisStatusContextProvider>
                 </CourseContextProvider>
               </CarouselContextProvider>
