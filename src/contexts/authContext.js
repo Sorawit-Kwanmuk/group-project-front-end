@@ -7,7 +7,7 @@ function AuthContextProvider({ children }) {
   const [user, setUser] = useState(initialUser);
   const [toggle, setToggle] = useState(false);
   const [userData, setUserData] = useState(null);
-  // console.log('user', user);
+  console.log('user', user);
   // useEffect(() => {
   //   const fetchUserData = async () => {
   //     if (user.role === 'admin' || user.role === 'user') {

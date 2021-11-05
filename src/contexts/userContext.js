@@ -19,7 +19,6 @@ function UserContextProvider({ children }) {
         // console.log('userById', response.data.result);
         // console.log(`data`, data.data.result);
         setUserById(data.data.result);
-        console.log('xxx');
       } catch (error) {}
     };
     fetchUser();

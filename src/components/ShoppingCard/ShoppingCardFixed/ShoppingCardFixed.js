@@ -10,6 +10,7 @@ function ShoppingCardFixed({ item }) {
   const chapter = item.Topics;
   // console.log('item', item);
   const handleClickPayment = () => {
+    // if(){}
     setPaymentCon(item);
     history.push("/shopping-cart");
   };

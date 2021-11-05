@@ -43,6 +43,7 @@ function OurCourse() {
     });
   };
   const filterSearchByOrderBy = array => {
+    // console.log('array: ', array);
     if (orderBy === 'rating') {
       return array.sort((a, b) => b.rating - a.rating);
     } else if (orderBy === 'learner') {
@@ -53,6 +54,7 @@ function OurCourse() {
     // console.log('typeof:', typeof array);
     const newArr2 = [];
     // console.log('newArr2: ', newArr2);
+    // console.log('array: ', array);
     for (let i = 0; i < array.length; i++) {
       // console.log('array[i].category: ', array[i].category);
       if (buttonSelect === 'all') {
@@ -83,15 +85,18 @@ function OurCourse() {
           return {
             ...item,
             lowerCaseCourseName: item.fullName.toLowerCase(),
+            category: item.InstructorCats.map(
+              item => item.Category.categoryName
+            ),
           };
         });
         console.log('newArr: ', newArr);
-        // setInstructors(
-        //   filterSearchByOrderBy(
-        //     filterSearchBySearchBar(filterByButtonSelectCourse(newArr))
-        //   )
-        // );
-        setInstructors(filterSearchByOrderBy(filterSearchBySearchBar(newArr)));
+        setInstructors(
+          filterSearchByOrderBy(
+            filterSearchBySearchBar(filterByButtonSelectCourse(newArr))
+          )
+        );
+        // setInstructors(filterSearchByOrderBy(filterSearchBySearchBar(newArr)));
         // setInstructors(response.data.insResultRating);
       } catch (error) {
         console.log('error: ', error);
@@ -99,12 +104,13 @@ function OurCourse() {
     };
 
     fetchDataOurTeam();
-  }, [submit, orderBy]);
+  }, [submit, orderBy, buttonSelect]);
   const handleClickShowAllCourse = () => {
-    // setButtonSelect('all');
+    setButtonSelect('all');
     setSubmit('');
-    // setOrderBy('rating');
+    setOrderBy('rating');
   };
+
   return (
     <>
       <div className='divMainControllerOurTeam'>
@@ -203,7 +209,11 @@ function OurCourse() {
         </div>
         <div className='divPaginationSearchOurTeam'>
           <Pagination
-            count={10}
+            count={
+              instructors.length % perPage === 0
+                ? instructors.length / perPage
+                : Math.floor(instructors.length / perPage) + 1
+            }
             color='primary'
             value={page}
             onChange={(e, value) => setPage(value)}

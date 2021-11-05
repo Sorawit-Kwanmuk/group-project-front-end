@@ -1,33 +1,34 @@
-import "./styleShoppingCard.css";
-import shoppingCardBanner from "../../public/images/shoppingCard.png";
-import Button from "@mui/material/Button";
-import { ButtonConfig, ToggleButtonConfig } from "./muiConfig";
-import InstructorCard from "../InstructorCard/InstructorCard";
-import NavBarLeftList from "./NavBarLeftList/NavBarLeftList";
-import BarRating from "./BarRating/BarRating";
-import { useEffect, useState, useContext } from "react";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import OutputFilterByRating from "./OutputFilterByRating/OutputFilterByRating";
-import CourseCard2 from "../CourseCard/CourseCard2";
-import ShoppingCardFixed from "./ShoppingCardFixed/ShoppingCardFixed";
-import axios from "../../config/axios";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../../contexts/authContext";
-import { InputAdornment, TextField, Typography } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import Rating from "@mui/material/Rating";
-import { UserContext } from "../../contexts/userContext";
+import './styleShoppingCard.css';
+import shoppingCardBanner from '../../public/images/shoppingCard.png';
+import Button from '@mui/material/Button';
+import { ButtonConfig, ToggleButtonConfig } from './muiConfig';
+import InstructorCard from '../InstructorCard/InstructorCard';
+import NavBarLeftList from './NavBarLeftList/NavBarLeftList';
+import BarRating from './BarRating/BarRating';
+import { useEffect, useState, useContext } from 'react';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import OutputFilterByRating from './OutputFilterByRating/OutputFilterByRating';
+import CourseCard2 from '../CourseCard/CourseCard2';
+import ShoppingCardFixed from './ShoppingCardFixed/ShoppingCardFixed';
+import axios from '../../config/axios';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/authContext';
+import { InputAdornment, TextField, Typography } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import Rating from '@mui/material/Rating';
+import { UserContext } from '../../contexts/userContext';
 
 function ShoppingCard() {
   const { user, setUser } = useContext(AuthContext);
   const { userById, setUserById } = useContext(UserContext);
   const { userCourseId, setUserCourseId } = useContext(UserContext);
-  const role = user ? user.role : "guest";
-  const [alignment, setAlignment] = useState("web");
+  const role = user ? user.role : 'guest';
+  const [alignment, setAlignment] = useState('web');
   const [shoppingCard, setShoppingCard] = useState([]);
   const [shoppingCardTopic, setShoppingCardTopic] = useState([]);
+  const [instructors, setInstructors] = useState([]);
   const [allComment, setAllComment] = useState([]);
   const [i, setI] = useState(3);
   const [courseCatOne, setCourseCatOne] = useState([]);
@@ -35,10 +36,10 @@ function ShoppingCard() {
   const [courseCatThree, setCourseCatThree] = useState([]);
   // console.log('shoppingCard: ', shoppingCard);
   const [rating, setRating] = useState(2);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [toggle, setToggle] = useState(false);
   const [eachRating, setEachRating] = useState([]);
-  const [ratingSelect, setRatingSelect] = useState("all");
+  const [ratingSelect, setRatingSelect] = useState('all');
   // const [one, setOne] = useState([]);
   // const [two, setTwo] = useState([]);
   // const [three, setThree] = useState([]);
@@ -77,19 +78,19 @@ function ShoppingCard() {
         const arrayFour = [];
         const arrayFive = [];
         for (let i = 0; i < newArrRating.length; i++) {
-          if (newArrRating[i] === "1") {
+          if (newArrRating[i] === '1') {
             arrayOne.push(newArrRating[i]);
           }
-          if (newArrRating[i] === "2") {
+          if (newArrRating[i] === '2') {
             arrayTwo.push(newArrRating[i]);
           }
-          if (newArrRating[i] === "3") {
+          if (newArrRating[i] === '3') {
             arrayThree.push(newArrRating[i]);
           }
-          if (newArrRating[i] === "4") {
+          if (newArrRating[i] === '4') {
             arrayFour.push(newArrRating[i]);
           }
-          if (newArrRating[i] === "5") {
+          if (newArrRating[i] === '5') {
             arrayFive.push(newArrRating[i]);
           }
           setSumRating(i + 1);
@@ -99,12 +100,20 @@ function ShoppingCard() {
         // console.log('response: ', response.data.courseResult.id);
         // console.log('shoppingCard: ', shoppingCard.Topics);
         // console.log(Array.isArray(response.data.courseResult.Topics));
-        setShoppingCardTopic(
-          response.data.courseResult.Topics.map(item => item)
+        console.log('response: ', response.data.courseResult);
+        setShoppingCardTopic(response.data.courseResult.Topics);
+        const fetchInstructor = response.data.courseResult.Topics.reduce(
+          (acc, item) => {
+            const idx = acc.findIndex(i => item.Instructor.id === i.id);
+            if (idx === -1) acc.push(item.Instructor);
+            return acc;
+          },
+          []
         );
+        setInstructors(fetchInstructor);
 
         const newArr = response3.data.result.map(item => item.categoryId);
-        console.log("newArr", newArr);
+        console.log('newArr', newArr);
         if (newArr.includes(1)) {
           const response4 = await axios.get(`/courseCat/bycat/${1}`);
           const result = response4.data.result;
@@ -136,7 +145,7 @@ function ShoppingCard() {
     // console.log('rating: ', rating);
     // console.log('shoppingCardId: ', shoppingCard.id);
     // console.log('username: ', user.username);
-    console.log("courseCatOne: ", courseCatOne);
+    console.log('courseCatOne: ', courseCatOne);
     const response = await axios.post(`/comment/`, {
       commentName: user.username,
       rating: rating,
@@ -145,93 +154,83 @@ function ShoppingCard() {
     });
     setToggle(current => !current);
     // console.log('responseComment: ', response);
-    setComment("");
+    setComment('');
     setRating(2);
   };
   // console.log('courseCatOne: ', courseCatOne);
   // console.log('shoppingCard: ', shoppingCard.Topics);
   // console.log('shoppingCardFixed: ', shoppingCardFixed);
   // console.log('shoppingCard: ', shoppingCard);
-  console.log(`shoppingCardTopic`, shoppingCardTopic);
-  console.log(`courseCatOne`, courseCatOne);
-  console.log(`courseCatTwo`, courseCatTwo);
-
+  console.log('shoppingCardTopic', shoppingCardTopic);
   return (
-    <div className="divMainShoppingCardController">
+    <div className='divMainShoppingCardController'>
       <div
-        className="divMainHeaderShoppingCard"
+        className='divMainHeaderShoppingCard'
         style={{
           backgroundImage: `url(${shoppingCardBanner})`,
-        }}
-      >
-        <div className="textOnShoppingCardBannerControl">
-          <h3 className="ShoppingCardH3">{shoppingCard.courseName}</h3>
-          <div className="ShoppingCardH4Control">
-            <h4 className="ShoppingCardH4">Rating : </h4>&nbsp;&nbsp;
-            <h4 className="ShoppingCardH4"> {shoppingCard.rating} / 5</h4>
+        }}>
+        <div className='textOnShoppingCardBannerControl'>
+          <h3 className='ShoppingCardH3'>{shoppingCard.courseName}</h3>
+          <div className='ShoppingCardH4Control'>
+            <h4 className='ShoppingCardH4'>Rating : </h4>&nbsp;&nbsp;
+            <h4 className='ShoppingCardH4'> {shoppingCard.rating} / 5</h4>
           </div>
-          <div className="ShoppingCardH4Control">
-            <h4 className="ShoppingCardH4">{shoppingCard.learner}</h4>
+          <div className='ShoppingCardH4Control'>
+            <h4 className='ShoppingCardH4'>{shoppingCard.learner}</h4>
             &nbsp;&nbsp;
-            <h4 className="ShoppingCardH4">Enrolls</h4>
+            <h4 className='ShoppingCardH4'>Enrolls</h4>
           </div>
           <div>
-            <p className="ShoppingCardP">{shoppingCard.shortDescription}</p>
+            <p className='ShoppingCardP'>{shoppingCard.shortDescription}</p>
           </div>
         </div>
       </div>
-      <div className="nevBarInShoppingCard">
-        <Button sx={ButtonConfig} variant="text">
-          <a href="#about">About</a>
+      <div className='nevBarInShoppingCard'>
+        <Button sx={ButtonConfig} variant='text'>
+          <a href='#about'>About</a>
         </Button>
-        <Button sx={ButtonConfig} variant="text">
-          <a href="#instructor">Instructor</a>
+        <Button sx={ButtonConfig} variant='text'>
+          <a href='#instructor'>Instructor</a>
         </Button>
-        <Button sx={ButtonConfig} variant="text">
-          <a href="#SyllabusCourseContent">Syllabus</a>
+        <Button sx={ButtonConfig} variant='text'>
+          <a href='#SyllabusCourseContent'>Syllabus</a>
         </Button>
-        <Button sx={ButtonConfig} variant="text">
-          <a href="#studentFeedback">Reviews</a>
+        <Button sx={ButtonConfig} variant='text'>
+          <a href='#studentFeedback'>Reviews</a>
         </Button>
       </div>
-      <div id="about" className="aboutThisCourseControl">
-        <h4 className="aboutThisCourseH4">About This Course</h4>
-        <p className="aboutThisCourseP">{shoppingCard.about}</p>
+      <div id='about' className='aboutThisCourseControl'>
+        <h4 className='aboutThisCourseH4'>About This Course</h4>
+        <p className='aboutThisCourseP'>{shoppingCard.about}</p>
       </div>
-      <div className="grayLine"></div>
-      <div className="divInstructorController">
-        <h4 className="aboutThisCourseH4">Instructor</h4>
-        {shoppingCardTopic
-          ?.filter((item, index) => index < 4)
-          .map(item => (
-            <InstructorCard
-              key={item.id}
-              item={item}
-              setToggleShop={setToggle}
-            />
-          ))}
+      <div className='grayLine'></div>
+      <div className='divInstructorController'>
+        <h4 className='aboutThisCourseH4'>Instructor</h4>
+        {instructors?.map(item => (
+          <InstructorCard key={item.id} item={item} setToggleShop={setToggle} />
+        ))}
       </div>
-      <div className="grayLine"></div>
-      <div id="SyllabusCourseContent" className="divSyllabusCourseContent">
-        <h4 className="aboutThisCourseH4">Syllabus - Course Content</h4>
+      <div className='grayLine'></div>
+      <div id='SyllabusCourseContent' className='divSyllabusCourseContent'>
+        <h4 className='aboutThisCourseH4'>Syllabus - Course Content</h4>
 
         {shoppingCardTopic.map(item => (
           <NavBarLeftList key={item.id} item={item} />
         ))}
       </div>
-      <div className="grayLine"></div>
-      <div id="studentFeedback" className="divStudentFeedback">
-        <h4 className="aboutThisCourseH4">Student Feedback</h4>
-        <div className="divStudentFeedbackControl">
-          <div className="divLeftStudentFeedback">
-            <h1 className="divStudentFeedbackH1">{shoppingCard.rating}</h1>
-            <div className="CountReviews">
+      <div className='grayLine'></div>
+      <div id='studentFeedback' className='divStudentFeedback'>
+        <h4 className='aboutThisCourseH4'>Student Feedback</h4>
+        <div className='divStudentFeedbackControl'>
+          <div className='divLeftStudentFeedback'>
+            <h1 className='divStudentFeedbackH1'>{shoppingCard.rating}</h1>
+            <div className='CountReviews'>
               <p>{shoppingCard.ratingAmount}</p> &nbsp;&nbsp;
               <p>Reviews</p>
             </div>
           </div>
-          <div className="divRightStudentFeedback">
-            <div className="barRating">
+          <div className='divRightStudentFeedback'>
+            <div className='barRating'>
               {eachRating.map(item => (
                 <BarRating item={item} sumRating={sumRating} />
               ))}
@@ -240,100 +239,93 @@ function ShoppingCard() {
         </div>
       </div>
 
-      <div className="divStudentFeedbackComment">
-        <div className="filterCommentByRating">
+      <div className='divStudentFeedbackComment'>
+        <div className='filterCommentByRating'>
           <ToggleButtonGroup
-            color="primary"
+            color='primary'
             value={alignment}
             sx={{
-              width: "100%",
+              width: '100%',
             }}
             exclusive
-            onChange={handleChange}
-          >
+            onChange={handleChange}>
             <ToggleButton
               sx={ToggleButtonConfig}
-              value="all"
-              onClick={() => setRatingSelect("all")}
-            >
+              value='all'
+              onClick={() => setRatingSelect('all')}>
               All
             </ToggleButton>
             <ToggleButton
               sx={ToggleButtonConfig}
-              value="5"
-              onClick={() => setRatingSelect("5")}
-            >
+              value='5'
+              onClick={() => setRatingSelect('5')}>
               5
             </ToggleButton>
             <ToggleButton
               sx={ToggleButtonConfig}
-              value="4"
-              onClick={() => setRatingSelect("4")}
-            >
+              value='4'
+              onClick={() => setRatingSelect('4')}>
               4
             </ToggleButton>
             <ToggleButton
               sx={ToggleButtonConfig}
-              value="3"
-              onClick={() => setRatingSelect("3")}
-            >
+              value='3'
+              onClick={() => setRatingSelect('3')}>
               3
             </ToggleButton>
             <ToggleButton
               sx={ToggleButtonConfig}
-              value="2"
-              onClick={() => setRatingSelect("2")}
-            >
+              value='2'
+              onClick={() => setRatingSelect('2')}>
               2
             </ToggleButton>
             <ToggleButton
               sx={ToggleButtonConfig}
-              value="1"
-              onClick={() => setRatingSelect("1")}
-            >
+              value='1'
+              onClick={() => setRatingSelect('1')}>
               1
             </ToggleButton>
           </ToggleButtonGroup>
         </div>
-        <div className="outputFilterCommentByRating">
+        <div className='outputFilterCommentByRating'>
           {userCourseId?.includes(+params.id) !== false && (
             // role !== 'guest' &&
             <form onSubmit={handleSubmitComment}>
               <TextField
-                id="outlined-multiline-static"
-                label="Comment"
+                id='outlined-multiline-static'
+                label='Comment'
                 multiline
                 value={comment}
                 onChange={e => setComment(e.target.value)}
                 sx={{
-                  width: "100%",
-                  marginTop: "10px",
-                  marginBottom: "5px",
+                  width: '100%',
+                  marginTop: '10px',
+                  marginBottom: '5px',
                 }}
                 rows={4}
               />
-              <div className="ratingButton">
+              <div className='ratingButton'>
                 <div>
-                  <Typography component="legend">Give Rating</Typography>
+                  <Typography component='legend'>Give Rating</Typography>
                   <Rating
-                    name="simple-controlled"
+                    name='simple-controlled'
                     value={rating}
-                    size="large"
-                    sx={{ color: "#ffc107" }}
+                    size='large'
+                    sx={{ color: '#ffc107' }}
                     onChange={(event, newValue) => {
                       setRating(newValue);
                     }}
                   />
                 </div>
                 <div>
-                  <Button type="submit" variant="contained">
+                  <Button type='submit' variant='contained'>
                     Send Comment
                   </Button>
                 </div>
               </div>
             </form>
           )}
-          {ratingSelect !== "all"
+          {ratingSelect !== 'all'
             ? allComment?.map(item => (
                 <OutputFilterByRating
                   key={item.id}
@@ -353,18 +345,17 @@ function ShoppingCard() {
                   />
                 ))}
         </div>
-        <div className="SeeMoreControl">
+        <div className='SeeMoreControl'>
           <p
-            className="SeeMoreP"
-            onClick={handleClickSeeMore}
-          >{`<-- See More -->`}</p>
+            className='SeeMoreP'
+            onClick={handleClickSeeMore}>{`<-- See More -->`}</p>
         </div>
       </div>
-      <div className="grayLine"></div>
-      <div className="divMoreFrontEndCourse">
+      <div className='grayLine'></div>
+      <div className='divMoreFrontEndCourse'>
         {courseCatOne.length > 0 && (
-          <div className="divMoreFrontEndCourseHeader">
-            <h4 className="aboutThisCourseH4">More Front - End Course</h4>
+          <div className='divMoreFrontEndCourseHeader'>
+            <h4 className='aboutThisCourseH4'>More Front - End Course</h4>
           </div>
         )}
         {courseCatOne.length > 0 &&
@@ -374,8 +365,8 @@ function ShoppingCard() {
               <CourseCard2 key={index} item={item} setToggle={setToggle} />
             ))}
         {courseCatTwo.length > 0 && (
-          <div className="divMoreFrontEndCourseHeader">
-            <h4 className="aboutThisCourseH4">More Back - End Course</h4>
+          <div className='divMoreFrontEndCourseHeader'>
+            <h4 className='aboutThisCourseH4'>More Back - End Course</h4>
           </div>
         )}
         {courseCatTwo.length > 0 &&
@@ -385,8 +376,8 @@ function ShoppingCard() {
               <CourseCard2 key={index} item={item} setToggle={setToggle} />
             ))}
         {courseCatThree.length > 0 && (
-          <div className="divMoreFrontEndCourseHeader">
-            <h4 className="aboutThisCourseH4">More UX/UI Course</h4>
+          <div className='divMoreFrontEndCourseHeader'>
+            <h4 className='aboutThisCourseH4'>More UX/UI Course</h4>
           </div>
         )}
         {courseCatThree.length > 0 &&

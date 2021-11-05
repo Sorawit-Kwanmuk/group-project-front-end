@@ -27,7 +27,12 @@ function InstructorCardDetail() {
   const params = useParams();
   const location = useLocation();
 
-  // console.log('location', location.state);
+  // console.log('location', location.state.instructor);
+  useEffect(() => {
+    const newArr = location.state.instructor;
+
+    // console.log('newArr: ', newArr);
+  }, [toggle]);
   useEffect(() => {
     const fetchDataInstructorById = async () => {
       try {
@@ -37,9 +42,17 @@ function InstructorCardDetail() {
         const newArr = location.state.instructor.InstructorCats.map(
           item => item.categoryId
         );
-        console.log('response3', response3.data);
+        // console.log('response3', response3.data);
         setInstructor(response.data.instructorResult);
-        setInstructorTopics(response2.data.result);
+        const newArr3 = response2.data.result;
+        const newArr2 = [];
+        for (let i = 0; i < newArr3.length; i++) {
+          if (newArr3[i].Course.status === 'ready') {
+            newArr2.push(newArr3[i]);
+          }
+        }
+        // console.log('newArr2', newArr2);
+        setInstructorTopics(newArr2);
         setInstructorByInsId(newArr);
         // console.log('res: ', response.data.instructorResult);
         if (newArr.includes(1)) {
@@ -76,7 +89,8 @@ function InstructorCardDetail() {
     window.location.href = `mailto:${instructor.email}?subject=Offer Inquiry&cc=support@email.com&bcc=info@company.com&body=test mail send massage`;
   };
   // console.log('location', location.state.instructor.InstructorCats);
-  console.log('location', location);
+  // console.log('location', location);
+  // console.log('instructor: ', instructor);
   // console.log('instructorFront: ', instructorFront);
   // console.log('instructorBack: ', instructorBack);
   // console.log('instructorUxUi: ', instructorUxUi);
@@ -146,10 +160,7 @@ function InstructorCardDetail() {
         <div className='InstructorCardContentRight'>
           <h4 className='aboutThisMeH4'>Area of Expertise</h4>
           <div className='AreaOfExpertiseTagController'>
-            <AreaOfExpertiseTag />
-            <AreaOfExpertiseTag />
-            <AreaOfExpertiseTag />
-            <AreaOfExpertiseTag />
+            <p>{instructor.expertise}</p>
           </div>
           <div className='grayLineRight'></div>
           <div className='InstructorCardContentRightButton'>
