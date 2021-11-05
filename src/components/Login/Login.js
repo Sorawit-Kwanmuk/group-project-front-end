@@ -78,7 +78,7 @@ function Login() {
           <div className="divLogin">
             <TextField
               className="divConfig MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
-              error
+              // error
               sx={{ width: "230px", marginBottom: "10px" }}
               id="outlined-basic"
               type="text"
