@@ -30,28 +30,28 @@ function NevBarLeftList({
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
-  const [subObjArr, setSubObjArr] = useState([]);
+  const [subArr, setSubArr] = useState([]);
+  const [quizArr, setQuizArr] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("incompleted");
+
+  console.log(`arrIndex`, arrIndex);
 
   const param = useParams();
   const history = useHistory();
 
-  // console.log("@subObjInArrLeft:", subObjArr);
+  console.log("@subInArrLeft:", subArr);
+  console.log("@quizInArrLeft:", quizArr);
 
   useEffect(() => {
     const getLeftLists = async () => {
       try {
-        const resSubTopic = await axios.get(`/subtopic`);
+        const resSubTopic = await axios.get(`/subtopic/topicId/${topicId}`);
         // console.log("@@@resSubTopic:", resSubTopic.data.result);
-        const resQuiz = await axios.get(`/quiz`);
+        const resQuiz = await axios.get(`/quiz/topicId/${topicId}`);
         // console.log("@@@resQuiz:", resQuiz.data.result);
-        setSubObjArr(
-          resSubTopic.data.result
-            .concat(resQuiz.data.result)
-            .concat([
-              { subTopName: "< Claim certificate >", topicId: topicLen },
-            ])
-        );
+
+        setSubArr(resSubTopic.data.result);
+        setQuizArr(resQuiz.data.result);
       } catch (error) {
         console.log("useEffectSubTopicErr:", error);
       }
@@ -78,7 +78,7 @@ function NevBarLeftList({
     setOpen(!open);
   };
 
-  const handleToggleButtonClick = async (link, topicId) => {
+  const handleToggleButtonClick = async (link, id) => {
     if (currentStatus === "completed") {
       return history.push({
         pathname: `/my-profile`,
@@ -89,9 +89,10 @@ function NevBarLeftList({
       });
     }
     try {
-      const resQuestion = await axios.get(`/quiz/${topicId}`);
+      const resQuestion = await axios.get(`/quiz/${id}`);
+      console.log(`object`, resQuestion);
       setQuestions(resQuestion.data.result.Questions);
-      setQuizId(topicId);
+      setQuizId(id);
     } catch (error) {
       console.log(error);
     }
@@ -120,7 +121,30 @@ function NevBarLeftList({
               exclusive
               onChange={handleChange}
             >
-              {subObjArr
+              {subArr.map((item, idx) => (
+                <ToggleButton
+                  key={idx}
+                  sx={ToggleButtonConfig}
+                  value={item.subTopName}
+                  onClick={() => handleToggleButtonClick(item.video, item.id)}
+                  disabled={currentStage < arrIndex}
+                >
+                  {item.subTopName}
+                </ToggleButton>
+              ))}
+
+              {quizArr.map((item, idx) => (
+                <ToggleButton
+                  key={idx}
+                  sx={ToggleButtonConfig}
+                  value={item.quizName}
+                  onClick={() => handleToggleButtonClick(item.video, item.id)}
+                  disabled={currentStage < arrIndex}
+                >
+                  {item.quizName}
+                </ToggleButton>
+              ))}
+              {/* {subObjArr
                 .filter(chosenTopic => chosenTopic.topicId === topicId)
                 .map((item, idx) => (
                   <ToggleButton
@@ -134,7 +158,7 @@ function NevBarLeftList({
                   >
                     {item.subTopName || item.quizName}
                   </ToggleButton>
-                ))}
+                ))} */}
             </ToggleButtonGroup>
           </ListItemButton>
         </List>

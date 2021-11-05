@@ -28,6 +28,7 @@ function ClassroomILearn() {
   const [quizId, setQuizId] = useState(null);
   const [currentStage, setCurrentStage] = useState(0);
 
+  console.log(`quiz.id in class`, topicArr);
   // console.log("@param:", param.id);
   // console.log("@topicArr:", topicArr);
   // console.log("@vdoLink:", vdoLink);
@@ -43,7 +44,7 @@ function ClassroomILearn() {
         //   resTopic.data.result.filter((item) => item.courseId === +param.id)
         // );
         setTopicArr(
-          resTopic.data.result.filter((item) => item.courseId === +param.id)
+          resTopic.data.result.filter(item => item.courseId === +param.id)
         );
       } catch (error) {
         console.log(error);
@@ -56,7 +57,7 @@ function ClassroomILearn() {
     <div className="mainDivClassroomILearn">
       <div className="divLessonList">
         <h3 className="ClassroomILearnH3">Lesson List</h3>
-        {topicArr.map((item, idx) => (
+        {topicArr?.map((item, idx) => (
           <NevBarLeftList
             key={item.id}
             topicId={item.id}
@@ -86,7 +87,7 @@ function ClassroomILearn() {
               style={{
                 textAlign: "center",
                 backgroundColor: "deepskyblue",
-                padding: 10
+                padding: 10,
               }}
             >
               Check on the left "Lesson List"
@@ -95,7 +96,7 @@ function ClassroomILearn() {
               style={{
                 textAlign: "center",
                 backgroundColor: "greenyellow",
-                padding: 10
+                padding: 10,
               }}
             >
               Please watch VDO contents and take exam to unlock the next stage.

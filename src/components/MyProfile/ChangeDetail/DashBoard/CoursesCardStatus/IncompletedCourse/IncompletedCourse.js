@@ -1,8 +1,8 @@
-import { Button } from '@mui/material';
-import { buttonConfig } from '../muiConfig';
-import courseImg from '../../../../../../public/images/course.png';
-import { useHistory } from 'react-router-dom';
-import '../../styleDashBoard.css';
+import { Button } from "@mui/material";
+import { buttonConfig } from "../muiConfig";
+import courseImg from "../../../../../../public/images/course.png";
+import { useHistory } from "react-router-dom";
+import "../../styleDashBoard.css";
 function IncompletedCourse({ item, courseName }) {
   const history = useHistory();
   const {
@@ -25,64 +25,70 @@ function IncompletedCourse({ item, courseName }) {
       },
     });
   };
+
+  console.log(`item.courseId`, item.courseId);
   return (
     <>
-      {status === 'incompleted' && (
+      {status === "incompleted" && (
         <>
           <div
-            className='divCoursesCardStatus'
-            onClick={handleClickLinkToClassroom}>
-            <div className='coursesCardStatusControl'>
-              <img src={item.Course.courseImage} alt='' />
+            className="divCoursesCardStatus"
+            onClick={handleClickLinkToClassroom}
+          >
+            <div className="coursesCardStatusControl">
+              <img src={item.Course.courseImage} alt="" />
             </div>
-            <div className='coursesCardStatusDetail'>
-              <div className='coursesCardStatusDetailTop'>
-                <div className='coursesCardStatusDetailTopH4'>
+            <div className="coursesCardStatusDetail">
+              <div className="coursesCardStatusDetailTop">
+                <div className="coursesCardStatusDetailTopH4">
                   <h4>{courseName}</h4>
                 </div>
                 <div>
-                  {status === 'incompleted' && (
+                  {status === "incompleted" && (
                     <Button
-                      variant='contained'
-                      color='primary'
-                      sx={buttonConfig}>
+                      variant="contained"
+                      color="primary"
+                      sx={buttonConfig}
+                    >
                       Active
                     </Button>
                   )}
-                  {status === 'completed' && (
+                  {status === "completed" && (
                     <>
                       <Button
-                        variant='contained'
-                        color='success'
-                        sx={buttonConfig}>
+                        variant="contained"
+                        color="success"
+                        sx={buttonConfig}
+                      >
                         Complete
                       </Button>
                       <Button
-                        variant='contained'
-                        color='secondary'
-                        sx={buttonConfig}>
+                        variant="contained"
+                        color="secondary"
+                        sx={buttonConfig}
+                      >
                         Certificate
                       </Button>
                     </>
                   )}
                 </div>
               </div>
-              <div className='coursesCardStatusDetailBottom'>
-                <div className='bottomCardDetail'>
+              <div className="coursesCardStatusDetailBottom">
+                <div className="bottomCardDetail">
                   <p>total Lessons: </p>
                   <span>{totalStage}</span>
                 </div>
-                <div className='bottomCardDetail'>
+                <div className="bottomCardDetail">
                   <p>Completed</p>&nbsp;
                   <p>Lessons:</p>
                   <span>
                     {currentStage}/{totalStage}
                   </span>
                 </div>
-                <div className='bottomCardDetail'>
+                <div className="bottomCardDetail">
                   <span>
                     {((currentStage / totalStage) * 100).toFixed(0) === NaN
-                      ? '0'
+                      ? "0"
                       : ((currentStage / totalStage) * 100).toFixed(0)}
                     %
                   </span>

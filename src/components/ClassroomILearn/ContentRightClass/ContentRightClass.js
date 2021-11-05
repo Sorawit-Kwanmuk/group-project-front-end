@@ -15,6 +15,8 @@ function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
 
   const param = useParams();
 
+  console.log(`quizId`, quizId);
+
   let col = 0;
   for (const value in answerCheck) {
     if (answerCheck[value]) {
@@ -32,14 +34,14 @@ function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
 
       setPass(true);
 
-      if (quizId >= currentStage) {
-        axios
-          .put(`/mycourse/${param.id}`)
-          .then((res) => {
-            // console.log("@resPutMycourse:", res.data.result);
-          })
-          .catch((err) => console.log(err));
-      }
+      // if (quizId >= currentStage) {
+      axios
+        .put(`/mycourse/${param.id}`)
+        .then(res => {
+          // console.log("@resPutMycourse:", res.data.result);
+        })
+        .catch(err => console.log(err));
+      // }
     } else {
       setResult(`${col}/${questions.length} Sorry! You failed the test.`);
       setPass(false);
@@ -92,7 +94,7 @@ function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
             style={{
               display: "flex",
               justifyContent: "center",
-              alignItems: "center"
+              alignItems: "center",
             }}
           >
             {submitted ? (

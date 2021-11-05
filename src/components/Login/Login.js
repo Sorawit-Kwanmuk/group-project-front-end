@@ -1,26 +1,26 @@
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import IconButton from '@mui/material/IconButton';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useContext, useState } from 'react';
-import FormControl from '@mui/material/FormControl';
-import Button from '@mui/material/Button';
-import './styleLogin.css';
-import axios from '../../config/axios';
-import { setToken, getToken } from '../../services/localStorage';
-import { AuthContext } from '../../contexts/authContext';
-import { useHistory } from 'react-router';
-import jwtDecode from 'jwt-decode';
-import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
-import Link from '@mui/material/Link';
-import GoogleIcon from '@mui/icons-material/Google';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { useContext, useState } from "react";
+import FormControl from "@mui/material/FormControl";
+import Button from "@mui/material/Button";
+import "./styleLogin.css";
+import axios from "../../config/axios";
+import { setToken, getToken } from "../../services/localStorage";
+import { AuthContext } from "../../contexts/authContext";
+import { useHistory } from "react-router";
+import jwtDecode from "jwt-decode";
+import { LoginRegisStatusContext } from "../../contexts/loginRegisStatus";
+import Link from "@mui/material/Link";
+import GoogleIcon from "@mui/icons-material/Google";
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [values, setValues] = useState({
     showPassword: false,
   });
@@ -46,7 +46,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post('/auth/login', {
+      const res = await axios.post("/auth/login", {
         username,
         password,
       });
@@ -54,9 +54,9 @@ function Login() {
       // console.log('LogRes: ', res);
       setToken(res.data.token);
       setUser(jwtDecode(res.data.token));
-      history.push('/');
+      history.push("/");
       setLoginStatus(false);
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.dir(error);
     }
@@ -67,83 +67,87 @@ function Login() {
   };
   const handleClickToForgotPassword = e => {
     e.preventDefault();
-    history.push('/forget-password');
+    history.push("/forget-password");
     setLoginStatus(false);
   };
   return (
     <>
-      <form className='formLoginMain' action='' onSubmit={handleSubmitLogin}>
-        <div className='LoginForm'>
-          <span className='spanLogin'>Login</span>
-          <div className='divLogin'>
+      <form className="formLoginMain" action="" onSubmit={handleSubmitLogin}>
+        <div className="LoginForm">
+          <span className="spanLogin">Login</span>
+          <div className="divLogin">
             <TextField
-              className='divConfig MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root'
+              className="divConfig MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
               error
-              sx={{ width: '230px', marginBottom: '10px' }}
-              id='outlined-basic'
-              type='text'
-              label='Username'
-              variant='outlined'
+              sx={{ width: "230px", marginBottom: "10px" }}
+              id="outlined-basic"
+              type="text"
+              label="Username"
+              variant="outlined"
               value={username}
               onChange={e => setUsername(e.target.value)}
             />
           </div>
-          <div className='divLogin'>
+          <div className="divLogin">
             <FormControl
-              variant='outlined'
-              className='divConfig css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root'>
-              <InputLabel htmlFor='outlined-adornment-password'>
+              variant="outlined"
+              className="divConfig css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root"
+            >
+              <InputLabel htmlFor="outlined-adornment-password">
                 Password
               </InputLabel>
               <OutlinedInput
-                id='outlined-adornment-password'
-                type={values.showPassword ? 'text' : 'password'}
+                id="outlined-adornment-password"
+                type={values.showPassword ? "text" : "password"}
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 endAdornment={
-                  <InputAdornment position='end'>
+                  <InputAdornment position="end">
                     <IconButton
-                      aria-label='toggle password visibility'
+                      aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
-                      edge='end'>
+                      edge="end"
+                    >
                       {values.showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
                 }
-                label='Password'
+                label="Password"
               />
             </FormControl>
           </div>
-          <div className='divLogin buttonLogin'>
-            <Button variant='contained' type='submit' sx={{ width: '100px' }}>
+          <div className="divLogin buttonLogin">
+            <Button variant="contained" type="submit" sx={{ width: "100px" }}>
               Login
             </Button>
           </div>
-          <div className='divLogin buttonLogin'>
+          <div className="divLogin buttonLogin">
             <Button
-              variant='contained'
+              variant="contained"
               endIcon={<GoogleIcon />}
-              sx={{ width: '100px' }}>
+              sx={{ width: "100px" }}
+            >
               Send
             </Button>
           </div>
-          <div className='divLogin'>
+          <div className="divLogin">
             <Button
-              variant='contained'
+              variant="contained"
               onClick={handleClickToRegister}
-              sx={{ width: '100px', paddingRight: '0px' }}>
+              sx={{ width: "100px", paddingRight: "0px" }}
+            >
               Register
             </Button>
           </div>
-          <div className='textForget'>
+          <div className="textForget">
             <Link onClick={handleClickToForgotPassword}>
               Did you forget your password?
             </Link>
           </div>
         </div>
       </form>
-      <div className='divCloseAll' onClick={handleClickCloseLogin}></div>
+      <div className="divCloseAll" onClick={handleClickCloseLogin}></div>
     </>
   );
 }
