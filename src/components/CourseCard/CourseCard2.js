@@ -14,11 +14,12 @@ function CourseCard2({ item, setToggle }) {
     level,
     duration,
     courseImage,
+    discountRate,
   } = course;
   useEffect(() => {
     const fetchDataCourse = async () => {
       const response = await axios.get(`/course/${item.courseId}`);
-      console.log('response: ', response.data.courseResult);
+      // console.log('response: ', response.data.courseResult);
       setCourse(response.data.courseResult);
     };
     fetchDataCourse();
@@ -38,7 +39,14 @@ function CourseCard2({ item, setToggle }) {
         <img src={courseImage} alt='' />
       </div>
       <div className='divCourseDetail'>
-        <h1 className='divCourseName'>{courseName}</h1>
+        <div className='divDiscountRateTag'>
+          <h1 className='divCourseName'>{courseName}</h1>
+          {discountRate && (
+            <div class='discount-label red'>
+              <span>-{discountRate}%</span>
+            </div>
+          )}
+        </div>
         <div className='divDetailCourseCard'>
           <h2 className='h2CourseCard'>{rating}/5</h2>&nbsp;&nbsp;
           <p className='pCourseCard'>({ratingAmount} Reviews)</p>
@@ -53,7 +61,17 @@ function CourseCard2({ item, setToggle }) {
         </div>
         <div className='divDetailCourseCard'>
           <h2 className='h2CourseCard'>Price : </h2>&nbsp;&nbsp;
-          <p className='pCourseCard'>{price} THB</p>
+          <div className='saleRedLineController2'>
+            <div className='saleRedLineController'>
+              <p className='pCourseCard'>{price} THB</p>
+              {discountRate && <div className='saleLineRed'></div>}
+            </div>
+            {discountRate && (
+              <p className='pCourseCard divRed'>
+                {(price * discountRate) / 100} THB
+              </p>
+            )}
+          </div>
         </div>
       </div>
       {/* <div className='threeTagControl'>

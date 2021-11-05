@@ -18,6 +18,7 @@ import jwtDecode from 'jwt-decode';
 import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
 import Link from '@mui/material/Link';
 import GoogleIcon from '@mui/icons-material/Google';
+import { UserContext } from '../../contexts/userContext';
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -30,6 +31,7 @@ function Login() {
     setLoginStatus(false);
   };
 
+  const { setToggleUser } = useContext(UserContext);
   // console.log(values);
   const { user, setUser } = useContext(AuthContext);
   const handleClickShowPassword = () => {
@@ -56,6 +58,7 @@ function Login() {
       setUser(jwtDecode(res.data.token));
       history.push('/');
       setLoginStatus(false);
+      setToggleUser(current => !current);
       // window.location.reload();
     } catch (error) {
       console.dir(error);
@@ -78,7 +81,7 @@ function Login() {
           <div className='divLogin'>
             <TextField
               className='divConfig MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root'
-              error
+              // error
               sx={{ width: '230px', marginBottom: '10px' }}
               id='outlined-basic'
               type='text'

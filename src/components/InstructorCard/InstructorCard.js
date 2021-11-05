@@ -11,7 +11,7 @@ function InstructorCard({ item }) {
   const [instructorBack, setInstructorBack] = useState([]);
   const [instructorUxUi, setInstructorUxUi] = useState([]);
   // console.log('instructor: ', instructor);
-
+  // console.log('item111111', item);
   const history = useHistory();
   const { toggle, setToggle } = useContext(ToggleContext);
   useEffect(() => {
