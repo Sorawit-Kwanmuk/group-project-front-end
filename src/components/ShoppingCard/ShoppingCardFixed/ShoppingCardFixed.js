@@ -1,9 +1,9 @@
+import "../styleShoppingCard.css";
 import { Button } from "@mui/material";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router";
 import { PaymentContext } from "../../../contexts/paymentContext";
 
-import "../styleShoppingCard.css";
 function ShoppingCardFixed({ item }) {
   const { paymentCon, setPaymentCon } = useContext(PaymentContext);
   const history = useHistory();

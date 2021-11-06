@@ -1,29 +1,30 @@
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Collapse from '@mui/material/Collapse';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import ToggleButton from "@mui/material/ToggleButton";
+import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import {
   ToggleButtonConfig,
   ListItemTextConfig,
-  styleButton,
-} from '../../ClassroomILearn/muiConfig';
-import '../../ClassroomILearn/styleClassroomILearn.css';
-import { useEffect, useState } from 'react';
-import ToggleButtonLeftBar from './ToggleButtonLeftBar/ToggleButtonLeftBar';
-import axios from '../../../config/axios';
+  styleButton
+} from "../../ClassroomILearn/muiConfig";
+import "../../ClassroomILearn/styleClassroomILearn.css";
+import { useEffect, useState } from "react";
+import ToggleButtonLeftBar from "./ToggleButtonLeftBar/ToggleButtonLeftBar";
+import axios from "../../../config/axios";
 
 function NevBarLeftList({ item }) {
   const [open, setOpen] = useState(false);
-  const [view, setView] = useState('list');
+  const [view, setView] = useState("list");
   const [subtopic, setSubtopic] = useState([]);
   const { topicName } = item;
   const handleChange = (event, nextView) => {
     setView(nextView);
   };
+
   useEffect(() => {
     const fetchDataTopics = async () => {
       const response = await axios.get(`/subtopic/${item.id}`);
@@ -43,18 +44,20 @@ function NevBarLeftList({ item }) {
       </ListItemButton>
       <Collapse
         in={open}
-        timeout='auto'
+        timeout="auto"
         unmountOnExit
-        sx={{ paddingLeft: '0px' }}>
-        <List component='div' disablePadding>
+        sx={{ paddingLeft: "0px" }}
+      >
+        <List component="div" disablePadding>
           <ListItemButton>
             <ToggleButtonGroup
-              orientation='vertical'
+              orientation="vertical"
               value={view}
               sx={ToggleButtonConfig}
               exclusive
-              onChange={handleChange}>
-              {subtopic.map(item => (
+              onChange={handleChange}
+            >
+              {subtopic.map((item) => (
                 <ToggleButtonLeftBar key={item.id} item={item} />
               ))}
 

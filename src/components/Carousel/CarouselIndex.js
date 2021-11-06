@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CarouselContext } from '../../contexts/CarouselContext';
-import Carousel from './Carousel';
+import React, { useContext, useEffect, useState } from "react";
+import { CarouselContext } from "../../contexts/CarouselContext";
+import Carousel from "./Carousel";
 
 function CarouselIndex() {
   const { carouselImage } = useContext(CarouselContext);

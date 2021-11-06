@@ -1,7 +1,7 @@
+import "./styleMyProfileDetail.css";
 import { Button, TextField } from "@mui/material";
 import axios from "../../../../config/axios";
 import { useEffect, useState } from "react";
-import "./styleMyProfileDetail.css";
 function MyProfileDetail({ data, setToggleProfile }) {
   // console.log(data);
   const { createdAt, fullName, birthDate, username, email, mobileNo } = data;

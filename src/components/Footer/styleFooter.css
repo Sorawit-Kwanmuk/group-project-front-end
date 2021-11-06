@@ -9,7 +9,7 @@
 .leftItemFooter {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 30px;
 }
 
 .leftItemFooter > p {

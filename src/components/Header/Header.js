@@ -6,7 +6,7 @@ import {
   buttonRegister,
   buttonOurCourse,
   buttonOurTeam,
-  buttonContactUs,
+  buttonContactUs
 } from "./muiConfig";
 import { AuthContext } from "../../contexts/authContext";
 import { useContext, useState } from "react";
@@ -42,6 +42,7 @@ function Header() {
           <p>CloneCamp</p>
         </div>
         <Button
+          className="Header--hover"
           variant="text"
           sx={buttonOurCourse}
           onClick={() => history.push("/our-course")}
@@ -49,6 +50,7 @@ function Header() {
           Our Course
         </Button>
         <Button
+          className="Header--hover"
           variant="text"
           sx={buttonOurTeam}
           onClick={() => history.push("/our-team")}
@@ -56,6 +58,7 @@ function Header() {
           Our Team
         </Button>
         <Button
+          className="Header--hover"
           variant="text"
           sx={buttonContactUs}
           onClick={() => history.push("/contact-us")}
@@ -64,6 +67,7 @@ function Header() {
         </Button>
         {role === "admin" ? (
           <Button
+            className="Header--hover"
             variant="text"
             sx={buttonContactUs}
             onClick={() => history.push("/admin-home")}
@@ -75,6 +79,7 @@ function Header() {
       <div className="rightItem">
         {!user && (
           <Button
+            // className="Avatar--hover"
             variant="contained"
             sx={buttonLogin}
             onClick={handleClickLogin}

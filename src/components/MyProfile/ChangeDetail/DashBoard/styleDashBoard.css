@@ -1,28 +1,30 @@
 .divDashBoardH3P {
-    display: flex;
-    flex-direction: row;
-    color: #03045E;
-
+  display: flex;
+  flex-direction: row;
+  color: #03045e;
 }
 
 .divDashBoardH3 {
-    font-size: 16px;
-    margin-right: 10px;
-    width: 200px;
+  font-size: 16px;
+  margin-right: 10px;
+  width: 200px;
 }
 
 .grayLine {
-    background-color: #E6E6E6;
-    margin: 10px;
-    height: 2px;
-    width: 100%;
-
+  background-color: #e6e6e6;
+  margin: 10px;
+  height: 2px;
+  width: 100%;
 }
 
 .divCoursesCardStatus {
-    cursor: pointer;
-    margin: 5px;
-    border: lightgray solid 1px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 5px #888888;
+  cursor: pointer;
+  border: lightgray solid 1px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px #888888;
+  padding: 5px 0;
+}
+
+.Dashboard--card-container {
+  margin: 35px auto;
 }
