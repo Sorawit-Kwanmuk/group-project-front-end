@@ -62,7 +62,7 @@ function CourseCard({ item }) {
                 </div>
                 {discountRate && (
                   <p className='pCourseCard divRed'>
-                    {(price * discountRate) / 100} THB
+                    {price - (price * discountRate) / 100} THB
                   </p>
                 )}
               </div>
