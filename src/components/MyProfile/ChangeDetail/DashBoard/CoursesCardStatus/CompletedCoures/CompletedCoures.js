@@ -1,5 +1,5 @@
 import { Button } from '@mui/material';
-import { buttonConfig } from '../muiConfig';
+import { buttonConfig, buttonConfig2 } from '../muiConfig';
 import courseImg from '../../../../../../public/images/course.png';
 import { useHistory } from 'react-router-dom';
 import '../../styleDashBoard.css';
@@ -20,7 +20,7 @@ function CompletedCoures({ item, courseName }) {
   console.log('itemMyPro:', item);
   const handleClickLocationToCertificate = () => {
     history.push({
-      pathname: `/certificate/`,
+      pathname: `/certificate`,
       state: {
         item,
       },
@@ -40,7 +40,8 @@ function CompletedCoures({ item, courseName }) {
         <>
           <div
             className='divCoursesCardStatus'
-            onClick={handleClickLinkToClassroom}>
+            // onClick={handleClickLinkToClassroom}
+          >
             <div className='coursesCardStatusControl'>
               <img src={courseImg} alt='' />
             </div>
@@ -67,10 +68,11 @@ function CompletedCoures({ item, courseName }) {
                         Complete
                       </Button>
                       <Button
+                        className='btnCertificate'
                         onClick={handleClickLocationToCertificate}
                         variant='contained'
                         color='secondary'
-                        sx={buttonConfig}>
+                        sx={buttonConfig2}>
                         Certificate
                       </Button>
                     </>

@@ -55,7 +55,7 @@ function CourseCard2({ item, setToggle }) {
         <div className='divDiscountRateTag'>
           <h1 className='divCourseName'>{courseName}</h1>
           {discountRate && (
-            <div class='discount-label red'>
+            <div className='discount-label red'>
               <span>-{discountRate}%</span>
             </div>
           )}
