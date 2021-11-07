@@ -41,7 +41,7 @@ function OurCourse() {
       try {
         const res = await axios.get('/course/byrating');
         // console.log(res);
-        // console.log('ourCourse: ', res.data.courseResult);
+        // console.log('ourCourse: ', res.data.courseResult);.
         const newArr = res.data.courseResult.map(item => {
           return {
             ...item,
@@ -53,13 +53,21 @@ function OurCourse() {
                 ? 2
                 : 3,
             category: item.CourseCats.map(item => item.Category.categoryName),
+            currentPrice: (+item.price * +item.discountRate) / 100,
+            // currentPrice: +item.price,
           };
         });
         // console.log('newArr: ', newArr);
-
+        const newArr2 = [];
+        for (let i = 0; i < newArr.length; i++) {
+          if (newArr[i].status === 'ready') {
+            newArr2.push(newArr[i]);
+          }
+        }
+        // console.log('newArr2: ', newArr2);
         setCourses(
           filterSearchByOrderBy(
-            filterSearchBySearchBar(filterByButtonSelectCourse(newArr))
+            filterSearchBySearchBar(filterByButtonSelectCourse(newArr2))
           )
         );
         // setCourses(filterByButtonSelectCourse(newArr));
@@ -72,7 +80,7 @@ function OurCourse() {
     };
     fetchDataAllCourse();
   }, [submit, orderBy, buttonSelect]);
-  // console.log('courses: ', courses);
+  console.log('courses: ', courses);
   const filterSearchBySearchBar = array => {
     return array.filter(item => {
       return item.lowerCaseCourseName.includes(submit.toLowerCase());
@@ -110,11 +118,11 @@ function OurCourse() {
       });
     } else if (orderBy === 'priceHeightToLow') {
       return array.sort((a, b) => {
-        return b.price - a.price;
+        return b.currentPrice - a.currentPrice;
       });
     } else if (orderBy === 'priceLowToHeight') {
       return array.sort((a, b) => {
-        return a.price - b.price;
+        return a.currentPrice - b.currentPrice;
       });
     } else if (orderBy === 'learner') {
       return array.sort((a, b) => {
@@ -265,7 +273,11 @@ function OurCourse() {
         </div>
         <div className='divPaginationSearch'>
           <Pagination
-            count={10}
+            count={
+              courses.length % perPage === 0
+                ? courses.length / perPage
+                : Math.floor(courses.length / perPage) + 1
+            }
             color='primary'
             value={page}
             onChange={(e, value) => setPage(value)}

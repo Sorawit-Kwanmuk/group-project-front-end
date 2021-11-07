@@ -1,8 +1,9 @@
-import { Button } from '@mui/material';
-import { buttonConfig } from '../muiConfig';
-import courseImg from '../../../../../../public/images/course.png';
-import { useHistory } from 'react-router-dom';
-import '../../styleDashBoard.css';
+import "../../styleDashBoard.css";
+import { Button } from "@mui/material";
+import { buttonConfig } from "../muiConfig";
+import courseImg from "../../../../../../public/images/course.png";
+import { useHistory } from "react-router-dom";
+
 function CompletedCoures({ item, courseName }) {
   const history = useHistory();
   const {
@@ -15,84 +16,88 @@ function CompletedCoures({ item, courseName }) {
     status,
     totalStage,
     updatedAt,
-    userId,
+    userId
   } = item;
-  console.log('itemMyPro:', item);
+  console.log("itemMyPro:", item);
   const handleClickLocationToCertificate = () => {
     history.push({
       pathname: `/certificate/`,
       state: {
-        item,
-      },
+        item
+      }
     });
   };
   const handleClickLinkToClassroom = () => {
     history.push({
       pathname: `/classroom-i-learn/${item.id}`,
       state: {
-        item,
-      },
+        item
+      }
     });
   };
   return (
     <>
-      {status === 'completed' && (
+      {status === "completed" && (
         <>
           <div
-            className='divCoursesCardStatus'
-            onClick={handleClickLinkToClassroom}>
-            <div className='coursesCardStatusControl'>
-              <img src={courseImg} alt='' />
+            className="divCoursesCardStatus"
+            onClick={handleClickLinkToClassroom}
+          >
+            <div className="coursesCardStatusControl">
+              <img src={courseImg} alt="" />
             </div>
-            <div className='coursesCardStatusDetail'>
-              <div className='coursesCardStatusDetailTop'>
-                <div className='coursesCardStatusDetailTopH4'>
+            <div className="coursesCardStatusDetail">
+              <div className="coursesCardStatusDetailTop">
+                <div className="coursesCardStatusDetailTopH4">
                   <h4>{courseName}</h4>
                 </div>
                 <div>
-                  {status === 'incompleted' && (
+                  {status === "incompleted" && (
                     <Button
-                      variant='contained'
-                      color='primary'
-                      sx={buttonConfig}>
+                      variant="contained"
+                      color="primary"
+                      sx={buttonConfig}
+                    >
                       Active
                     </Button>
                   )}
-                  {status === 'completed' && (
+                  {status === "completed" && (
                     <>
                       <Button
-                        variant='contained'
-                        color='success'
-                        sx={buttonConfig}>
+                        variant="contained"
+                        color="success"
+                        sx={buttonConfig}
+                      >
                         Complete
                       </Button>
                       <Button
                         onClick={handleClickLocationToCertificate}
-                        variant='contained'
-                        color='secondary'
-                        sx={buttonConfig}>
+                        variant="contained"
+                        color="secondary"
+                        sx={buttonConfig}
+                      >
                         Certificate
                       </Button>
                     </>
                   )}
                 </div>
               </div>
-              <div className='coursesCardStatusDetailBottom'>
-                <div className='bottomCardDetail'>
+              <div className="coursesCardStatusDetailBottom">
+                <div className="bottomCardDetail">
                   <p>total Lessons: </p>
                   <span>{totalStage}</span>
                 </div>
-                <div className='bottomCardDetail'>
+                <div className="bottomCardDetail">
                   <p>Completed</p>&nbsp;
                   <p>Lessons:</p>
                   <span>
                     {currentStage}/{totalStage}
                   </span>
                 </div>
-                <div className='bottomCardDetail'>
+                <div className="bottomCardDetail">
                   <span>
-                    {((currentStage / totalStage) * 100).toFixed(0) === NaN
-                      ? '0'
+                    {isNaN(((currentStage / totalStage) * 100).toFixed(0))
+                      ? "0"
                       : ((currentStage / totalStage) * 100).toFixed(0)}
                     %
                   </span>

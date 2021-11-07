@@ -1,8 +1,9 @@
+import "../../styleDashBoard.css";
 import { Button } from "@mui/material";
 import { buttonConfig } from "../muiConfig";
 import courseImg from "../../../../../../public/images/course.png";
 import { useHistory } from "react-router-dom";
-import "../../styleDashBoard.css";
+
 function IncompletedCourse({ item, courseName }) {
   const history = useHistory();
   const {
@@ -15,14 +16,14 @@ function IncompletedCourse({ item, courseName }) {
     status,
     totalStage,
     updatedAt,
-    userId,
+    userId
   } = item;
   const handleClickLinkToClassroom = () => {
     history.push({
       pathname: `/classroom-i-learn/${item.courseId}`,
       state: {
-        item,
-      },
+        item
+      }
     });
   };
 
@@ -88,7 +89,7 @@ function IncompletedCourse({ item, courseName }) {
                 </div>
                 <div className="bottomCardDetail">
                   <span>
-                    {((currentStage / totalStage) * 100).toFixed(0) === NaN
+                    {isNaN(((currentStage / totalStage) * 100).toFixed(0))
                       ? "0"
                       : ((currentStage / totalStage) * 100).toFixed(0)}
                     %

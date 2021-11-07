@@ -27,7 +27,12 @@ function InstructorCardDetail() {
   const params = useParams();
   const location = useLocation();
 
-  // console.log('location', location.state);
+  // console.log('location', location.state.instructor);
+  useEffect(() => {
+    const newArr = location.state.instructor;
+
+    // console.log('newArr: ', newArr);
+  }, [toggle]);
   useEffect(() => {
     const fetchDataInstructorById = async () => {
       try {
@@ -47,7 +52,15 @@ function InstructorCardDetail() {
         // console.log(`response3`, response3.data);
         // console.log('response3', response3.data);
         setInstructor(response.data.instructorResult);
-        setInstructorTopics(response2.data.result);
+        const newArr3 = response2.data.result;
+        const newArr2 = [];
+        for (let i = 0; i < newArr3.length; i++) {
+          if (newArr3[i].Course.status === "ready") {
+            newArr2.push(newArr3[i]);
+          }
+        }
+        // console.log('newArr2', newArr2);
+        setInstructorTopics(newArr2);
         setInstructorByInsId(newArr);
         // console.log('res: ', response.data.instructorResult);
         console.log(`instructorTopics`, instructorTopics);

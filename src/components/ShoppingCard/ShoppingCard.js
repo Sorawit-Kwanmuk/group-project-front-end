@@ -28,6 +28,7 @@ function ShoppingCard() {
   const [alignment, setAlignment] = useState("web");
   const [shoppingCard, setShoppingCard] = useState([]);
   const [shoppingCardTopic, setShoppingCardTopic] = useState([]);
+  const [instructors, setInstructors] = useState([]);
   const [allComment, setAllComment] = useState([]);
   const [i, setI] = useState(3);
   const [courseCatOne, setCourseCatOne] = useState([]);
@@ -99,9 +100,17 @@ function ShoppingCard() {
         // console.log('response: ', response.data.courseResult.id);
         // console.log('shoppingCard: ', shoppingCard.Topics);
         // console.log(Array.isArray(response.data.courseResult.Topics));
-        setShoppingCardTopic(
-          response.data.courseResult.Topics.map(item => item)
+        // console.log("response: ", response.data.courseResult);
+        setShoppingCardTopic(response.data.courseResult.Topics);
+        const fetchInstructor = response.data.courseResult.Topics.reduce(
+          (acc, item) => {
+            const idx = acc.findIndex(i => item.Instructor.id === i.id);
+            if (idx === -1) acc.push(item.Instructor);
+            return acc;
+          },
+          []
         );
+        setInstructors(fetchInstructor);
 
         const newArr = response3.data.result.map(item => item.categoryId);
         console.log("newArr", newArr);
@@ -165,6 +174,7 @@ function ShoppingCard() {
         className="divMainHeaderShoppingCard"
         style={{
           backgroundImage: `url(${shoppingCardBanner})`,
+          backgroundSize: "cover",
         }}
       >
         <div className="textOnShoppingCardBannerControl">
@@ -204,15 +214,9 @@ function ShoppingCard() {
       <div className="grayLine"></div>
       <div className="divInstructorController">
         <h4 className="aboutThisCourseH4">Instructor</h4>
-        {shoppingCardTopic
-          ?.filter((item, index) => index < 4)
-          .map(item => (
-            <InstructorCard
-              key={item.id}
-              item={item}
-              setToggleShop={setToggle}
-            />
-          ))}
+        {instructors?.map(item => (
+          <InstructorCard key={item.id} item={item} setToggleShop={setToggle} />
+        ))}
       </div>
       <div className="grayLine"></div>
       <div id="SyllabusCourseContent" className="divSyllabusCourseContent">
@@ -235,8 +239,8 @@ function ShoppingCard() {
           </div>
           <div className="divRightStudentFeedback">
             <div className="barRating">
-              {eachRating.map(item => (
-                <BarRating item={item} sumRating={sumRating} />
+              {eachRating.map((item, idx) => (
+                <BarRating key={idx} item={item} sumRating={sumRating} />
               ))}
             </div>
           </div>

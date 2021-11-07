@@ -8,7 +8,6 @@
   justify-content: center;
 }
 
-
 /* .css-10hburv-MuiTypography-root {
     text-align: center;
     color: #03045E;
@@ -27,13 +26,15 @@
     /* left: 90%; */
 /* } */
 
-*/ .divLessonList>h3 {
+*/ .divLessonList > h3 {
   text-align: center;
-  background-color: #03045E;
-  color: #fff
+  background-color: #03045e;
+  color: #fff;
 }
 
 .ClassroomILearnH3 {
+  text-align: center;
+  color: white;
   background-color: #03045e;
   width: 100%;
   margin: 0px;

@@ -9,7 +9,7 @@ import CompletedCoures from "./CompletedCoures/CompletedCoures";
 function CoursesCardStatus({ item, alignment }) {
   const [courseName, setCourseName] = useState("");
   const { id, status } = item.Course;
-  console.log("item: ", item);
+  // console.log("item: ", item);
   // console.log('status', status);
   useEffect(() => {
     const fetchDataCourseName = async () => {
@@ -27,7 +27,7 @@ function CoursesCardStatus({ item, alignment }) {
   // console.log('alignment', alignment);
   // console.log('courseName', courseName);
   return (
-    <>
+    <div className="Card--margin">
       {alignment === "1" && (
         <>
           <IncompletedCourse item={item} courseName={courseName} />
@@ -44,7 +44,7 @@ function CoursesCardStatus({ item, alignment }) {
           <CompletedCoures item={item} courseName={courseName} />
         </>
       )}
-    </>
+    </div>
   );
 }
 
