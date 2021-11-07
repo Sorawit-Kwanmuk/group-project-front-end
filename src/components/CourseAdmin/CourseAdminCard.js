@@ -52,6 +52,7 @@ function CourseAdminCard({ list, setCourseList }) {
   const [about, setAbout] = useState(list.about);
   const [status, setStatus] = useState(list.status);
   console.log(`new cat id --->`, categoryId);
+  console.log(`status---->`, status);
 
   const [edit, setEdit] = useState(0);
 
@@ -71,15 +72,15 @@ function CourseAdminCard({ list, setCourseList }) {
     // setCat({ id: item.Category.id, name: item.Category.categoryName });
     return { id: item.Category.id, name: item.Category.categoryName };
   });
-  console.log(`cat`, catMap);
+  // console.log(`cat`, catMap);
 
-  console.log(`mapCatId`, mapCatId);
+  // console.log(`mapCatId`, mapCatId);
 
   const mapCatName = catMap.map(item => {
     return item.Category.categoryName;
   });
 
-  console.log(`cat___Map ------->`, mapCatName.id);
+  // console.log(`cat___Map ------->`, mapCatName.id);
   // console.log(`cat___Map____Name ------->`, list);
 
   // const handleChange = event => {
@@ -130,7 +131,7 @@ function CourseAdminCard({ list, setCourseList }) {
       e.preventDefault();
       console.log(`itemId`, itemId);
       const res = await axios.delete(`/courseCat/${list.id}/${itemId}`);
-      console.log(`deleteRes--->`, res);
+      // console.log(`deleteRes--->`, res);
       alert("delete Category Successful");
       window.location.reload();
     } catch (error) {
@@ -146,8 +147,14 @@ function CourseAdminCard({ list, setCourseList }) {
     } else {
       setStatus("notReady");
     }
-    const res = await axios.put(`/course/${list.id}`, { status });
-    console.log(`res ---->`, res);
+
+    console.log(`status after click`, status);
+    const res = await axios.put(`/course/status/${list.id}`, {
+      status: status,
+    });
+    // console.log(`res ---->`, res);
+
+    // window.location.reload();
   };
 
   const handleDelete = async e => {
@@ -308,6 +315,7 @@ function CourseAdminCard({ list, setCourseList }) {
                             height: "35px",
                             // marginLeft: "-27px",
                           }}
+                          onClick={handleStatus}
                         >
                           Status : Not Publish
                         </Button>
@@ -318,6 +326,7 @@ function CourseAdminCard({ list, setCourseList }) {
                           color="success"
                           size="large"
                           fullWidth
+                          onClick={handleStatus}
                         >
                           Status : Publish !
                         </Button>
@@ -537,31 +546,7 @@ function CourseAdminCard({ list, setCourseList }) {
                           onChange={e => setImage(e.target.files[0])}
                         />
                       </Grid>
-                      <Grid xs={12} item>
-                        {status === "notReady" ? (
-                          <Button
-                            type="submit"
-                            variant="contained"
-                            color="warning"
-                            size="large"
-                            fullWidth
-                            onClick={handleStatus}
-                          >
-                            Status : Not Publish
-                          </Button>
-                        ) : (
-                          <Button
-                            type="submit"
-                            variant="contained"
-                            color="success"
-                            size="large"
-                            fullWidth
-                            onClick={handleStatus}
-                          >
-                            Status : Publish !
-                          </Button>
-                        )}
-                      </Grid>
+                      <Grid xs={12} item></Grid>
                     </Grid>
                   </Grid>
 

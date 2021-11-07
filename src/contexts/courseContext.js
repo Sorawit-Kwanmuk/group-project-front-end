@@ -5,8 +5,8 @@ const CourseContext = createContext();
 function CourseContextProvider({ children }) {
   const [courseByRating, setCourseByRating] = useState([]);
   const [courseByPromotion, setCourseByPromotion] = useState([]);
-  //   console.log('courseByRating: ', courseByRating);
-  //   console.log('courseByPromotion: ', courseByPromotion);
+  console.log("courseByRating: ", courseByRating);
+  console.log("courseByPromotion: ", courseByPromotion);
   useEffect(() => {
     const fetchDataAllCourseForHome = async () => {
       try {
@@ -27,7 +27,7 @@ function CourseContextProvider({ children }) {
         courseByRating,
         setCourseByRating,
         courseByPromotion,
-        setCourseByPromotion
+        setCourseByPromotion,
       }}
     >
       {children}
