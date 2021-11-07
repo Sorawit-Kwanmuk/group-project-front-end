@@ -1,20 +1,20 @@
-import './styleInstructorCard.css';
-import ShoppingCardBanner from '../../public/images/shoppingCard.png';
-import Button from '@mui/material/Button';
-import InstructorCard from '../InstructorCard/InstructorCard';
-import CourseCard from '../CourseCard/CourseCard';
-import { Avatar } from '@mui/material';
-import { imageConfig, buttonConfig2 } from './muiConfig';
-import { useContext, useEffect, useState } from 'react';
-import Instructor from '../../public/images/Instructor.png';
-import AreaOfExpertiseTag from './AreaOfExpertiseTag/AreaOfExpertiseTag';
-import { useLocation, useParams } from 'react-router-dom';
-import axios from '../../config/axios';
-import { ToggleContext } from '../../contexts/toggleContext';
-import DummyHeaderLocation from './DummyHeader/DummyHeaderLocation';
-import DummyHeaderInst from './DummyHeader/DummyHeaderInst';
+import "./styleInstructorCard.css";
+import ShoppingCardBanner from "../../public/images/shoppingCard.png";
+import Button from "@mui/material/Button";
+import InstructorCard from "../InstructorCard/InstructorCard";
+import CourseCard from "../CourseCard/CourseCard";
+import { Avatar } from "@mui/material";
+import { imageConfig, buttonConfig2 } from "./muiConfig";
+import { useContext, useEffect, useState } from "react";
+import Instructor from "../../public/images/Instructor.png";
+import AreaOfExpertiseTag from "./AreaOfExpertiseTag/AreaOfExpertiseTag";
+import { useLocation, useParams } from "react-router-dom";
+import axios from "../../config/axios";
+import { ToggleContext } from "../../contexts/toggleContext";
+import DummyHeaderLocation from "./DummyHeader/DummyHeaderLocation";
+import DummyHeaderInst from "./DummyHeader/DummyHeaderInst";
 function InstructorCardDetail() {
-  const [image, setImage] = useState({ profileImage: '' });
+  const [image, setImage] = useState({ profileImage: "" });
   const [instructor, setInstructor] = useState({});
   const [instructorByInsId, setInstructorByInsId] = useState([]);
   const [instructorTopics, setInstructorTopics] = useState([]);
@@ -37,11 +37,20 @@ function InstructorCardDetail() {
         const newArr = location.state.instructor.InstructorCats.map(
           item => item.categoryId
         );
-        console.log('response3', response3.data);
+
+        const mapInsCourse = response2.data.result.map(item => item.Course);
+
+        // console.log(`mapInsCourse`, mapInsCourse);
+
+        // console.log(`response`, response.data);
+        // console.log(`response2`, response2.data.Course);
+        // console.log(`response3`, response3.data);
+        // console.log('response3', response3.data);
         setInstructor(response.data.instructorResult);
         setInstructorTopics(response2.data.result);
         setInstructorByInsId(newArr);
         // console.log('res: ', response.data.instructorResult);
+        console.log(`instructorTopics`, instructorTopics);
         if (newArr.includes(1)) {
           const response4 = await axios.get(`/insCat/bycat/${1}`);
           setInstructorFront(response4.data.result);
@@ -55,7 +64,6 @@ function InstructorCardDetail() {
         if (newArr.includes(3)) {
           const response6 = await axios.get(`/insCat/bycat/${3}`);
           setInstructorUxUi(response6.data.result);
-          // console.log('response6', response6.data.result);
         }
         setToggle(currentToggle => !currentToggle);
         setFirstLoad(true);
@@ -65,9 +73,9 @@ function InstructorCardDetail() {
     };
     fetchDataInstructorById();
   }, [params.id, location.state.instructor]);
-
+  console.log(`instructorFront`, instructorFront);
   const handleClickToWebsite = () => {
-    window.open(instructor.website, '_blank');
+    window.open(instructor.website, "_blank");
   };
   const handleClickSeeMore = () => {
     setI(i + 3);
@@ -76,105 +84,123 @@ function InstructorCardDetail() {
     window.location.href = `mailto:${instructor.email}?subject=Offer Inquiry&cc=support@email.com&bcc=info@company.com&body=test mail send massage`;
   };
   // console.log('location', location.state.instructor.InstructorCats);
-  console.log('location', location);
-  // console.log('instructorFront: ', instructorFront);
-  // console.log('instructorBack: ', instructorBack);
-  // console.log('instructorUxUi: ', instructorUxUi);
+  console.log("location", location);
+  console.log("instructorFront: ", instructorFront);
+  console.log("instructorBack: ", instructorBack);
+  console.log("instructorUxUi: ", instructorUxUi);
   // console.log('instructorTopics: ', instructorTopics);
   return (
-    <div className='divMainInstructorCardController'>
+    <div className="divMainInstructorCardController">
       {/* <DummyHeaderInst item={instructor} setImage={setImage} /> */}
       <DummyHeaderInst item={location.state} setImage={setImage} />
 
-      <div className='InstructorCardContent'>
-        <div className='InstructorCardContentLeft'>
-          <div className='aboutThisMeControl'>
-            <h4 className='aboutThisMeH4'>About Me</h4>
-            <p className='aboutThisMeP'>{instructor.about}</p>
+      <div className="InstructorCardContent">
+        <div className="InstructorCardContentLeft">
+          <div className="aboutThisMeControl">
+            <h4 className="aboutThisMeH4">About Me</h4>
+            <p className="aboutThisMeP">{instructor.about}</p>
           </div>
-          <div className='grayLine'></div>
-          <div className='divMoreFrontEndCourse'>
-            <div className='divMoreFrontEndCourseHeader'>
-              <h4 className='aboutThisMeH4'>My Course</h4>
+          <div className="grayLine"></div>
+          <div className="divMoreFrontEndCourse">
+            <div className="divMoreFrontEndCourseHeader">
+              <h4 className="aboutThisMeH4">My Course</h4>
             </div>
-            <div className='InstructorCardCourseCardControl'>
+            <div className="InstructorCardCourseCardControl">
               {instructorTopics
                 ?.filter((item, index) => index < i)
+                .filter(item => item.Course !== null)
                 .map(item => (
                   <CourseCard key={item.id} item={item} />
                 ))}
             </div>
 
-            <div className='SeeMoreControl'>
-              <p className='SeeMoreP' onClick={handleClickSeeMore}>
+            <div className="SeeMoreControl">
+              <p className="SeeMoreP" onClick={handleClickSeeMore}>
                 {`<-- See More -->`}
               </p>
             </div>
           </div>
-          <div className='grayLine'></div>
-          {instructorFront.length !== 0 && (
-            <div className='divMoreFrontEndInstructor'>
-              <h4 className='aboutThisMeH4'>More Front - End Instructor</h4>
-              {location.state.instructorFront
+          <div className="grayLine"></div>
+          {instructorFront
+            .filter(item => item.instructorId !== instructor.id)
+            .filter(item => item.Instructor !== null).length !== 0 && (
+            <div className="divMoreFrontEndInstructor">
+              <h4 className="aboutThisMeH4">More Front - End Instructor</h4>
+              {/* {location.state.instructorFront */}
+              {instructorFront
                 ?.filter((item, index) => index < 4)
+                .filter(item => item.Instructor !== null)
+                .filter(item => item.instructorId !== instructor.id)
                 .map(item => (
                   <InstructorCard key={item.id} item={item} />
                 ))}
             </div>
           )}
-          {location.state.instructorBack.length !== 0 && (
-            <div className='divMoreFrontEndInstructor'>
-              <h4 className='aboutThisMeH4'>More Back - End Instructor</h4>
-              {location.state.instructorBack
+          {instructorBack
+            .filter(item => item.Instructor !== null)
+            .filter(item => item.instructorId !== instructor.id).length !==
+            0 && (
+            <div className="divMoreFrontEndInstructor">
+              <h4 className="aboutThisMeH4">More Back - End Instructor</h4>
+              {instructorBack
                 ?.filter((item, index) => index < 4)
+                .filter(item => item.Instructor !== null)
+                .filter(item => item.instructorId !== instructor.id)
                 .map(item => (
                   <InstructorCard key={item.id} item={item} />
                 ))}
             </div>
           )}
-          {location.state.instructorUxUi.length !== 0 && (
-            <div className='divMoreFrontEndInstructor'>
-              <h4 className='aboutThisMeH4'>More UX/UI Instructor</h4>
+          {instructorUxUi
+            .filter(item => item.Instructor !== null)
+            .filter(item => item.instructorId !== instructor.id).length !==
+            0 && (
+            <div className="divMoreFrontEndInstructor">
+              <h4 className="aboutThisMeH4">More UX/UI Instructor</h4>
               {instructorUxUi
                 ?.filter((item, index) => index < 4)
+                .filter(item => item.Instructor !== null)
+                .filter(item => item.instructorId !== instructor.id)
                 .map(item => (
                   <InstructorCard key={item.id} item={item} />
                 ))}
             </div>
           )}
         </div>
-        <div className='InstructorCardContentRight'>
-          <h4 className='aboutThisMeH4'>Area of Expertise</h4>
-          <div className='AreaOfExpertiseTagController'>
+        <div className="InstructorCardContentRight">
+          <h4 className="aboutThisMeH4">Area of Expertise</h4>
+          <div className="AreaOfExpertiseTagController">
             <AreaOfExpertiseTag />
             <AreaOfExpertiseTag />
             <AreaOfExpertiseTag />
             <AreaOfExpertiseTag />
           </div>
-          <div className='grayLineRight'></div>
-          <div className='InstructorCardContentRightButton'>
+          <div className="grayLineRight"></div>
+          <div className="InstructorCardContentRightButton">
             <Button
               sx={buttonConfig2}
-              variant='contained'
-              onClick={handleClickToWebsite}>
+              variant="contained"
+              onClick={handleClickToWebsite}
+            >
               Website
             </Button>
             <Button
               sx={buttonConfig2}
-              variant='contained'
-              onClick={handleClickToEmail}>
+              variant="contained"
+              onClick={handleClickToEmail}
+            >
               Email
             </Button>
-            <Button sx={buttonConfig2} variant='contained'>
+            <Button sx={buttonConfig2} variant="contained">
               Facebook
             </Button>
-            <Button sx={buttonConfig2} variant='contained'>
+            <Button sx={buttonConfig2} variant="contained">
               Youtube
             </Button>
-            <Button sx={buttonConfig2} variant='contained'>
+            <Button sx={buttonConfig2} variant="contained">
               LinkedIn
             </Button>
-            <Button sx={buttonConfig2} variant='contained'>
+            <Button sx={buttonConfig2} variant="contained">
               Twitter
             </Button>
           </div>

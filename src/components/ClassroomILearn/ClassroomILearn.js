@@ -17,22 +17,27 @@ import NevBarLeftList from "./NevBarLeftList/NevBarLeftList";
 import ContentRightClass from "./ContentRightClass/ContentRightClass";
 import { useEffect, useState } from "react";
 import axios from "../../config/axios";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router-dom";
 
 function ClassroomILearn() {
   const param = useParams();
+  const history = useHistory();
   const [topicArr, setTopicArr] = useState([]);
   const [rightIframeOn, setRightIframeOn] = useState(false);
   const [vdoLink, setVdoLink] = useState(null);
   const [questions, setQuestions] = useState([]);
   const [quizId, setQuizId] = useState(null);
   const [currentStage, setCurrentStage] = useState(0);
-
+  console.log(`history`, history);
   console.log(`quiz.id in class`, topicArr);
   // console.log("@param:", param.id);
   // console.log("@topicArr:", topicArr);
   // console.log("@vdoLink:", vdoLink);
   // console.log("@questions:", questions);
+
+  const recievedData = history.location.state.item;
+
+  console.log(`recievedDataa`, recievedData);
 
   useEffect(() => {
     const getLeftLists = async () => {
@@ -70,6 +75,7 @@ function ClassroomILearn() {
             currentStage={currentStage}
             setCurrentStage={setCurrentStage}
             topicLen={topicArr.length}
+            recievedData={recievedData}
           />
         ))}
       </div>
@@ -80,6 +86,7 @@ function ClassroomILearn() {
             questions={questions}
             quizId={quizId}
             currentStage={currentStage}
+            recievedData={recievedData}
           />
         ) : (
           <>

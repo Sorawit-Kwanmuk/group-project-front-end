@@ -1,49 +1,49 @@
-import './styleInstructorEdit.css';
-import Button from '@mui/material/Button';
-import InstructorCard from '../InstructorCard/InstructorCard';
-import { Avatar, TextField } from '@mui/material';
+import "./styleInstructorEdit.css";
+import Button from "@mui/material/Button";
+import InstructorCard from "../InstructorCard/InstructorCard";
+import { Avatar, TextField } from "@mui/material";
 import {
   imageConfig,
   buttonConfig2,
   buttonConfig3,
   textFieldConfig2,
-} from './muiConfig';
-import { useContext, useEffect, useState } from 'react';
+} from "./muiConfig";
+import { useContext, useEffect, useState } from "react";
 
-import AreaOfExpertiseTag from './AreaOfExpertiseTag/AreaOfExpertiseTag';
-import { useLocation, useParams, useHistory } from 'react-router-dom';
-import axios from '../../config/axios';
+import AreaOfExpertiseTag from "./AreaOfExpertiseTag/AreaOfExpertiseTag";
+import { useLocation, useParams, useHistory } from "react-router-dom";
+import axios from "../../config/axios";
 
-import DummyHeaderInst from './DummyHeader/DummyHeaderInst';
-import { CategoryContext } from '../../contexts/categoryContext';
-import CourseCard from '../CourseCard/CourseCard';
-import { ToggleContext } from '../../contexts/toggleContext';
+import DummyHeaderInst from "./DummyHeader/DummyHeaderInst";
+import { CategoryContext } from "../../contexts/categoryContext";
+import CourseCard from "../CourseCard/CourseCard";
+import { ToggleContext } from "../../contexts/toggleContext";
 function InstructorEdit() {
   const [i, setI] = useState(3);
   const handleClickSeeMore = () => {
     setI(i + 3);
   };
   const location = useLocation();
-  console.log('location', location.state.instructor.id);
+  console.log("location", location.state.instructor.id);
   const [instructor, setInstructor] = useState({});
   const [courses, setCourses] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [instructorEdit, setInstructorEdit] = useState({
-    fullName: '',
-    jobTitle: '',
-    about: '',
+    fullName: "",
+    jobTitle: "",
+    about: "",
     expertise: [],
     category: [],
-    website: '',
-    email: '',
-    facebook: '',
-    youtube: '',
-    linkedin: '',
-    twitter: '',
-    profileImage: '',
-    profileImageName: '',
+    website: "",
+    email: "",
+    facebook: "",
+    youtube: "",
+    linkedin: "",
+    twitter: "",
+    profileImage: "",
+    profileImageName: "",
   });
-  console.log('instructorEdit: ', instructorEdit);
+  console.log("instructorEdit: ", instructorEdit);
   const params = useParams();
   const history = useHistory();
   useEffect(() => {
@@ -57,7 +57,7 @@ function InstructorEdit() {
         }`
       );
       console.log(
-        'response.data.instructorResult: ',
+        "response.data.instructorResult: ",
         response.data.instructorResult
       );
       setInstructor(response.data.instructorResult);
@@ -69,18 +69,18 @@ function InstructorEdit() {
   const handleSubmitUpdateInstructor = async e => {
     e.preventDefault();
     const data = new FormData();
-    data.append('fullName', instructorEdit.fullName);
-    data.append('jobTitle', instructorEdit.jobTitle);
-    data.append('about', instructorEdit.about);
-    data.append('expertise', instructorEdit.expertise);
+    data.append("fullName", instructorEdit.fullName);
+    data.append("jobTitle", instructorEdit.jobTitle);
+    data.append("about", instructorEdit.about);
+    data.append("expertise", instructorEdit.expertise);
     // data.append('category', instructorEdit.category);
-    data.append('website', instructorEdit.website);
-    data.append('email', instructorEdit.email);
-    data.append('facebook', instructorEdit.facebook);
-    data.append('youtube', instructorEdit.youtube);
-    data.append('linkedin', instructorEdit.linkedin);
-    data.append('twitter', instructorEdit.twitter);
-    data.append('thisisinput', instructorEdit.profileImage);
+    data.append("website", instructorEdit.website);
+    data.append("email", instructorEdit.email);
+    data.append("facebook", instructorEdit.facebook);
+    data.append("youtube", instructorEdit.youtube);
+    data.append("linkedin", instructorEdit.linkedin);
+    data.append("twitter", instructorEdit.twitter);
+    data.append("thisisinput", instructorEdit.profileImage);
     try {
       const response = await axios.put(
         `/instructor/${
@@ -92,16 +92,16 @@ function InstructorEdit() {
       );
       setToggle(current => !current);
       history.push(`/our-team-admin`);
-      console.log('response', response);
+      console.log("response", response);
     } catch (error) {
       console.log(error);
     }
   };
   return (
-    <div className='divMainInstructorEditController'>
-      <form action='' onSubmit={handleSubmitUpdateInstructor}>
-        <div className='divH2InstructorEdit'>
-          <h2 className='InstructorEditH2'>Instructor Edit System</h2>
+    <div className="divMainInstructorEditController">
+      <form action="" onSubmit={handleSubmitUpdateInstructor}>
+        <div className="divH2InstructorEdit">
+          <h2 className="InstructorEditH2">Instructor Edit System</h2>
         </div>
         {/* <DummyHeaderInst item={instructor} setImage={setImage} /> */}
         <DummyHeaderInst
@@ -112,14 +112,14 @@ function InstructorEdit() {
           setToggle2={setToggle}
         />
 
-        <div className='InstructorEditContent'>
-          <div className='InstructorEditContentLeft'>
-            <div className='aboutThisMeControl'>
-              <h4 className='aboutThisMeH4'>About Me</h4>
+        <div className="InstructorEditContent">
+          <div className="InstructorEditContentLeft">
+            <div className="aboutThisMeControl">
+              <h4 className="aboutThisMeH4">About Me</h4>
               <TextField
-                id='outlined-multiline-static'
+                id="outlined-multiline-static"
                 sx={buttonConfig3}
-                label='About ( Max. 500 Character)'
+                label="About ( Max. 500 Character)"
                 onChange={e =>
                   setInstructorEdit({
                     ...instructorEdit,
@@ -132,36 +132,38 @@ function InstructorEdit() {
                 rows={6}
               />
             </div>
-            <div className='grayLine'></div>
-            <div className='divMoreFrontEndCourse'>
-              <div className='divMoreFrontEndCourseHeader'>
-                <h4 className='aboutThisMeH4'>My Course</h4>
+            <div className="grayLine"></div>
+            <div className="divMoreFrontEndCourse">
+              <div className="divMoreFrontEndCourseHeader">
+                <h4 className="aboutThisMeH4">My Course</h4>
               </div>
-              <div className='InstructorEditCourseCardControl'>
+              <div className="InstructorEditCourseCardControl">
                 {courses
                   ?.filter((item, index) => index < i)
+                  .filter(item => item.Course !== null)
                   .map(item => (
                     <CourseCard key={item.id} item={item} />
                   ))}
               </div>
 
-              <div className='SeeMoreControl'>
+              <div className="SeeMoreControl">
                 <p
-                  className='SeeMoreP'
-                  style={{ marginBottom: '10px' }}
-                  onClick={handleClickSeeMore}>
+                  className="SeeMoreP"
+                  style={{ marginBottom: "10px" }}
+                  onClick={handleClickSeeMore}
+                >
                   {`<-- See More -->`}
                 </p>
               </div>
             </div>
           </div>
-          <div className='InstructorEditContentRight'>
-            <h4 className='aboutThisMeH4'>Area of Expertise</h4>
-            <div className='AreaOfExpertiseTagController'>
+          <div className="InstructorEditContentRight">
+            <h4 className="aboutThisMeH4">Area of Expertise</h4>
+            <div className="AreaOfExpertiseTagController">
               <TextField
-                id='outlined-multiline-static'
-                sx={(buttonConfig3, { width: '80%' })}
-                label='Expertise ( Max. 100 Character)'
+                id="outlined-multiline-static"
+                sx={(buttonConfig3, { width: "80%" })}
+                label="Expertise ( Max. 100 Character)"
                 value={instructorEdit.expertise}
                 shrink={true}
                 onChange={e =>
@@ -174,13 +176,13 @@ function InstructorEdit() {
                 rows={6}
               />
             </div>
-            <div className='grayLineRight'></div>
+            <div className="grayLineRight"></div>
             <TextField
-              id='outlined-basic'
-              label='Website'
+              id="outlined-basic"
+              label="Website"
               sx={textFieldConfig2}
-              size='small'
-              variant='outlined'
+              size="small"
+              variant="outlined"
               value={instructorEdit.website}
               shrink={true}
               onChange={e =>
@@ -191,11 +193,11 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id='outlined-basic'
-              label='Email'
+              id="outlined-basic"
+              label="Email"
               sx={textFieldConfig2}
-              size='small'
-              variant='outlined'
+              size="small"
+              variant="outlined"
               value={instructorEdit.email}
               shrink={true}
               onChange={e =>
@@ -206,11 +208,11 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id='outlined-basic'
-              label='Facebook'
+              id="outlined-basic"
+              label="Facebook"
               sx={textFieldConfig2}
-              size='small'
-              variant='outlined'
+              size="small"
+              variant="outlined"
               value={instructorEdit.facebook}
               shrink={true}
               onChange={e =>
@@ -221,13 +223,13 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id='outlined-basic'
-              label='Youtube'
+              id="outlined-basic"
+              label="Youtube"
               sx={textFieldConfig2}
               value={instructorEdit.youtube}
               shrink={true}
-              size='small'
-              variant='outlined'
+              size="small"
+              variant="outlined"
               onChange={e =>
                 setInstructorEdit({
                   ...instructorEdit,
@@ -236,13 +238,13 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id='outlined-basic'
+              id="outlined-basic"
               value={instructorEdit.linkedin}
               shrink={true}
-              label='Linkedin'
+              label="Linkedin"
               sx={textFieldConfig2}
-              size='small'
-              variant='outlined'
+              size="small"
+              variant="outlined"
               onChange={e =>
                 setInstructorEdit({
                   ...instructorEdit,
@@ -251,13 +253,13 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id='outlined-basic'
-              label='Twitter'
+              id="outlined-basic"
+              label="Twitter"
               sx={textFieldConfig2}
               value={instructorEdit.twitter}
               shrink={true}
-              size='small'
-              variant='outlined'
+              size="small"
+              variant="outlined"
               onChange={e =>
                 setInstructorEdit({
                   ...instructorEdit,
@@ -266,8 +268,8 @@ function InstructorEdit() {
               }
             />
 
-            <div className='InstructorEditContentRightButton'>
-              <Button type='submit' variant='contained' sx={{ width: '50%' }}>
+            <div className="InstructorEditContentRightButton">
+              <Button type="submit" variant="contained" sx={{ width: "50%" }}>
                 Save
               </Button>
             </div>

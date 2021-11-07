@@ -27,6 +27,7 @@ function NevBarLeftList({
   currentStage,
   setCurrentStage,
   topicLen,
+  recievedData,
 }) {
   const [open, setOpen] = useState(false);
   const [view, setView] = useState("list");
@@ -34,13 +35,17 @@ function NevBarLeftList({
   const [quizArr, setQuizArr] = useState([]);
   const [currentStatus, setCurrentStatus] = useState("incompleted");
 
-  console.log(`arrIndex`, arrIndex);
+  // console.log(`arrIndex`, arrIndex);
+
+  const leftMyID = recievedData.id;
+
+  // console.log(`recievedData ID in left -->`, leftMyID);
 
   const param = useParams();
   const history = useHistory();
 
-  console.log("@subInArrLeft:", subArr);
-  console.log("@quizInArrLeft:", quizArr);
+  // console.log("@subInArrLeft:", subArr);
+  // console.log("@quizInArrLeft:", quizArr);
 
   useEffect(() => {
     const getLeftLists = async () => {
@@ -61,9 +66,9 @@ function NevBarLeftList({
 
   useEffect(() => {
     axios
-      .get(`/mycourse/my/${param.id}`)
+      .get(`/mycourse/my/${leftMyID}`)
       .then(res => {
-        console.log("@myCourse:", res.data);
+        // console.log("@myCourse:", res.data);
         setCurrentStage(res.data.result.currentStage);
         setCurrentStatus(res.data.result.status);
       })

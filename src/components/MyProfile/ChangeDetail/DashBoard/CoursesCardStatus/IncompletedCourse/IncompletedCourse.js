@@ -27,6 +27,7 @@ function IncompletedCourse({ item, courseName }) {
   };
 
   console.log(`item.courseId`, item.courseId);
+  console.log(`incompleted - item ----->`, item);
   return (
     <>
       {status === "incompleted" && (

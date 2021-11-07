@@ -12,6 +12,7 @@ function DashBoard() {
   );
   const [courseData, setCourseData] = useState([]);
   const [courseStatus, setCourseStatus] = useState([]);
+
   // console.log('locationDash: ', location);
   const handleAlignment = (event, newAlignment) => {
     if (newAlignment !== null) {
@@ -22,7 +23,7 @@ function DashBoard() {
     const fetchDataAllMyCourses = async () => {
       try {
         const response = await axios.get("/mycourse/my");
-        console.log("mycourse: ", response.data.result);
+        // console.log("mycourse: ", response.data.result);
         setCourseData(response.data.result);
       } catch (error) {
         console.log(error);
@@ -30,6 +31,8 @@ function DashBoard() {
     };
     fetchDataAllMyCourses();
   }, []);
+
+  console.log(`courseData`, courseData);
   return (
     <>
       <div>
@@ -53,7 +56,7 @@ function DashBoard() {
         </div>
         <div className="grayLine"></div>
         <div>
-          {courseData.map((item) => (
+          {courseData.map(item => (
             <CoursesCardStatus
               key={item.id}
               item={item}

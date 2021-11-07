@@ -130,6 +130,9 @@ function ShoppingCard() {
     setI(i + 3);
   };
   // console.log('user: ', user);
+  console.log(`courseCatOne`, courseCatOne);
+  console.log(`courseCatTwo`, courseCatTwo);
+  console.log(`courseCatThree`, courseCatThree);
   const handleSubmitComment = async e => {
     e.preventDefault();
     // console.log('comment: ', comment);
@@ -155,7 +158,7 @@ function ShoppingCard() {
   console.log(`shoppingCardTopic`, shoppingCardTopic);
   console.log(`courseCatOne`, courseCatOne);
   console.log(`courseCatTwo`, courseCatTwo);
-
+  console.log(`shoppingCard`, shoppingCard);
   return (
     <div className="divMainShoppingCardController">
       <div
@@ -362,36 +365,54 @@ function ShoppingCard() {
       </div>
       <div className="grayLine"></div>
       <div className="divMoreFrontEndCourse">
-        {courseCatOne.length > 0 && (
+        {courseCatOne
+          .filter(item => item.Course !== null)
+          .filter(item => item.courseId !== shoppingCard.id).length > 0 && (
           <div className="divMoreFrontEndCourseHeader">
             <h4 className="aboutThisCourseH4">More Front - End Course</h4>
           </div>
         )}
-        {courseCatOne.length > 0 &&
+        {courseCatOne
+          .filter(item => item.Course !== null)
+          .filter(item => item.courseId !== shoppingCard.id).length > 0 &&
           courseCatOne
             ?.filter((item, index) => index < 3)
+            .filter(item => item.Course !== null)
+            .filter(item => item.courseId !== shoppingCard.id)
             .map((item, index) => (
               <CourseCard2 key={index} item={item} setToggle={setToggle} />
             ))}
-        {courseCatTwo.length > 0 && (
+        {courseCatTwo
+          .filter(item => item.Course !== null)
+          .filter(item => item.courseId !== shoppingCard.id).length > 0 && (
           <div className="divMoreFrontEndCourseHeader">
             <h4 className="aboutThisCourseH4">More Back - End Course</h4>
           </div>
         )}
-        {courseCatTwo.length > 0 &&
+        {courseCatTwo
+          .filter(item => item.Course !== null)
+          .filter(item => item.courseId !== shoppingCard.id).length > 0 &&
           courseCatTwo
             ?.filter((item, index) => index < 3)
+            .filter(item => item.Course !== null)
+            .filter(item => item.courseId !== shoppingCard.id)
             .map((item, index) => (
               <CourseCard2 key={index} item={item} setToggle={setToggle} />
             ))}
-        {courseCatThree.length > 0 && (
+        {courseCatThree
+          .filter(item => item.Course !== null)
+          .filter(item => item.courseId !== shoppingCard.id).length > 0 && (
           <div className="divMoreFrontEndCourseHeader">
             <h4 className="aboutThisCourseH4">More UX/UI Course</h4>
           </div>
         )}
-        {courseCatThree.length > 0 &&
+        {courseCatThree
+          .filter(item => item.Course !== null)
+          .filter(item => item.courseId !== shoppingCard.id).length > 0 &&
           courseCatThree
             ?.filter((item, index) => index < 3)
+            .filter(item => item.Course !== null)
+            .filter(item => item.courseId !== shoppingCard.id)
             .map(item => (
               <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
             ))}

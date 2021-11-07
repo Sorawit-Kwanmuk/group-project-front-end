@@ -7,16 +7,30 @@ import { useState } from "react";
 import axios from "../../../config/axios";
 import { useHistory, useParams } from "react-router";
 
-function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
+function ContentRightClass({
+  vdoLink,
+  questions,
+  quizId,
+  currentStage,
+  recievedData,
+}) {
+  // Need to Import Product Id
+
   const [answerCheck, setAnswerCheck] = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [result, setResult] = useState("");
   const [pass, setPass] = useState(false);
 
+  console.log(`recievedData in right`, recievedData);
+
+  // const myId = recievedData.id;
+
+  // console.log(`<------- my course ID ------>`, myId);
+
   const param = useParams();
   const history = useHistory();
 
-  console.log(`quizId`, quizId);
+  // console.log(`quizId`, quizId);
 
   let col = 0;
   for (const value in answerCheck) {
@@ -37,7 +51,10 @@ function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
 
       // if (quizId >= currentStage) {
       axios
-        .put(`/mycourse/${param.id}`)
+        .put(`/mycourse/${recievedData.id}`)
+
+        // Need to send myCourse ID
+
         .then(res => {
           // console.log("@resPutMycourse:", res.data.result);
         })
@@ -67,8 +84,8 @@ function ContentRightClass({ vdoLink, questions, quizId, currentStage }) {
               pathname: `/my-profile`,
               state: {
                 alignmentHistory: "dashboard",
-                alignmentDashboard: "2"
-              }
+                alignmentDashboard: "2",
+              },
             });
           }}
         >
