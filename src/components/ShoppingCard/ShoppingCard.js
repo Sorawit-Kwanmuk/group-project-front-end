@@ -161,7 +161,7 @@ function ShoppingCard() {
   // console.log('shoppingCard: ', shoppingCard.Topics);
   // console.log('shoppingCardFixed: ', shoppingCardFixed);
   // console.log('shoppingCard: ', shoppingCard);
-  console.log('shoppingCardTopic', shoppingCardTopic);
+  // console.log('shoppingCardTopic', shoppingCardTopic);
   return (
     <div className='divMainShoppingCardController'>
       <div

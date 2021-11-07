@@ -14,8 +14,8 @@ function CourseCard2({ item, setToggle }) {
     duration: '',
     courseImage: '',
   });
-  console.log(`item`, item);
-  console.log(`course`, course);
+  // console.log(`item`, item);
+  // console.log(`course`, course);
   const {
     id,
     courseName,

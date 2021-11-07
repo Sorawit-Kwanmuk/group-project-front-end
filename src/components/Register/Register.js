@@ -1,5 +1,5 @@
 import TextField from '@mui/material/TextField';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Button from '@mui/material/Button';
 import './styleRegister.css';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -12,11 +12,10 @@ import { LoginRegisStatusContext } from '../../contexts/loginRegisStatus';
 import { setToken } from '../../services/localStorage';
 import { AuthContext } from '../../contexts/authContext';
 import jwtDecode from 'jwt-decode';
-
+import validator from 'validator';
 function Register() {
   const [username, setUsername] = useState('');
   const [fullName, setFullName] = useState('');
-
   const [birthDate, setBirthDate] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,20 +25,101 @@ function Register() {
     useContext(LoginRegisStatusContext);
   const history = useHistory();
   const { user, setUser } = useContext(AuthContext);
-
-  // setRegisterStatus(false);
-  // const res = axios.post('/auth/login', {
-  //   username,
-  //   password,
-  // });
-  // setToken(res.data.token);
-  // setUser(jwtDecode(res.data.token));
-  // history.push('/');
-  // setLoginStatus(false);
+  const [usernameInDataBase, setUsernameInDataBase] = useState([]);
+  const [emailInDataBase, setEmailInDataBase] = useState([]);
+  const [errorUsername, setErrorUsername] = useState('');
+  const [errorFullName, setErrorFullName] = useState('');
+  const [errorMobileNo, setErrorMobileNo] = useState('');
+  const [errorBirthDate, setErrorBirthDate] = useState('');
+  const [errorEmail, setErrorEmail] = useState('');
+  const [errorPassword, setErrorPassword] = useState('');
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+  console.log('errorUsername', errorUsername);
+  console.log('errorFullName', errorFullName);
+  useEffect(() => {
+    const fetchDataAllUser = async () => {
+      try {
+        const response = await axios.get('/user');
+        // console.log(response.data.result);
+        const username = [];
+        const email = [];
+        for (let i = 0; i < response.data.result.length; i++) {
+          username.push(response.data.result[i].username);
+          email.push(response.data.result[i].email);
+        }
+        // console.log('username: ', username);
+        // console.log('email: ', email);
+        setUsernameInDataBase(username);
+        setEmailInDataBase(email);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDataAllUser();
+  }, []);
 
   const handleSubmitRegister = async e => {
     try {
       e.preventDefault();
+      if (
+        username &&
+        fullName &&
+        birthDate &&
+        email &&
+        password &&
+        confirmPassword &&
+        mobileNo
+      ) {
+        setErrorUsername('');
+        setErrorFullName('');
+        setErrorMobileNo('');
+        setErrorBirthDate('');
+        setErrorEmail('');
+        setErrorPassword('');
+        setErrorConfirmPassword('');
+      }
+      if (username === '') {
+        setErrorUsername('Username is required');
+      } else if (usernameInDataBase.includes(username)) {
+        setErrorUsername('Username is already taken');
+      }
+      if (fullName === '') {
+        setErrorFullName('Full name is required');
+      }
+      if (mobileNo === '') {
+        setErrorMobileNo('Mobile no is required');
+      } else if (mobileNo.length !== 10 || isNaN(mobileNo)) {
+        setErrorMobileNo('Mobile no is not valid');
+      }
+      if (birthDate === null || birthDate === '') {
+        setErrorBirthDate('Birth date is required');
+      } else if (!validator.isDate(birthDate)) {
+        setErrorBirthDate('Birth date is not valid');
+      }
+      if (email === '') {
+        setErrorEmail('Email is required');
+      } else if (emailInDataBase.includes(email)) {
+        setErrorEmail('Email is already taken');
+      } else if (!validator.isEmail(email)) {
+        setErrorEmail('Email is not valid');
+      }
+      if (password === '') {
+        setErrorPassword('Password is required');
+      }
+      if (confirmPassword === '') {
+        setErrorConfirmPassword('Confirm password is required');
+      }
+      if (
+        errorUsername !== '' ||
+        errorFullName !== '' ||
+        errorMobileNo !== '' ||
+        errorBirthDate !== '' ||
+        errorEmail !== '' ||
+        errorPassword !== '' ||
+        errorConfirmPassword !== ''
+      ) {
+        return;
+      }
       await axios.post('/auth/register', {
         fullName,
         birthDate,
@@ -57,7 +137,9 @@ function Register() {
       // console.log(res);
       setToken(res.data.token);
       setUser(jwtDecode(res.data.token));
-    } catch (error) {}
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
   };
   const handleCloseRegister = () => {
     setRegisterStatus(false);
@@ -81,6 +163,8 @@ function Register() {
               variant='outlined'
               value={username}
               onChange={e => setUsername(e.target.value)}
+              error={errorUsername !== ''}
+              helperText={errorUsername}
             />
           </div>
           <div className='divRegister'>
@@ -93,6 +177,8 @@ function Register() {
               variant='outlined'
               value={fullName}
               onChange={e => setFullName(e.target.value)}
+              error={errorFullName !== ''}
+              helperText={errorFullName}
             />
           </div>
           <div className='divRegister'>
@@ -105,6 +191,8 @@ function Register() {
               variant='outlined'
               value={mobileNo}
               onChange={e => setMobileNo(e.target.value)}
+              error={errorMobileNo !== ''}
+              helperText={errorMobileNo}
             />
           </div>
           <div className='divRegister'>
@@ -118,7 +206,13 @@ function Register() {
                   setBirthDate(newValue);
                 }}
                 renderInput={params => (
-                  <TextField {...params} size='small' sx={TextFieldConfig} />
+                  <TextField
+                    {...params}
+                    size='small'
+                    sx={TextFieldConfig}
+                    error={errorBirthDate !== ''}
+                    helperText={errorBirthDate}
+                  />
                 )}
               />
             </LocalizationProvider>
@@ -133,6 +227,8 @@ function Register() {
               variant='outlined'
               value={email}
               onChange={e => setEmail(e.target.value)}
+              error={errorEmail !== ''}
+              helperText={errorEmail}
             />
           </div>
           <div className='divRegister'>
@@ -145,6 +241,8 @@ function Register() {
               variant='outlined'
               value={password}
               onChange={e => setPassword(e.target.value)}
+              error={errorPassword !== ''}
+              helperText={errorPassword}
             />
           </div>
           <div className='divRegister'>
@@ -157,6 +255,8 @@ function Register() {
               variant='outlined'
               value={confirmPassword}
               onChange={e => setConfirmPassword(e.target.value)}
+              error={errorConfirmPassword !== ''}
+              helperText={errorConfirmPassword}
             />
           </div>
           <div className='divRegister buttonLogin'>
