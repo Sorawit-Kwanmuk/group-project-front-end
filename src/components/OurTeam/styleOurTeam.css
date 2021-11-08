@@ -14,7 +14,7 @@
 
 .h1OurTeam {
   position: absolute;
-  top: 30%;
+  top: 30% !important;
   left: 9%;
   color: #fff;
   font-size: 60px;
