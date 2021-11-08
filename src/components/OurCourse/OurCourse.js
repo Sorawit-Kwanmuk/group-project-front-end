@@ -157,10 +157,10 @@ function OurCourse() {
     setOrderBy("rating");
   };
   return (
-    <>
+    <div style={{ minHeight: "600px" }}>
       <div className="divMainControllerOurCourse">
         <div className="ourCourseBanner">
-          <img className="ImgExpand" src={OurCourseBanner} alt="" />
+          <img src={OurCourseBanner} alt="" />
           <h1 className="h1OurCourse">Our Course</h1>
         </div>
         <div className="OurCourseSearch">
@@ -290,7 +290,7 @@ function OurCourse() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

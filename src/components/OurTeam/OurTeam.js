@@ -112,7 +112,7 @@ function OurCourse() {
   };
 
   return (
-    <>
+    <div style={{ minHeight: "600px" }}>
       <div className="divMainControllerOurTeam">
         <div className="ourTeamBanner">
           <img src={OurTeamBanner} alt="" />
@@ -228,7 +228,7 @@ function OurCourse() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
