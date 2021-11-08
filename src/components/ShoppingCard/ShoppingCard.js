@@ -134,7 +134,7 @@ function ShoppingCard() {
       }
     };
     fetchDataShoppingCard();
-  }, [toggle, CourseCard2]);
+  }, [toggle]);
   const handleClickSeeMore = () => {
     setI(i + 3);
   };
