@@ -24,7 +24,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [values, setValues] = useState({
-    showPassword: false
+    showPassword: false,
   });
   const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
     useContext(LoginRegisStatusContext);
@@ -38,20 +38,20 @@ function Login() {
   const handleClickShowPassword = () => {
     setValues({
       ...values,
-      showPassword: !values.showPassword
+      showPassword: !values.showPassword,
     });
   };
   const history = useHistory();
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = event => {
     event.preventDefault();
   };
-  const handleSubmitLogin = async (e) => {
+  const handleSubmitLogin = async e => {
     e.preventDefault();
 
     try {
       const res = await axios.post("/auth/login", {
         username,
-        password
+        password,
       });
 
       // console.log('LogRes: ', res);
@@ -59,7 +59,7 @@ function Login() {
       setUser(jwtDecode(res.data.token));
       history.push("/");
       setLoginStatus(false);
-      setToggleUser((current) => !current);
+      setToggleUser(current => !current);
       // window.location.reload();
     } catch (error) {
       console.dir(error);
@@ -69,7 +69,7 @@ function Login() {
     setLoginStatus(false);
     setRegisterStatus(true);
   };
-  const handleClickToForgotPassword = (e) => {
+  const handleClickToForgotPassword = e => {
     e.preventDefault();
     history.push("/forget-password");
     setLoginStatus(false);
@@ -90,7 +90,7 @@ function Login() {
               label="Username"
               variant="outlined"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={e => setUsername(e.target.value)}
             />
           </div>
           <FormControl
@@ -105,7 +105,7 @@ function Login() {
               id="outlined-adornment-password"
               type={values.showPassword ? "text" : "password"}
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={e => setPassword(e.target.value)}
               endAdornment={
                 <InputAdornment position="end">
                   <IconButton
