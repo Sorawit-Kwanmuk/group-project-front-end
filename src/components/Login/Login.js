@@ -19,6 +19,8 @@ import Link from "@mui/material/Link";
 import GoogleIcon from "@mui/icons-material/Google";
 import { UserContext } from "../../contexts/userContext";
 import { Box } from "@mui/system";
+import { GoogleLogin, GoogleLogout } from "react-google-login";
+const { clientId } = require("../../config/env");
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -26,12 +28,12 @@ function Login() {
   const [values, setValues] = useState({
     showPassword: false,
   });
+
   const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
     useContext(LoginRegisStatusContext);
   const handleClickCloseLogin = () => {
     setLoginStatus(false);
   };
-
   const { setToggleUser } = useContext(UserContext);
   // console.log(values);
   const { user, setUser } = useContext(AuthContext);
@@ -47,7 +49,6 @@ function Login() {
   };
   const handleSubmitLogin = async e => {
     e.preventDefault();
-
     try {
       const res = await axios.post("/auth/login", {
         username,
@@ -65,6 +66,28 @@ function Login() {
       console.dir(error);
     }
   };
+  const onLoginSuccess = async res => {
+    console.log("Login Success:", res.profileObj);
+    try {
+      const response = await axios.post("/auth/googlelogin", {
+        googleId: res.profileObj.googleId,
+        googleEmail: res.profileObj.email,
+        googleName: res.profileObj.name,
+      });
+      console.log("LogRes: ", response);
+      setToken(response.data.token);
+      setUser(jwtDecode(response.data.token));
+      history.push("/");
+      setLoginStatus(false);
+      setToggleUser(current => !current);
+    } catch (error) {
+      console.dir(error);
+    }
+  };
+  const onSignoutSuccess = () => {
+    alert("You have been logged out successfully");
+    console.clear();
+  };
   const handleClickToRegister = () => {
     setLoginStatus(false);
     setRegisterStatus(true);
@@ -74,6 +97,14 @@ function Login() {
     history.push("/forget-password");
     setLoginStatus(false);
   };
+  // const onLoginSuccess = res => {
+  //   console.log('Login Success:', res.profileObj);
+  // };
+
+  const onLoginFailure = res => {
+    console.log("Login Failed:", res);
+  };
+
   return (
     <>
       <form className="formLoginMain" action="" onSubmit={handleSubmitLogin}>
@@ -127,13 +158,26 @@ function Login() {
             </Button>
           </div>
           <div className="divLogin buttonLogin">
-            <Button
-              variant="contained"
-              endIcon={<GoogleIcon />}
-              sx={{ width: "115px" }}
-            >
-              Send
-            </Button>
+            <GoogleLogin
+              className="googleLogin"
+              clientId={clientId}
+              buttonText="Sign In"
+              onSuccess={onLoginSuccess}
+              onFailure={onLoginFailure}
+              cookiePolicy={"single_host_origin"}
+              render={renderProps => (
+                <Button
+                  variant="contained"
+                  onClick={renderProps.onClick}
+                  type="button"
+                  endIcon={<GoogleIcon />}
+                  sx={{ width: "115px" }}
+                >
+                  Google
+                </Button>
+              )}
+              isSignedIn={false}
+            />
           </div>
           <div className="divLogin buttonLogin">
             <Button
@@ -151,6 +195,7 @@ function Login() {
           </div>
         </div>
       </form>
+
       <div className="divCloseAll" onClick={handleClickCloseLogin}></div>
     </>
   );

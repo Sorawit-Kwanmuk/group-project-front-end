@@ -115,10 +115,6 @@ const routes = {
         component: Certificate,
       },
       {
-        path: '/certificate',
-        component: Certificate,
-      },
-      {
         path: '/create-instructor-card',
         component: CreateInstructorCard,
       },

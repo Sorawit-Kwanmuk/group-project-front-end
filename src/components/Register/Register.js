@@ -34,8 +34,8 @@ function Register() {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
-  console.log('errorUsername', errorUsername);
-  console.log('errorFullName', errorFullName);
+  // console.log('errorUsername', errorUsername);
+  // console.log('errorFullName', errorFullName);
   useEffect(() => {
     const fetchDataAllUser = async () => {
       try {

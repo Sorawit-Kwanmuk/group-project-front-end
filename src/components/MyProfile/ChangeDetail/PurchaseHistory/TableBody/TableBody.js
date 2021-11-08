@@ -2,6 +2,7 @@ import axios from "../../../../../config/axios";
 import { useEffect, useState } from "react";
 import "./styleTableBody.css";
 function TableBody({ item }) {
+  console.log("item: ", item);
   const { createdAt, id, price } = item;
   const [courseName, setCourseName] = useState("");
   const changeToMoney = price => {

@@ -44,6 +44,8 @@ function CourseCard2({ item, setToggle }) {
   // console.log('item: ', item.CourseCats);
   const handleClickToCourseCardDetail = () => {
     history.push(`/shopping-card/${id}`);
+    window.location.reload();
+    window.scrollTo(0, 0);
     setToggle(current => !current);
   };
   return (
