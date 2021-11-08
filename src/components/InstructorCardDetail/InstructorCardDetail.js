@@ -158,7 +158,9 @@ function InstructorCardDetail() {
                 .filter(item => item.Instructor !== null)
                 .filter(item => item.instructorId !== instructor.id)
                 .map(item => (
-                  <InstructorCard key={item.id} item={item} />
+                  <a href='#'>
+                    <InstructorCard key={item.id} item={item} />
+                  </a>
                 ))}
             </div>
           )}
@@ -173,7 +175,9 @@ function InstructorCardDetail() {
                 .filter(item => item.Instructor !== null)
                 .filter(item => item.instructorId !== instructor.id)
                 .map(item => (
-                  <InstructorCard key={item.id} item={item} />
+                  <a href='#'>
+                    <InstructorCard key={item.id} item={item} />
+                  </a>
                 ))}
             </div>
           )}
@@ -189,7 +193,9 @@ function InstructorCardDetail() {
                   .filter(item => item.Instructor !== null)
                   .filter(item => item.instructorId !== instructor.id)
                   .map(item => (
-                    <InstructorCard key={item.id} item={item} />
+                    <a href='#'>
+                      <InstructorCard key={item.id} item={item} />
+                    </a>
                   ))}
               </div>
             </div>
