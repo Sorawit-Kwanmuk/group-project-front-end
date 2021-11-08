@@ -291,6 +291,7 @@
   width: 50%;
   margin-left: 50px;
   align-items: center;
+  /* background-color: #caf0f8; */
 }
 
 .divMoreFrontEndCourseHeader {
@@ -394,4 +395,13 @@
   justify-content: space-between;
   margin: 0px;
   padding: 0px;
+}
+
+.courseCatController {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
 }
