@@ -43,7 +43,7 @@ function CompletedCoures({ item, courseName }) {
             // onClick={handleClickLinkToClassroom}
           >
             <div className='coursesCardStatusControl'>
-              <img src={courseImg} alt='' />
+              <img src={item.Course.courseImage} alt='' />
             </div>
             <div className='coursesCardStatusDetail'>
               <div className='coursesCardStatusDetailTop'>

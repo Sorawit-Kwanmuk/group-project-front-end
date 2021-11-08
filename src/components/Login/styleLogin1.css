@@ -88,3 +88,13 @@
   margin-bottom: 10px;
   width: 250px;
 }
+
+.googleLogin {
+  /* margin-top: 10px; */
+  width: 115px;
+}
+
+div>button>div {
+
+  padding: 0px;
+}

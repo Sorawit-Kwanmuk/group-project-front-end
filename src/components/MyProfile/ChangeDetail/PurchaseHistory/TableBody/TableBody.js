@@ -2,6 +2,7 @@ import axios from '../../../../../config/axios';
 import { useEffect, useState } from 'react';
 import './styleTableBody.css';
 function TableBody({ item }) {
+  console.log('item: ', item);
   const { createdAt, id, price } = item;
   const [courseName, setCourseName] = useState('');
   const changeToMoney = price => {
@@ -24,7 +25,7 @@ function TableBody({ item }) {
     <div className='tableBodyPurchaseHistory'>
       <div className='tableBody1'>{createdAt.slice(0, 10)}</div>
       <div className='tableBody2'>#{id}</div>
-      <div className='tableBody3'>{courseName}</div>
+      <div className='tableBody3'>{item.Course.courseName}</div>
       <div className='tableBody4'>${changeToMoney(price)}</div>
     </div>
   );

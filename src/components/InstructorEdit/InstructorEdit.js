@@ -27,28 +27,28 @@ function InstructorEdit() {
     setI(i + 3);
   };
   const location = useLocation();
-  console.log("location", location.state.instructor.id);
+  console.log('location', location.state.instructor.id);
   const [instructor, setInstructor] = useState({});
   const [courses, setCourses] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [instructorEdit, setInstructorEdit] = useState({
-    fullName: "",
-    jobTitle: "",
-    about: "",
+    fullName: '',
+    jobTitle: '',
+    about: '',
     expertise: [],
     category: [],
-    website: "",
-    email: "",
-    facebook: "",
-    youtube: "",
-    linkedin: "",
-    twitter: "",
-    profileImage: "",
-    profileImageName: "",
+    website: '',
+    email: '',
+    facebook: '',
+    youtube: '',
+    linkedin: '',
+    twitter: '',
+    profileImage: '',
+    profileImageName: '',
   });
-  console.log("instructorEdit: ", instructorEdit);
+  console.log('instructorEdit: ', instructorEdit);
   const params = useParams();
   const history = useHistory();
   useEffect(() => {
@@ -62,7 +62,7 @@ function InstructorEdit() {
         }`
       );
       console.log(
-        "response.data.instructorResult: ",
+        'response.data.instructorResult: ',
         response.data.instructorResult
       );
       setInstructor(response.data.instructorResult);
@@ -74,10 +74,10 @@ function InstructorEdit() {
   const handleSubmitUpdateInstructor = async e => {
     e.preventDefault();
     const data = new FormData();
-    data.append("fullName", instructorEdit.fullName);
-    data.append("jobTitle", instructorEdit.jobTitle);
-    data.append("about", instructorEdit.about);
-    data.append("expertise", instructorEdit.expertise);
+    data.append('fullName', instructorEdit.fullName);
+    data.append('jobTitle', instructorEdit.jobTitle);
+    data.append('about', instructorEdit.about);
+    data.append('expertise', instructorEdit.expertise);
     // data.append('category', instructorEdit.category);
     data.append('website', instructorEdit.website);
     data.append('email', instructorEdit.email);
@@ -98,7 +98,7 @@ function InstructorEdit() {
       );
       setToggle(current => !current);
       history.push(`/our-team-admin`);
-      console.log("response", response);
+      console.log('response', response);
     } catch (error) {
       console.log(error);
     }
@@ -125,10 +125,10 @@ function InstructorEdit() {
     }
   };
   return (
-    <div className="divMainInstructorEditController">
-      <form action="" onSubmit={handleSubmitUpdateInstructor}>
-        <div className="divH2InstructorEdit">
-          <h2 className="InstructorEditH2">Instructor Edit System</h2>
+    <div className='divMainInstructorEditController'>
+      <form action='' onSubmit={handleSubmitUpdateInstructor}>
+        <div className='divH2InstructorEdit'>
+          <h2 className='InstructorEditH2'>Instructor Edit System</h2>
         </div>
         {/* <DummyHeaderInst item={instructor} setImage={setImage} /> */}
         <DummyHeaderInst
@@ -139,14 +139,14 @@ function InstructorEdit() {
           setToggle2={setToggle}
         />
 
-        <div className="InstructorEditContent">
-          <div className="InstructorEditContentLeft">
-            <div className="aboutThisMeControl">
-              <h4 className="aboutThisMeH4">About Me</h4>
+        <div className='InstructorEditContent'>
+          <div className='InstructorEditContentLeft'>
+            <div className='aboutThisMeControl'>
+              <h4 className='aboutThisMeH4'>About Me</h4>
               <TextField
-                id="outlined-multiline-static"
+                id='outlined-multiline-static'
                 sx={buttonConfig3}
-                label="About ( Max. 500 Character)"
+                label='About ( Max. 500 Character)'
                 onChange={e =>
                   setInstructorEdit({
                     ...instructorEdit,
@@ -159,12 +159,12 @@ function InstructorEdit() {
                 rows={6}
               />
             </div>
-            <div className="grayLine"></div>
-            <div className="divMoreFrontEndCourse">
-              <div className="divMoreFrontEndCourseHeader">
-                <h4 className="aboutThisMeH4">My Course</h4>
+            <div className='grayLine'></div>
+            <div className='divMoreFrontEndCourse'>
+              <div className='divMoreFrontEndCourseHeader'>
+                <h4 className='aboutThisMeH4'>My Course</h4>
               </div>
-              <div className="InstructorEditCourseCardControl">
+              <div className='InstructorEditCourseCardControl'>
                 {courses
                   ?.filter((item, index) => index < i)
                   .filter(item => item.Course !== null)
@@ -173,24 +173,23 @@ function InstructorEdit() {
                   ))}
               </div>
 
-              <div className="SeeMoreControl">
+              <div className='SeeMoreControl'>
                 <p
-                  className="SeeMoreP"
-                  style={{ marginBottom: "10px" }}
-                  onClick={handleClickSeeMore}
-                >
+                  className='SeeMoreP'
+                  style={{ marginBottom: '10px' }}
+                  onClick={handleClickSeeMore}>
                   {`<-- See More -->`}
                 </p>
               </div>
             </div>
           </div>
-          <div className="InstructorEditContentRight">
-            <h4 className="aboutThisMeH4">Area of Expertise</h4>
-            <div className="AreaOfExpertiseTagController">
+          <div className='InstructorEditContentRight'>
+            <h4 className='aboutThisMeH4'>Area of Expertise</h4>
+            <div className='AreaOfExpertiseTagController'>
               <TextField
-                id="outlined-multiline-static"
-                sx={(buttonConfig3, { width: "80%" })}
-                label="Expertise ( Max. 100 Character)"
+                id='outlined-multiline-static'
+                sx={(buttonConfig3, { width: '80%' })}
+                label='Expertise ( Max. 100 Character)'
                 value={instructorEdit.expertise}
                 shrink={true}
                 onChange={e =>
@@ -203,13 +202,13 @@ function InstructorEdit() {
                 rows={6}
               />
             </div>
-            <div className="grayLineRight"></div>
+            <div className='grayLineRight'></div>
             <TextField
-              id="outlined-basic"
-              label="Website"
+              id='outlined-basic'
+              label='Website'
               sx={textFieldConfig2}
-              size="small"
-              variant="outlined"
+              size='small'
+              variant='outlined'
               value={instructorEdit.website}
               shrink={true}
               onChange={e =>
@@ -220,11 +219,11 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id="outlined-basic"
-              label="Email"
+              id='outlined-basic'
+              label='Email'
               sx={textFieldConfig2}
-              size="small"
-              variant="outlined"
+              size='small'
+              variant='outlined'
               value={instructorEdit.email}
               shrink={true}
               onChange={e =>
@@ -235,11 +234,11 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id="outlined-basic"
-              label="Facebook"
+              id='outlined-basic'
+              label='Facebook'
               sx={textFieldConfig2}
-              size="small"
-              variant="outlined"
+              size='small'
+              variant='outlined'
               value={instructorEdit.facebook}
               shrink={true}
               onChange={e =>
@@ -250,13 +249,13 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id="outlined-basic"
-              label="Youtube"
+              id='outlined-basic'
+              label='Youtube'
               sx={textFieldConfig2}
               value={instructorEdit.youtube}
               shrink={true}
-              size="small"
-              variant="outlined"
+              size='small'
+              variant='outlined'
               onChange={e =>
                 setInstructorEdit({
                   ...instructorEdit,
@@ -265,13 +264,13 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id="outlined-basic"
+              id='outlined-basic'
               value={instructorEdit.linkedin}
               shrink={true}
-              label="Linkedin"
+              label='Linkedin'
               sx={textFieldConfig2}
-              size="small"
-              variant="outlined"
+              size='small'
+              variant='outlined'
               onChange={e =>
                 setInstructorEdit({
                   ...instructorEdit,
@@ -280,13 +279,13 @@ function InstructorEdit() {
               }
             />
             <TextField
-              id="outlined-basic"
-              label="Twitter"
+              id='outlined-basic'
+              label='Twitter'
               sx={textFieldConfig2}
               value={instructorEdit.twitter}
               shrink={true}
-              size="small"
-              variant="outlined"
+              size='small'
+              variant='outlined'
               onChange={e =>
                 setInstructorEdit({
                   ...instructorEdit,
@@ -295,8 +294,8 @@ function InstructorEdit() {
               }
             />
 
-            <div className="InstructorEditContentRightButton">
-              <Button type="submit" variant="contained" sx={{ width: "50%" }}>
+            <div className='InstructorEditContentRightButton'>
+              <Button type='submit' variant='contained' sx={{ width: '50%' }}>
                 Save
               </Button>
 
