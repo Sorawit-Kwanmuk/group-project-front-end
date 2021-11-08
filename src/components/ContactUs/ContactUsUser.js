@@ -4,7 +4,7 @@ import {
   CardContent,
   Grid,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { AppBar, Toolbar } from "@mui/material";
 import axios from "../../config/axios";
@@ -16,15 +16,15 @@ function ContactUsUser() {
   useEffect(() => {
     axios
       .get("/contactus")
-      .then((res) => {
+      .then(res => {
         setContactInfo(res.data.result[0]);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }, []);
 
   const [userInput, setUserInput] = useState({});
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async e => {
     e.preventDefault();
     try {
       await axios.post("/feedback", userInput);
@@ -35,7 +35,7 @@ function ContactUsUser() {
   };
 
   return (
-    <div style={{ minHeight: "600px" }}>
+    <div style={{ minHeight: "780px" }}>
       <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
         <Toolbar variant="dense">
           <Typography
@@ -59,7 +59,7 @@ function ContactUsUser() {
           sx={{
             minWidth: 650,
             margin: "30px auto",
-            marginLeft: "40px"
+            marginLeft: "40px",
           }}
         >
           <iframe
@@ -90,7 +90,7 @@ function ContactUsUser() {
           sx={{
             minWidth: 650,
             margin: "30px auto",
-            marginRight: "40px"
+            marginRight: "40px",
           }}
           item
         >
@@ -99,7 +99,7 @@ function ContactUsUser() {
               <Typography gutterBottom variant="h6" align="center">
                 Contact Form
               </Typography>
-              <form onSubmit={(e) => handleFormSubmit(e)}>
+              <form onSubmit={e => handleFormSubmit(e)}>
                 <Grid container spacing={1}>
                   <Grid xs={12} item>
                     <TextField
@@ -108,10 +108,10 @@ function ContactUsUser() {
                       variant="outlined"
                       fullWidth
                       required
-                      onChange={(e) => {
-                        setUserInput((curr) => ({
+                      onChange={e => {
+                        setUserInput(curr => ({
                           ...curr,
-                          name: e.target.value
+                          name: e.target.value,
                         }));
                       }}
                     />
@@ -124,10 +124,10 @@ function ContactUsUser() {
                       variant="outlined"
                       fullWidth
                       required
-                      onChange={(e) => {
-                        setUserInput((curr) => ({
+                      onChange={e => {
+                        setUserInput(curr => ({
                           ...curr,
-                          email: e.target.value
+                          email: e.target.value,
                         }));
                       }}
                     />
@@ -139,10 +139,10 @@ function ContactUsUser() {
                       variant="outlined"
                       fullWidth
                       required
-                      onChange={(e) => {
-                        setUserInput((curr) => ({
+                      onChange={e => {
+                        setUserInput(curr => ({
                           ...curr,
-                          feedbackName: e.target.value
+                          feedbackName: e.target.value,
                         }));
                       }}
                     />
@@ -156,10 +156,10 @@ function ContactUsUser() {
                       rows={4}
                       fullWidth
                       required
-                      onChange={(e) => {
-                        setUserInput((curr) => ({
+                      onChange={e => {
+                        setUserInput(curr => ({
                           ...curr,
-                          detail: e.target.value
+                          detail: e.target.value,
                         }));
                       }}
                     />

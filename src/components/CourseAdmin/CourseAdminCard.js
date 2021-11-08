@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 
 import {
   Button,
@@ -119,8 +120,23 @@ function CourseAdminCard({ list, setCourseList }) {
     try {
       const res = await axios.put(`/course/${list.id}`, data);
 
-      alert("update course successfully");
-      window.location.reload();
+      // Swal.fire("update course successfully");
+
+      Swal.fire({
+        title: "update course successfully",
+        // showDenyButton: true,
+        // showCancelButton: true,
+        confirmButtonText: "Ok",
+        // denyButtonText: `Don't save`,
+      }).then(result => {
+        /* Read more about isConfirmed, isDenied below */
+        // if (result.isConfirmed) {
+        //   Swal.fire('Saved!', '', 'success')
+        // } else if (result.isDenied) {
+        //   Swal.fire('Changes are not saved', '', 'info')
+        // }
+        window.location.reload();
+      });
     } catch (error) {
       console.dir("@@@error:", error);
     }
@@ -132,8 +148,14 @@ function CourseAdminCard({ list, setCourseList }) {
       console.log(`itemId`, itemId);
       const res = await axios.delete(`/courseCat/${list.id}/${itemId}`);
       // console.log(`deleteRes--->`, res);
-      alert("delete Category Successful");
-      window.location.reload();
+
+      Swal.fire({
+        title: "Delete Category successfully",
+
+        confirmButtonText: "Ok",
+      }).then(result => {
+        window.location.reload();
+      });
     } catch (error) {
       console.dir(error);
     }
@@ -163,13 +185,31 @@ function CourseAdminCard({ list, setCourseList }) {
     try {
       e.preventDefault();
       const res = await axios.delete(`/course/${list.id}`);
-      alert("delete Successful");
-      setCourseList(currentLists => {
-        const newLists = [...currentLists];
-        const idx = newLists.findIndex(item => item.id === list.id);
-        newLists.splice(idx, 1);
-        return newLists;
-      });
+
+      Swal.fire({
+        title: "Do you want to delete this course?",
+        // text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!",
+      })
+        .then(result => {
+          if (result.isConfirmed) {
+            axios.delete(`/course/${list.id}`);
+
+            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+          }
+        })
+        .then(result => {
+          setCourseList(currentLists => {
+            const newLists = [...currentLists];
+            const idx = newLists.findIndex(item => item.id === list.id);
+            newLists.splice(idx, 1);
+            return newLists;
+          });
+        });
     } catch (error) {
       console.dir(error);
     }

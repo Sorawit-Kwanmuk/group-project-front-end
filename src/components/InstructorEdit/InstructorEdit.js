@@ -31,7 +31,7 @@ function InstructorEdit() {
   const [instructor, setInstructor] = useState({});
   const [courses, setCourses] = useState([]);
   const [toggle, setToggle] = useState(false);
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [deleteStatus, setDeleteStatus] = useState(false);
   const [instructorEdit, setInstructorEdit] = useState({
     fullName: "",

@@ -32,9 +32,9 @@ function OurCourse() {
     PaperProps: {
       style: {
         maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250
-      }
-    }
+        width: 250,
+      },
+    },
   };
   useEffect(() => {
     const fetchDataAllCourse = async () => {
@@ -42,7 +42,7 @@ function OurCourse() {
         const res = await axios.get("/course/byrating");
         // console.log(res);
         // console.log('ourCourse: ', res.data.courseResult);.
-        const newArr = res.data.courseResult.map((item) => {
+        const newArr = res.data.courseResult.map(item => {
           return {
             ...item,
             lowerCaseCourseName: item.courseName.toLowerCase(),
@@ -52,10 +52,10 @@ function OurCourse() {
                 : item.level === "Intermediate"
                 ? 2
                 : 3,
-            category: item.CourseCats.map((item) =>
+            category: item.CourseCats.map(item =>
               item.Category.categoryName.toLowerCase()
             ),
-            currentPrice: (+item.price * +item.discountRate) / 100
+            currentPrice: (+item.price * +item.discountRate) / 100,
             // currentPrice: +item.price,
           };
         });
@@ -83,12 +83,12 @@ function OurCourse() {
     fetchDataAllCourse();
   }, [submit, orderBy, buttonSelect]);
   console.log("courses: ", courses);
-  const filterSearchBySearchBar = (array) => {
-    return array.filter((item) => {
+  const filterSearchBySearchBar = array => {
+    return array.filter(item => {
       return item.lowerCaseCourseName.includes(submit.toLowerCase());
     });
   };
-  const filterByButtonSelectCourse = (array) => {
+  const filterByButtonSelectCourse = array => {
     // console.log('typeof:', typeof array);
     const newArr2 = [];
     // console.log('newArr2: ', newArr2);
@@ -96,16 +96,16 @@ function OurCourse() {
       // console.log('array[i].category: ', array[i].category);
       if (buttonSelect === "all") {
         newArr2.push(array[i]);
-      } else if (buttonSelect === "front_end") {
+      } else if (buttonSelect === "front - end") {
         if (array[i].category.includes(buttonSelect)) {
           // console.log('in front end:', array[i]);
           newArr2.push(array[i]);
         }
-      } else if (buttonSelect === "back_end") {
+      } else if (buttonSelect === "back - end") {
         if (array[i].category.includes(buttonSelect)) {
           newArr2.push(array[i]);
         }
-      } else if (buttonSelect === "ux_ui") {
+      } else if (buttonSelect === "ux - ui") {
         if (array[i].category.includes(buttonSelect)) {
           newArr2.push(array[i]);
         }
@@ -113,7 +113,7 @@ function OurCourse() {
     }
     return newArr2;
   };
-  const filterSearchByOrderBy = (array) => {
+  const filterSearchByOrderBy = array => {
     if (orderBy === "rating") {
       return array.sort((a, b) => {
         return b.rating - a.rating;
@@ -148,7 +148,7 @@ function OurCourse() {
       });
     }
   };
-  const handleSummitSearch = (e) => {
+  const handleSummitSearch = e => {
     e.preventDefault();
     setSubmit(search);
     // console.log('submit: ', submit);
@@ -178,7 +178,7 @@ function OurCourse() {
               sx={ButtonConfig}
               variant="contained"
               onClick={() => {
-                setButtonSelect("front_end");
+                setButtonSelect("front - end");
               }}
             >
               Front - End
@@ -187,7 +187,7 @@ function OurCourse() {
               sx={ButtonConfig}
               variant="contained"
               onClick={() => {
-                setButtonSelect("back_end");
+                setButtonSelect("back - end");
               }}
             >
               Back - End
@@ -196,7 +196,7 @@ function OurCourse() {
               sx={ButtonConfig}
               variant="contained"
               onClick={() => {
-                setButtonSelect("ux_ui");
+                setButtonSelect("ux - ui");
               }}
             >
               UX / UI Design
@@ -210,7 +210,7 @@ function OurCourse() {
                   <InputBase
                     sx={InputBaseConfig}
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={e => setSearch(e.target.value)}
                   />
                   <IconButton
                     type="submit"
@@ -239,7 +239,7 @@ function OurCourse() {
                   autoWidth
                   sx={{ backgroundColor: "#f5f5f5" }}
                   MenuProps={MenuProps}
-                  onChange={(e) => setOrderBy(e.target.value)}
+                  onChange={e => setOrderBy(e.target.value)}
                 >
                   <MenuItem size="small" value={"rating"}>
                     Rating
@@ -274,7 +274,7 @@ function OurCourse() {
               ?.filter((item, index) => {
                 return index >= (page - 1) * perPage && index < page * perPage;
               })
-              .map((item) => (
+              .map(item => (
                 <CourseCard key={item.id} item={item} />
               ))}
           </div>

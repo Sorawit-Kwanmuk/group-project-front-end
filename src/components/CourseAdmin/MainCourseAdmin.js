@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import CourseAdminCard from "./CourseAdminCard";
+import Swal from "sweetalert2";
 
 function MainCourseAdmin() {
   useEffect(() => {
@@ -41,6 +42,7 @@ function MainCourseAdmin() {
   const [clip, setClip] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [about, setAbout] = useState("");
+  const [open, setOpen] = useState(false);
   console.log(`image ------>`, image);
 
   const [subject, setSubject] = useState("");
@@ -75,8 +77,13 @@ function MainCourseAdmin() {
     try {
       const res = await axios.post(`/course`, data);
       console.log("@@@res:", res);
-      alert("create new course successfully");
-      window.location.reload();
+      Swal.fire({
+        title: `Create New Course Successfully`,
+
+        confirmButtonText: "Ok",
+      }).then(result => {
+        window.location.reload();
+      });
 
       // const courseCatMap = res.map;
     } catch (error) {
@@ -334,6 +341,7 @@ function MainCourseAdmin() {
               list={item}
               courseList={courseList}
               setCourseList={setCourseList}
+              // setOpen={setOpen}
             />
           );
         })}

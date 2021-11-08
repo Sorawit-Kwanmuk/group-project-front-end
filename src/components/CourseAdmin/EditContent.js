@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function EditContent({
   setDisableAddNewSubject,
@@ -41,8 +42,13 @@ function EditContent({
     try {
       const res = await axios.delete(`/subtopic/${subItem.id}`);
 
-      alert(`Update ${lesson} successfully`);
-      window.location.reload();
+      Swal.fire({
+        title: `Delete ${lesson} successfully`,
+
+        confirmButtonText: "Ok",
+      }).then(result => {
+        window.location.reload();
+      });
       // setSubList(currentLists => {
       //   const newLists = [...currentLists];
       //   console.log(`newLists`, newLists);
@@ -68,11 +74,18 @@ function EditContent({
         topicId: subject,
       });
 
-      alert(`Update ${lesson} successfully`);
-      window.location.reload();
-      setDisableAddNewSubject(false);
-      setDisableBtnGroup([true, true, true]);
-      setDisplayContCreate(false);
+      // alert(`Update ${lesson} successfully`);
+      // window.location.reload();
+      // setDisableAddNewSubject(false);
+      // setDisableBtnGroup([true, true, true]);
+      // setDisplayContCreate(false);
+      Swal.fire({
+        title: `Update ${lesson} successfully`,
+
+        confirmButtonText: "Ok",
+      }).then(result => {
+        window.location.reload();
+      });
     } catch (error) {
       console.dir("@@@error:", error);
     }
