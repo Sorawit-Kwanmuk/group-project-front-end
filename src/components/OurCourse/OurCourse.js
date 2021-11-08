@@ -55,7 +55,10 @@ function OurCourse() {
             category: item.CourseCats.map(item =>
               item.Category.categoryName.toLowerCase()
             ),
-            currentPrice: (+item.price * +item.discountRate) / 100,
+            currentPrice:
+              item.discountRate === 0
+                ? +item.price
+                : +item.price - (+item.price * +item.discountRate) / 100,
             // currentPrice: +item.price,
           };
         });

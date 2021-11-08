@@ -14,7 +14,14 @@ function CourseContextProvider({ children }) {
         console.log("@res.data:", res.data);
         setCourseByRating(res.data.courseResult);
         const res2 = await axios.get("/course/bypromotion");
-        setCourseByPromotion(res2.data.courseResult);
+        console.log("@res2.data:", res2.data);
+        const newArr = [];
+        for (let i = 0; i < res2.data.courseResult.length; i++) {
+          if (res2.data.courseResult[i].discountRate > 0) {
+            newArr.push(res2.data.courseResult[i]);
+          }
+        }
+        setCourseByPromotion(newArr);
       } catch (error) {
         console.log(error);
       }

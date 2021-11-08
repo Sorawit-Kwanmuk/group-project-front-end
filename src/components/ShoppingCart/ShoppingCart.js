@@ -4,7 +4,7 @@ import John from "../../public/images/john.jpg";
 import {
   imageConfig,
   FormControlConfig,
-  FormShortControlConfig
+  FormShortControlConfig,
 } from "./muiConfig";
 import { useContext, useEffect, useState } from "react";
 import Radio from "@mui/material/Radio";
@@ -23,6 +23,7 @@ import { PaymentContext } from "../../contexts/paymentContext";
 import { AuthContext } from "../../contexts/authContext";
 import { useHistory } from "react-router";
 import { UserContext } from "../../contexts/userContext";
+import Swal from "sweetalert2";
 
 function ShoppingCart() {
   const { paymentCon, setPaymentCon } = useContext(PaymentContext);
@@ -49,37 +50,42 @@ function ShoppingCart() {
     publicKey,
     frameLabel: "Clone Camp",
     submitLabel: "PAY NOW",
-    currency: "thb"
+    currency: "thb",
   });
 
   useEffect(() => {
     OmiseCard.configure({
       defaultPaymentMethod: "credit_card",
-      otherPaymentMethods: []
+      otherPaymentMethods: [],
     });
     OmiseCard.attach();
   }, []);
-  const handleClick = (e) => {
+  const handleClick = e => {
     // console.log('Click');
     e.preventDefault();
     OmiseCard.open({
       amount: amount * 100,
       submitFormTarget: "#credit-card",
-      onCreateTokenSuccess: async (nonce) => {
+      onCreateTokenSuccess: async nonce => {
         // console.log('nonce: ', nonce);
         const res = await axios.post("/checkout", {
           token: nonce,
-          courseId: paymentCon.id
+          courseId: paymentCon.id,
         });
         // console.log(res);
         if (res.status === 200) {
-          alert("Payment Success");
-          history.push("/");
+          Swal.fire({
+            title: `Payment Successful`,
+
+            confirmButtonText: "Ok",
+          }).then(result => {
+            history.push("/");
+          });
         } else {
           alert("Payment Fail");
         }
       },
-      onFormClosed: () => {}
+      onFormClosed: () => {},
     });
     // omiseCardHandler();
   };
@@ -122,9 +128,9 @@ function ShoppingCart() {
                   variant="contained"
                   type="submit"
                   sx={{
-                    marginTop: "10px"
+                    marginTop: "10px",
                   }}
-                  onClick={(e) => {
+                  onClick={e => {
                     handleClick(e);
                   }}
                 >

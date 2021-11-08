@@ -51,7 +51,7 @@ function EditTopic({
         window.location.reload();
       });
 
-      window.location.reload();
+      // window.location.reload();
 
       // setTopicList(curr => [...curr, res.data.result]);
     } catch (error) {
