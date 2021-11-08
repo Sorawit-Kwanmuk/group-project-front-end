@@ -374,9 +374,7 @@ function ShoppingCard() {
               .filter(item => item.Course !== null)
               .filter(item => item.courseId !== shoppingCard.id)
               .map((item, index) => (
-                <a href='#'>
-                  <CourseCard2 key={index} item={item} setToggle={setToggle} />
-                </a>
+                <CourseCard2 key={index} item={item} setToggle={setToggle} />
               ))}
         </div>
         {courseCatTwo
@@ -395,9 +393,7 @@ function ShoppingCard() {
               .filter(item => item.Course !== null)
               .filter(item => item.courseId !== shoppingCard.id)
               .map((item, index) => (
-                <a href='#'>
-                  <CourseCard2 key={index} item={item} setToggle={setToggle} />
-                </a>
+                <CourseCard2 key={index} item={item} setToggle={setToggle} />
               ))}
         </div>
         {courseCatThree
@@ -416,13 +412,7 @@ function ShoppingCard() {
               .filter(item => item.Course !== null)
               .filter(item => item.courseId !== shoppingCard.id)
               .map(item => (
-                <a href='#'>
-                  <CourseCard2
-                    key={item.id}
-                    item={item}
-                    setToggle={setToggle}
-                  />
-                </a>
+                <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
               ))}
         </div>
       </div>
