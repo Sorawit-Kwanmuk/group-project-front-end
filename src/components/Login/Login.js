@@ -18,6 +18,7 @@ import { LoginRegisStatusContext } from "../../contexts/loginRegisStatus";
 import Link from "@mui/material/Link";
 import GoogleIcon from "@mui/icons-material/Google";
 import { UserContext } from "../../contexts/userContext";
+import { Box } from "@mui/system";
 
 function Login() {
   const [username, setUsername] = useState("");
