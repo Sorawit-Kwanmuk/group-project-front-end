@@ -160,7 +160,7 @@ function OurCourse() {
     <div style={{ minHeight: "600px" }}>
       <div className="divMainControllerOurCourse">
         <div className="ourCourseBanner">
-          <img src={OurCourseBanner} alt="" />
+          <img className="ImgExpand" src={OurCourseBanner} alt="" />
           <h1 className="h1OurCourse">Our Course</h1>
         </div>
         <div className="OurCourseSearch">
