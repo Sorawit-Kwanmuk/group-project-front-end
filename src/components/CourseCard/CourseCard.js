@@ -36,7 +36,7 @@ function CourseCard({ item }) {
           <div className='divCourseDetail'>
             <div className='divDiscountRateTag'>
               <h1 className='divCourseName'>{courseName}</h1>
-              {discountRate && (
+              {discountRate !== 0 && (
                 <div className='discount-label red'>
                   <span>-{discountRate}%</span>
                 </div>
@@ -59,9 +59,9 @@ function CourseCard({ item }) {
               <div className='saleRedLineController2'>
                 <div className='saleRedLineController'>
                   <p className='pCourseCard'>{price} THB</p>
-                  {discountRate && <div className='saleLineRed'></div>}
+                  {discountRate !== 0 && <div className='saleLineRed'></div>}
                 </div>
-                {discountRate && (
+                {discountRate !== 0 && (
                   <p className='pCourseCard divRed'>
                     {/* {(price * discountRate) / 100} THB */}
                     {(price * (100 - discountRate)) / 100} THB
