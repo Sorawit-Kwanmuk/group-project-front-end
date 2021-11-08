@@ -55,13 +55,8 @@ function DashBoard() {
           </ToggleButtonGroup>
         </div>
         <div className="grayLine"></div>
-<<<<<<< HEAD
-        <div>
-          {courseData.map(item => (
-=======
         <div className="Dashboard--card-container">
           {courseData.map((item) => (
->>>>>>> 5525b814cc469d3dba477b6c7fa31fca646276b8
             <CoursesCardStatus
               key={item.id}
               item={item}

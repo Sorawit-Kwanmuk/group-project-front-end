@@ -30,7 +30,7 @@ function OurTeamAdmin() {
   }, []);
   return (
     <>
-      <div className="divMainControllerOurTeam">
+      <div className="divMainControllerOurTeamAdmin">
         <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
           <Toolbar variant="dense">
             <Typography
