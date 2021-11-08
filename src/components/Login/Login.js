@@ -34,7 +34,6 @@ function Login() {
   const handleClickCloseLogin = () => {
     setLoginStatus(false);
   };
-
   const { setToggleUser } = useContext(UserContext);
   // console.log(values);
   const { user, setUser } = useContext(AuthContext);
@@ -193,7 +192,7 @@ function Login() {
           </div>
         </div>
       </form>
-      <div className='divLogin buttonLogin'></div>
+
       <div className='divCloseAll' onClick={handleClickCloseLogin}></div>
     </>
   );
