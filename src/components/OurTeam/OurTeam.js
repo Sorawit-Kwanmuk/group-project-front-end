@@ -85,8 +85,8 @@ function OurCourse() {
           return {
             ...item,
             lowerCaseCourseName: item.fullName.toLowerCase(),
-            category: item.InstructorCats.map(
-              item => item.Category.categoryName
+            category: item.InstructorCats.map(item =>
+              item.Category.categoryName.toLowerCase()
             ),
           };
         });
