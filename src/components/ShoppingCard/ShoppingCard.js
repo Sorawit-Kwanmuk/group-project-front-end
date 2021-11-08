@@ -134,7 +134,7 @@ function ShoppingCard() {
       }
     };
     fetchDataShoppingCard();
-  }, [toggle]);
+  }, [toggle, CourseCard2]);
   const handleClickSeeMore = () => {
     setI(i + 3);
   };
@@ -168,6 +168,7 @@ function ShoppingCard() {
   return (
     <div className='divMainShoppingCardController'>
       <div
+        id='divShoppingCardHeader'
         className='divMainHeaderShoppingCard'
         style={{
           backgroundImage: `url(${shoppingCardBanner})`,
@@ -373,7 +374,9 @@ function ShoppingCard() {
               .filter(item => item.Course !== null)
               .filter(item => item.courseId !== shoppingCard.id)
               .map((item, index) => (
-                <CourseCard2 key={index} item={item} setToggle={setToggle} />
+                <a href='#'>
+                  <CourseCard2 key={index} item={item} setToggle={setToggle} />
+                </a>
               ))}
         </div>
         {courseCatTwo
@@ -392,7 +395,9 @@ function ShoppingCard() {
               .filter(item => item.Course !== null)
               .filter(item => item.courseId !== shoppingCard.id)
               .map((item, index) => (
-                <CourseCard2 key={index} item={item} setToggle={setToggle} />
+                <a href='#'>
+                  <CourseCard2 key={index} item={item} setToggle={setToggle} />
+                </a>
               ))}
         </div>
         {courseCatThree
@@ -411,7 +416,13 @@ function ShoppingCard() {
               .filter(item => item.Course !== null)
               .filter(item => item.courseId !== shoppingCard.id)
               .map(item => (
-                <CourseCard2 key={item.id} item={item} setToggle={setToggle} />
+                <a href='#'>
+                  <CourseCard2
+                    key={item.id}
+                    item={item}
+                    setToggle={setToggle}
+                  />
+                </a>
               ))}
         </div>
       </div>
