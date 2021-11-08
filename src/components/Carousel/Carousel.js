@@ -31,8 +31,10 @@ function Carousel({ slides }) {
     onSelect();
   }, [embla, onSelect]);
   const handleClickLinkToPage = index => {
-    history.push(bannerLinkTo[index]);
+    // history.push(bannerLinkTo[index]);
+    window.open(bannerLinkTo[index], '_blank');
   };
+  // console.log('slides', slides);
   return (
     <>
       <div className='embla'>

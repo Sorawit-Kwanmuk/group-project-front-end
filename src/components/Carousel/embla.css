@@ -10,7 +10,7 @@
 }
 
 .embla__viewport {
-  /* overflow: hidden; */
+  overflow: hidden;
   width: 87%;
   margin: auto;
 }
@@ -87,9 +87,9 @@
 }
 
 .embla__button--prev {
-  left: 27px;
+  left: 10px;
 }
 
 .embla__button--next {
-  right: 27px;
+  right: 10px;
 }
