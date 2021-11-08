@@ -18,10 +18,10 @@ function Home() {
   }, []);
 
   return (
-    <>
+    <div style={{ minHeight: "600px" }}>
       {carouselContext.bannerImage && <Banner getImg={getImg} />}
       <Body />
-    </>
+    </div>
   );
 }
 
