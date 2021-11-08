@@ -2,6 +2,7 @@ import "./styleInstructorEdit.css";
 import Button from "@mui/material/Button";
 import InstructorCard from "../InstructorCard/InstructorCard";
 import { Avatar, TextField } from "@mui/material";
+import Box from "@mui/material/Box";
 import {
   imageConfig,
   buttonConfig2,
@@ -9,15 +10,17 @@ import {
   textFieldConfig2,
 } from "./muiConfig";
 import { useContext, useEffect, useState } from "react";
-
+import Alert from "@mui/material/Alert";
+import IconButton from "@mui/material/IconButton";
 import AreaOfExpertiseTag from "./AreaOfExpertiseTag/AreaOfExpertiseTag";
 import { useLocation, useParams, useHistory } from "react-router-dom";
 import axios from "../../config/axios";
-
+import Collapse from "@mui/material/Collapse";
 import DummyHeaderInst from "./DummyHeader/DummyHeaderInst";
 import { CategoryContext } from "../../contexts/categoryContext";
 import CourseCard from "../CourseCard/CourseCard";
 import { ToggleContext } from "../../contexts/toggleContext";
+import CloseIcon from "@mui/icons-material/Close";
 function InstructorEdit() {
   const [i, setI] = useState(3);
   const handleClickSeeMore = () => {
@@ -28,6 +31,8 @@ function InstructorEdit() {
   const [instructor, setInstructor] = useState({});
   const [courses, setCourses] = useState([]);
   const [toggle, setToggle] = useState(false);
+  const [open, setOpen] = useState(true);
+  const [deleteStatus, setDeleteStatus] = useState(false);
   const [instructorEdit, setInstructorEdit] = useState({
     fullName: "",
     jobTitle: "",
@@ -81,6 +86,7 @@ function InstructorEdit() {
     data.append("linkedin", instructorEdit.linkedin);
     data.append("twitter", instructorEdit.twitter);
     data.append("thisisinput", instructorEdit.profileImage);
+
     try {
       const response = await axios.put(
         `/instructor/${
@@ -93,6 +99,27 @@ function InstructorEdit() {
       setToggle(current => !current);
       history.push(`/our-team-admin`);
       console.log("response", response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDeleteInstructor = async e => {
+    e.preventDefault();
+    try {
+      setDeleteStatus(true);
+      setOpen(false);
+      if (deleteStatus) {
+        const response = await axios.delete(
+          `/instructor/${
+            location.state.instructor.id
+              ? location.state.instructor.id
+              : params.id
+          }`
+        );
+        setToggle(current => !current);
+        history.push(`/our-team-admin`);
+        console.log("responseDelete", response);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -272,10 +299,48 @@ function InstructorEdit() {
               <Button type="submit" variant="contained" sx={{ width: "50%" }}>
                 Save
               </Button>
+
+              <Button
+                type="button"
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  setOpen(true);
+                }}
+                sx={{ width: "50%", marginTop: "10px", marginBottom: "10px" }}
+              >
+                Delete Instructor
+              </Button>
             </div>
           </div>
         </div>
       </form>
+      <Box sx={{ width: "100%", position: "fixed", top: "0px" }}>
+        <Collapse in={open}>
+          <Alert
+            severity="error"
+            action={
+              <>
+                <Button variant="outlined" onClick={handleDeleteInstructor}>
+                  yes
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    setDeleteStatus(false);
+                    setOpen(false);
+                  }}
+                >
+                  no
+                </Button>
+              </>
+            }
+            sx={{ mb: 2 }}
+          >
+            Do you want to delete the instructor?
+          </Alert>
+        </Collapse>
+      </Box>
     </div>
   );
 }

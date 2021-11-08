@@ -144,14 +144,16 @@ function CourseAdminCard({ list, setCourseList }) {
 
     if (status === "notReady") {
       setStatus("ready");
+      const res = await axios.put(`/course/status/${list.id}`, {
+        status: "ready",
+      });
     } else {
       setStatus("notReady");
+      const res = await axios.put(`/course/status/${list.id}`, {
+        status: "notReady",
+      });
     }
 
-    console.log(`status after click`, status);
-    const res = await axios.put(`/course/status/${list.id}`, {
-      status: status,
-    });
     // console.log(`res ---->`, res);
 
     // window.location.reload();
