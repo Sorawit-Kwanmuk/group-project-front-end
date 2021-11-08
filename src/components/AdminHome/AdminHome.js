@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 export default function AdminHome() {
   const history = useHistory();
   return (
-    <>
+    <div style={{ minHeight: "600px" }}>
       <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
         <Toolbar variant="dense">
           <Typography
@@ -88,6 +88,6 @@ export default function AdminHome() {
           Create Banner
         </Button>
       </Stack>
-    </>
+    </div>
   );
 }

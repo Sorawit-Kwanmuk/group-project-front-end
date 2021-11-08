@@ -85,8 +85,8 @@ function OurCourse() {
           return {
             ...item,
             lowerCaseCourseName: item.fullName.toLowerCase(),
-            category: item.InstructorCats.map(
-              item => item.Category.categoryName
+            category: item.InstructorCats.map(item =>
+              item.Category.categoryName.toLowerCase()
             ),
           };
         });
@@ -112,7 +112,7 @@ function OurCourse() {
   };
 
   return (
-    <>
+    <div style={{ minHeight: '600px' }}>
       <div className='divMainControllerOurTeam'>
         <div className='ourTeamBanner'>
           <img src={OurTeamBanner} alt='' />
@@ -220,7 +220,7 @@ function OurCourse() {
           />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
