@@ -11,10 +11,10 @@ function CourseContextProvider({ children }) {
     const fetchDataAllCourseForHome = async () => {
       try {
         const res = await axios.get("/course/byrating");
-        console.log("@res.data:", res.data);
+        // console.log('@res.data:', res.data);
         setCourseByRating(res.data.courseResult);
         const res2 = await axios.get("/course/bypromotion");
-        console.log("@res2.data:", res2.data);
+        // console.log('@res2.data:', res2.data);
         const newArr = [];
         for (let i = 0; i < res2.data.courseResult.length; i++) {
           if (res2.data.courseResult[i].discountRate > 0) {

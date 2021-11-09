@@ -29,7 +29,7 @@ function DummyHeaderInst({
   const Input = styled('input')({
     display: 'none',
   });
-  console.log(item);
+  // console.log(item);
   useEffect(() => {
     const fetchDataCategory = async () => {
       try {
