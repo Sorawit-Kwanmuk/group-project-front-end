@@ -27,12 +27,12 @@ function InstructorEdit() {
     setI(i + 3);
   };
   const location = useLocation();
-  console.log('location', location.state.instructor.id);
+  // console.log('location', location.state.instructor.id);
   const [instructor, setInstructor] = useState({});
   const [courses, setCourses] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [open, setOpen] = useState(false);
-  const [deleteStatus, setDeleteStatus] = useState(false);
+  // const [deleteStatus, setDeleteStatus] = useState(false);
   const [instructorEdit, setInstructorEdit] = useState({
     fullName: '',
     jobTitle: '',
@@ -48,7 +48,7 @@ function InstructorEdit() {
     profileImage: '',
     profileImageName: '',
   });
-  console.log('instructorEdit: ', instructorEdit);
+  // console.log('instructorEdit: ', instructorEdit);
   const params = useParams();
   const history = useHistory();
   useEffect(() => {
@@ -61,10 +61,10 @@ function InstructorEdit() {
             : params.id
         }`
       );
-      console.log(
-        'response.data.instructorResult: ',
-        response.data.instructorResult
-      );
+      // console.log(
+      //   'response.data.instructorResult: ',
+      //   response.data.instructorResult
+      // );
       setInstructor(response.data.instructorResult);
       // console.log('response2', response2.data.result);
       setCourses(response2.data.result);
@@ -98,28 +98,30 @@ function InstructorEdit() {
       );
       setToggle(current => !current);
       history.push(`/our-team-admin`);
-      console.log('response', response);
+      // console.log('response', response);
     } catch (error) {
       console.log(error);
     }
   };
+
+  // console.log('deleteStatus1: ', deleteStatus);
   const handleDeleteInstructor = async e => {
     e.preventDefault();
+    // console.log('deleteStatus2: ', deleteStatus);
     try {
-      setDeleteStatus(true);
+      // setDeleteStatus(true);
+      // console.log('deleteStatus3: ', deleteStatus);
       setOpen(false);
-      if (deleteStatus) {
-        const response = await axios.delete(
-          `/instructor/${
-            location.state.instructor.id
-              ? location.state.instructor.id
-              : params.id
-          }`
-        );
-        setToggle(current => !current);
-        history.push(`/our-team-admin`);
-        console.log('response', response);
-      }
+      const response = await axios.delete(
+        `/instructor/${
+          location.state.instructor.id
+            ? location.state.instructor.id
+            : params.id
+        }`
+      );
+      setToggle(current => !current);
+      history.push(`/our-team-admin`);
+      console.log('response', response);
     } catch (error) {
       console.log(error);
     }
@@ -325,7 +327,7 @@ function InstructorEdit() {
                 <Button
                   variant='outlined'
                   onClick={() => {
-                    setDeleteStatus(false);
+                    // setDeleteStatus(false);
                     setOpen(false);
                   }}>
                   no

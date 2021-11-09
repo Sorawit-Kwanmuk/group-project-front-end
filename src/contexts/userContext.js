@@ -20,7 +20,7 @@ function UserContextProvider({ children }) {
 
         // console.log('userById', response.data.result);
         // console.log(`data`, data.data.result);
-        console.log('allUser: ', response2.data.result);
+        // console.log('allUser: ', response2.data.result);
         setUserById(data.data.result);
         setAllUser(response2.data.result);
       } catch (error) {}

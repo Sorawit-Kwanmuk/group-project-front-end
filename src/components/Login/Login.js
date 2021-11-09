@@ -88,7 +88,7 @@ function Login() {
   const handleClickToRegister = () => {
     setLoginStatus(false);
     setRegisterStatus(true);
-    window.location.reload();
+    // window.location.reload();
   };
   const handleClickToForgotPassword = e => {
     e.preventDefault();
