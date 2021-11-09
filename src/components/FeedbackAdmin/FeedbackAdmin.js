@@ -15,16 +15,16 @@ function FeedbackAdmin() {
   useEffect(() => {
     axios
       .get("/feedback")
-      .then((res) => {
+      .then(res => {
         // console.log("@resFeedback:", res.data.result);
         setIssueInfo(res.data.result);
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }, []);
 
   return (
     <>
-      <div className="divMainControllerOurTeam">
+      <div className="divMainControllerOurTeam" style={{ minHeight: "780px" }}>
         <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
           <Toolbar variant="dense">
             <Typography
@@ -71,7 +71,7 @@ function FeedbackAdmin() {
           <div className="outputSearchFieldOurTeam">
             {issueInfo
               .filter(
-                (item) =>
+                item =>
                   // item.status === "all" ||
                   statusBtn === "all" ||
                   (statusBtn === "unsolved" && item.status === "unsolved") ||

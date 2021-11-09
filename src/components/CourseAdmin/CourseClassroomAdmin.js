@@ -130,7 +130,7 @@ function CourseClassroomAdmin() {
   console.log(`topicList--->`, topicList);
 
   return (
-    <div style={{ minHeight: 580 }}>
+    <div style={{ minHeight: "780px" }}>
       <AppBar position="static" sx={{ color: "#03045E", bgcolor: "#ADE8F4" }}>
         <Toolbar variant="dense">
           <Typography
@@ -235,6 +235,11 @@ function CourseClassroomAdmin() {
                     setDisableAddNewSubject(true);
                     setDisableBtnGroup([false, false]);
                     setDisplayTopicEdit(false);
+                    setDisplayTopicEdit(false);
+                    setDisplayContCreate(false);
+                    setDisplayContentEdit(false);
+                    setDisplayQuizCreate(false);
+                    setDisplayQuizEdit(false);
                   }}
                   disabled={disableAddNewSubject}
                 >

@@ -7,7 +7,7 @@ export default function AdminHome() {
   const history = useHistory();
 
   return (
-    <div style={{ minHeight: '600px' }}>
+    <div style={{ minHeight: '780px' }}>
       <AppBar position='static' sx={{ color: '#03045E', bgcolor: '#ADE8F4' }}>
         <Toolbar variant='dense'>
           <Typography
@@ -71,6 +71,13 @@ export default function AdminHome() {
           sx={{ width: 800 }}
           onClick={() => history.push('/feedback')}>
           Feedback System
+        </Button>
+        <Button
+          size='large'
+          variant='contained'
+          sx={{ width: 800 }}
+          onClick={() => history.push('/home-banner-admin')}>
+          Create Banner
         </Button>
       </Stack>
     </div>

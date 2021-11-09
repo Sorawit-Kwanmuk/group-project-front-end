@@ -7,14 +7,17 @@ import axios from "axios";
 import IncompletedCourse from "./IncompletedCourse/IncompletedCourse";
 import CompletedCoures from "./CompletedCoures/CompletedCoures";
 function CoursesCardStatus({ item, alignment }) {
+  console.log(`item --- >`, item.Course);
   const [courseName, setCourseName] = useState("");
-  const { id, status } = item.Course;
-  // console.log("item: ", item);
-  // console.log('status', status);
+  // const id = item.Course.id;
+  // console.log(`id ------>`, id);
+  // console.log(`status ------>`, status);
+  // console.log("item: ", item.Course);
+  // console.log("status", status);
   useEffect(() => {
     const fetchDataCourseName = async () => {
       try {
-        const response = await axios.get(`/course/${id}`);
+        const response = await axios.get(`/course/${item.Course.id}`);
         setCourseName(response.data.courseResult.courseName);
         console.log("courseName", response.data.courseResult);
       } catch (error) {

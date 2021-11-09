@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import InstructorDropdown from "./InstructorDropdown";
+import Swal from "sweetalert2";
 
 function CreateTopic({
   // setDisableAddNewSubject,
@@ -38,9 +39,13 @@ function CreateTopic({
       });
       setSubject("");
       setInstructor("");
-      alert("create new Topic successfully");
-      // setTopicList(curr => [...curr, res.data.result]);
-      window.location.reload();
+      Swal.fire({
+        title: `Create New Topic Successfully`,
+
+        confirmButtonText: "Ok",
+      }).then(result => {
+        window.location.reload();
+      });
     } catch (error) {
       console.dir("@@@error:", error);
     }

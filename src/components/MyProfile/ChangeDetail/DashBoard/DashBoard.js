@@ -56,7 +56,7 @@ function DashBoard() {
         </div>
         <div className="grayLine"></div>
         <div className="Dashboard--card-container">
-          {courseData.map((item) => (
+          {courseData.map(item => (
             <CoursesCardStatus
               key={item.id}
               item={item}

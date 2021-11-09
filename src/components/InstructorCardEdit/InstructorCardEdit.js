@@ -1,9 +1,9 @@
-import axios from '../../config/axios';
-import { useContext, useEffect, useState } from 'react';
-import InstructorImage from '../../public/images/Instructor.png';
-import './styleInstructorCard.css';
-import { useHistory, useParams } from 'react-router-dom';
-import { ToggleContext } from '../../contexts/toggleContext';
+import axios from "../../config/axios";
+import { useContext, useEffect, useState } from "react";
+import InstructorImage from "../../public/images/Instructor.png";
+import "./styleInstructorCard.css";
+import { useHistory, useParams } from "react-router-dom";
+import { ToggleContext } from "../../contexts/toggleContext";
 function InstructorCardEdit({ item, setToggle }) {
   const [instructor, setInstructor] = useState({});
   const params = useParams();
@@ -70,19 +70,19 @@ function InstructorCardEdit({ item, setToggle }) {
   };
 
   return (
-    <div className='cardInstructorBody' onClick={handleClickToInstructorCard}>
-      <div className='divInstructorImage'>
-        <img src={instructor.profileImage} alt='' />
+    <div className="cardInstructorBody" onClick={handleClickToInstructorCard}>
+      <div className="divInstructorImage">
+        <img src={instructor.profileImage} alt="" />
       </div>
-      <div className='divInstructorDetail'>
-        <h1 className='divInstructorName'>{instructor.fullName}</h1>
-        <div className='divDetailInstructorCard'>
-          <h2 className='h2InstructorCard'>{instructor.rating}/5</h2>
-          <p className='pInstructorCard'>({instructor.ratingAmount} Reviews)</p>
+      <div className="divInstructorDetail">
+        <h1 className="divInstructorName">{instructor.fullName}</h1>
+        <div className="divDetailInstructorCard">
+          <h2 className="h2InstructorCard">{instructor.rating}/5</h2>
+          <p className="pInstructorCard">({instructor.ratingAmount} Reviews)</p>
         </div>
-        <div className='divDetailInstructorCard'>
-          <h2 className='h2InstructorCard'>Learners : </h2>
-          <p className='pInstructorCard'>{instructor.learner}</p>
+        <div className="divDetailInstructorCard">
+          <h2 className="h2InstructorCard">Learners : </h2>
+          <p className="pInstructorCard">{instructor.learner}</p>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 function CreateContent({
   setDisableAddNewSubject,
@@ -27,11 +28,17 @@ function CreateContent({
         topicId: subject,
       });
 
-      alert(`Create ${lesson} successfully`);
-      window.location.reload();
-      setDisableAddNewSubject(false);
-      setDisableBtnGroup([true, true, true]);
-      setDisplayContCreate(false);
+      Swal.fire({
+        title: `Create ${lesson} successfully`,
+
+        confirmButtonText: "Ok",
+      }).then(result => {
+        window.location.reload();
+
+        setDisableAddNewSubject(false);
+        setDisableBtnGroup([true, true, true]);
+        setDisplayContCreate(false);
+      });
     } catch (error) {
       console.dir("@@@error:", error);
     }

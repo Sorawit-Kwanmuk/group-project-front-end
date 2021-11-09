@@ -4,6 +4,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const createQuizTemplate = {
   subjectName: "CREATE",
@@ -55,7 +56,12 @@ function EditQuiz({
         questionArray: fromQuiz.questions,
       });
       console.log(`res`, res);
-      alert(`Create question successfully`);
+
+      Swal.fire({
+        title: `Create question successfully`,
+
+        confirmButtonText: "Ok",
+      });
       // window.location.reload();
       // setDisableAddNewSubject(false);
       // setDisableBtnGroup([true, true, true]);
