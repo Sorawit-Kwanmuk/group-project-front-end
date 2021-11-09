@@ -80,6 +80,7 @@ function ShoppingCart() {
             confirmButtonText: "Ok",
           }).then(result => {
             history.push("/");
+            window.location.reload();
           });
         } else {
           alert("Payment Fail");

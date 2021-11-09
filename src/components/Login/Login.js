@@ -61,7 +61,7 @@ function Login() {
       history.push("/");
       setLoginStatus(false);
       setToggleUser(current => !current);
-      // window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.dir(error);
     }
@@ -80,17 +80,15 @@ function Login() {
       history.push("/");
       setLoginStatus(false);
       setToggleUser(current => !current);
+      window.location.reload();
     } catch (error) {
       console.dir(error);
     }
   };
-  const onSignoutSuccess = () => {
-    alert("You have been logged out successfully");
-    console.clear();
-  };
   const handleClickToRegister = () => {
     setLoginStatus(false);
     setRegisterStatus(true);
+    // window.location.reload();
   };
   const handleClickToForgotPassword = e => {
     e.preventDefault();

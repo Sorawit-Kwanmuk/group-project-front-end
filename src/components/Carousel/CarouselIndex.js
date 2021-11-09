@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { CarouselContext } from '../../contexts/CarouselContext';
-import Carousel from './Carousel';
+import React, { useContext, useEffect, useState } from "react";
+import { CarouselContext } from "../../contexts/CarouselContext";
+import Carousel from "./Carousel";
 
 function CarouselIndex() {
   const { carouselImage } = useContext(CarouselContext);
@@ -10,7 +10,7 @@ function CarouselIndex() {
     if (carouselImage.length > 0) {
       setSlideCount(carouselImage.length);
     } else {
-      setSlideCount(5);
+      setSlideCount(3);
     }
   }, [carouselImage.length]);
   // const SLIDE_COUNT = slideCount;
