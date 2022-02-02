@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import Swal from "sweetalert2";
+import React, { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 import {
   Button,
@@ -7,22 +7,22 @@ import {
   Grid,
   listItemClasses,
   TextField,
-} from "@mui/material";
-import Container from "@mui/material/Container";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import AddIcon from "@mui/icons-material/Add";
-import CategorySelect from "./CategoryDropDown";
-import { AppBar, Toolbar } from "@mui/material";
-import axios from "../../config/axios";
-import { API_URL } from "../../config/env";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { Link, useHistory } from "react-router-dom";
+} from '@mui/material';
+import Container from '@mui/material/Container';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import AddIcon from '@mui/icons-material/Add';
+import CategorySelect from './CategoryDropDown';
+import { AppBar, Toolbar } from '@mui/material';
+import axios from '../../config/axios';
+import { API_URL } from '../../config/env';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import { Link, useHistory } from 'react-router-dom';
 
 function CourseAdminCard({ list, setCourseList }) {
   console.log(`list`, list);
@@ -57,7 +57,7 @@ function CourseAdminCard({ list, setCourseList }) {
 
   const [edit, setEdit] = useState(0);
 
-  const [subject, setSubject] = useState("");
+  const [subject, setSubject] = useState('');
 
   const [cat, setCat] = useState([]);
 
@@ -95,25 +95,25 @@ function CourseAdminCard({ list, setCourseList }) {
   const updateCourse = async e => {
     e.preventDefault();
 
-    let isDiscount = +discountRate === 0 ? "null" : discountUntil;
+    let isDiscount = +discountRate === 0 ? 'null' : discountUntil;
     console.log(`isDiscount`, isDiscount);
 
     const priceNet = price - (discountRate / 100) * price;
     const data = new FormData();
-    data.append("courseName", courseName);
-    data.append("categoryId", categoryId);
-    data.append("level", level);
-    data.append("duration", duration);
-    data.append("price", priceNet);
-    data.append("discountRate", +discountRate);
-    data.append("discountUntil", isDiscount);
-    data.append("thisisinput", image);
-    data.append("clip", clip);
-    data.append("shortDescription", shortDescription);
-    data.append("about", about);
+    data.append('courseName', courseName);
+    data.append('categoryId', categoryId);
+    data.append('level', level);
+    data.append('duration', duration);
+    data.append('price', priceNet);
+    data.append('discountRate', +discountRate);
+    data.append('discountUntil', isDiscount);
+    data.append('thisisinput', image);
+    data.append('clip', clip);
+    data.append('shortDescription', shortDescription);
+    data.append('about', about);
 
     console.log(`categoryId`, categoryId);
-    console.log("@@@res:", data);
+    console.log('@@@res:', data);
 
     //   console.log("@@@courseInfo:", courseInfo);
     //   console.log("@@@data:", data);
@@ -123,10 +123,10 @@ function CourseAdminCard({ list, setCourseList }) {
       // Swal.fire("update course successfully");
 
       Swal.fire({
-        title: "update course successfully",
+        title: 'update course successfully',
         // showDenyButton: true,
         // showCancelButton: true,
-        confirmButtonText: "Ok",
+        confirmButtonText: 'Ok',
         // denyButtonText: `Don't save`,
       }).then(result => {
         /* Read more about isConfirmed, isDenied below */
@@ -138,7 +138,7 @@ function CourseAdminCard({ list, setCourseList }) {
         window.location.reload();
       });
     } catch (error) {
-      console.dir("@@@error:", error);
+      console.dir('@@@error:', error);
     }
   };
 
@@ -150,9 +150,9 @@ function CourseAdminCard({ list, setCourseList }) {
       // console.log(`deleteRes--->`, res);
 
       Swal.fire({
-        title: "Delete Category successfully",
+        title: 'Delete Category successfully',
 
-        confirmButtonText: "Ok",
+        confirmButtonText: 'Ok',
       }).then(result => {
         window.location.reload();
       });
@@ -163,16 +163,15 @@ function CourseAdminCard({ list, setCourseList }) {
 
   const handleStatus = async e => {
     e.preventDefault();
-
-    if (status === "notReady") {
-      setStatus("ready");
+    if (status === 'notReady') {
+      setStatus('ready');
       const res = await axios.put(`/course/status/${list.id}`, {
-        status: "ready",
+        status: 'ready',
       });
     } else {
-      setStatus("notReady");
+      setStatus('notReady');
       const res = await axios.put(`/course/status/${list.id}`, {
-        status: "notReady",
+        status: 'notReady',
       });
     }
 
@@ -187,19 +186,19 @@ function CourseAdminCard({ list, setCourseList }) {
       const res = await axios.delete(`/course/${list.id}`);
 
       Swal.fire({
-        title: "Do you want to delete this course?",
+        title: 'Do you want to delete this course?',
         // text: "You won't be able to revert this!",
-        icon: "warning",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!",
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
       })
         .then(result => {
           if (result.isConfirmed) {
             axios.delete(`/course/${list.id}`);
 
-            Swal.fire("Deleted!", "Your file has been deleted.", "success");
+            Swal.fire('Deleted!', 'Your file has been deleted.', 'success');
           }
         })
         .then(result => {
@@ -218,8 +217,8 @@ function CourseAdminCard({ list, setCourseList }) {
   return (
     <>
       {edit === 0 ? (
-        <Container maxWidth="xlg">
-          <Card sx={{ minWidth: 275, bgcolor: "", marginY: 5 }}>
+        <Container maxWidth='xlg'>
+          <Card sx={{ minWidth: 275, bgcolor: '', marginY: 5 }}>
             <CardContent>
               <Grid container spacing={1}>
                 <Grid xs={12} sm={2} item>
@@ -229,9 +228,9 @@ function CourseAdminCard({ list, setCourseList }) {
                         src={image}
                         alt={image}
                         style={{
-                          width: "200px",
-                          height: "200px",
-                          border: "solid 1px black",
+                          width: '200px',
+                          height: '200px',
+                          border: 'solid 1px black',
                         }}
                       />
                     </Grid>
@@ -319,16 +318,15 @@ function CourseAdminCard({ list, setCourseList }) {
                           },
                         }}
                         style={{
-                          textDecoration: "none",
-                        }}
-                      >
+                          textDecoration: 'none',
+                        }}>
                         <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
+                          type='submit'
+                          variant='contained'
+                          color='primary'
                           style={{
-                            width: "270px",
-                            height: "35px",
+                            width: '270px',
+                            height: '35px',
                           }}
                           // size="large"
                           // fullWidth
@@ -336,7 +334,7 @@ function CourseAdminCard({ list, setCourseList }) {
                           //   window.location = `/course-classroom-admin/${list.id}`;
                           // }}
                         >
-                          {"View & Edit"}
+                          {'View & Edit'}
                         </Button>
                       </Link>
                     </Grid>
@@ -346,54 +344,50 @@ function CourseAdminCard({ list, setCourseList }) {
                 <Grid xs={12} sm={3} item>
                   <Grid container spacing={1}>
                     <Grid xs={12} item>
-                      {status === "notReady" ? (
+                      {status === 'notReady' ? (
                         <Button
-                          type="submit"
-                          variant="contained"
-                          color="warning"
-                          size="large"
+                          type='submit'
+                          variant='contained'
+                          color='warning'
+                          size='large'
                           fullWidth
                           style={{
-                            height: "35px",
+                            height: '35px',
                             // marginLeft: "-27px",
                           }}
-                          onClick={handleStatus}
-                        >
+                          onClick={handleStatus}>
                           Status : Not Publish
                         </Button>
                       ) : (
                         <Button
-                          type="submit"
-                          variant="contained"
-                          color="success"
-                          size="large"
+                          type='submit'
+                          variant='contained'
+                          color='success'
+                          size='large'
                           fullWidth
-                          onClick={handleStatus}
-                        >
+                          onClick={handleStatus}>
                           Status : Publish !
                         </Button>
                       )}
                     </Grid>
                     <Grid xs={12} item>
                       <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
+                        type='submit'
+                        variant='contained'
+                        color='primary'
                         fullWidth
-                        onClick={e => setEdit(1)}
-                      >
+                        onClick={e => setEdit(1)}>
                         Edit
                       </Button>
                     </Grid>
 
                     <Grid xs={12} item>
                       <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
+                        type='submit'
+                        variant='contained'
+                        color='primary'
                         fullWidth
-                        onClick={handleDelete}
-                      >
+                        onClick={handleDelete}>
                         Delete
                       </Button>
                     </Grid>
@@ -458,8 +452,8 @@ function CourseAdminCard({ list, setCourseList }) {
           </Card>
         </Container>
       ) : (
-        <Container maxWidth="xlg">
-          <Card sx={{ minWidth: 275, bgcolor: "", marginY: 5 }}>
+        <Container maxWidth='xlg'>
+          <Card sx={{ minWidth: 275, bgcolor: '', marginY: 5 }}>
             <CardContent>
               <form>
                 <Grid container spacing={1}>
@@ -467,10 +461,10 @@ function CourseAdminCard({ list, setCourseList }) {
                     <Grid container spacing={1}>
                       <Grid xs={12} item>
                         <TextField
-                          label="Course name"
-                          placeholder="Enter Course name"
-                          variant="outlined"
-                          size="small"
+                          label='Course name'
+                          placeholder='Enter Course name'
+                          variant='outlined'
+                          size='small'
                           value={courseName}
                           fullWidth
                           required
@@ -487,10 +481,9 @@ function CourseAdminCard({ list, setCourseList }) {
                       <Grid xs={12} item>
                         {mapCatId.map(item => (
                           <button
-                            style={{ margin: "10px" }}
+                            style={{ margin: '10px' }}
                             onClick={e => deleteCat(e, item.id)}
-                            value={item.id}
-                          >
+                            value={item.id}>
                             {item.name} x
                           </button>
                         ))}
@@ -508,31 +501,30 @@ function CourseAdminCard({ list, setCourseList }) {
 
                       <Grid xs={12} item>
                         <FormControl fullWidth>
-                          <InputLabel id="demo-simple-select-label">
+                          <InputLabel id='demo-simple-select-label'>
                             Level list
                           </InputLabel>
                           <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
+                            labelId='demo-simple-select-label'
+                            id='demo-simple-select'
                             value={level}
-                            label="Subject list"
-                            onChange={e => setLevel(e.target.value)}
-                          >
-                            <MenuItem value={"Beginner"}>Beginner</MenuItem>
-                            <MenuItem value={"Intermediate"}>
+                            label='Subject list'
+                            onChange={e => setLevel(e.target.value)}>
+                            <MenuItem value={'Beginner'}>Beginner</MenuItem>
+                            <MenuItem value={'Intermediate'}>
                               Intermediate
                             </MenuItem>
-                            <MenuItem value={"Expert"}>Expert</MenuItem>
+                            <MenuItem value={'Expert'}>Expert</MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>
                       <Grid xs={12} item>
                         <TextField
-                          label="Course duration"
+                          label='Course duration'
                           value={duration}
-                          placeholder="Enter Course duration"
-                          variant="outlined"
-                          size="small"
+                          placeholder='Enter Course duration'
+                          variant='outlined'
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setDuration(e.target.value)}
@@ -540,11 +532,11 @@ function CourseAdminCard({ list, setCourseList }) {
                       </Grid>
                       <Grid xs={12} item>
                         <TextField
-                          label="Price"
-                          placeholder="Enter Price"
+                          label='Price'
+                          placeholder='Enter Price'
                           value={price}
-                          variant="outlined"
-                          size="small"
+                          variant='outlined'
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setPrice(e.target.value)}
@@ -552,11 +544,11 @@ function CourseAdminCard({ list, setCourseList }) {
                       </Grid>
                       <Grid xs={12} item>
                         <TextField
-                          label="Discount"
+                          label='Discount'
                           value={discountRate}
-                          placeholder="Enter Discount"
-                          variant="outlined"
-                          size="small"
+                          placeholder='Enter Discount'
+                          variant='outlined'
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setDiscountRate(e.target.value)}
@@ -565,12 +557,12 @@ function CourseAdminCard({ list, setCourseList }) {
                       <Grid xs={12} item>
                         <label>Discount Until</label>
                         <TextField
-                          type="date"
+                          type='date'
                           // label="Discount until"
-                          placeholder="Enter Discout until"
-                          variant="outlined"
+                          placeholder='Enter Discout until'
+                          variant='outlined'
                           value={discountUntil}
-                          size="small"
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setDiscountUntil(e.target.value)}
@@ -578,11 +570,11 @@ function CourseAdminCard({ list, setCourseList }) {
                       </Grid>
                       <Grid xs={12} item>
                         <TextField
-                          type="file"
+                          type='file'
                           // label="Course image link"
-                          placeholder="Enter Course image link"
-                          variant="outlined"
-                          size="small"
+                          placeholder='Enter Course image link'
+                          variant='outlined'
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setImage(e.target.files[0])}
@@ -596,11 +588,11 @@ function CourseAdminCard({ list, setCourseList }) {
                     <Grid container spacing={1}>
                       <Grid xs={12} item>
                         <TextField
-                          label="Preview Course vdo-link"
-                          placeholder="Enter Preview Course vdo-link"
-                          variant="outlined"
+                          label='Preview Course vdo-link'
+                          placeholder='Enter Preview Course vdo-link'
+                          variant='outlined'
                           value={clip}
-                          size="small"
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setClip(e.target.value)}
@@ -608,13 +600,13 @@ function CourseAdminCard({ list, setCourseList }) {
                       </Grid>
                       <Grid xs={12} item>
                         <TextField
-                          label="Short description"
-                          placeholder="Enter Short description"
+                          label='Short description'
+                          placeholder='Enter Short description'
                           multiline
                           rows={4}
                           value={shortDescription}
-                          variant="outlined"
-                          size="small"
+                          variant='outlined'
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setShortDescription(e.target.value)}
@@ -622,13 +614,13 @@ function CourseAdminCard({ list, setCourseList }) {
                       </Grid>
                       <Grid xs={12} item>
                         <TextField
-                          label="About this course"
-                          placeholder="Enter About this course"
+                          label='About this course'
+                          placeholder='Enter About this course'
                           multiline
                           rows={8}
                           value={about}
-                          variant="outlined"
-                          size="small"
+                          variant='outlined'
+                          size='small'
                           fullWidth
                           required
                           onChange={e => setAbout(e.target.value)}
@@ -643,19 +635,18 @@ function CourseAdminCard({ list, setCourseList }) {
                               list: list,
                               // store: storeList,
                             },
-                          }}
-                        >
+                          }}>
                           <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            size="large"
+                            type='submit'
+                            variant='contained'
+                            color='primary'
+                            size='large'
                             fullWidth
                             // onClick={() => {
                             //   window.location = `/course-classroom-admin/${list.id}`;
                             // }}
                           >
-                            {"View & Edit"}
+                            {'View & Edit'}
                           </Button>
                         </Link>
                       </Grid>
@@ -665,27 +656,24 @@ function CourseAdminCard({ list, setCourseList }) {
               </form>
             </CardContent>
             <CardActions
-              style={{ display: "flex", justifyContent: "space-evenly" }}
-            >
+              style={{ display: 'flex', justifyContent: 'space-evenly' }}>
               <Grid xs={3} item>
                 <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
+                  type='submit'
+                  variant='contained'
+                  color='primary'
                   fullWidth
-                  onClick={updateCourse}
-                >
+                  onClick={updateCourse}>
                   Submit
                 </Button>
               </Grid>
               <Grid xs={3} item>
                 <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
+                  type='submit'
+                  variant='contained'
+                  color='primary'
                   fullWidth
-                  onClick={e => setEdit(0)}
-                >
+                  onClick={e => setEdit(0)}>
                   Cancel
                 </Button>
               </Grid>
@@ -695,15 +683,14 @@ function CourseAdminCard({ list, setCourseList }) {
             sx={{
               minWidth: 275,
               minHeight: 350,
-              bgcolor: "",
+              bgcolor: '',
               marginY: 5,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <Button>
-              <AddIcon fontSize="large" />
+              <AddIcon fontSize='large' />
             </Button>
           </Card>
         </Container>

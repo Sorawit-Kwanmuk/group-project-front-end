@@ -14,7 +14,7 @@ function App() {
   const { loginStatus, setLoginStatus, registerStatus, setRegisterStatus } =
     useContext(LoginRegisStatusContext);
   const [role, setRole] = useState(user ? user.role : 'guest');
-  console.log(role);
+  // console.log(role);
   return (
     <>
       <BrowserRouter>
